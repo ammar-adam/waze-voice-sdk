@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "routes": [
+    {
+      "id": "basic_city_route",
+      "label": "Basic city route",
+      "pause_seconds": 1.0,
+      "phrases": [
+        "in_500_meters",
+        "turn_right",
+        "in_200_meters",
+        "keep_left",
+        "now",
+        "turn_left",
+        "arrived"
+      ]
+    }
+  ]
+}

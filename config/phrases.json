@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "description": "Conservative starter phrase inventory. Confirm the current Waze app prompt list before treating this as complete.",
+  "phrases": [
+    {
+      "id": "turn_left",
+      "label": "Turn left",
+      "required": true,
+      "filename": "turn_left.mp3",
+      "status": "missing",
+      "notes": ""
+    },
+    {
+      "id": "turn_right",
+      "label": "Turn right",
+      "required": true,
+      "filename": "turn_right.mp3",
+      "status": "missing",
+      "notes": ""
+    },
+    {
+      "id": "keep_left",
+      "label": "Keep left",
+      "required": true,
+      "filename": "keep_left.mp3",
+      "status": "missing",
+      "notes": ""
+    },
+    {
+      "id": "keep_right",
+      "label": "Keep right",
+      "required": true,
+      "filename": "keep_right.mp3",
+      "status": "missing",
+      "notes": ""
+    },
+    {
+      "id": "slight_left",
+      "label": "Slight left",
+      "required": true,
+      "filename": "slight_left.mp3",
+      "status": "missing",
+      "notes": ""
+    },
+    {
+      "id": "slight_right",
+      "label": "Slight right",
+      "required": true,
+      "filename": "slight_right.mp3",
+      "status": "missing",
+      "notes": ""
+    },
+    {
+      "id": "make_u_turn",
+      "label": "Make a U-turn",
+      "required": true,
+      "filename": "make_u_turn.mp3",
+      "status": "missing",
+      "notes": ""
+    },
+    {
+      "id": "in_500_meters",
+      "label": "In 500 meters",
+      "required": true,
+      "filename": "in_500_meters.mp3",
+      "status": "missing",
+      "notes": ""
+    },
+    {
+      "id": "in_200_meters",
+      "label": "In 200 meters",
+      "required": true,
+      "filename": "in_200_meters.mp3",
+      "status": "missing",
+      "notes": ""
+    },
+    {
+      "id": "in_100_meters",
+      "label": "In 100 meters",
+      "required": true,
+      "filename": "in_100_meters.mp3",
+      "status": "missing",
+      "notes": ""
+    },
+    {
+      "id": "now",
+      "label": "Now",
+      "required": true,
+      "filename": "now.mp3",
+      "status": "missing",
+      "notes": ""
+    },
+    {
+      "id": "arrived",
+      "label": "You have arrived",
+      "required": true,
+      "filename": "arrived.mp3",
+      "status": "missing",
+      "notes": ""
+    },
+    {
+      "id": "destination_left",
+      "label": "Your destination is on the left",
+      "required": true,
+      "filename": "destination_left.mp3",
+      "status": "missing",
+      "notes": ""
+    },
+    {
+      "id": "destination_right",
+      "label": "Your destination is on the right",
+      "required": true,
+      "filename": "destination_right.mp3",
+      "status": "missing",
+      "notes": ""
+    },
+    {
+      "id": "recalculating",
+      "label": "Recalculating",
+      "required": true,
+      "filename": "recalculating.mp3",
+      "status": "missing",
+      "notes": "Can be characterful instead of literal when legally produced."
+    },
+    {
+      "id": "traffic_ahead",
+      "label": "Traffic ahead",
+      "required": false,
+      "filename": "traffic_ahead.mp3",
+      "status": "missing",
+      "notes": "Optional until the Waze prompt list is confirmed."
+    },
+    {
+      "id": "accident_reported",
+      "label": "Accident reported",
+      "required": false,
+      "filename": "accident_reported.mp3",
+      "status": "missing",
+      "notes": "Optional until the Waze prompt list is confirmed."
+    },
+    {
+      "id": "speed_camera_ahead",
+      "label": "Speed camera ahead",
+      "required": false,
+      "filename": "speed_camera_ahead.mp3",
+      "status": "missing",
+      "notes": "Optional until the Waze prompt list is confirmed."
+    }
+  ]
+}
