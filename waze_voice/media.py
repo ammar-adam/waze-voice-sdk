@@ -301,6 +301,7 @@ def render(
     codec: str | None = None,
     bitrate: str | None = None,
     extra_input_args: Sequence[str] = (),
+    extra_output_args: Sequence[str] = (),
 ) -> Path:
     """Render ``source`` to ``destination`` through an ffmpeg filter chain."""
     destination.parent.mkdir(parents=True, exist_ok=True)
@@ -315,6 +316,7 @@ def render(
         args += ["-codec:a", codec]
     if bitrate:
         args += ["-b:a", bitrate]
+    args += list(extra_output_args)
     args.append(str(destination))
 
     run_ffmpeg(args)

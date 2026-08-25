@@ -109,8 +109,8 @@ class DegradationTests(unittest.TestCase):
                 phrases_path=self.phrases_path,
                 dry_run=True,
             )
-        # recalculating is the fixture phrase with no source row.
-        self.assertIn("recalculating", result.gaps)
+        # The fixture's one core phrase with no source row.
+        self.assertIn(fixtures.MISSING_PHRASE[0], result.gaps)
         self.assertEqual(result.synthesized, [])
 
     def test_missing_backend_exits_with_guidance_not_a_traceback(self) -> None:
@@ -147,13 +147,13 @@ class DegradationTests(unittest.TestCase):
 
         export_dir = paths.export_dir()
         self.assertTrue((export_dir / export.CHECKLIST_NAME).is_file())
-        clips = list((export_dir / export.CLIPS_DIRNAME).glob("*.mp3"))
+        clips = list((export_dir / export.PACK_DIRNAME).glob("*.mp3"))
         self.assertEqual(len(clips), len(fixtures.SEGMENTS))
 
         # The phrase synthesis would have filled is handed to the user instead.
         checklist = (export_dir / export.CHECKLIST_NAME).read_text(encoding="utf-8")
-        self.assertIn("Not in this pack", checklist)
-        self.assertIn("Recalculating", checklist)
+        self.assertIn("Missing, and worth fixing", checklist)
+        self.assertIn(fixtures.MISSING_PHRASE[1], checklist)
 
     def test_no_tts_flag_skips_without_probing(self) -> None:
         from waze_voice import cli
@@ -167,7 +167,8 @@ class DegradationTests(unittest.TestCase):
                     "--phrases",
                     str(self.phrases_path),
                     "--no-tts",
-                    "--allow-missing",
+                    "--to",
+                    "clean",
                     "--quiet",
                 ]
             )

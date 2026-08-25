@@ -55,6 +55,16 @@
     "device": "cpu"
   },
 
+  "export": {
+    "budget_bytes": 795000,
+    "overhead_reserve_bytes": 20000,
+    "strategy": "weighted",
+    "min_kbps": 24,
+    "max_kbps": 128,
+    "sample_rate_policy": "auto",
+    "units": "both"
+  },
+
   "qa": {
     "step_gap_seconds": 1.6,
     "phrase_gap_seconds": 0.12,

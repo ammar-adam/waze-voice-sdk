@@ -1,19 +1,54 @@
 {
-  "schema_version": 2,
-  "description": "QA routes. A step is one spoken instruction; phrases inside a step are chained with a short breath gap, and steps are separated by a longer pause, which is how a real route sounds. A step may also be a bare phrase id, and the older flat 'phrases' list is still accepted.",
+  "schema_version": 3,
+  "description": "QA routes over Waze's real prompt set. A step is one spoken instruction; phrases inside a step chain with a short breath gap, steps are separated by a longer pause. Waze itself chains a distance callout onto a maneuver, and joins two maneuvers with AndThen, so the routes here do the same.",
   "routes": [
     {
       "id": "basic_city_route",
-      "label": "Basic city route",
+      "label": "Basic city route, imperial",
       "step_gap_seconds": 1.6,
       "phrase_gap_seconds": 0.12,
       "notes": "The everyday case. Listen for distance and maneuver clips that do not sit well together.",
       "steps": [
-        { "say": ["in_500_meters", "turn_right"], "context": "Leaving the start" },
-        { "say": ["in_200_meters", "keep_left"], "context": "Approaching a fork" },
-        { "say": ["now", "turn_left"], "context": "Immediate maneuver" },
-        { "say": ["in_100_meters", "arrived"], "context": "Arrival" },
-        { "say": ["destination_right"], "context": "Final orientation" }
+        { "say": ["start_drive_1"], "context": "Drive begins" },
+        { "say": ["in_half_mile", "turn_right"], "context": "First instruction" },
+        { "say": ["in_quarter_mile", "keep_left"], "context": "Approaching a fork" },
+        { "say": ["turn_left"], "context": "Immediate maneuver, no distance" },
+        { "say": ["in_tenth_mile", "arrived"], "context": "Arrival" }
+      ]
+    },
+    {
+      "id": "metric_city_route",
+      "label": "Basic city route, metric",
+      "step_gap_seconds": 1.6,
+      "notes": "Same drive with the metric file set. Run both: a pack missing one set falls back to the default Waze voice mid-drive, which is worse than it sounds.",
+      "steps": [
+        { "say": ["start_drive_1"], "context": "Drive begins" },
+        { "say": ["in_800_meters", "turn_right"], "context": "First instruction" },
+        { "say": ["in_400_meters", "keep_left"], "context": "Approaching a fork" },
+        { "say": ["in_200_meters", "turn_left"], "context": "Close maneuver" },
+        { "say": ["arrived"], "context": "Arrival" }
+      ]
+    },
+    {
+      "id": "chained_maneuvers",
+      "label": "Two maneuvers joined by AndThen",
+      "step_gap_seconds": 1.8,
+      "phrase_gap_seconds": 0.1,
+      "notes": "AndThen is the hardest clip to get right. It has to flow out of one instruction and into another without a seam. If anything in the pack sounds spliced, it shows up here.",
+      "steps": [
+        { "say": ["in_quarter_mile", "turn_left", "and_then", "turn_right"], "context": "Chained pair" },
+        { "say": ["in_tenth_mile", "keep_right", "and_then", "exit_right"], "context": "Exit pair" }
+      ]
+    },
+    {
+      "id": "roundabout",
+      "label": "Roundabout exits",
+      "step_gap_seconds": 1.6,
+      "notes": "Roundabout chains onto an ordinal. Check that the ordinals share the pace of the maneuver clips.",
+      "steps": [
+        { "say": ["in_quarter_mile", "roundabout", "exit_second"], "context": "Second exit" },
+        { "say": ["roundabout", "exit_third"], "context": "Third exit" },
+        { "say": ["in_200_meters", "roundabout", "exit_first"], "context": "Metric, first exit" }
       ]
     },
     {
@@ -22,35 +57,25 @@
       "step_gap_seconds": 2.2,
       "notes": "Longer gaps, as at highway speed. Pair with --bed road-noise.wav to check intelligibility over engine and tyre noise.",
       "steps": [
-        { "say": ["in_500_meters", "slight_right"], "context": "Merge lane" },
-        { "say": ["keep_right"], "context": "Holding the lane" },
-        { "say": ["in_500_meters", "slight_left"], "context": "Exit approach" },
-        { "say": ["in_200_meters", "keep_left"], "context": "Exit ramp" },
-        { "say": ["now", "turn_right"], "context": "Off the ramp" }
+        { "say": ["in_one_mile", "keep_right"], "context": "Merge lane" },
+        { "say": ["go_straight"], "context": "Holding the lane" },
+        { "say": ["in_half_mile", "exit_right"], "context": "Exit approach" },
+        { "say": ["in_tenth_mile", "keep_left"], "context": "Ramp" },
+        { "say": ["u_turn"], "context": "Correction after a missed exit" }
       ]
     },
     {
-      "id": "reroute_and_arrive",
-      "label": "Missed turn, reroute, arrive",
-      "step_gap_seconds": 1.4,
-      "notes": "Exercises the awkward prompts. Recalculating fires right after a maneuver, so check that the two do not blur together.",
-      "steps": [
-        { "say": ["in_200_meters", "turn_left"], "context": "Instruction the driver misses" },
-        { "say": ["recalculating"], "context": "Fires immediately after the missed turn" },
-        { "say": ["make_u_turn"], "context": "Correction" },
-        { "say": ["in_100_meters", "turn_right"], "context": "Back on route" },
-        { "say": ["arrived", "destination_left"], "context": "Arrival, chained" }
-      ]
-    },
-    {
-      "id": "alerts_only",
+      "id": "alerts",
       "label": "Alert prompts",
       "step_gap_seconds": 1.8,
-      "notes": "Optional prompts. Skip this route until the Waze alert prompt list is confirmed on a device.",
+      "notes": "Optional prompts. These are the first to lose bitrate when a pack is over budget, so listen for artefacts here before shipping.",
       "steps": [
         { "say": ["traffic_ahead"] },
-        { "say": ["accident_reported"] },
-        { "say": ["speed_camera_ahead"] }
+        { "say": ["accident_ahead"] },
+        { "say": ["hazard_ahead"] },
+        { "say": ["police_ahead"] },
+        { "say": ["speed_camera_ahead"] },
+        { "say": ["red_light_camera_ahead"] }
       ]
     }
   ]

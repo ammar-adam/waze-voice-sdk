@@ -10,9 +10,11 @@ The core pipeline still depends only on the Python standard library plus ffmpeg.
 the synthesis backend are isolated optional extras, and every step degrades cleanly when they are
 absent.
 
-Waze packaging claims remain deferred. No import mechanism has been verified on a real
-device, and the export step is designed to work under that uncertainty rather than around
-it.
+Waze packaging is no longer deferred. The import mechanism is confirmed: packs live on
+Waze's servers and travel as share links, so they can be built from MP3 files on a PC and
+uploaded. The export step produces Waze's exact filenames for both unit systems and fits
+the pack inside Waze's ~0.8 MB aggregate size limit. What remains unverified is only
+first-hand device confirmation, which `docs/waze-import-spike.md` collects.
 
 ## Overview
 

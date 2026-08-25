@@ -12,17 +12,35 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Iterable
 
-from . import paths
+from . import paths, wazepack
 
 REQUIRED_FIELDS = {"id", "label", "required", "filename", "status"}
-OPTIONAL_FIELDS = {"notes", "tts_text", "group", "order", "aliases"}
+OPTIONAL_FIELDS = {
+    "notes",
+    "tts_text",
+    "group",
+    "order",
+    "aliases",
+    "waze_filename",
+    "units",
+    "weight",
+}
 KNOWN_FIELDS = REQUIRED_FIELDS | OPTIONAL_FIELDS
 
 VALID_STATUSES = {"missing", "sourced", "extracted", "cleaned", "synthesized", "final"}
 
 # Recording groups keep the export checklist readable. Order within the export
 # follows group order first, then the per-phrase `order` value.
-GROUP_ORDER = ["maneuver", "distance", "lane", "arrival", "alert", "misc"]
+GROUP_ORDER = [
+    "start",
+    "distance",
+    "maneuver",
+    "lane",
+    "roundabout",
+    "arrival",
+    "alert",
+    "misc",
+]
 
 
 @dataclass(frozen=True)
@@ -37,6 +55,19 @@ class Phrase:
     group: str = "misc"
     order: int | None = None
     aliases: tuple[str, ...] = field(default_factory=tuple)
+    # The exact filename Waze expects for this prompt. Empty means the phrase is
+    # not part of a Waze pack; the export step skips it.
+    waze_filename: str = ""
+    # "any", "metric", or "imperial". Distance callouts are two separate file
+    # sets and a pack needs both to work in both unit systems.
+    units: str = "any"
+    # Share of the size budget this prompt deserves, relative to the others.
+    # Higher means more bitrate. See waze_voice/budget.py.
+    weight: float = 1.0
+
+    @property
+    def in_waze_pack(self) -> bool:
+        return bool(self.waze_filename)
 
     @property
     def speech_text(self) -> str:
@@ -116,6 +147,7 @@ def validate_raw(data: dict[str, Any]) -> tuple[list[Phrase], list[str]]:
 
     seen_ids: set[str] = set()
     seen_filenames: set[str] = set()
+    seen_waze: set[str] = set()
     parsed: list[Phrase] = []
 
     for index, entry in enumerate(raw_phrases, start=1):
@@ -183,6 +215,40 @@ def validate_raw(data: dict[str, Any]) -> tuple[list[Phrase], list[str]]:
             errors.append(f"{location}.aliases must be a list of strings.")
             aliases = []
 
+        waze_filename = str(entry.get("waze_filename", "") or "")
+        if waze_filename and waze_filename in seen_waze:
+            errors.append(
+                f"Two phrases both claim the Waze slot {waze_filename}; only one "
+                "would survive into the pack."
+            )
+        elif waze_filename:
+            seen_waze.add(waze_filename)
+
+        if waze_filename and not wazepack.is_valid(waze_filename):
+            errors.append(
+                f"{location}.waze_filename {waze_filename!r} is not a filename Waze "
+                "recognises. Waze silently ignores unknown names, so this prompt "
+                "would be missing from the finished pack. See waze_voice/wazepack.py."
+            )
+
+        units = str(entry.get("units", "any"))
+        if units not in (wazepack.UNITS_ANY, wazepack.UNITS_METRIC, wazepack.UNITS_IMPERIAL):
+            errors.append(
+                f"{location}.units {units!r} must be 'any', 'metric', or 'imperial'."
+            )
+        elif waze_filename and wazepack.is_valid(waze_filename):
+            expected = wazepack.BY_FILENAME[waze_filename].units
+            if units != expected:
+                errors.append(
+                    f"{location}.units is {units!r} but {waze_filename} is a "
+                    f"{expected!r} slot."
+                )
+
+        weight = entry.get("weight", 1.0)
+        if not isinstance(weight, (int, float)) or isinstance(weight, bool) or weight < 0:
+            errors.append(f"{location}.weight must be a non-negative number.")
+            weight = 1.0
+
         parsed.append(
             Phrase(
                 id=phrase_id.strip(),
@@ -195,6 +261,9 @@ def validate_raw(data: dict[str, Any]) -> tuple[list[Phrase], list[str]]:
                 group=group,
                 order=order,
                 aliases=tuple(aliases),
+                waze_filename=waze_filename,
+                units=units,
+                weight=float(weight),
             )
         )
 

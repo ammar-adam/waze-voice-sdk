@@ -16,6 +16,7 @@ import sys
 from dataclasses import replace
 from pathlib import Path
 
+from . import budget
 from . import config as config_module
 from . import console, doctor, paths
 from .steps import clean, export, extract, normalize, qa, synth, validate
@@ -99,9 +100,19 @@ def _add_qa(subparsers) -> None:
 
 
 def _add_export(subparsers) -> None:
-    parser = _common(subparsers.add_parser("export", help="Build the export folder and checklist."))
+    parser = _common(subparsers.add_parser("export", help="Build an uploadable Waze pack."))
     parser.add_argument("--master-dir", type=Path)
     parser.add_argument("--export-dir", type=Path)
+    parser.add_argument(
+        "--units",
+        choices=("both", "metric", "imperial"),
+        help="Which distance callout set to include. Dropping one frees budget.",
+    )
+    parser.add_argument(
+        "--strategy",
+        choices=budget.STRATEGIES,
+        help="Bitrate allocation. weighted spends more on short, important clips.",
+    )
     parser.add_argument("--allow-missing", action="store_true")
 
 
@@ -129,6 +140,11 @@ def _add_run(subparsers) -> None:
     )
     parser.add_argument("--force", action="store_true", help="Redo work that already has output.")
     parser.add_argument("--allow-missing", action="store_true", help="Export even with gaps.")
+    parser.add_argument(
+        "--units",
+        choices=("both", "metric", "imperial"),
+        help="Which distance callout set to include in the pack.",
+    )
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -262,8 +278,14 @@ def cmd_export(args, cfg) -> int:
         phrases_path=args.phrases,
         master_dir=args.master_dir,
         export_dir=args.export_dir,
+        units=args.units,
+        strategy=args.strategy,
         allow_missing=args.allow_missing,
     )
+    # Being over budget is never acceptable: the upload would be rejected
+    # silently. --allow-missing forgives gaps, not an oversized pack.
+    if result.over_budget:
+        return 1
     return 0 if (result.ok or args.allow_missing) else 1
 
 
@@ -397,24 +419,27 @@ def cmd_run(args, cfg) -> int:
         result = export.run(
             config=cfg,
             phrases_path=args.phrases,
+            units=getattr(args, "units", None),
             allow_missing=args.allow_missing,
         )
+        size = f"{result.total_bytes / 1000:.0f} kB"
         summary.append(
             (
                 "export",
-                "ok" if result.ok else "incomplete",
-                f"{len(result.exported)} clip(s)",
+                "over budget" if result.over_budget else ("ok" if result.ok else "incomplete"),
+                f"{len(result.files)} file(s), {size}",
             )
         )
+        failed = failed or result.over_budget
 
     console.step("Summary")
     console.table(summary, headers=("Step", "Result", "Detail"))
 
     console.info("")
     console.info("Next:")
-    console.info("  1. python scripts/wvs.py qa            audition the pack as a route")
-    console.info("  2. audio/export/VERIFY-IMPORT-FIRST.md check which import path your device supports")
-    console.info("  3. python scripts/record_assist.py     walk the recorder checklist")
+    console.info("  1. python scripts/wvs.py qa          audition the pack as a route")
+    console.info("  2. audio/export/HOW-TO-UPLOAD.md     how packs get onto a phone")
+    console.info("  3. audio/export/UPLOAD_CHECKLIST.md  size report and file list")
 
     return 1 if failed else 0
 

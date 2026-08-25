@@ -13,19 +13,31 @@ yours to decide. See [LEGAL.md](LEGAL.md).
 
 Not affiliated with Waze, Google, or any rights holder.
 
-## The import question, up front
+## How packs get onto a phone
 
-Waze's in-app custom voice recorder is the only publicly documented way to get a custom
-voice onto a device. Whether a **pre-rendered clip can be injected directly**, skipping
-the microphone, is **not verified**, and this SDK does not pretend otherwise.
+Waze stores custom voice packs **on its servers**, not on the device, and hands out share
+links of the form `https://waze.com/ul?acvp=<UUID>`. So the creation device and the
+consumption device are decoupled: build the pack on a PC, upload it, open the link on your
+phone. The Waze app itself is record-only, and that does not matter.
 
-So the export step produces three things: clips ordered for the recorder workflow that
-definitely works, a machine-readable manifest that a direct-import path could consume if
-one turns out to exist, and `VERIFY-IMPORT-FIRST.md`, a five-minute check that tells you
-which situation you are actually in before you spend an hour recording prompts by hand.
+Two things decide whether a pack works, and both fail silently:
 
-If you establish something concrete on real hardware, write it into
-[docs/waze-import-spike.md](docs/waze-import-spike.md).
+- **Exact filenames.** Waze matches on filename and ignores anything else without an
+  error. `200.mp3` is the 0.1 mile callout; `1500.mp3` is one mile; `uturn.mp3` is
+  lowercase. Metric and imperial distances are two separate file sets and a pack needs
+  both.
+- **An aggregate size limit of roughly 0.8 MB** across every MP3. Exceeding it is
+  rejected server-side, showing up as a share button that greys out or a pack that plays
+  silence.
+
+The export step handles both: correct names, both unit systems, and per-clip bitrate
+allocation to fit the budget. It prints the finished size against the limit before you
+upload.
+
+Upload itself is done with the community tooling at
+[waze-voicepack-links](https://github.com/pipeeeeees/waze-voicepack-links), which is also
+the source for the filename list and the size limit. Full detail in
+[docs/waze-import-workflow.md](docs/waze-import-workflow.md).
 
 ## Install
 
@@ -75,9 +87,9 @@ python scripts\wvs.py run --sources data\my-sources.csv
 ## The pipeline
 
 ```
-your media  ->  extract  ->  clean  ->  synth  ->  normalize  ->  qa  ->  export
-   + CSV        audio/       audio/     audio/      audio/               audio/
-                extracted    processed  synthesized master               export
+your media  ->  extract  ->  clean  ->  synth  ->  normalize  ->  qa  ->  export  ->  upload
+   + CSV        audio/       audio/     audio/      audio/               audio/       share link
+                extracted    processed  synthesized master               export/pack
 ```
 
 | Step | What it does |
@@ -87,7 +99,7 @@ your media  ->  extract  ->  clean  ->  synth  ->  normalize  ->  qa  ->  export
 | `synth` | Generates phrases your source never contained, in the voice of your own cleaned clips. Optional. |
 | `normalize` | Measures each clip and applies one static gain so every prompt lands on the same loudness. |
 | `qa` | Plays the pack back as a navigation route, chained the way Waze chains prompts. Records a pass/fail verdict per instruction. |
-| `export` | Ordered clips, a recording checklist, a pack manifest, and the import verification guide. |
+| `export` | Builds the uploadable pack: Waze filenames, both unit systems, bitrates allocated to fit the 0.8 MB budget. |
 
 Run the lot with `wvs run`, or any step alone:
 
@@ -95,7 +107,7 @@ Run the lot with `wvs run`, or any step alone:
 python scripts\wvs.py extract --sources data\my-sources.csv
 python scripts\wvs.py clean --mode demucs
 python scripts\wvs.py normalize --force
-python scripts\wvs.py qa --route highway_merge
+python scripts\wvs.py qa --route chained_maneuvers
 python scripts\wvs.py export
 ```
 
@@ -134,14 +146,16 @@ Keep your real CSV and your media out of Git. Both are ignored by default.
 [config/phrases.json](config/phrases.json) is the inventory: what the pack must contain,
 what each file is called, and what to say. Edit it freely; no code changes needed.
 
-The shipped list is deliberately conservative. Confirm the current Waze prompt list on a
-real device before treating it as complete.
+It ships covering all 43 prompts Waze recognises, each carrying its Waze filename, unit
+system, and a `weight` setting its share of the size budget. `wvs validate` checks pack
+completeness against Waze's list, not just against itself.
 
 ## Tuning
 
 [config/pipeline.json](config/pipeline.json) holds the audio targets, so extraction,
 synthesis, normalization, and QA all agree without you repeating flags. Loudness target,
-true-peak ceiling, silence trimming, denoise strength, and QA timing all live there.
+true-peak ceiling, silence trimming, denoise strength, QA timing, and the pack size budget
+all live there.
 
 Defaults: mono MP3, 44.1 kHz, 128 kbps, -16 LUFS integrated, -1.5 dBTP ceiling.
 [docs/audio-targets.md](docs/audio-targets.md) explains why, including why short
@@ -161,6 +175,8 @@ python scripts\wvs.py run --sources data\narrator.csv
 ```text
 waze_voice/          the library: every step is implemented here
   steps/             extract, clean, synth, normalize, qa, export, validate
+  wazepack.py        Waze's filename list, unit systems, and size limit
+  budget.py          per-clip bitrate allocation against the size budget
   media.py           every ffmpeg call in the project
   cli.py             the wvs command
 scripts/             thin CLI wrappers, one per step, plus record_assist.py

@@ -27,9 +27,17 @@ M0 through M7 are implemented. What shipped differs from the plan in a few place
   recorder workflow, `wvs doctor` for environment checks, and a test suite that generates
   its own media so it runs in a fresh clone.
 
-Spike 0 is still open. No import method has been verified on a real device. The export step
-is built around that uncertainty rather than waiting on it: see
-`docs/waze-import-workflow.md`.
+**Spike 0 is closed.** The import method is known and is not what the plan assumed. Waze
+stores packs server-side and distributes them as share links
+(`https://waze.com/ul?acvp=<UUID>`), so packs are built on a PC and uploaded; the mobile
+app being record-only is irrelevant. Existing packs download from
+`https://voice-prompts-ipv6.waze.com/<UUID>.tar.gz`. Source: the community archive at
+github.com/pipeeeeees/waze-voicepack-links and its discussion #31.
+
+That replaced M6 entirely. The export step now emits Waze's exact filenames across both
+unit systems, and fits the pack inside Waze's undocumented ~0.8 MB aggregate limit using
+per-clip bitrate allocation. See `docs/waze-import-workflow.md` and
+`waze_voice/budget.py`.
 
 M8 (demo) is not started.
 

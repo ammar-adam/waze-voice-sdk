@@ -1,4 +1,4 @@
-"""Export ordered clips plus import paperwork. Equivalent to: wvs.py export"""
+"""Build an uploadable Waze voice pack. Equivalent to: wvs.py export"""
 
 from __future__ import annotations
 
@@ -16,14 +16,24 @@ from waze_voice.steps import export
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Export ordered clips, a recording checklist, and an import "
-            "verification guide."
+            "Build a Waze voice pack: correct filenames, both unit systems, "
+            "compressed to fit Waze's aggregate size budget."
         ),
     )
     parser.add_argument("--phrases", type=Path, help="Phrase inventory JSON.")
     parser.add_argument("--master-dir", type=Path, help="Directory containing final clips.")
     parser.add_argument("--export-dir", type=Path, help="Directory to write the export into.")
     parser.add_argument("--config", type=Path, help="Path to pipeline.json.")
+    parser.add_argument(
+        "--units",
+        choices=("both", "metric", "imperial"),
+        help="Which distance callout set to include. Dropping one frees budget.",
+    )
+    parser.add_argument(
+        "--strategy",
+        choices=("weighted", "uniform"),
+        help="Bitrate allocation strategy.",
+    )
     parser.add_argument(
         "--allow-missing",
         action="store_true",
@@ -41,8 +51,12 @@ def main() -> int:
         phrases_path=args.phrases,
         master_dir=args.master_dir,
         export_dir=args.export_dir,
+        units=args.units,
+        strategy=args.strategy,
         allow_missing=args.allow_missing,
     )
+    if result.over_budget:
+        return 1
     return 0 if (result.ok or args.allow_missing) else 1
 
 

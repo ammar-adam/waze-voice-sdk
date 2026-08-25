@@ -16,10 +16,13 @@ from pathlib import Path
 import fixtures
 
 from waze_voice import config as config_module
-from waze_voice import console, manifest as manifest_module, media, paths
+from waze_voice import console, manifest as manifest_module, media, paths, wazepack
 from waze_voice.steps import clean, export, extract, normalize, qa, validate
 
 HAVE_FFMPEG = media.find_tool("ffmpeg") is not None and media.find_tool("ffprobe") is not None
+
+MISSING_ID = fixtures.MISSING_PHRASE[0]
+MISSING_WAZE = fixtures.MISSING_PHRASE[1]
 
 
 @unittest.skipUnless(HAVE_FFMPEG, "ffmpeg and ffprobe are required for pipeline tests")
@@ -74,14 +77,14 @@ class PipelineTests(unittest.TestCase):
         self.assertTrue(self.extract_result.ok)
 
     def test_extract_durations_match_the_csv(self) -> None:
-        for phrase_id, start, end, _ in fixtures.SEGMENTS:
+        for phrase_id, _, _, _, start, end, _ in fixtures.SEGMENTS:
             path = paths.extracted_dir() / f"{phrase_id}__take1.wav"
             self.assertTrue(path.is_file(), f"missing {path}")
             actual = media.duration_seconds(path)
             self.assertAlmostEqual(actual, end - start, delta=0.05)
 
     def test_extract_reports_phrase_with_no_source(self) -> None:
-        self.assertIn("recalculating", self.extract_result.phrases_without_sources)
+        self.assertIn(MISSING_ID, self.extract_result.phrases_without_sources)
 
     def test_extract_is_idempotent(self) -> None:
         again = extract.run(
@@ -96,7 +99,7 @@ class PipelineTests(unittest.TestCase):
 
     def test_clean_preserves_phrase_ids(self) -> None:
         """The scaffold's Demucs mode lost phrase IDs. Naming is checked here."""
-        for phrase_id, _, _, _ in fixtures.SEGMENTS:
+        for phrase_id, _, _, _, _, _, _ in fixtures.SEGMENTS:
             self.assertTrue((paths.processed_dir() / f"{phrase_id}__take1.wav").is_file())
         self.assertTrue(self.clean_result.ok)
 
@@ -106,10 +109,9 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(len(self.normalize_result.normalized), len(fixtures.SEGMENTS))
 
     def test_missing_phrase_reported_not_invented(self) -> None:
-        self.assertIn("recalculating", self.normalize_result.missing_required)
+        self.assertIn(MISSING_ID, self.normalize_result.missing_required)
 
     def test_output_loudness_hits_the_target(self) -> None:
-        """The point of the whole step: every clip lands at the same level."""
         target = self.config.loudness.target_lufs
         tolerance = self.config.loudness.tolerance_lu
         for clip in self.normalize_result.normalized:
@@ -159,7 +161,7 @@ class PipelineTests(unittest.TestCase):
 
         inventory = phrases_module.load(self.phrases_path)
         self.assertEqual(inventory.require("turn_left").status, "final")
-        self.assertEqual(inventory.require("recalculating").status, "missing")
+        self.assertEqual(inventory.require(MISSING_ID).status, "missing")
 
     # -- validate ----------------------------------------------------------
 
@@ -170,41 +172,133 @@ class PipelineTests(unittest.TestCase):
             sources_path=self.sources_path,
         )
         self.assertFalse(result.ok)
-        self.assertEqual([p.id for p in result.missing_required], ["recalculating"])
+        self.assertEqual([p.id for p in result.missing_required], [MISSING_ID])
         self.assertEqual(result.property_problems, [])
         self.assertEqual(result.loudness_problems, [])
 
+    def test_validate_estimates_the_pack_against_the_budget(self) -> None:
+        result = validate.run(
+            config=self.config,
+            phrases_path=self.phrases_path,
+            sources_path=self.sources_path,
+        )
+        self.assertGreater(result.estimated_pack_bytes, 0)
+        self.assertEqual(result.budget_bytes, self.config.export.budget_bytes)
+        self.assertFalse(result.over_budget)
+
+    def test_validate_reports_waze_slots_nobody_claims(self) -> None:
+        """The fixture covers 9 of Waze's 43 slots; the rest should be named."""
+        result = validate.run(
+            config=self.config,
+            phrases_path=self.phrases_path,
+            sources_path=self.sources_path,
+        )
+        self.assertIn("TickerPoints.mp3", result.unclaimed_slots)
+        self.assertNotIn("TurnLeft.mp3", result.unclaimed_slots)
+
     # -- export ------------------------------------------------------------
 
-    def test_export_numbers_have_no_gaps(self) -> None:
-        indexes = [clip.index for clip in self.export_result.exported]
-        self.assertEqual(indexes, list(range(1, len(indexes) + 1)))
+    def test_pack_uses_waze_filenames(self) -> None:
+        pack_dir = paths.export_dir() / export.PACK_DIRNAME
+        written = {path.name for path in pack_dir.glob("*.mp3")}
+        self.assertTrue(written, "no pack files written")
+        self.assertTrue(
+            written <= wazepack.VALID_FILENAMES,
+            f"pack contains names Waze does not recognise: {written - wazepack.VALID_FILENAMES}",
+        )
+        self.assertIn("TurnLeft.mp3", written)
+        self.assertIn("400.mp3", written)
+        self.assertIn("400meters.mp3", written)
 
-    def test_export_writes_checklist_and_verification_guide(self) -> None:
+    def test_pack_carries_both_unit_systems(self) -> None:
+        written = {path.name for path in (paths.export_dir() / export.PACK_DIRNAME).glob("*.mp3")}
+        metric = {s.filename for s in wazepack.SLOTS if s.units == wazepack.UNITS_METRIC}
+        imperial = {s.filename for s in wazepack.SLOTS if s.units == wazepack.UNITS_IMPERIAL}
+        self.assertTrue(written & metric, "no metric distance callout in the pack")
+        self.assertTrue(written & imperial, "no imperial distance callout in the pack")
+
+    def test_pack_fits_the_budget(self) -> None:
+        self.assertIsNotNone(self.export_result.plan)
+        self.assertFalse(self.export_result.over_budget)
+        self.assertLessEqual(
+            self.export_result.total_bytes, self.config.export.budget_bytes
+        )
+
+    def test_reported_size_matches_bytes_on_disk(self) -> None:
+        """The number in the report has to be the number Waze will see."""
+        pack_dir = paths.export_dir() / export.PACK_DIRNAME
+        on_disk = sum(path.stat().st_size for path in pack_dir.glob("*.mp3"))
+        self.assertEqual(on_disk, self.export_result.total_bytes)
+
+    def test_long_low_priority_clip_gets_fewer_bits(self) -> None:
+        """The whole point of the weighted strategy."""
+        plan = self.export_result.plan
+        assert plan is not None
+        greeting = plan.get("StartDrive1.mp3")  # 4.0s, weight 1.0
+        turn = plan.get("TurnLeft.mp3")  # 1.1s, weight 3.0
+        assert greeting is not None and turn is not None
+        self.assertLessEqual(
+            greeting.bitrate_kbps,
+            turn.bitrate_kbps,
+            "a long, rarely heard clip should not outrank a short, frequent one",
+        )
+
+    def test_export_writes_the_upload_paperwork(self) -> None:
         export_dir = paths.export_dir()
         self.assertTrue((export_dir / export.CHECKLIST_NAME).is_file())
-        self.assertTrue((export_dir / export.VERIFY_NAME).is_file())
+        self.assertTrue((export_dir / export.GUIDE_NAME).is_file())
         self.assertTrue((export_dir / export.MANIFEST_NAME).is_file())
         self.assertTrue((export_dir / export.README_NAME).is_file())
 
-    def test_pack_manifest_marks_import_as_unverified(self) -> None:
+    def test_guide_documents_the_confirmed_upload_method(self) -> None:
+        text = (paths.export_dir() / export.GUIDE_NAME).read_text(encoding="utf-8")
+        self.assertIn("waze.com/ul?acvp=", text)
+        self.assertIn("voice-prompts-ipv6.waze.com", text)
+        self.assertIn("0.8 MB", text)
+
+    def test_pack_manifest_reports_the_budget(self) -> None:
         payload = json.loads(
             (paths.export_dir() / export.MANIFEST_NAME).read_text(encoding="utf-8")
         )
-        self.assertFalse(payload["import_path_verified"])
+        self.assertTrue(payload["budget"]["within_budget"])
+        self.assertEqual(payload["budget"]["limit_bytes"], self.config.export.budget_bytes)
         self.assertEqual(len(payload["clips"]), len(fixtures.SEGMENTS))
-        self.assertIn("recalculating", [item["phrase_id"] for item in payload["missing"]])
+        names = {clip["waze_filename"] for clip in payload["clips"]}
+        self.assertTrue(names <= wazepack.VALID_FILENAMES)
+        self.assertIn(MISSING_WAZE, [item["waze_filename"] for item in payload["missing"]])
 
-    def test_checklist_lists_the_missing_prompt_for_manual_recording(self) -> None:
+    def test_checklist_lists_the_missing_prompt(self) -> None:
         text = (paths.export_dir() / export.CHECKLIST_NAME).read_text(encoding="utf-8")
-        self.assertIn("Recalculating", text)
-        self.assertIn("Not in this pack", text)
+        self.assertIn(MISSING_WAZE, text)
+        self.assertIn("Size budget", text)
 
-    def test_export_clips_are_copied(self) -> None:
-        clips_dir = paths.export_dir() / export.CLIPS_DIRNAME
-        copied = sorted(clips_dir.glob("*.mp3"))
-        self.assertEqual(len(copied), len(fixtures.SEGMENTS))
-        self.assertTrue(copied[0].name.startswith("001_"))
+    def test_single_unit_export_drops_the_other_set(self) -> None:
+        target = self.audio_root / "export-metric"
+        result = export.run(
+            config=self.config,
+            phrases_path=self.phrases_path,
+            export_dir=target,
+            units="metric",
+            allow_missing=True,
+        )
+        written = {path.name for path in (target / export.PACK_DIRNAME).glob("*.mp3")}
+        self.assertIn("400meters.mp3", written)
+        self.assertNotIn("400.mp3", written)
+        self.assertEqual(result.units, "metric")
+
+    def test_uniform_strategy_still_available(self) -> None:
+        target = self.audio_root / "export-uniform"
+        result = export.run(
+            config=self.config,
+            phrases_path=self.phrases_path,
+            export_dir=target,
+            strategy="uniform",
+            allow_missing=True,
+        )
+        plan = result.plan
+        assert plan is not None
+        rates = {item.bitrate_kbps for item in plan.allocations}
+        self.assertEqual(len(rates), 1, f"uniform strategy used several bitrates: {rates}")
 
     # -- QA ----------------------------------------------------------------
 
@@ -232,10 +326,9 @@ class PipelineTests(unittest.TestCase):
 
         clip_total = sum(
             media.duration_seconds(paths.master_dir() / f"{name}.mp3")
-            for name in ("turn_left", "now", "turn_right", "arrived")
+            for name in ("turn_left", "in_quarter_mile", "turn_right", "arrived")
         )
         rendered = media.duration_seconds(destination)
-        # Clips, plus two inter-step gaps, one intra-step gap, and the lead-in.
         self.assertGreater(rendered, clip_total)
         self.assertLess(rendered, clip_total + 5.0)
 

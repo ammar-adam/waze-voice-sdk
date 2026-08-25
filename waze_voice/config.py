@@ -100,6 +100,30 @@ class SynthConfig:
 
 
 @dataclass(frozen=True)
+class ExportConfig:
+    """How the finished pack is packed into Waze's size budget."""
+
+    # Waze rejects packs over roughly 0.8 MB in aggregate, silently. See
+    # waze_voice/wazepack.py.
+    budget_bytes: int = 795_000
+    # Held back before allocating, for MP3 container and tag overhead.
+    overhead_reserve_bytes: int = 20_000
+    # "weighted" allocates per clip by importance and duration; "uniform" gives
+    # every clip the same bitrate, which is what the community tooling does.
+    strategy: str = "weighted"
+    min_kbps: int = 24
+    max_kbps: int = 128
+    # "auto" drops a clip to 22.05 kHz when it needs less than 32 kbps, which is
+    # the only way to go below 32 in MP3 and is a good trade for speech.
+    # "fixed" keeps everything at 44.1 kHz.
+    sample_rate_policy: str = "auto"
+    # "both", "metric", or "imperial". Dropping a unit system frees budget for
+    # everything else, at the cost of that system falling back to the default
+    # Waze voice mid-drive.
+    units: str = "both"
+
+
+@dataclass(frozen=True)
 class QAConfig:
     step_gap_seconds: float = 1.6
     phrase_gap_seconds: float = 0.12
@@ -114,6 +138,7 @@ class PipelineConfig:
     extract: ExtractConfig = field(default_factory=ExtractConfig)
     clean: CleanConfig = field(default_factory=CleanConfig)
     synth: SynthConfig = field(default_factory=SynthConfig)
+    export: ExportConfig = field(default_factory=ExportConfig)
     qa: QAConfig = field(default_factory=QAConfig)
 
 
@@ -124,6 +149,7 @@ _SECTIONS: dict[str, type] = {
     "extract": ExtractConfig,
     "clean": CleanConfig,
     "synth": SynthConfig,
+    "export": ExportConfig,
     "qa": QAConfig,
 }
 

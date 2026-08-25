@@ -108,7 +108,7 @@ class PhraseInventoryTests(unittest.TestCase):
         inventory = phrases.load()
         turn_left = inventory.require("turn_left")
         self.assertEqual(turn_left.speech_text, "Turn left")
-        u_turn = inventory.require("make_u_turn")
+        u_turn = inventory.require("u_turn")
         self.assertEqual(u_turn.speech_text, "Make a U turn")
 
     def test_set_statuses_writes_back(self) -> None:
@@ -304,13 +304,13 @@ class RouteTests(unittest.TestCase):
             "routes": [
                 {
                     "id": "chained",
-                    "steps": [{"say": ["in_500_meters", "turn_right"], "context": "merge"}],
+                    "steps": [{"say": ["in_quarter_mile", "turn_right"], "context": "merge"}],
                 }
             ]
         }
         path = _write(self.dir / "routes.json", payload)
         route = routes.load(path).get("chained")
-        self.assertEqual(route.steps[0].phrase_ids, ("in_500_meters", "turn_right"))
+        self.assertEqual(route.steps[0].phrase_ids, ("in_quarter_mile", "turn_right"))
         self.assertEqual(route.steps[0].context, "merge")
 
     def test_unknown_route_lists_alternatives(self) -> None:

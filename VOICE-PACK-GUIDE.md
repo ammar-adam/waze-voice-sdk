@@ -22,15 +22,18 @@ Do not use copyrighted characters, actors, or celebrity voices without permissio
 | `required` | Whether the pack is incomplete without it. |
 | `filename` | Final filename in `audio/master`. |
 | `status` | `missing`, `sourced`, `extracted`, `cleaned`, `synthesized`, or `final`. Maintained by the pipeline. |
-| `group` | `maneuver`, `distance`, `lane`, `arrival`, `alert`, or `misc`. Sets export order. |
+| `waze_filename` | The exact name Waze expects, e.g. `TurnLeft.mp3`. Validated against Waze's list. |
+| `units` | `any`, `metric`, or `imperial`. Distance callouts are two separate file sets. |
+| `weight` | This prompt's share of the pack size budget. Higher means more bitrate. |
+| `group` | `start`, `distance`, `maneuver`, `lane`, `roundabout`, `arrival`, `alert`, or `misc`. |
 | `order` | Position within the group. |
 | `tts_text` | What synthesis should say, when it differs from the label. |
 | `notes` | Production notes. |
 | `aliases` | Alternative wordings, for your own reference. |
 
-The shipped list is conservative and was written before the current Waze prompt list was
-confirmed on a device. Adjust it to what your app actually asks for, and please record
-what you saw in [docs/waze-import-spike.md](docs/waze-import-spike.md).
+The shipped list covers all 43 prompts Waze recognises. You do not need every one: Waze
+falls back to its default voice for anything absent, and dropping prompts you will never
+hear is the easiest way to free up size budget.
 
 ## 3. Find your clips
 
@@ -85,8 +88,8 @@ Some phrases will not exist in your source. Three options:
   [docs/tts.md](docs/tts.md).
 - **Record them yourself** and drop the file into `audio/extracted/` as
   `<phrase_id>__take1.wav`.
-- **Leave them.** They appear in the export checklist marked for manual recording in the
-  Waze app.
+- **Leave them.** Waze falls back to its default voice for anything absent, and the export
+  checklist lists what is missing.
 
 ## 6. Listen to it as a route
 
@@ -98,8 +101,9 @@ python scripts\wvs.py qa --route highway_merge
 python scripts\wvs.py qa --list-routes
 ```
 
-Playback chains phrases the way Waze does, so you hear "In 500 meters, turn right" as one
-instruction. Mark each one pass or fail; verdicts are saved to `audio/qa-report.json`.
+Playback chains phrases the way Waze does, so you hear "In a quarter mile, turn right" as
+one instruction, and `AndThen` joining two maneuvers. Mark each one pass or fail; verdicts
+are saved to `audio/qa-report.json`.
 
 What to listen for:
 
@@ -115,23 +119,37 @@ For the real test, render the route and play it in the car:
 python scripts\wvs.py qa --render route.wav --bed road-noise.wav
 ```
 
-## 7. Export and import
+## 7. Export and upload
 
 ```powershell
 python scripts\wvs.py export
 ```
 
-You get ordered clips, `IMPORT_CHECKLIST.md`, `pack-manifest.json`, and
-`VERIFY-IMPORT-FIRST.md`.
+This builds `audio/export/pack/`: MP3s named exactly as Waze expects, covering both metric
+and imperial distance callouts, with bitrates allocated so the whole pack fits Waze's
+0.8 MB aggregate limit. The step prints the total against that limit:
 
-**Read the verification guide first.** It takes five minutes and tells you whether you
-need to record every prompt by hand. Then:
-
-```powershell
-python scripts\record_assist.py
+```
+Pack total: 793.5 kB of 795.0 kB (99.8%) - within budget
 ```
 
-See [docs/waze-import-workflow.md](docs/waze-import-workflow.md).
+If it says over budget, fix that before uploading. Waze rejects oversized packs silently:
+the share button greys out, or the pack downloads and plays nothing. `HOW-TO-UPLOAD.md` in
+the export folder lists what to cut, cheapest first. Quick wins: drop `TickerPoints.mp3`,
+drop roundabout ordinals you will never hear, or export a single unit system:
+
+```powershell
+python scripts\wvs.py export --units metric
+```
+
+Then upload `audio/export/pack/` with the community tool at
+<https://github.com/pipeeeeees/waze-voicepack-links>, keep the UUID it returns, and open
+`https://waze.com/ul?acvp=<UUID>` on your phone.
+
+Prefer not to use third-party tooling? The in-app recorder still works, at the cost of
+audio quality, and `python scripts\record_assist.py` walks the prompt list for you.
+
+Full detail in [docs/waze-import-workflow.md](docs/waze-import-workflow.md).
 
 ## 8. Iterate
 

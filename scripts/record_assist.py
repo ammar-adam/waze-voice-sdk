@@ -1,8 +1,13 @@
-"""Walk the Waze recorder checklist one prompt at a time.
+"""Walk the Waze in-app recorder prompt list one prompt at a time.
 
-The recorder-assisted workflow means holding a phone in one hand while finding
-and playing the right clip with the other. This does the finding and playing, so
-the only thing to manage is the phone.
+This is the fallback path, not the main one. Packs can be built from MP3 files
+and uploaded, which preserves your audio quality; the in-app recorder captures
+through the phone microphone and compresses hard. See HOW-TO-UPLOAD.md in the
+export folder.
+
+It is still here because it needs no third-party tooling, and because holding a
+phone in one hand while finding and playing the right clip with the other is
+miserable. This does the finding and playing.
 
 Progress is saved after every prompt, so an interrupted session resumes where it
 stopped.
@@ -106,13 +111,17 @@ def main() -> int:
     console.info(f"{len(clips)} prompt(s) in this pack.")
     console.info("")
     console.info("Before you start:")
-    console.info("  1. Read " + export_step.VERIFY_NAME + " in the export folder.")
+    console.info("  1. Read " + export_step.GUIDE_NAME + " in the export folder.")
     console.info("  2. Open Waze: Settings > Voice and sound > Waze voice > Add a voice.")
     console.info("  3. Quiet room, phone 15-30 cm from your speaker, fixed volume.")
     console.info("")
     console.warn(
         "Waze asks for prompts in its own order. Match by wording, not by the "
         "number shown here."
+    )
+    console.detail(
+        "Uploading the pack instead preserves audio quality. See "
+        + export_step.GUIDE_NAME
     )
 
     index = 0
@@ -126,11 +135,13 @@ def main() -> int:
 
         path = export_dir / str(clip.get("file", ""))
         marker = " (done)" if recorded.get(phrase_id) == "done" else ""
-        origin = clip.get("origin") or "unknown"
 
         print(f"\n({index + 1}/{len(clips)}) {clip.get('label')}{marker}")
         print(f"  say:    \"{clip.get('text')}\"")
-        print(f"  clip:   {path.name}  [{origin}, {clip.get('duration_seconds')}s]")
+        print(
+            f"  clip:   {path.name}  [{clip.get('duration_seconds')}s, "
+            f"{clip.get('bitrate_kbps')} kbps]"
+        )
         print(_KEYS)
 
         try:

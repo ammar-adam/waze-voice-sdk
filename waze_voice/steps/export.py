@@ -1,12 +1,24 @@
-"""Step 6: assemble the export folder and the paperwork that goes with it.
+"""Step 6: build a pack Waze will actually accept.
 
-The import path into Waze is not settled. The in-app custom voice recorder is
-the one route known to work; whether a pre-rendered clip can be injected
-directly has not been verified on a real device. Everything this step writes is
-built around that: it produces an ordered clip folder that works for the
-recorder workflow today, a machine-readable manifest that a direct-import path
-could consume if one turns out to exist, and a verification guide that tells the
-user how to find out for themselves before they spend an hour recording.
+The creation device and the consumption device are decoupled. Waze stores custom
+voice packs server-side and hands out a share link; opening that link on a phone
+pulls the pack down. So a pack can be built on a PC from MP3 files and never
+touch the in-app recorder.
+
+Two things decide whether that works, and both fail quietly:
+
+**Exact filenames.** Waze matches on filename. Anything not on its list is
+ignored without complaint, so a near-miss produces a pack that is silently
+missing that prompt.
+
+**The aggregate size budget.** Roughly 0.8 MB across every MP3 in the pack.
+Exceeding it is rejected server-side, which surfaces as a share button that greys
+out after saving, or a link that downloads and then plays silence. Neither says
+"too big". So this step measures the finished pack against the budget and says so
+before the user attempts an upload.
+
+Sources for both: https://github.com/pipeeeeees/waze-voicepack-links
+(``mp3_upload/``), and that repository's discussion #31.
 """
 
 from __future__ import annotations
@@ -18,46 +30,78 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from .. import (
+    budget as budget_module,
     console,
     manifest as manifest_module,
     media,
     paths,
     phrases as phrases_module,
+    wazepack,
 )
 from ..config import PipelineConfig
 
-CLIPS_DIRNAME = "clips"
-CHECKLIST_NAME = "IMPORT_CHECKLIST.md"
-VERIFY_NAME = "VERIFY-IMPORT-FIRST.md"
+PACK_DIRNAME = "pack"
+CHECKLIST_NAME = "UPLOAD_CHECKLIST.md"
+GUIDE_NAME = "HOW-TO-UPLOAD.md"
 MANIFEST_NAME = "pack-manifest.json"
 README_NAME = "README.md"
 
+# How many encode-measure-reduce passes before giving up. Each pass removes one
+# ladder rung from one clip, so this is generous.
+MAX_CORRECTION_PASSES = 40
+
 
 @dataclass
-class ExportedClip:
-    index: int
+class PackFile:
+    slot: wazepack.WazeSlot
     phrase: phrases_module.Phrase
-    path: Path
-    duration: float
-    origin: str
+    source: Path
+    destination: Path
+    allocation: budget_module.Allocation
+
+    @property
+    def bytes(self) -> int:
+        return self.allocation.bytes
 
 
 @dataclass
 class ExportResult:
-    exported: list[ExportedClip] = field(default_factory=list)
-    missing_required: list[phrases_module.Phrase] = field(default_factory=list)
+    files: list[PackFile] = field(default_factory=list)
+    plan: budget_module.AllocationPlan | None = None
+    missing_core: list[phrases_module.Phrase] = field(default_factory=list)
     missing_optional: list[phrases_module.Phrase] = field(default_factory=list)
+    dropped_for_budget: list[str] = field(default_factory=list)
+    units: str = "both"
     checklist: Path | None = None
-    verify_guide: Path | None = None
+    guide: Path | None = None
     pack_manifest: Path | None = None
+    corrections: int = 0
+
+    @property
+    def total_bytes(self) -> int:
+        return sum(item.bytes for item in self.files)
+
+    @property
+    def over_budget(self) -> bool:
+        return self.plan is not None and not self.plan.fits
 
     @property
     def ok(self) -> bool:
-        return not self.missing_required
+        return not self.missing_core and not self.over_budget
+
+
+# --------------------------------------------------------------------------
+# Gathering
+# --------------------------------------------------------------------------
+
+
+def _wanted_slots(units: str) -> list[wazepack.WazeSlot]:
+    if units == "both":
+        return list(wazepack.SLOTS)
+    return list(wazepack.slots_for_units(units))
 
 
 def _clear(export_dir: Path) -> None:
-    """Empty the export folder, keeping the .gitkeep that holds it in Git."""
     export_dir.mkdir(parents=True, exist_ok=True)
     for path in export_dir.iterdir():
         if path.name == ".gitkeep":
@@ -68,242 +112,350 @@ def _clear(export_dir: Path) -> None:
             path.unlink()
 
 
-def _duration(path: Path) -> float:
-    try:
-        return media.duration_seconds(path)
-    except media.MediaError:
-        return 0.0
+# --------------------------------------------------------------------------
+# Encoding
+# --------------------------------------------------------------------------
+
+
+def _encode(item: PackFile) -> int:
+    """Encode one clip at its allocated bitrate. Returns the size on disk."""
+    media.render(
+        item.source,
+        item.destination,
+        sample_rate=item.allocation.sample_rate,
+        channels=1,
+        codec="libmp3lame",
+        bitrate=f"{item.allocation.bitrate_kbps}k",
+        # Waze reads these files by name; tags are pure overhead against a
+        # budget measured in hundreds of kilobytes.
+        extra_output_args=("-map_metadata", "-1", "-write_xing", "0", "-id3v2_version", "0"),
+    )
+    size = item.destination.stat().st_size
+    item.allocation.actual_bytes = size
+    return size
+
+
+def _encode_all(files: list[PackFile]) -> int:
+    total = 0
+    for item in files:
+        total += _encode(item)
+    return total
+
+
+def _correct_overshoot(
+    files: list[PackFile],
+    plan: budget_module.AllocationPlan,
+    config: PipelineConfig,
+) -> int:
+    """Bring the measured pack under budget after encoding overshoot.
+
+    Predicted size is bitrate times duration; the real file also carries frame
+    headers and padding. That gap is small but it is always in the wrong
+    direction, so the pack is measured and then walked down until it fits.
+    """
+    by_name = {item.allocation.filename: item for item in files}
+    passes = 0
+
+    while plan.total_bytes > plan.budget_bytes and passes < MAX_CORRECTION_PASSES:
+        reduced = budget_module.reduce_to_fit(plan, min_kbps=config.export.min_kbps)
+        if reduced is None:
+            break
+        item = by_name.get(reduced.filename)
+        if item is None:
+            break
+        _encode(item)
+        passes += 1
+
+    return passes
+
+
+# --------------------------------------------------------------------------
+# Written output
+# --------------------------------------------------------------------------
+
+
+def _fmt_kb(value: int) -> str:
+    return f"{value / 1000:.1f} kB"
 
 
 def _checklist(result: ExportResult, config: PipelineConfig) -> str:
-    total = len(result.exported)
-    synthetic = [clip for clip in result.exported if clip.origin == manifest_module.ORIGIN_SYNTHESIZED]
+    plan = result.plan
+    assert plan is not None
 
     lines = [
-        "# Waze Recorder Import Checklist",
+        "# Waze voice pack upload checklist",
         "",
         f"Generated {datetime.now(timezone.utc).isoformat(timespec='seconds')}",
         "",
-        f"{total} clip(s) ready, normalized to {config.loudness.target_lufs} LUFS "
-        f"with a {config.loudness.true_peak_db} dBTP ceiling.",
+        "## Size budget",
         "",
-        "> Before working through this list, read VERIFY-IMPORT-FIRST.md and run the",
-        "> five-minute check it describes. It tells you whether you need to record",
-        "> every prompt by hand or whether your device offers a faster path. Doing",
-        "> that check first can save you the entire session below.",
+        f"- Pack total: **{_fmt_kb(result.total_bytes)}** across {len(result.files)} file(s)",
+        f"- Waze budget: {_fmt_kb(plan.budget_bytes)}",
+        f"- Headroom: {_fmt_kb(plan.headroom_bytes)} ({plan.utilisation * 100:.1f}% used)",
+        f"- Allocation strategy: `{plan.strategy}`",
         "",
-        "## Recorder workflow",
-        "",
-        "1. Open Waze on your phone.",
-        "2. Go to `Settings > Voice and sound > Waze voice > Add a voice`.",
-        "3. Waze prompts you for each phrase in its own fixed order. Find the",
-        "   matching row below by its wording, not by the number in this file:",
-        "   the numbering here is this pack's order, and Waze may ask in a",
-        "   different one.",
-        "4. Play the exported clip into the phone microphone, or record the line",
-        "   yourself, then confirm Waze accepted it.",
-        "5. Tick the box and move on.",
-        "",
-        "`python scripts/record_assist.py` walks this list one prompt at a time and",
-        "plays each clip on a keypress, which is easier than juggling a file browser",
-        "while holding a phone.",
-        "",
-        "## Prompts",
-        "",
-        "| # | Done | Phrase | Say | Clip | Length | Source |",
-        "| - | ---- | ------ | --- | ---- | ------ | ------ |",
     ]
 
-    for clip in result.exported:
-        origin = {
-            manifest_module.ORIGIN_SYNTHESIZED: "synthesized",
-            manifest_module.ORIGIN_EXTRACTED: "source media",
-            manifest_module.ORIGIN_MANUAL: "manual",
-        }.get(clip.origin, clip.origin or "unknown")
-        required = "required" if clip.phrase.required else "optional"
-        lines.append(
-            f"| {clip.index:03d} | [ ] | {clip.phrase.label} ({required}) | "
-            f"\"{clip.phrase.speech_text}\" | `{clip.path.name}` | "
-            f"{clip.duration:.2f}s | {origin} |"
-        )
-
-    if result.missing_required or result.missing_optional:
-        lines += ["", "## Not in this pack", ""]
-        for phrase in result.missing_required:
-            lines.append(
-                f"- [ ] **{phrase.label}** (required) - no clip. Record this one "
-                "directly in Waze, or add a source row and re-run the pipeline."
-            )
-        for phrase in result.missing_optional:
-            lines.append(f"- [ ] {phrase.label} (optional) - no clip.")
-
-    if synthetic:
+    if result.over_budget:
         lines += [
-            "",
-            "## Synthesized prompts",
-            "",
-            "These were not in your source media and were generated to match your",
-            "voice. Listen to each one before recording it: synthetic lines drift in",
-            "pace and emphasis more than cut audio does.",
+            "> **This pack is over budget and Waze will reject it.** The rejection is",
+            "> silent: the share button greys out after saving, or the link downloads",
+            "> and plays nothing. Shorten the longest clips, drop optional prompts, or",
+            "> export a single unit system. See the size table below.",
             "",
         ]
-        for clip in synthetic:
-            lines.append(f"- {clip.phrase.label} (`{clip.path.name}`)")
+    else:
+        lines += [
+            "This pack is within budget. Waze should accept it.",
+            "",
+        ]
+
+    lines += [
+        "## Upload",
+        "",
+        f"1. Read `{GUIDE_NAME}` first if you have not done this before.",
+        f"2. Upload the contents of `{PACK_DIRNAME}/` using the community tool at",
+        "   <https://github.com/pipeeeeees/waze-voicepack-links> (`mp3_upload/`).",
+        "3. It returns a share link of the form `https://waze.com/ul?acvp=<UUID>`.",
+        "4. Open that link on the phone you navigate with. Waze downloads the pack.",
+        "5. Drive or simulate a route and confirm the prompts fire.",
+        "",
+        "Keep the UUID. The pack can be re-downloaded later from",
+        "`https://voice-prompts-ipv6.waze.com/<UUID>.tar.gz`.",
+        "",
+        "## Files in this pack",
+        "",
+        "| Waze file | Phrase | Say | Length | kbps | Size | Source |",
+        "| --------- | ------ | --- | ------ | ---- | ---- | ------ |",
+    ]
+
+    ordered = sorted(
+        result.files, key=lambda item: wazepack.FILENAME_ORDER.get(item.slot.filename, 999)
+    )
+    for item in ordered:
+        origin = "synthesized" if item.phrase.status == "synthesized" else "source media"
+        rate = f"{item.allocation.bitrate_kbps}"
+        if item.allocation.sample_rate != budget_module.SAMPLE_RATE_FULL:
+            rate += f" @{item.allocation.sample_rate // 1000}k"
+        lines.append(
+            f"| `{item.slot.filename}` | {item.phrase.label} | "
+            f'"{item.phrase.speech_text}" | {item.allocation.duration:.2f}s | '
+            f"{rate} | {_fmt_kb(item.bytes)} | {origin} |"
+        )
+
+    if result.missing_core:
+        lines += [
+            "",
+            "## Missing, and worth fixing",
+            "",
+            "Waze accepts an incomplete pack and falls back to its default voice for",
+            "anything absent, which is more jarring mid-drive than it sounds. These are",
+            "the ones that matter:",
+            "",
+        ]
+        for phrase in result.missing_core:
+            lines.append(
+                f"- [ ] `{phrase.waze_filename}` - {phrase.label} "
+                f'("{phrase.speech_text}")'
+            )
+
+    if result.missing_optional:
+        lines += ["", "## Missing, optional", ""]
+        for phrase in result.missing_optional:
+            lines.append(f"- `{phrase.waze_filename}` - {phrase.label}")
+
+    if result.dropped_for_budget:
+        lines += [
+            "",
+            "## Dropped to fit the budget",
+            "",
+        ]
+        for name in result.dropped_for_budget:
+            lines.append(f"- `{name}`")
+
+    if result.units != "both":
+        lines += [
+            "",
+            f"## Single unit system: {result.units}",
+            "",
+            f"This pack carries only the {result.units} distance callouts. On a phone set",
+            "to the other unit system, distance prompts fall back to the default Waze",
+            "voice while everything else uses yours. Export with `--units both` to cover",
+            "both, budget permitting.",
+        ]
 
     lines.append("")
     return "\n".join(lines)
 
 
-def _verify_guide() -> str:
-    return """# Verify the import path before you record anything
+def _guide() -> str:
+    return """# How to get this pack onto a phone
 
-## What is actually known
+## The short version
 
-Waze's in-app custom voice recorder is the one documented, public way to get a
-custom voice onto a device. It records prompts through the phone microphone.
+Waze stores custom voice packs on its servers, not on the device. You build the
+pack anywhere, upload it, get a share link, and open that link on the phone. The
+in-app recorder is one way to create a pack; it is not the only way, and it is
+not the one that preserves your audio quality.
 
-Whether a **pre-rendered audio file** can be injected directly, skipping the
-microphone, is **not verified**. This SDK does not claim it can. Nothing in this
-export folder depends on it working.
+## What is confirmed
 
-Anything you read online asserting a ZIP or manifest import format for Waze
-custom voices should be treated as unconfirmed until you have reproduced it on
-your own device and Waze version. App behaviour changes between releases, and it
-differs between Android and iOS.
+- **The Waze mobile app is record-only.** There is no MP3 upload in the app, on
+  either iOS or Android. Looking for one is a dead end.
+- **Packs live server-side and travel as links.** The share link format is
+  `https://waze.com/ul?acvp=<UUID>`. Opening it on a phone with Waze installed
+  makes Waze fetch the pack.
+- **Any pack can be downloaded as a tarball** from
+  `https://voice-prompts-ipv6.waze.com/<UUID>.tar.gz`. Useful for backing up your
+  own pack, and for inspecting how existing packs are built.
+- **MP3 files can be uploaded** using the community tooling at
+  <https://github.com/pipeeeeees/waze-voicepack-links>, in `mp3_upload/`. The
+  advantage over the in-app recorder is that the recorder compresses heavily and
+  captures through the phone microphone, whereas an uploaded file arrives intact.
+- **There is a hard aggregate size limit** of roughly 0.8 MB across all MP3s in
+  a pack.
 
-## Run this check first (about five minutes)
+## The size limit is the thing that will catch you
 
-Do this before working through the full checklist. It costs one prompt and tells
-you which of the three outcomes below you are in.
+It is aggregate, not per-file, and Waze enforces it server-side without an error
+message. Two symptoms:
 
-1. Install the current Waze release on the device you will navigate with.
-2. Note the exact app version: `Settings > About > Waze version`. Write it down;
-   a result without a version number is not reproducible.
-3. Go to `Settings > Voice and sound > Waze voice > Add a voice`.
-4. Record a single prompt normally, in your own voice. Confirm it saves.
-5. Now try to reach the stored recording:
-   - **Android:** look for a Waze media or voices directory under
-     `Android/media/com.waze/` using the system Files app. Content under
-     `Android/media/` is readable without root; `Android/data/` generally is not
-     on Android 11 and later. If you find the recording, try replacing it with
-     the matching clip from `clips/`, keeping the original filename, format, and
-     sample rate.
-   - **iOS:** the app container is not user-accessible without a full device
-     backup round trip. Assume the recorder is the only path.
-6. Start a route and drive or simulate it until the prompt fires.
+- The share button greys out immediately after saving.
+- The link works, the pack downloads, and every prompt plays silence, or plays
+  the placeholder audio from whatever pack you started from.
 
-## The three outcomes
+This SDK sizes the pack for you and prints the total against the budget before
+you upload, so neither symptom should be your first warning. If
+`UPLOAD_CHECKLIST.md` says the pack is over budget, fix that before uploading.
 
-**A. Direct replacement works.** The clip you dropped in plays during
-navigation. Record what you did in `docs/waze-import-spike.md`, including the
-exact path and filename convention, and open an issue. `pack-manifest.json` in
-this folder already carries the metadata a direct-import script would need.
+Ways to claw back space, roughly in order of what costs you least:
 
-**B. Only the recorder works.** Expected. Work through `IMPORT_CHECKLIST.md`
-using the recorder, playing each exported clip into the microphone.
+1. Trim silence and dead air from the longest clips. The drive-start greetings
+   are usually the worst offenders.
+2. Drop `TickerPoints.mp3`, the reroute chime. It is the most omittable file in
+   the pack.
+3. Drop the roundabout ordinals you will never hear, `Fifth` through `Seventh`.
+4. Export a single unit system with `--units metric` or `--units imperial`.
+5. Lower `export.max_kbps` in `config/pipeline.json`.
 
-**C. Something else entirely.** The menu path moved, the feature is gone in your
-region, or the recorder behaves differently. Write down what you actually saw in
-`docs/waze-import-spike.md` before adapting.
+## Uploading
 
-## Playing clips into the microphone
+```
+python scripts/wvs.py export
+```
 
-If you land in outcome B, the recording quality of that mic pass now dominates
-everything the pipeline did. Worth getting right:
+Then follow the community tool's instructions, pointing it at the `pack/`
+directory this step produced. The filenames are already exactly what Waze
+expects, and the files are already inside the size budget.
 
-- Quiet room. The recorder captures whatever else is happening.
-- Hold the phone 15-30 cm from the speaker. Closer distorts, further picks up
-  the room.
-- Set playback volume so the loudest prompt does not distort, then leave it
-  alone. Changing volume mid-session undoes the loudness normalization.
-- Do a single test prompt and play it back inside Waze before doing all of them.
-- The clips already carry ~60 ms of lead-in silence so the recorder does not
-  clip the first syllable. Start playback promptly once recording begins.
+You will get a UUID back. Keep it: it is the only handle on the pack.
 
-## Report back
+## Verify on a real device
 
-Whatever happens, fill in `docs/waze-import-spike.md`: device, OS version, Waze
-version, date, steps, and result. The uncertainty in this file only shrinks when
-someone writes down what they saw.
+Uploading successfully is not the same as the pack working. Confirm:
+
+1. Open the share link on the phone. Waze should offer to add the voice.
+2. Select it under `Settings > Voice and sound`.
+3. Start a route and listen for a distance callout chained onto a maneuver.
+   That single prompt exercises the two file sets most likely to be wrong.
+4. If your phone is set to metric, confirm a metric route; if imperial, an
+   imperial one. A pack missing one set is silent about it.
+
+If something is wrong, `docs/waze-import-spike.md` is where findings go.
+
+## The in-app recorder still exists
+
+If you would rather not use third-party tooling, the recorder works:
+`Settings > Voice and sound > Waze voice > Add a voice`. `scripts/record_assist.py`
+walks the prompt list and plays each clip on a keypress so you can record them
+into the microphone. Expect worse audio than uploading, because the recorder
+compresses what it captures.
 """
 
 
 def _readme(result: ExportResult, config: PipelineConfig) -> str:
+    plan = result.plan
+    assert plan is not None
     return f"""# Voice pack export
 
 Generated {datetime.now(timezone.utc).isoformat(timespec='seconds')} by waze-voice-sdk.
 
 ## Contents
 
-- `{CLIPS_DIRNAME}/` - {len(result.exported)} normalized clip(s), numbered in pack order.
-- `{CHECKLIST_NAME}` - the prompt-by-prompt recording checklist.
-- `{VERIFY_NAME}` - **read this first**; how to find out which import path your device supports.
+- `{PACK_DIRNAME}/` - {len(result.files)} MP3(s), named exactly as Waze expects. This is
+  the directory you upload.
+- `{CHECKLIST_NAME}` - size report and per-file breakdown.
+- `{GUIDE_NAME}` - **read first**: how packs actually get onto a phone.
 - `{MANIFEST_NAME}` - machine-readable pack description.
 
-## Audio format
+## Size
 
-- {config.audio.master_format.upper()}, mono, {config.audio.sample_rate} Hz, {config.audio.master_bitrate}
-- {config.loudness.target_lufs} LUFS integrated, {config.loudness.true_peak_db} dBTP ceiling
-- Leading silence {config.trim.lead_in_ms} ms, trailing {config.trim.lead_out_ms} ms
+{_fmt_kb(result.total_bytes)} of {_fmt_kb(plan.budget_bytes)} budget
+({plan.utilisation * 100:.1f}%), allocated with the `{plan.strategy}` strategy.
 
 ## Rights
 
 This folder may contain audio derived from your source media and voices
-synthesized from it. Whether you may use or distribute it is your
-responsibility. See `LEGAL.md` in the repository root.
+synthesized from it. Whether you may use, upload, or share it is your
+responsibility. Uploading publishes it to Waze's servers behind a shareable
+link. See `LEGAL.md` in the repository root.
 """
 
 
-def _pack_manifest(
-    result: ExportResult,
-    config: PipelineConfig,
-    build: manifest_module.Manifest,
-) -> dict:
-    """A description of the pack that a future direct-import path could consume.
-
-    The format is this SDK's own, not Waze's. No public Waze pack format is
-    confirmed to exist; this exists so that if one is discovered, the metadata
-    needed to build it has already been captured.
-    """
+def _pack_manifest(result: ExportResult, config: PipelineConfig) -> dict:
+    plan = result.plan
+    assert plan is not None
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "generator": "waze-voice-sdk",
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "import_path_verified": False,
-        "import_note": (
-            "The in-app recorder is the only confirmed import path. Direct clip "
-            "injection is unverified. See VERIFY-IMPORT-FIRST.md."
-        ),
-        "audio": {
-            "format": config.audio.master_format,
-            "channels": config.audio.channels,
-            "sample_rate": config.audio.sample_rate,
-            "bitrate": config.audio.master_bitrate,
-            "target_lufs": config.loudness.target_lufs,
-            "true_peak_db": config.loudness.true_peak_db,
+        "units": result.units,
+        "budget": {
+            "limit_bytes": plan.budget_bytes,
+            "total_bytes": result.total_bytes,
+            "headroom_bytes": plan.headroom_bytes,
+            "utilisation": round(plan.utilisation, 4),
+            "within_budget": not result.over_budget,
+            "strategy": plan.strategy,
+            "correction_passes": result.corrections,
         },
+        "share_link_template": wazepack.SHARE_LINK_TEMPLATE,
+        "backup_download_template": wazepack.BACKUP_DOWNLOAD_TEMPLATE,
         "clips": [
             {
-                "index": clip.index,
-                "phrase_id": clip.phrase.id,
-                "label": clip.phrase.label,
-                "text": clip.phrase.speech_text,
-                "group": clip.phrase.group,
-                "required": clip.phrase.required,
-                "file": f"{CLIPS_DIRNAME}/{clip.path.name}",
-                "duration_seconds": round(clip.duration, 3),
-                "origin": clip.origin,
-                "output_lufs": (
-                    build.get(clip.phrase.id).output_lufs if build.get(clip.phrase.id) else None
-                ),
+                "waze_filename": item.slot.filename,
+                "phrase_id": item.phrase.id,
+                "label": item.phrase.label,
+                "text": item.phrase.speech_text,
+                "units": item.slot.units,
+                "core": item.slot.core,
+                "file": f"{PACK_DIRNAME}/{item.slot.filename}",
+                "duration_seconds": round(item.allocation.duration, 3),
+                "bitrate_kbps": item.allocation.bitrate_kbps,
+                "sample_rate": item.allocation.sample_rate,
+                "bytes": item.bytes,
+                "weight": item.phrase.weight,
             }
-            for clip in result.exported
+            for item in sorted(
+                result.files,
+                key=lambda entry: wazepack.FILENAME_ORDER.get(entry.slot.filename, 999),
+            )
         ],
         "missing": [
-            {"phrase_id": phrase.id, "label": phrase.label, "required": phrase.required}
-            for phrase in [*result.missing_required, *result.missing_optional]
+            {
+                "waze_filename": phrase.waze_filename,
+                "phrase_id": phrase.id,
+                "label": phrase.label,
+                "core": phrase.required,
+            }
+            for phrase in [*result.missing_core, *result.missing_optional]
         ],
     }
+
+
+# --------------------------------------------------------------------------
+# Entry point
+# --------------------------------------------------------------------------
 
 
 def run(
@@ -312,77 +464,192 @@ def run(
     phrases_path: Path | None = None,
     master_dir: Path | None = None,
     export_dir: Path | None = None,
+    units: str | None = None,
+    strategy: str | None = None,
     allow_missing: bool = False,
 ) -> ExportResult:
     console.step("Export")
 
+    units = units or config.export.units
+    if units not in ("both", wazepack.UNITS_METRIC, wazepack.UNITS_IMPERIAL):
+        raise SystemExit(f"--units must be both, metric, or imperial; got {units!r}")
+
+    strategy = strategy or config.export.strategy
+    if strategy not in budget_module.STRATEGIES:
+        raise SystemExit(
+            f"Unknown strategy {strategy!r}. Choose one of: "
+            f"{', '.join(budget_module.STRATEGIES)}"
+        )
+
     inventory = phrases_module.load(phrases_path)
     master_dir = master_dir or paths.master_dir()
     export_dir = export_dir or paths.export_dir()
-    build = manifest_module.Manifest.load()
+
+    result = ExportResult(units=units)
+
+    wanted = {slot.filename: slot for slot in _wanted_slots(units)}
+    by_waze = {
+        phrase.waze_filename: phrase for phrase in inventory if phrase.in_waze_pack
+    }
+
+    unmapped = [phrase.id for phrase in inventory if not phrase.in_waze_pack]
+    if unmapped:
+        console.warn(
+            f"{len(unmapped)} phrase(s) have no waze_filename and cannot be part of a "
+            f"pack: {', '.join(sorted(unmapped)[:6])}"
+            + (" ..." if len(unmapped) > 6 else "")
+        )
 
     _clear(export_dir)
-    clips_dir = export_dir / CLIPS_DIRNAME
-    clips_dir.mkdir(parents=True, exist_ok=True)
+    pack_dir = export_dir / PACK_DIRNAME
+    pack_dir.mkdir(parents=True, exist_ok=True)
 
-    result = ExportResult()
-    index = 0
+    # -- gather what actually exists ---------------------------------------
+    specs: list[budget_module.ClipSpec] = []
+    pending: list[tuple[wazepack.WazeSlot, phrases_module.Phrase, Path]] = []
 
-    for phrase in inventory.in_export_order():
+    for filename, slot in wanted.items():
+        phrase = by_waze.get(filename)
+        if phrase is None:
+            continue
         source = master_dir / phrase.filename
         if not source.is_file():
-            if phrase.required:
-                result.missing_required.append(phrase)
-            else:
-                result.missing_optional.append(phrase)
+            (result.missing_core if slot.core else result.missing_optional).append(phrase)
             continue
 
-        # Only clips that actually exist consume a number, so the checklist has
-        # no gaps to explain.
-        index += 1
-        destination = clips_dir / f"{index:03d}_{phrase.id}{source.suffix}"
-        shutil.copy2(source, destination)
+        try:
+            duration = media.duration_seconds(source)
+        except media.MediaError as error:
+            console.error(f"{phrase.id}: could not probe {source.name} ({error})")
+            (result.missing_core if slot.core else result.missing_optional).append(phrase)
+            continue
 
-        record = build.get(phrase.id)
-        result.exported.append(
-            ExportedClip(
-                index=index,
-                phrase=phrase,
-                path=destination,
-                duration=_duration(destination),
-                origin=record.origin if record else "",
+        pending.append((slot, phrase, source))
+        specs.append(
+            budget_module.ClipSpec(
+                filename=filename,
+                source=source,
+                duration=duration,
+                weight=phrase.weight,
             )
         )
-        console.ok(f"{destination.name}")
 
+    if not specs:
+        console.warn("No master clips map to Waze prompts. Run the normalize step first.")
+        result.plan = budget_module.AllocationPlan(
+            budget_bytes=config.export.budget_bytes, strategy=strategy
+        )
+        _write_docs(result, config, export_dir)
+        return result
+
+    # -- allocate ----------------------------------------------------------
+    allocation_budget = max(
+        0, config.export.budget_bytes - config.export.overhead_reserve_bytes
+    )
+    plan = budget_module.allocate(
+        specs,
+        budget_bytes=allocation_budget,
+        strategy=strategy,
+        min_kbps=config.export.min_kbps,
+        max_kbps=config.export.max_kbps,
+        sample_rate_policy=config.export.sample_rate_policy,
+    )
+    # Measurement and reporting are against the real limit, not the reserved figure.
+    plan.budget_bytes = config.export.budget_bytes
+    result.plan = plan
+
+    for slot, phrase, source in pending:
+        allocation = plan.get(slot.filename)
+        if allocation is None:
+            continue
+        result.files.append(
+            PackFile(
+                slot=slot,
+                phrase=phrase,
+                source=source,
+                destination=pack_dir / slot.filename,
+                allocation=allocation,
+            )
+        )
+
+    console.detail(
+        f"Allocating {_fmt_kb(plan.budget_bytes)} across {len(result.files)} clip(s) "
+        f"({plan.total_duration:.1f}s of audio) using the '{strategy}' strategy"
+    )
+
+    # -- encode, measure, correct -----------------------------------------
+    _encode_all(result.files)
+    result.corrections = _correct_overshoot(result.files, plan, config)
+    if result.corrections:
+        console.detail(
+            f"Re-encoded {result.corrections} clip(s) a rung lower to absorb "
+            "MP3 container overhead."
+        )
+
+    _report(result, plan)
+    _write_docs(result, config, export_dir)
+
+    if result.over_budget:
+        console.error(
+            f"Pack is {_fmt_kb(-plan.headroom_bytes)} over Waze's budget. "
+            "Uploading it will be rejected silently."
+        )
+        console.detail(f"See {GUIDE_NAME} for what to cut.")
+    if result.missing_core:
+        console.bullets(
+            "Missing prompts a pack really wants:",
+            [f"{phrase.waze_filename}: {phrase.label}" for phrase in result.missing_core],
+        )
+        if not allow_missing:
+            console.warn("Re-run with --allow-missing to build an incomplete pack anyway.")
+
+    return result
+
+
+def _report(result: ExportResult, plan: budget_module.AllocationPlan) -> None:
+    biggest = plan.in_size_order()[:5]
+    rows = [
+        (
+            item.filename,
+            f"{item.duration:.2f}s",
+            f"{item.bitrate_kbps}k",
+            f"{item.sample_rate // 1000}k",
+            _fmt_kb(item.bytes),
+        )
+        for item in biggest
+    ]
+    console.info("")
+    console.info("Largest files:")
+    console.table(rows, headers=("File", "Length", "Rate", "SR", "Size"))
+
+    console.info("")
+    verdict = "within budget" if plan.fits else "OVER BUDGET"
+    console.info(
+        f"Pack total: {_fmt_kb(result.total_bytes)} of {_fmt_kb(plan.budget_bytes)} "
+        f"({plan.utilisation * 100:.1f}%) - {verdict}"
+    )
+    for note in plan.notes:
+        console.warn(note)
+
+
+def _write_docs(result: ExportResult, config: PipelineConfig, export_dir: Path) -> None:
     checklist = export_dir / CHECKLIST_NAME
     checklist.write_text(_checklist(result, config), encoding="utf-8")
     result.checklist = checklist
 
-    verify = export_dir / VERIFY_NAME
-    verify.write_text(_verify_guide(), encoding="utf-8")
-    result.verify_guide = verify
+    guide = export_dir / GUIDE_NAME
+    guide.write_text(_guide(), encoding="utf-8")
+    result.guide = guide
 
-    pack = export_dir / MANIFEST_NAME
-    pack.write_text(
-        json.dumps(_pack_manifest(result, config, build), indent=2, ensure_ascii=True) + "\n",
+    pack_manifest = export_dir / MANIFEST_NAME
+    pack_manifest.write_text(
+        json.dumps(_pack_manifest(result, config), indent=2, ensure_ascii=True) + "\n",
         encoding="utf-8",
     )
-    result.pack_manifest = pack
+    result.pack_manifest = pack_manifest
 
     (export_dir / README_NAME).write_text(_readme(result, config), encoding="utf-8")
 
-    console.info(f"Exported {len(result.exported)} clip(s) to {export_dir}")
-    console.detail(f"Checklist:      {checklist.name}")
-    console.detail(f"Read first:     {verify.name}")
-    console.detail(f"Pack manifest:  {pack.name}")
-
-    if result.missing_required:
-        console.bullets(
-            "Missing required clips (the checklist marks these for manual recording):",
-            [f"{phrase.id}: {phrase.filename}" for phrase in result.missing_required],
-        )
-        if not allow_missing:
-            console.warn("Re-run with --allow-missing to export an incomplete pack anyway.")
-
-    return result
+    console.detail(f"Pack:      {export_dir / PACK_DIRNAME}")
+    console.detail(f"Checklist: {checklist.name}")
+    console.detail(f"Read first: {guide.name}")

@@ -2,7 +2,7 @@
 
 Filling the phrases your source media never said.
 
-A recording of someone talking rarely contains "Recalculating" or "In 500 meters". The
+A recording of someone talking rarely contains "Keep right" or "In a quarter mile". The
 synthesis step generates those lines in the voice of the clips you already extracted.
 
 ## Before anything else
@@ -46,7 +46,7 @@ python scripts\wvs.py synth --dry-run
 python scripts\wvs.py synth --include-optional --accept-voice-terms
 
 # Redo specific phrases
-python scripts\wvs.py synth --only recalculating traffic_ahead --force --accept-voice-terms
+python scripts\wvs.py synth --only and_then traffic_ahead --force --accept-voice-terms
 
 # Fastest variant, for CPU-only machines
 python scripts\wvs.py synth --model nano --accept-voice-terms
@@ -144,7 +144,7 @@ inheriting Coqui's weight licensing. Read the table above before going down this
 
 **Write for the ear, not the page.** `tts_text` in
 [config/phrases.json](../config/phrases.json) exists for this. The shipped inventory
-already uses it: `In 500 meters` is spoken as "In five hundred meters", because a TTS
+already uses it: `In 200 meters` is spoken as "In two hundred meters", because a TTS
 front-end left to itself may read the digits out one at a time; `Make a U-turn` drops the
 hyphen, which front-ends often read as a compound token.
 
@@ -154,7 +154,7 @@ km/h. The export checklist lists synthesized clips separately for exactly this r
 the QA step is where you catch them:
 
 ```powershell
-python scripts\wvs.py qa --route reroute_and_arrive
+python scripts\wvs.py qa --route chained_maneuvers
 ```
 
 **More reference audio helps.** Below about six seconds, similarity falls off sharply. The
@@ -174,8 +174,8 @@ It is optional throughout, and nothing else in the pipeline depends on it.
 - `wvs run` probes for the backend first and skips the step with one line explaining why,
   then carries on through normalize, validate, and export.
 - `wvs synth` on its own exits with install instructions rather than a stack trace.
-- Any phrase left unfilled is carried into `IMPORT_CHECKLIST.md` under "Not in this pack",
-  marked for you to record directly in the Waze app.
+- Any phrase left unfilled is carried into `UPLOAD_CHECKLIST.md` under "Missing, and
+  worth fixing". Waze falls back to its default voice for anything absent.
 - `wvs run --no-tts` skips the step without probing at all.
 
 A pack where you record four lines yourself is a perfectly good pack.

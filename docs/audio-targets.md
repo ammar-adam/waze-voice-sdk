@@ -75,6 +75,28 @@ still exists, still has the right duration, and plays back as nothing. `clean.ma
 catches that case by comparing loudness before and after, and reverts to the unprocessed
 clip when cleaning has destroyed the signal.
 
+## The pack size budget
+
+Everything above concerns `audio/master/`, which is the archive copy: 128 kbps and as good
+as the source allows. The pack that goes to Waze is a separate, lossier render, because
+Waze caps a pack at roughly 0.8 MB in aggregate across every MP3.
+
+| Setting | Default | Reason |
+| ------- | ------- | ------ |
+| `export.budget_bytes` | 795,000 | The community tooling targets 0.795 MB against a limit reported as "roughly 0.8 MB". Decimal MB is the conservative reading. |
+| `export.overhead_reserve_bytes` | 20,000 | Held back before allocating, for MP3 frame headers and padding. |
+| `export.min_kbps` | 24 | A quality floor, not a technical one. Below about 32 kbps speech degrades sharply. |
+| `export.max_kbps` | 128 | More than this is wasted on a one-second mono prompt. |
+| `export.strategy` | `weighted` | Per-clip allocation. `uniform` matches the community tool. |
+
+Master clips are re-encoded rather than copied, so the pack render is a second lossy
+generation. For speech at these rates that is not the limiting factor; the budget is.
+
+Note that this SDK does **not** apply the +7 dB boost the community converter uses. That
+boost exists because its inputs arrive at unknown levels. Ours are already normalized to
+-16 LUFS with a -1.5 dBTP ceiling, and boosting on top would push them into the limiter
+for no benefit.
+
 ## Changing any of this
 
 Edit `config/pipeline.json`. Delete a key to fall back to the built-in default. Unknown

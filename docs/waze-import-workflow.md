@@ -1,86 +1,153 @@
 # Getting a pack into Waze
 
-## What is known, and what is not
+## How it actually works
 
-**Known.** Waze has an in-app custom voice recorder at
-`Settings > Voice and sound > Waze voice > Add a voice`. It records prompts through the
-phone microphone. This is the only publicly documented route.
+The creation device and the consumption device are decoupled. Waze stores custom voice
+packs **on its servers**, not on the phone, and distributes them as share links. So the
+pack is built on a PC, uploaded, and then pulled down by whatever phone opens the link.
 
-**Not known.** Whether a pre-rendered audio file can be injected directly, bypassing the
-microphone. This SDK does not assume it can, and nothing it produces depends on it.
-
-**Treat as unconfirmed.** Any ZIP or manifest import format for Waze custom voices. If you
-find such a claim, reproduce it on your own device and app version before relying on it.
-App behaviour changes between releases and differs between Android and iOS.
-
-The honest position is that the recorder workflow definitely works and everything else is
-a hypothesis you can test in about five minutes.
-
-## Test it before you commit an hour
-
-`audio/export/VERIFY-IMPORT-FIRST.md` is generated with every export and walks through
-this. In short:
-
-1. Note your exact Waze version from `Settings > About`. A result without a version number
-   is not reproducible.
-2. Record one prompt in the app, normally, in your own voice. Confirm it saves.
-3. Try to reach the stored recording:
-   - **Android:** look under `Android/media/com.waze/` with the system Files app. Content
-     under `Android/media/` is readable without root; `Android/data/` generally is not on
-     Android 11 and later. If you find it, try replacing it with the matching clip from
-     `clips/`, keeping the original filename, format, and sample rate.
-   - **iOS:** the app container is not user-accessible without a full backup round trip.
-     Assume the recorder is the only path.
-4. Start a route and confirm the prompt fires.
-
-Three outcomes:
-
-| Outcome | What it means | What to do |
-| ------- | ------------- | ---------- |
-| Direct replacement plays | A faster path exists on your device | Document it in [waze-import-spike.md](waze-import-spike.md) and open an issue. `pack-manifest.json` already carries the metadata an import script would need. |
-| Only the recorder works | Expected | Work through `IMPORT_CHECKLIST.md`. |
-| Something else | Menu moved, feature unavailable in your region, recorder behaves differently | Write down what you actually saw before adapting. |
-
-## The recorder workflow
-
-```powershell
-python scripts\wvs.py export
-python scripts\record_assist.py
+```
+your MP3s  ->  upload  ->  Waze servers  ->  share link  ->  phone opens link  ->  pack installed
+                                             waze.com/ul?acvp=<UUID>
 ```
 
-`record_assist.py` walks the checklist one prompt at a time, shows the line to record,
-plays the clip on a keypress, and saves progress after every prompt so an interrupted
-session resumes with `--resume`. It beats juggling a file browser while holding a phone.
+Two facts follow from that, and both are useful:
 
-Waze asks for prompts in its own fixed order, which may not match the pack's numbering.
-Match by wording, not by number.
+- **The mobile app being record-only does not matter.** There is no MP3 upload in the
+  Waze app on iOS or Android, and there is no point looking for one. The upload happens
+  elsewhere.
+- **Any pack can be retrieved.** Given a UUID, the pack downloads as a tarball from
+  `https://voice-prompts-ipv6.waze.com/<UUID>.tar.gz`. That is how you back up your own
+  pack, and how you can inspect how an existing pack is built.
 
-### Getting a good microphone pass
+The community tooling that performs the upload lives at
+<https://github.com/pipeeeeees/waze-voicepack-links> (see `mp3_upload/`). This SDK
+produces the directory that tool expects: correct filenames, both unit systems, and
+already inside the size budget.
 
-If the recorder is your route, the quality of this pass now dominates everything the
-pipeline did upstream. Worth getting right:
+An older method using a rooted Android emulator to swap files in
+`custom_prompts_temp` is deprecated and is documented in that repository's
+discussion #31. It is not needed and Waze has progressively made it harder.
 
-- Quiet room. The recorder captures whatever else is happening.
-- Phone 15-30 cm from the speaker. Closer distorts; further picks up the room.
-- Set playback volume so the loudest prompt does not distort, then **do not touch it
-  again**. Changing volume mid-session undoes the loudness normalization the pipeline
-  just did.
-- Record one prompt, play it back inside Waze, and check it before doing the other
-  seventeen.
-- Exported clips carry about 60 ms of lead-in silence so the recorder does not clip the
-  first syllable. Start playback promptly once recording begins.
+## The two things that fail silently
 
-## If the prompt list is wrong
+### Filenames
 
-`config/phrases.json` is deliberately conservative and was written before the current Waze
-prompt list was confirmed on a device. If the app asks for prompts that are not in it, or
-skips ones that are, edit the file. It needs no code changes.
+Waze matches prompts by exact filename. Anything it does not recognise is **ignored
+without an error**, so a near-miss produces a pack that is quietly missing that prompt.
 
-Please also record what the app actually asked for in
-[waze-import-spike.md](waze-import-spike.md).
+The names are not guessable:
 
-## Reporting back
+| File | What it actually is |
+| ---- | ------------------- |
+| `200.mp3` | "In 0.1 miles" - **imperial**, despite the name |
+| `400.mp3` | "In a quarter mile" |
+| `800.mp3` | "In half a mile" |
+| `1500.mp3` | "In one mile" |
+| `200meters.mp3` ... `1500meters.mp3` | The metric set, five files |
+| `AndThen.mp3` | Joins two chained instructions |
+| `TickerPoints.mp3` | The reroute chime |
+| `StartDrive1-9.mp3` | Nine drive-start greetings, chosen at random |
+| `First.mp3` ... `Seventh.mp3` | Roundabout exit ordinals |
+| `uturn.mp3` | Lowercase, unlike everything else |
 
-This document gets shorter and more definite as people write down what they saw. Device,
-OS version, Waze version, date, steps, result. Negative results are useful: "the
-`Android/media/com.waze/` directory does not exist on Waze 5.x" is worth knowing.
+The authoritative list of all 43 lives in
+[`waze_voice/wazepack.py`](../waze_voice/wazepack.py), transcribed from
+`mp3_upload/valid_waze_filenames.txt` upstream. `config/phrases.json` carries the mapping
+from our phrase IDs to those names, and the validator rejects a name Waze would not
+recognise rather than letting it reach a pack.
+
+### Metric and imperial are separate file sets
+
+They are not alternatives; they are two independent sets of distance callouts. A pack
+carrying only one works in that unit system and **falls back to the default Waze voice**
+for distances in the other, mid-drive, which is more jarring than it sounds.
+
+`wvs validate` reports coverage for both systems separately. Export both unless the budget
+forces a choice:
+
+```powershell
+python scripts\wvs.py export --units metric
+```
+
+### The aggregate size limit
+
+**Roughly 0.8 MB across every MP3 in the pack**, enforced server-side, with no error
+message. Two symptoms:
+
+- The share button greys out immediately after saving.
+- The link works, the pack downloads, and every prompt plays silence.
+
+Neither says "too big". This is the single most common reason a pack fails.
+
+This SDK targets 795,000 bytes and prints the finished total against that budget before
+you upload:
+
+```
+Pack total: 793.5 kB of 795.0 kB (99.8%) - within budget
+```
+
+If it says over budget, the export step exits non-zero and `HOW-TO-UPLOAD.md` in the
+export folder lists what to cut, cheapest first.
+
+## Bitrate allocation
+
+The community guidance is 48 kbps constant across the pack, found by binary search. That
+works, and it spends the same bits per second on a nine-second greeting you hear once as
+on "turn left", which you hear on every turn.
+
+This SDK allocates per clip instead, with bitrate proportional to **weight over
+duration**. Short, frequently heard clips get more; long, rarely heard ones get less. Each
+phrase carries a `weight` in `config/phrases.json`, and the derivation is in
+[`waze_voice/budget.py`](../waze_voice/budget.py).
+
+On a full 43-prompt pack the difference is roughly 12 percentage points of budget
+utilisation, all of it spent on the prompts you actually hear. The uniform strategy is
+still available for comparison:
+
+```powershell
+python scripts\wvs.py export --strategy uniform
+```
+
+Below 32 kbps, MP3 has no rungs at 44.1 kHz, so clips allocated less than that drop to
+22.05 kHz. For speech that is a good trade rather than a compromise. Set
+`export.sample_rate_policy` to `fixed` to keep everything at 44.1 kHz.
+
+## Doing it
+
+```powershell
+python scripts\wvs.py run --sources data\my-sources.csv
+python scripts\wvs.py qa
+python scripts\wvs.py export
+```
+
+Then:
+
+1. Read `audio/export/HOW-TO-UPLOAD.md`.
+2. Upload `audio/export/pack/` with the community tool.
+3. Keep the UUID it returns. It is the only handle on the pack.
+4. Open `https://waze.com/ul?acvp=<UUID>` on the phone.
+5. Select the voice under `Settings > Voice and sound`.
+6. Drive or simulate a route.
+
+### What to check on the device
+
+One route exercises most of what can be wrong:
+
+- A distance callout chained onto a maneuver. That is two files and the join between them.
+- An arrival prompt.
+- If your phone is set to metric, a metric route; if imperial, an imperial one. A pack
+  missing one set will not tell you.
+
+## If you would rather not upload
+
+The in-app recorder still works:
+`Settings > Voice and sound > Waze voice > Add a voice`. It needs no third-party tooling,
+and it captures through the phone microphone and compresses hard, so expect noticeably
+worse audio than uploading the files. `scripts/record_assist.py` walks the prompt list and
+plays each clip on a keypress.
+
+## Reporting findings
+
+Device, OS version, Waze version, date, what you did, what happened. Into
+[waze-import-spike.md](waze-import-spike.md). Negative results are worth writing down too.

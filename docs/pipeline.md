@@ -19,9 +19,9 @@ your media ──┘                     │
                           ┌────────┴────────┐
                           v                 v
                          qa              export ──> audio/export/
-                     (audition)                       clips/
-                                                      IMPORT_CHECKLIST.md
-                                                      VERIFY-IMPORT-FIRST.md
+                     (audition)                       pack/  <- upload this
+                                                      UPLOAD_CHECKLIST.md
+                                                      HOW-TO-UPLOAD.md
                                                       pack-manifest.json
 ```
 
@@ -145,12 +145,58 @@ Interactive by default, recording pass/fail per instruction into `audio/qa-repor
 
 ### export
 
-Numbers only the clips that exist, so the checklist has no gaps to explain. Order comes
-from each phrase's `group` and `order` fields rather than array position.
+Produces a directory Waze will accept: files named exactly as Waze expects, both unit
+systems, and every clip compressed so the pack total lands inside the aggregate size
+budget.
 
-Writes the clips, `IMPORT_CHECKLIST.md`, `VERIFY-IMPORT-FIRST.md`, `pack-manifest.json`,
-and a README. The manifest records `import_path_verified: false` and says why. See
-[waze-import-workflow.md](waze-import-workflow.md).
+Two modules back it:
+
+- **`wazepack.py`** holds the 43 filenames, which of them are core, and which unit system
+  each distance callout belongs to. Waze ignores unrecognised names without an error, so
+  the list is data rather than something assembled at the call site, and the phrase
+  validator rejects a name that is not on it.
+- **`budget.py`** decides how many bits each clip gets. See below.
+
+After allocating, the step encodes, **measures what landed on disk**, and walks clips down
+a rung at a time until the real total fits. Predicted size is bitrate times duration; the
+real file also carries frame headers and padding, and that gap always runs the wrong way.
+Reporting a predicted figure the user then fails an upload with would be worse than
+useless, so the number printed is the number on disk.
+
+Being over budget fails the run. `--allow-missing` forgives gaps in the pack; it does not
+forgive an oversized one, because that upload would be rejected silently.
+
+### The bitrate allocator
+
+Waze's limit is aggregate, so the question is how to divide a fixed number of bytes
+between forty-odd clips. The community tooling uses one bitrate for everything, found by
+binary search. That is safe, and it spends the same bits per second on a nine-second
+greeting heard once per drive as on "turn left".
+
+Model quality as rising with the log of bitrate, weight each clip by how much its quality
+matters, and maximise `sum(w_i * log(b_i))` subject to `sum(b_i * d_i) <= B`. The
+Lagrangian gives `b_i = lambda * w_i / d_i`: **bitrate proportional to weight over
+duration**. Short clips get more bits per second than long ones, important clips more than
+incidental ones, on a defensible scale rather than a guess.
+
+Lambda is found by bisection rather than the closed form. The closed form only holds while
+nothing is clamped, and in practice clips hit the floor, hit the ceiling, and get snapped
+to the discrete MP3 ladder. Total size is monotonic in lambda, so bisection converges on
+the largest feasible value with all of that folded into evaluating a candidate. An earlier
+freeze-as-you-go implementation had a subtle bug this avoids: a clip pinned to the floor
+early, while the budget still looked tight, never got revisited once other clips hit the
+ceiling and freed room up, so it stayed at 24 kbps while the pack ran 47% under budget.
+
+Below 32 kbps MP3 has no rungs at 44.1 kHz, so those clips drop to 22.05 kHz. Almost
+nothing in a navigation prompt lives above 11 kHz, so that is a good trade.
+
+On a full 43-prompt pack the weighted strategy reaches about 99.8% budget utilisation
+against the uniform strategy's 88.9%, with the extra bits going to the prompts actually
+heard. Both remain available via `--strategy`.
+
+When even the floor overshoots, the plan says so and the export fails rather than
+producing an unusable pack. Silently dropping below the quality floor would trade a
+rejected upload for one that uploads and sounds terrible.
 
 ## Take resolution
 

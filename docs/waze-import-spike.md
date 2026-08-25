@@ -54,7 +54,7 @@ Which prompts did the app actually ask for, in what order? This is the only way
 
 - [ ] Playing an exported clip into the microphone produced an acceptable recording
 - Distance used:
-- Anything that had to change from the guidance in `VERIFY-IMPORT-FIRST.md`:
+- Anything that had to change from the guidance in `HOW-TO-UPLOAD.md`:
 
 ### Result
 
