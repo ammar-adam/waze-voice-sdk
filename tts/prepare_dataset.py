@@ -1,8 +1,10 @@
 """Build an LJSpeech-style dataset from cleaned clips, and report on its size.
 
-Fine-tuning is only worth doing when there is enough transcribed audio to fine-
-tune on. This reports what you actually have before you spend GPU hours finding
-out, and writes the dataset in the layout Coqui's recipes expect:
+Only needed for the fine-tuning path; the default backend clones zero-shot and
+needs no dataset. Fine-tuning is only worth doing when there is enough
+transcribed audio for it. This reports what you actually have before you spend
+GPU hours finding out, and writes the dataset in the layout Coqui's recipes
+expect:
 
     datasets/voice/
       metadata.csv        name|text|normalized_text, pipe delimited
@@ -52,8 +54,8 @@ def _advise(total: float, count: int) -> None:
     elif total < FINETUNE_MINIMUM:
         console.info("")
         console.info(
-            "This is a zero-shot sized corpus. Use the default XTTS backend, which "
-            "conditions on the reference audio without any training:"
+            "This is a zero-shot sized corpus. Use the default Chatterbox backend, "
+            "which conditions on the reference audio without any training:"
         )
         console.info("    python tts/generate.py --accept-voice-terms")
         console.info("")

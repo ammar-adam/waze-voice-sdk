@@ -3,8 +3,14 @@
 Read this before running it: for a navigation voice pack, fine-tuning is usually
 the wrong tool. A pack yields a couple of minutes of usable audio at best, and
 fine-tuning below roughly ten minutes of clean transcribed speech tends to
-overfit and sound worse than XTTS zero-shot cloning, which needs no training at
-all. `python tts/generate.py` is the default path for good reason.
+overfit and sound worse than zero-shot cloning, which needs no training at all.
+`python tts/generate.py` is the default path for good reason.
+
+Note also that this trains a **Coqui** model, usable through
+`--backend finetuned`. The default Chatterbox backend has no official
+fine-tuning path, so choosing to fine-tune means moving off the default
+backend, and onto weights whose licence terms you should read first
+(docs/tts.md).
 
 Fine-tuning earns its keep when you have a large, consistent corpus of one
 speaker: an audiobook you narrated, a long interview you own, a podcast back
@@ -12,7 +18,7 @@ catalogue you have rights to.
 
 What this does:
 
-1. Checks preconditions (interpreter version, Coqui TTS, dataset, GPU).
+1. Checks preconditions (coqui-tts present, dataset size, GPU).
 2. Writes a VITS fine-tune config pointed at your dataset.
 3. Hands off to Coqui's own trainer, which owns the training loop.
 
@@ -39,9 +45,15 @@ BASE_MODEL = "tts_models/en/vctk/vits"
 
 
 def _check_preconditions(dataset: Path, *, force: bool) -> float:
-    available, reason = synth.is_available()
+    # Training targets the Coqui lineage, so check that backend rather than the
+    # default Chatterbox one.
+    available, reason = synth.is_available("finetuned")
     if not available:
-        raise SystemExit(f"{reason}.\nSee docs/tts.md for the Windows setup.")
+        raise SystemExit(
+            f"{reason}.\nFine-tuning needs coqui-tts:\n"
+            "    python -m pip install coqui-tts\n"
+            "See docs/tts.md."
+        )
 
     metadata = dataset / "metadata.csv"
     wavs = dataset / "wavs"
@@ -67,7 +79,7 @@ def _check_preconditions(dataset: Path, *, force: bool) -> float:
             f"Only {total / 60:.1f} minutes of audio. Fine-tuning generally needs "
             f"at least {FINETUNE_MINIMUM_SECONDS / 60:.0f} minutes to beat zero-shot "
             "cloning, and below that it usually overfits.\n\n"
-            "Use the default path instead:\n"
+            "Use the default path instead, which needs no training at all:\n"
             "    python tts/generate.py --accept-voice-terms\n\n"
             "Or pass --force if you know what you are doing and want to try anyway."
         )
@@ -196,8 +208,8 @@ def main() -> int:
         result = subprocess.run(command, check=False)
     except FileNotFoundError:
         raise SystemExit(
-            "Could not start the Coqui trainer. Confirm Coqui TTS is installed in "
-            "this interpreter: python -m pip install -r requirements-tts.txt"
+            "Could not start the Coqui trainer. Confirm coqui-tts is installed in "
+            "this interpreter: python -m pip install coqui-tts"
         ) from None
 
     if result.returncode != 0:

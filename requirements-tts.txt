@@ -1,15 +1,29 @@
-# Optional: Coqui TTS for the synthesis step.
+# Optional: the synthesis step.
 #
-# IMPORTANT: Coqui TTS supports Python 3.9-3.11. It does not install on 3.12+.
-# Keep it in its own virtual environment; the rest of the pipeline runs on any
-# supported interpreter:
+# Chatterbox (Resemble AI) is the default backend: zero-shot voice cloning from
+# roughly ten seconds of reference audio, MIT licensed including the model
+# weights, so anything you produce with it is yours to use commercially.
 #
-#     py -3.11 -m venv .venv-tts
-#     .venv-tts\Scripts\activate
 #     python -m pip install -r requirements-tts.txt
 #
-# See docs/tts.md for the full Windows walkthrough.
+# This pulls in PyTorch, a multi-GB download. It runs on CPU; for a GPU build,
+# install torch from https://pytorch.org/get-started/locally/ first.
+#
+# Synthesis is entirely optional. Without it the pipeline still runs, and any
+# phrase your source media does not contain is listed in the export checklist
+# for you to record by hand.
 
-coqui-tts>=0.24.0
-torch>=2.0
-torchaudio>=2.0
+chatterbox-tts>=0.1.7
+
+# Optional alternative backend: Coqui XTTS-v2 via the community-maintained fork
+# (the original `TTS` package is archived). Better multilingual coverage.
+#
+# Licence warning: the XTTS-v2 *weights* are under the Coqui Public Model
+# License, which permits non-commercial use only, and Coqui Inc. shut down in
+# 2024, so no one can grant you a commercial licence. The code is MPL-2.0; the
+# restriction is on the weights. Fine for a personal voice pack, a dead end for
+# anything published commercially.
+#
+# Uncomment to enable `--backend xtts`:
+#
+# coqui-tts>=0.27.0

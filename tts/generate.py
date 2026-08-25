@@ -3,6 +3,7 @@
 Equivalent to: python scripts/wvs.py synth
 
     python tts/generate.py --accept-voice-terms
+    python tts/generate.py --model nano --accept-voice-terms
     python tts/generate.py --only recalculating traffic_ahead --force
     python tts/generate.py --backend finetuned --model-path models/my-voice
 """
@@ -14,6 +15,8 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from dataclasses import replace  # noqa: E402
 
 from waze_voice import config as config_module  # noqa: E402
 from waze_voice import console  # noqa: E402
@@ -30,7 +33,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--backend",
         choices=synth.BACKENDS,
-        help="xtts clones from reference clips; finetuned loads your own checkpoint.",
+        help=(
+            "chatterbox (default) clones zero-shot from your reference clips; "
+            "xtts uses Coqui XTTS-v2, whose weights are non-commercial; "
+            "finetuned loads your own checkpoint."
+        ),
+    )
+    parser.add_argument(
+        "--model",
+        choices=synth.CHATTERBOX_MODELS,
+        help="Chatterbox variant. nano is fastest on CPU; turbo is the default.",
     )
     parser.add_argument(
         "--reference",
@@ -64,8 +76,12 @@ def main() -> int:
     args = parse_args()
     console.set_quiet(args.quiet)
 
+    cfg = config_module.load(args.config)
+    if args.model is not None:
+        cfg = replace(cfg, synth=replace(cfg.synth, model=args.model))
+
     result = synth.run(
-        config=config_module.load(args.config),
+        config=cfg,
         phrases_path=args.phrases,
         output_dir=args.output_dir,
         backend=args.backend,

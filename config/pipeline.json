@@ -45,8 +45,10 @@
   },
 
   "synth": {
-    "backend": "xtts",
-    "model_name": "tts_models/multilingual/multi-dataset/xtts_v2",
+    "backend": "chatterbox",
+    "model": "turbo",
+    "generate_options": {},
+    "coqui_model_name": "tts_models/multilingual/multi-dataset/xtts_v2",
     "language": "en",
     "reference_seconds": 12.0,
     "max_reference_clips": 12,

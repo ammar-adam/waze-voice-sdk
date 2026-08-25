@@ -52,7 +52,7 @@ Two optional extras, each isolated so nobody downloads PyTorch to cut a clip:
 | Extra | Enables | Install |
 | ----- | ------- | ------- |
 | [requirements-clean.txt](requirements-clean.txt) | Demucs vocal separation | `python -m pip install -r requirements-clean.txt` |
-| [requirements-tts.txt](requirements-tts.txt) | Coqui TTS synthesis | See [docs/tts.md](docs/tts.md) - **needs Python 3.9-3.11** |
+| [requirements-tts.txt](requirements-tts.txt) | Chatterbox voice synthesis | `python -m pip install -r requirements-tts.txt` |
 
 ## Quick start
 
@@ -84,7 +84,7 @@ your media  ->  extract  ->  clean  ->  synth  ->  normalize  ->  qa  ->  export
 | ---- | ------------ |
 | `extract` | Cuts each clip from your source media with ffmpeg. Validates every CSV row before touching a file. |
 | `clean` | Isolates the vocal. `ffmpeg` mode band-limits and denoises; `demucs` mode runs full source separation; `copy` passes through. |
-| `synth` | Generates phrases your source never contained, in the voice of your own cleaned clips. |
+| `synth` | Generates phrases your source never contained, in the voice of your own cleaned clips. Optional. |
 | `normalize` | Measures each clip and applies one static gain so every prompt lands on the same loudness. |
 | `qa` | Plays the pack back as a navigation route, chained the way Waze chains prompts. Records a pass/fail verdict per instruction. |
 | `export` | Ordered clips, a recording checklist, a pack manifest, and the import verification guide. |

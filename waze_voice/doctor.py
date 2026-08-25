@@ -65,15 +65,6 @@ def _python_check() -> list[Check]:
 
     if sys.version_info < (3, 10):
         checks[0] = Check("python", "missing", f"{version}; 3.10 or newer required")
-    elif sys.version_info >= (3, 12):
-        checks.append(
-            Check(
-                "python (for TTS)",
-                "warn",
-                f"{version}; Coqui TTS requires 3.9-3.11",
-                "synth step - create a separate 3.11 venv, see docs/tts.md",
-            )
-        )
     return checks
 
 
@@ -117,8 +108,14 @@ def collect() -> list[Check]:
     checks.append(_tool_check("ffprobe", "validation and loudness measurement", required=True))
     checks.append(_tool_check("ffplay", "qa playback (a WAV-only fallback exists)", required=False))
     checks.append(_module_check("demucs", "clean --mode demucs (use --mode ffmpeg instead)"))
-    checks.append(_module_check("TTS", "synth step", label="coqui-tts"))
-    checks.append(_module_check("torch", "demucs and TTS backends"))
+    checks.append(
+        _module_check("chatterbox", "synth step (the default backend)", label="chatterbox-tts")
+    )
+    checks.append(
+        _module_check("TTS", "synth --backend xtts (optional alternative)", label="coqui-tts")
+    )
+    checks.append(_module_check("torch", "demucs and synthesis backends"))
+    checks.append(_module_check("torchaudio", "writing synthesized clips"))
 
     gpu = _gpu_detail()
     if gpu is not None:

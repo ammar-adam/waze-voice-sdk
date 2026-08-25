@@ -4,10 +4,10 @@
 
 M0 and M1 are complete. The "Future Requirements" below are also complete: ffmpeg
 extraction, optional Demucs cleanup, loudness normalization, route-like QA playback,
-ordered recorder export, and optional TTS with rights and consent safeguards.
+ordered recorder export, and optional voice synthesis with rights and consent safeguards.
 
 The core pipeline still depends only on the Python standard library plus ffmpeg. Demucs and
-Coqui TTS are isolated optional extras, and every step degrades cleanly when they are
+the synthesis backend are isolated optional extras, and every step degrades cleanly when they are
 absent.
 
 Waze packaging claims remain deferred. No import mechanism has been verified on a real

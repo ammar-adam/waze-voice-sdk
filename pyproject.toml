@@ -22,8 +22,12 @@ dependencies = []
 
 [project.optional-dependencies]
 clean = ["demucs>=4.0.1", "torch>=2.0", "torchaudio>=2.0"]
-# Coqui TTS supports Python 3.9-3.11 only. Installing this extra on 3.12+ fails.
-tts = ["coqui-tts>=0.24.0", "torch>=2.0", "torchaudio>=2.0"]
+# Chatterbox is MIT licensed including its weights, and installs on current
+# Python. It brings its own torch/torchaudio pins.
+tts = ["chatterbox-tts>=0.1.7"]
+# Optional alternative backend. XTTS-v2 weights are non-commercial; see
+# docs/tts.md before relying on it.
+tts-xtts = ["coqui-tts>=0.27.0"]
 dev = ["ruff>=0.6", "mypy>=1.11"]
 
 [project.scripts]

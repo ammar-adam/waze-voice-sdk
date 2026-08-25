@@ -13,5 +13,5 @@
 # to cut a clip:
 #
 #     requirements-clean.txt   Demucs vocal separation  (clean --mode demucs)
-#     requirements-tts.txt     Coqui TTS synthesis      (synth step)
+#     requirements-tts.txt     Chatterbox synthesis     (synth step)
 #     requirements-dev.txt     linting and type checking

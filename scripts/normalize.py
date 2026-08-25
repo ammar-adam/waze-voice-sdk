@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+from dataclasses import replace
 from pathlib import Path
 
 import _bootstrap  # noqa: F401
@@ -33,21 +34,7 @@ def main() -> int:
 
     cfg = config_module.load(args.config)
     if args.lufs is not None:
-        cfg = config_module.PipelineConfig(
-            audio=cfg.audio,
-            loudness=config_module.LoudnessConfig(
-                target_lufs=args.lufs,
-                true_peak_db=cfg.loudness.true_peak_db,
-                loudness_range=cfg.loudness.loudness_range,
-                short_clip_seconds=cfg.loudness.short_clip_seconds,
-                tolerance_lu=cfg.loudness.tolerance_lu,
-            ),
-            trim=cfg.trim,
-            extract=cfg.extract,
-            clean=cfg.clean,
-            synth=cfg.synth,
-            qa=cfg.qa,
-        )
+        cfg = replace(cfg, loudness=replace(cfg.loudness, target_lufs=args.lufs))
 
     result = normalize.run(
         config=cfg,

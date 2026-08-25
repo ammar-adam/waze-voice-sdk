@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+from dataclasses import replace
 from pathlib import Path
 
 from . import config as config_module
@@ -55,6 +56,11 @@ def _add_clean(subparsers) -> None:
 def _add_synth(subparsers) -> None:
     parser = _common(subparsers.add_parser("synth", help="Synthesize phrases missing from source."))
     parser.add_argument("--backend", choices=synth.BACKENDS)
+    parser.add_argument(
+        "--model",
+        choices=synth.CHATTERBOX_MODELS,
+        help="Chatterbox variant. nano is the fastest on CPU; turbo is the default.",
+    )
     parser.add_argument("--output-dir", type=Path)
     parser.add_argument("--reference", type=Path, help="Speaker reference WAV. Built automatically if omitted.")
     parser.add_argument("--model-path", type=Path, help="Checkpoint directory for the 'finetuned' backend.")
@@ -115,6 +121,7 @@ def _add_run(subparsers) -> None:
     parser.add_argument("--to", dest="to_step", choices=PIPELINE_ORDER)
     parser.add_argument("--skip", nargs="+", choices=PIPELINE_ORDER, default=[])
     parser.add_argument("--no-tts", action="store_true", help="Do not attempt synthesis.")
+    parser.add_argument("--backend", choices=synth.BACKENDS, help="Synthesis backend.")
     parser.add_argument(
         "--accept-voice-terms",
         action="store_true",
@@ -149,24 +156,17 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def _load_config(args: argparse.Namespace) -> config_module.PipelineConfig:
+    """Load config/pipeline.json, then apply any per-run flag overrides."""
     cfg = config_module.load(getattr(args, "config", None))
+
     lufs = getattr(args, "lufs", None)
     if lufs is not None:
-        cfg = config_module.PipelineConfig(
-            audio=cfg.audio,
-            loudness=config_module.LoudnessConfig(
-                target_lufs=lufs,
-                true_peak_db=cfg.loudness.true_peak_db,
-                loudness_range=cfg.loudness.loudness_range,
-                short_clip_seconds=cfg.loudness.short_clip_seconds,
-                tolerance_lu=cfg.loudness.tolerance_lu,
-            ),
-            trim=cfg.trim,
-            extract=cfg.extract,
-            clean=cfg.clean,
-            synth=cfg.synth,
-            qa=cfg.qa,
-        )
+        cfg = replace(cfg, loudness=replace(cfg.loudness, target_lufs=lufs))
+
+    model = getattr(args, "model", None)
+    if model is not None:
+        cfg = replace(cfg, synth=replace(cfg.synth, model=model))
+
     return cfg
 
 
@@ -336,7 +336,7 @@ def cmd_run(args, cfg) -> int:
         failed = failed or not result.ok
 
     if "synth" in steps:
-        available, reason = synth.is_available()
+        available, reason = synth.is_available(args.backend or cfg.synth.backend)
         if not available:
             console.step("Synthesize")
             console.warn(f"Skipping synthesis: {reason}")
@@ -350,6 +350,7 @@ def cmd_run(args, cfg) -> int:
                 result = synth.run(
                     config=cfg,
                     phrases_path=args.phrases,
+                    backend=args.backend,
                     accept_voice_terms=args.accept_voice_terms,
                     force=args.force,
                 )

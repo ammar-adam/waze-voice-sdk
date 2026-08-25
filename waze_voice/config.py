@@ -81,9 +81,19 @@ class CleanConfig:
 
 @dataclass(frozen=True)
 class SynthConfig:
-    backend: str = "xtts"  # xtts | finetuned
-    model_name: str = "tts_models/multilingual/multi-dataset/xtts_v2"
+    backend: str = "chatterbox"  # chatterbox | xtts | finetuned
+    # Chatterbox variant: turbo (350M, the default), nano (110M, fastest on
+    # CPU), full (500M), multilingual (500M, 23+ languages).
+    model: str = "turbo"
+    # Passed straight through to the backend's generate call. Left open-ended
+    # rather than mapped to named fields so that a backend adding or renaming a
+    # knob does not require a change here. For Chatterbox the usual ones are
+    # exaggeration and cfg_weight.
+    generate_options: dict = field(default_factory=dict)
+    # Only used by the xtts backend.
+    coqui_model_name: str = "tts_models/multilingual/multi-dataset/xtts_v2"
     language: str = "en"
+    # Chatterbox is documented against a roughly ten-second reference clip.
     reference_seconds: float = 12.0
     max_reference_clips: int = 12
     device: str = "cpu"

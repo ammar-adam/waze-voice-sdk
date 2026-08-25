@@ -43,20 +43,22 @@ For a CUDA build, install torch from the selector at
 The default `--mode ffmpeg` needs none of this and handles room tone and hiss well enough
 for most dialogue. Reach for Demucs when a line is buried under music.
 
-## Optional: Coqui TTS
+## Optional: voice synthesis
 
-Needed only for the synthesis step, and it has a hard constraint:
-
-**Coqui TTS supports Python 3.9 to 3.11 only.** Use a separate virtual environment:
+Needed only for the synthesis step, which fills phrases your source media never said.
 
 ```powershell
-py -3.11 -m venv .venv-tts
-.venv-tts\Scripts\activate
 python -m pip install -r requirements-tts.txt
 ```
 
-Run synthesis from that environment and everything else from your normal one. Both use the
-same `audio/` directories. Full walkthrough in [tts.md](tts.md).
+That installs Chatterbox, which runs on the same interpreter as the rest of the pipeline
+(Python 3.10 to 3.13). No separate virtual environment needed. It pulls in PyTorch, so
+expect a multi-GB download; CPU is fine for a voice pack, which is a handful of
+one-second clips.
+
+Skip it entirely if you would rather record the missing lines yourself. The pipeline
+carries on without it and lists those phrases in the export checklist. Full walkthrough in
+[tts.md](tts.md).
 
 ## PowerShell notes
 

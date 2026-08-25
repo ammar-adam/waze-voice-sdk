@@ -88,14 +88,24 @@ the revert is reported. A noisy prompt is recoverable, a silent one is not.
 
 ### synth
 
-Fills phrases that have no audio anywhere. Default backend is XTTS-v2 speaker
-conditioning: it takes the user's own cleaned clips as a reference and speaks new lines
-in that voice without any training run. A navigation pack yields well under a minute of
-usable source audio, which is far below what fine-tuning needs and comfortably above what
-zero-shot conditioning needs.
+Fills phrases that have no audio anywhere. Default backend is Chatterbox zero-shot
+cloning: it takes the user's own cleaned clips as a reference and speaks new lines in that
+voice without any training run. A navigation pack yields well under a minute of usable
+source audio, far below what fine-tuning needs and comfortably above what zero-shot
+conditioning needs.
 
-The `finetuned` backend loads a checkpoint from `tts/train.py` for people with a genuinely
-large corpus. See [tts.md](tts.md).
+Chatterbox was chosen over XTTS-v2 and F5-TTS on licensing, not on quality or Python
+support. Both alternatives ship weights restricted to non-commercial use, and in Coqui's
+case the company that would have to grant a commercial licence no longer exists.
+Chatterbox is MIT including its weights. For a project whose premise is "bring audio you
+have the right to use", a default that silently caps every output at non-commercial would
+be the wrong trade. Both alternatives remain selectable via `--backend`. See [tts.md](tts.md).
+
+A backend is just a callable: speak this text, in this voice, to this file. Adding one
+means writing a loader that returns such a callable, which keeps model-specific API
+differences out of the step logic. Backend-specific generation knobs go through
+`synth.generate_options` untouched, so a library renaming a parameter does not require a
+change here.
 
 Synthesis is optional throughout. `wvs run` checks availability first and skips the step
 with one clear line rather than aborting the run, and any phrase left unfilled is carried
