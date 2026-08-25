@@ -55,6 +55,90 @@ class BackendAvailabilityTests(unittest.TestCase):
             synth.load_backend(config_module.PipelineConfig(), "telepathy")
         self.assertIn("telepathy", str(caught.exception))
 
+    def test_every_advertised_variant_has_a_loader(self) -> None:
+        self.assertEqual(set(synth.CHATTERBOX_MODELS), set(synth._CHATTERBOX_VARIANTS))
+
+
+class SignatureProbeTests(unittest.TestCase):
+    """Chatterbox's README and its shipped API have already disagreed once.
+
+    0.1.7 documents `from_pretrained(device=..., nano=True)` and a `t3_model`
+    argument, and accepts neither. Loading is signature-driven so that drift
+    produces a clear message rather than a TypeError from inside the library.
+    """
+
+    def test_accepted_kwargs_reads_a_signature(self) -> None:
+        def example(device, nano=False):
+            return None
+
+        self.assertEqual(synth._accepted_kwargs(example), {"device", "nano"})
+
+    def test_var_keyword_means_anything_goes(self) -> None:
+        def permissive(device, **kwargs):
+            return None
+
+        self.assertEqual(synth._accepted_kwargs(permissive), set())
+
+    def test_unsupported_variant_names_the_problem(self) -> None:
+        import sys
+        import types
+
+        class FakeTurbo:
+            sr = 24000
+
+            @classmethod
+            def from_pretrained(cls, device):  # no `nano` parameter
+                return cls()
+
+            def generate(self, text, audio_prompt_path=None):
+                return None
+
+        module = types.ModuleType("chatterbox.tts_turbo")
+        module.ChatterboxTurboTTS = FakeTurbo  # type: ignore[attr-defined]
+
+        config = config_module.PipelineConfig(
+            synth=config_module.SynthConfig(model="nano")
+        )
+        stubs = {"chatterbox.tts_turbo": module, "torchaudio": types.ModuleType("torchaudio")}
+        with mock.patch.dict(sys.modules, stubs):
+            with self.assertRaises(SystemExit) as caught:
+                synth._load_chatterbox(config)
+
+        message = str(caught.exception)
+        self.assertIn("nano", message)
+        self.assertIn("--model turbo", message)
+
+    def test_unknown_generate_option_is_rejected_up_front(self) -> None:
+        import sys
+        import types
+
+        class FakeTurbo:
+            sr = 24000
+
+            @classmethod
+            def from_pretrained(cls, device):
+                return cls()
+
+            def generate(self, text, audio_prompt_path=None, exaggeration=0.0):
+                return None
+
+        module = types.ModuleType("chatterbox.tts_turbo")
+        module.ChatterboxTurboTTS = FakeTurbo  # type: ignore[attr-defined]
+
+        config = config_module.PipelineConfig(
+            synth=config_module.SynthConfig(
+                model="turbo", generate_options={"emotion": 0.5}
+            )
+        )
+        stubs = {"chatterbox.tts_turbo": module, "torchaudio": types.ModuleType("torchaudio")}
+        with mock.patch.dict(sys.modules, stubs):
+            with self.assertRaises(SystemExit) as caught:
+                synth._load_chatterbox(config)
+
+        message = str(caught.exception)
+        self.assertIn("emotion", message)
+        self.assertIn("exaggeration", message, "the error should list what is supported")
+
 
 class ConsentGateTests(unittest.TestCase):
     def setUp(self) -> None:

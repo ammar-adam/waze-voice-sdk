@@ -149,8 +149,38 @@ def check_consent(*, accepted: bool, repo_root: Path | None = None) -> None:
 # --------------------------------------------------------------------------
 
 
+# module path, class name, extra from_pretrained kwargs
+_CHATTERBOX_VARIANTS: dict[str, tuple[str, str, dict[str, object]]] = {
+    "turbo": ("chatterbox.tts_turbo", "ChatterboxTurboTTS", {}),
+    "nano": ("chatterbox.tts_turbo", "ChatterboxTurboTTS", {"nano": True}),
+    "full": ("chatterbox.tts", "ChatterboxTTS", {}),
+    "multilingual": ("chatterbox.mtl_tts", "ChatterboxMultilingualTTS", {}),
+}
+
+
+def _accepted_kwargs(function) -> set[str]:
+    """Parameter names a callable will accept, or an empty set if it takes **kwargs."""
+    import inspect
+
+    try:
+        signature = inspect.signature(function)
+    except (TypeError, ValueError):
+        return set()
+    if any(p.kind is inspect.Parameter.VAR_KEYWORD for p in signature.parameters.values()):
+        return set()
+    return set(signature.parameters)
+
+
 def _load_chatterbox(config: PipelineConfig) -> Speaker:
-    """Zero-shot cloning with Chatterbox. Default backend."""
+    """Zero-shot cloning with Chatterbox. Default backend.
+
+    Loading is signature-driven rather than following the upstream README.
+    Chatterbox moves quickly and the two have already disagreed: 0.1.7's README
+    documents ``from_pretrained(device=..., nano=True)`` and a ``t3_model``
+    argument for the multilingual model, neither of which that release actually
+    accepts. Checking the real signature turns that into a clear message instead
+    of a TypeError from inside the library.
+    """
     variant = config.synth.model
     if variant not in CHATTERBOX_MODELS:
         raise SystemExit(
@@ -163,38 +193,73 @@ def _load_chatterbox(config: PipelineConfig) -> Speaker:
     except ImportError as error:
         raise SystemExit(f"Could not import torchaudio ({error}).\n{_CHATTERBOX_HINT}") from None
 
+    module_path, class_name, extra_load_kwargs = _CHATTERBOX_VARIANTS[variant]
     device = config.synth.device
+
     console.detail(f"Loading Chatterbox '{variant}' on {device}")
     console.detail("The first run downloads model weights; expect a wait.")
 
     try:
-        if variant == "multilingual":
-            from chatterbox.mtl_tts import (  # type: ignore[import-not-found]
-                ChatterboxMultilingualTTS,
-            )
+        module = __import__(module_path, fromlist=[class_name])
+        model_class = getattr(module, class_name)
+    except (ImportError, AttributeError) as error:
+        raise SystemExit(
+            f"Could not load the Chatterbox '{variant}' model ({error}).\n{_CHATTERBOX_HINT}"
+        ) from None
 
-            model = ChatterboxMultilingualTTS.from_pretrained(device=device, t3_model="v3")
-        elif variant == "full":
-            from chatterbox.tts import ChatterboxTTS  # type: ignore[import-not-found]
+    accepted = _accepted_kwargs(model_class.from_pretrained)
+    unsupported = [name for name in extra_load_kwargs if accepted and name not in accepted]
+    if unsupported:
+        raise SystemExit(
+            f"The installed Chatterbox does not support the '{variant}' variant "
+            f"(from_pretrained has no {', '.join(unsupported)} parameter).\n"
+            "Use --model turbo, or upgrade: python -m pip install -U chatterbox-tts"
+        )
 
-            model = ChatterboxTTS.from_pretrained(device=device)
-        else:
-            from chatterbox.tts_turbo import (  # type: ignore[import-not-found]
-                ChatterboxTurboTTS,
+    try:
+        model = model_class.from_pretrained(device=device, **extra_load_kwargs)
+    except Exception as error:  # noqa: BLE001 - the backend raises many types here
+        # Weights are fetched from Hugging Face on first use. A blocked or flaky
+        # connection is the single most common failure, and the raw traceback
+        # from deep inside huggingface_hub does not say what to do about it.
+        detail = str(error)
+        hint = ""
+        if any(
+            marker in detail
+            for marker in ("LocalEntryNotFound", "ConnectError", "connection", "Hub")
+        ):
+            hint = (
+                "\nThis looks like a network problem fetching model weights from "
+                "Hugging Face. They download once and are cached afterwards. Check "
+                "your connection or proxy, then re-run. To pre-fetch outside this "
+                "tool, set HF_HOME to a writable path and warm the cache first."
             )
+        raise SystemExit(
+            f"Could not load the Chatterbox '{variant}' model.\n{detail}{hint}"
+        ) from None
 
-            model = ChatterboxTurboTTS.from_pretrained(
-                device=device, **({"nano": True} if variant == "nano" else {})
-            )
-    except ImportError as error:
-        raise SystemExit(f"Could not import Chatterbox ({error}).\n{_CHATTERBOX_HINT}") from None
+    sample_rate = getattr(model, "sr", None)
+    if not sample_rate:
+        raise SystemExit(
+            "The Chatterbox model did not report a sample rate, so its output "
+            "cannot be written safely. This usually means an incompatible version."
+        )
 
     # Passed straight through to generate(). Kept open-ended rather than mapped
     # to named config fields, so a backend that adds or renames a knob does not
     # break this SDK. exaggeration and cfg_weight are the usual ones.
     extra = dict(config.synth.generate_options)
-    if variant == "multilingual":
+    generate_accepts = _accepted_kwargs(model.generate)
+    if generate_accepts and "language_id" in generate_accepts:
         extra.setdefault("language_id", config.synth.language)
+
+    rejected = sorted(name for name in extra if generate_accepts and name not in generate_accepts)
+    if rejected:
+        raise SystemExit(
+            f"synth.generate_options contains key(s) this Chatterbox version does "
+            f"not accept: {', '.join(rejected)}.\n"
+            f"Supported: {', '.join(sorted(generate_accepts - {'self', 'text'}))}"
+        )
 
     def speak(text: str, destination: Path, reference: Path | None) -> None:
         kwargs = dict(extra)
@@ -202,7 +267,7 @@ def _load_chatterbox(config: PipelineConfig) -> Speaker:
             kwargs["audio_prompt_path"] = str(reference)
         wav = model.generate(text, **kwargs)
         destination.parent.mkdir(parents=True, exist_ok=True)
-        torchaudio.save(str(destination), wav, model.sr)
+        torchaudio.save(str(destination), wav, sample_rate)
 
     return speak
 

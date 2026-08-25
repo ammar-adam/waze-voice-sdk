@@ -36,7 +36,10 @@ python scripts\wvs.py synth --accept-voice-terms
 That is the whole thing. It finds every required phrase with no audio anywhere, builds a
 speaker reference from your cleaned clips, and generates the missing lines.
 
-The first run downloads model weights. Subsequent runs are fast.
+The first run downloads model weights from Hugging Face, which is the step most likely to
+fail behind a proxy or a restricted network. If it does, the error says so and suggests
+warming the cache separately via `HF_HOME`. Weights are cached after the first success, so
+subsequent runs are fast and offline.
 
 ```powershell
 # See what would be generated, without loading a model
@@ -86,9 +89,16 @@ Set `synth.model` in [config/pipeline.json](../config/pipeline.json), or pass `-
 | Variant | Size | Notes |
 | ------- | ---- | ----- |
 | `turbo` | 350M | Default. English, low latency. |
-| `nano` | 110M | Fastest on CPU. Lower quality; good when you are iterating. |
+| `nano` | 110M | Fastest on CPU. **Not exposed by chatterbox-tts 0.1.7** - see below. |
 | `full` | 500M | English, highest quality of the English models. |
 | `multilingual` | 500M | 23+ languages. Set `synth.language` too. |
+
+Chatterbox's README and its shipped package have already drifted apart: 0.1.7's README
+documents `from_pretrained(device=..., nano=True)` and a `t3_model` argument for the
+multilingual model, and the installed 0.1.7 accepts neither. This SDK reads the real
+signature before calling, so asking for a variant your installed version does not have
+gives you a sentence saying so rather than a `TypeError` from inside the library. If a
+later release adds `nano`, `--model nano` starts working with no change here.
 
 Generation knobs such as `exaggeration` and `cfg_weight` go in
 `synth.generate_options`, which is passed straight through to the backend:
