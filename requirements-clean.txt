@@ -1,0 +1,14 @@
+# Optional: Demucs vocal separation for `clean --mode demucs`.
+#
+# Pulls in PyTorch, which is a multi-GB download. The default `--mode ffmpeg`
+# needs none of this and handles light background noise well enough for most
+# dialogue.
+#
+#     python -m pip install -r requirements-clean.txt
+#
+# For CUDA builds of torch, follow the selector at https://pytorch.org/get-started/locally/
+# before installing demucs.
+
+demucs>=4.0.1
+torch>=2.0
+torchaudio>=2.0

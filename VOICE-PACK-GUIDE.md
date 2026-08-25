@@ -1,49 +1,150 @@
-# Voice Pack Guide
+# Voice pack guide
 
-Use this workflow to build a legally usable custom navigation voice set.
+Building a pack, start to finish.
 
-## 1. Choose A Rights-Cleared Voice
+## 1. Pick a voice you can actually use
 
-Start with audio you can legally use and redistribute if you plan to publish it. Do not use copyrighted characters, actors, or celebrity voices without permission.
+Start with audio you have the right to use, and to redistribute if you plan to publish
+anything. Your own voice, someone who gave explicit permission, public-domain or
+permissively licensed material, or synthetic voices with clear rights.
 
-## 2. Update The Phrase Inventory
+Do not use copyrighted characters, actors, or celebrity voices without permission. See
+[LEGAL.md](LEGAL.md).
 
-Edit `config/phrases.json`. Each phrase has:
+## 2. Decide what the pack says
 
-- `id`: stable machine-readable prompt ID.
-- `label`: human-readable phrase.
-- `required`: whether the phrase must have a final clip.
-- `filename`: expected final filename in `audio/master`.
-- `status`: planning status such as `missing`, `sourced`, `synthesized`, or `final`.
-- `notes`: optional production notes.
+[config/phrases.json](config/phrases.json) is the inventory. Each entry:
 
-## 3. Track Source Candidates
+| Field | Meaning |
+| ----- | ------- |
+| `id` | Stable machine-readable prompt ID. Used in filenames and routes. |
+| `label` | Human-readable phrase, shown in checklists. |
+| `required` | Whether the pack is incomplete without it. |
+| `filename` | Final filename in `audio/master`. |
+| `status` | `missing`, `sourced`, `extracted`, `cleaned`, `synthesized`, or `final`. Maintained by the pipeline. |
+| `group` | `maneuver`, `distance`, `lane`, `arrival`, `alert`, or `misc`. Sets export order. |
+| `order` | Position within the group. |
+| `tts_text` | What synthesis should say, when it differs from the label. |
+| `notes` | Production notes. |
+| `aliases` | Alternative wordings, for your own reference. |
 
-Use `data/sources.sample.csv` as the format for your own source inventory. Keep private source files outside Git.
+The shipped list is conservative and was written before the current Waze prompt list was
+confirmed on a device. Adjust it to what your app actually asks for, and please record
+what you saw in [docs/waze-import-spike.md](docs/waze-import-spike.md).
 
-## 4. Produce Final Clips
+## 3. Find your clips
 
-Final clips should eventually be placed in `audio/master`. These files are ignored by Git.
-
-Initial target format:
-
-- MP3
-- Mono
-- 44100 Hz
-- Consistent navigation-friendly loudness
-
-## 5. Validate Coverage
-
-Run:
+Listen through your source media and note where each phrase occurs. Copy the sample CSV
+and fill it in:
 
 ```powershell
-python scripts/validate.py
+copy data\sources.sample.csv data\my-sources.csv
 ```
 
-Fix missing required clips before testing in Waze.
+```csv
+phrase_id,source_path,start,end,take,preferred,gain_db,notes
+turn_left,C:\media\episode-one.m4a,00:12:03.100,00:12:04.250,1,,,first attempt
+turn_left,C:\media\episode-one.m4a,00:41:55.000,00:41:56.100,2,1,,cleaner delivery
+```
 
-## 6. Import Into Waze
+Practical advice:
 
-Until a direct package import path is verified, use Waze's in-app custom voice recorder workflow and the future recorder export checklist.
+- **Grab several takes.** Cheap to note, and you will not know which one works until you
+  hear it in a route. Mark the winner with `preferred=1` later.
+- **Be generous with the boundaries.** Include a little air on each side; silence trimming
+  tidies it up, and a syllable cut short cannot be recovered.
+- **Prefer lines said in isolation.** A phrase over music can be rescued by Demucs, but a
+  clean one never needs rescuing.
+- **Watch the tone.** A line delivered as a question sounds wrong as a turn instruction,
+  however clean the audio is.
+- Rows are validated before any ffmpeg runs, so a typo fails immediately.
 
-Document any successful device workflow in `docs/waze-import-spike.md`.
+## 4. Run the pipeline
+
+```powershell
+python scripts\wvs.py run --sources data\my-sources.csv
+```
+
+Or step by step, which is what you will want while iterating:
+
+```powershell
+python scripts\wvs.py extract --sources data\my-sources.csv
+python scripts\wvs.py clean --mode demucs
+python scripts\wvs.py synth --accept-voice-terms
+python scripts\wvs.py normalize
+python scripts\wvs.py validate
+```
+
+Steps skip work that already exists; add `--force` to redo it.
+
+## 5. Fill the gaps
+
+Some phrases will not exist in your source. Three options:
+
+- **Synthesize them** in your own voice: `python scripts\wvs.py synth`. See
+  [docs/tts.md](docs/tts.md).
+- **Record them yourself** and drop the file into `audio/extracted/` as
+  `<phrase_id>__take1.wav`.
+- **Leave them.** They appear in the export checklist marked for manual recording in the
+  Waze app.
+
+## 6. Listen to it as a route
+
+The step most people skip, and the one that catches the problems.
+
+```powershell
+python scripts\wvs.py qa
+python scripts\wvs.py qa --route highway_merge
+python scripts\wvs.py qa --list-routes
+```
+
+Playback chains phrases the way Waze does, so you hear "In 500 meters, turn right" as one
+instruction. Mark each one pass or fail; verdicts are saved to `audio/qa-report.json`.
+
+What to listen for:
+
+- A prompt noticeably louder or quieter than its neighbours. Normalization should prevent
+  this; if one stands out, check whether validation flagged it as an outlier.
+- Clipped first or last syllables.
+- Two chained phrases that do not flow, usually a distance clip with too much trailing air.
+- Synthesized lines that are subtly too slow. Genuinely irritating at speed.
+
+For the real test, render the route and play it in the car:
+
+```powershell
+python scripts\wvs.py qa --render route.wav --bed road-noise.wav
+```
+
+## 7. Export and import
+
+```powershell
+python scripts\wvs.py export
+```
+
+You get ordered clips, `IMPORT_CHECKLIST.md`, `pack-manifest.json`, and
+`VERIFY-IMPORT-FIRST.md`.
+
+**Read the verification guide first.** It takes five minutes and tells you whether you
+need to record every prompt by hand. Then:
+
+```powershell
+python scripts\record_assist.py
+```
+
+See [docs/waze-import-workflow.md](docs/waze-import-workflow.md).
+
+## 8. Iterate
+
+Nothing here is one-shot. Fix a phrase and re-run just that phrase:
+
+```powershell
+python scripts\wvs.py extract --only turn_left --force --sources data\my-sources.csv
+python scripts\wvs.py clean --only turn_left --force
+python scripts\wvs.py normalize --only turn_left --force
+python scripts\wvs.py qa
+```
+
+## Keeping the repo clean
+
+Your media, clips, manifests, datasets, and model weights are all Git-ignored. Keep it
+that way. `git status` before pushing.

@@ -1,2 +1,6 @@
-phrase_id,source_path,start,end,take,notes
-turn_left,C:\path\to\rights-cleared-source.wav,00:00:01.000,00:00:02.200,1,Example only. Do not commit private media.
+phrase_id,source_path,start,end,take,preferred,gain_db,notes
+turn_left,C:\media\rights-cleared-source.wav,00:00:01.000,00:00:02.200,1,,,Example only. Keep your real source media outside the repo.
+turn_left,C:\media\rights-cleared-source.wav,00:04:12.500,00:04:13.600,2,1,,Second take is cleaner; preferred=1 makes this the one that ships.
+turn_right,C:\media\rights-cleared-source.wav,0:31.2,0:32.4,1,,,Timestamps accept HH:MM:SS.mmm, MM:SS.mmm, or plain seconds.
+keep_left,C:\media\episode-two.m4a,00:12:03.100,00:12:04.050,1,,2.5,gain_db lifts a quiet delivery before normalization measures it.
+arrived,C:\media\episode-two.m4a,00:41:55.000,00:41:56.900,1,,,Video files work too; the audio track is extracted automatically.

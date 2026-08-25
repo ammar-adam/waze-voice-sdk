@@ -1,10 +1,43 @@
 # Waze Voice SDK Build Plan
 
+## Status as of this build
+
+M0 through M7 are implemented. What shipped differs from the plan in a few places:
+
+- **Structure.** The plan had six independent scripts. They had already begun duplicating
+  and diverging on phrase loading, clip matching, and ffmpeg invocation, so the logic moved
+  into a `waze_voice/` package. The scripts remain as thin wrappers with their original
+  flags, and `scripts/wvs.py` was added to run the whole pipeline in one command.
+- **M3 cleanup** gained a third mode. `copy` and `demucs` were the plan; `ffmpeg`
+  (band-limit plus spectral denoise) is now the default, because it needs no PyTorch and
+  handles ordinary room tone. Demucs is for lines buried under music.
+- **M4 normalization** does not use single-pass `loudnorm`. It measures, then applies one
+  static gain, then verifies and corrects. Single-pass runs in dynamic mode and pumps on
+  short material. Short clips are padded with silence before measurement because EBU R128
+  gating cannot measure a 1.2 second prompt. See `docs/audio-targets.md`.
+- **M5 QA** models routes as steps containing one or more phrases, so playback chains
+  distance onto maneuver the way navigation actually speaks. It is interactive and records
+  a verdict per instruction, and can render a whole route to a file over a road-noise bed.
+- **M7 TTS** is implemented rather than stubbed, because a pack cannot be completed without
+  it unless the user records the gaps by hand. Default backend is XTTS-v2 zero-shot
+  conditioning; fine-tuning is available but discouraged at pack-sized corpora. It remains
+  fully optional and the pipeline degrades cleanly without it.
+- **Added, not planned:** `config/pipeline.json` so the audio targets live in one place,
+  `audio/build-manifest.json` for per-phrase provenance, `scripts/record_assist.py` for the
+  recorder workflow, `wvs doctor` for environment checks, and a test suite that generates
+  its own media so it runs in a fresh clone.
+
+Spike 0 is still open. No import method has been verified on a real device. The export step
+is built around that uncertainty rather than waiting on it: see
+`docs/waze-import-workflow.md`.
+
+M8 (demo) is not started.
+
 ## Project Direction
 
 Build a Windows-first open-source toolkit for preparing custom navigation voice clips for Waze-style custom voices. The public repo must stay generic and must not include copyrighted audio, character names, extracted clips, trained voice models, or demo videos.
 
-The private Paddington-style demo can use this toolkit locally, but it should remain outside the repository.
+A private character-voice demo can use this toolkit locally, but it must remain outside the repository.
 
 ## Critical Validation
 
@@ -260,8 +293,8 @@ Create the repo scaffold, .gitignore, README.md, LEGAL.md, PRD.md,
 VOICE-PACK-GUIDE.md, requirements.txt, config/phrases.json,
 config/routes.sample.json, data/sources.sample.csv, and scripts/validate.py.
 
-Keep the project generic. Do not mention Paddington in public-facing files except
-as an example of what must not be shipped. Do not include audio files, model
+Keep the project generic. Do not name specific copyrighted characters in
+public-facing files, except as examples of what must not be shipped. Do not include audio files, model
 weights, datasets, or copyrighted assets.
 
 Use Python 3.10+, pathlib, argparse, and JSON/CSV standard libraries only for M1.

@@ -1,0 +1,15 @@
+# Optional: Coqui TTS for the synthesis step.
+#
+# IMPORTANT: Coqui TTS supports Python 3.9-3.11. It does not install on 3.12+.
+# Keep it in its own virtual environment; the rest of the pipeline runs on any
+# supported interpreter:
+#
+#     py -3.11 -m venv .venv-tts
+#     .venv-tts\Scripts\activate
+#     python -m pip install -r requirements-tts.txt
+#
+# See docs/tts.md for the full Windows walkthrough.
+
+coqui-tts>=0.24.0
+torch>=2.0
+torchaudio>=2.0

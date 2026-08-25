@@ -1,18 +1,56 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
+  "description": "QA routes. A step is one spoken instruction; phrases inside a step are chained with a short breath gap, and steps are separated by a longer pause, which is how a real route sounds. A step may also be a bare phrase id, and the older flat 'phrases' list is still accepted.",
   "routes": [
     {
       "id": "basic_city_route",
       "label": "Basic city route",
-      "pause_seconds": 1.0,
-      "phrases": [
-        "in_500_meters",
-        "turn_right",
-        "in_200_meters",
-        "keep_left",
-        "now",
-        "turn_left",
-        "arrived"
+      "step_gap_seconds": 1.6,
+      "phrase_gap_seconds": 0.12,
+      "notes": "The everyday case. Listen for distance and maneuver clips that do not sit well together.",
+      "steps": [
+        { "say": ["in_500_meters", "turn_right"], "context": "Leaving the start" },
+        { "say": ["in_200_meters", "keep_left"], "context": "Approaching a fork" },
+        { "say": ["now", "turn_left"], "context": "Immediate maneuver" },
+        { "say": ["in_100_meters", "arrived"], "context": "Arrival" },
+        { "say": ["destination_right"], "context": "Final orientation" }
+      ]
+    },
+    {
+      "id": "highway_merge",
+      "label": "Highway merge and exit",
+      "step_gap_seconds": 2.2,
+      "notes": "Longer gaps, as at highway speed. Pair with --bed road-noise.wav to check intelligibility over engine and tyre noise.",
+      "steps": [
+        { "say": ["in_500_meters", "slight_right"], "context": "Merge lane" },
+        { "say": ["keep_right"], "context": "Holding the lane" },
+        { "say": ["in_500_meters", "slight_left"], "context": "Exit approach" },
+        { "say": ["in_200_meters", "keep_left"], "context": "Exit ramp" },
+        { "say": ["now", "turn_right"], "context": "Off the ramp" }
+      ]
+    },
+    {
+      "id": "reroute_and_arrive",
+      "label": "Missed turn, reroute, arrive",
+      "step_gap_seconds": 1.4,
+      "notes": "Exercises the awkward prompts. Recalculating fires right after a maneuver, so check that the two do not blur together.",
+      "steps": [
+        { "say": ["in_200_meters", "turn_left"], "context": "Instruction the driver misses" },
+        { "say": ["recalculating"], "context": "Fires immediately after the missed turn" },
+        { "say": ["make_u_turn"], "context": "Correction" },
+        { "say": ["in_100_meters", "turn_right"], "context": "Back on route" },
+        { "say": ["arrived", "destination_left"], "context": "Arrival, chained" }
+      ]
+    },
+    {
+      "id": "alerts_only",
+      "label": "Alert prompts",
+      "step_gap_seconds": 1.8,
+      "notes": "Optional prompts. Skip this route until the Waze alert prompt list is confirmed on a device.",
+      "steps": [
+        { "say": ["traffic_ahead"] },
+        { "say": ["accident_reported"] },
+        { "say": ["speed_camera_ahead"] }
       ]
     }
   ]

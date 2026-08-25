@@ -58,3 +58,11 @@ source-media/
 Thumbs.db
 .idea/
 .vscode/
+
+# Pipeline working state (generated, machine-specific)
+audio/.work/
+audio/build-manifest.json
+audio/qa-report.json
+
+# Local acknowledgement receipt written by the synthesis step
+.voice-consent

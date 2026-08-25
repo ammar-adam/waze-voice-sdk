@@ -1,13 +1,41 @@
-# TTS Experiments
+# TTS
 
-TTS is intentionally optional and not part of the base pipeline.
+Entry points for the synthesis step. The full walkthrough is [docs/tts.md](../docs/tts.md).
 
-Do not train or distribute models based on a person, performer, celebrity, or character voice unless you have the rights and consent required for that use.
+| Script | Purpose |
+| ------ | ------- |
+| `generate.py` | Synthesize the phrases missing from your source media. Same as `wvs.py synth`. |
+| `prepare_dataset.py` | Build an LJSpeech-style dataset from cleaned clips, and report whether you have enough audio to bother fine-tuning. |
+| `train.py` | Fine-tune a model. Rarely the right tool for a navigation pack; read its docstring first. |
 
-Future work may add:
+## Requirements
 
-- Dataset preparation helpers.
-- Training wrappers for a selected local TTS toolkit.
-- Generation scripts for missing navigation phrases.
+Coqui TTS, which supports **Python 3.9 to 3.11 only**. Use a separate virtual environment:
 
-No model weights, datasets, generated restricted voices, or checkpoints should be committed.
+```powershell
+py -3.11 -m venv .venv-tts
+.venv-tts\Scripts\activate
+python -m pip install -r requirements-tts.txt
+```
+
+The rest of the pipeline runs on any supported interpreter and does not depend on any of
+this. Synthesis is optional throughout: `wvs run` skips it with a clear message when it is
+unavailable, and unfilled phrases go into the export checklist for manual recording.
+
+## Default path
+
+```powershell
+python tts\generate.py --accept-voice-terms
+```
+
+XTTS-v2 conditions on your own cleaned clips and speaks new lines in that voice with no
+training run. For a pack's worth of source audio, this beats fine-tuning.
+
+## Rights and consent
+
+Do not train on, or clone, a person, performer, celebrity, or character voice without the
+rights and consent that use requires. The step asks you to acknowledge this once and
+records a local, Git-ignored receipt.
+
+No model weights, datasets, generated voices, or checkpoints belong in this repository.
+`datasets/`, `models/`, and the audio directories are all ignored.

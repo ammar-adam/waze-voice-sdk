@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "description": "Pipeline defaults. Every step reads these so extraction, synthesis, normalization, and QA agree on format without repeating flags. Delete any key to fall back to the built-in default.",
+
+  "audio": {
+    "sample_rate": 44100,
+    "channels": 1,
+    "intermediate_format": "wav",
+    "master_format": "mp3",
+    "master_bitrate": "128k"
+  },
+
+  "loudness": {
+    "target_lufs": -16.0,
+    "true_peak_db": -1.5,
+    "loudness_range": 11.0,
+    "short_clip_seconds": 3.0,
+    "tolerance_lu": 1.5
+  },
+
+  "trim": {
+    "enabled": true,
+    "threshold_db": -45.0,
+    "lead_in_ms": 60,
+    "lead_out_ms": 120,
+    "fade_ms": 15
+  },
+
+  "extract": {
+    "edge_fade_ms": 20,
+    "seek_preroll_seconds": 2.0,
+    "min_duration_seconds": 0.15,
+    "max_duration_seconds": 15.0
+  },
+
+  "clean": {
+    "mode": "ffmpeg",
+    "demucs_model": "htdemucs",
+    "demucs_device": "cpu",
+    "highpass_hz": 70,
+    "lowpass_hz": 12000,
+    "denoise": true,
+    "denoise_floor_db": -45.0,
+    "max_loss_lu": 12.0
+  },
+
+  "synth": {
+    "backend": "xtts",
+    "model_name": "tts_models/multilingual/multi-dataset/xtts_v2",
+    "language": "en",
+    "reference_seconds": 12.0,
+    "max_reference_clips": 12,
+    "device": "cpu"
+  },
+
+  "qa": {
+    "step_gap_seconds": 1.6,
+    "phrase_gap_seconds": 0.12,
+    "lead_silence_seconds": 0.4
+  }
+}

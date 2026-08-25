@@ -1,0 +1,5 @@
+# Optional: development tooling. Tests themselves use only unittest from the
+# standard library, so `python tests/run_tests.py` needs nothing installed.
+
+ruff>=0.6
+mypy>=1.11

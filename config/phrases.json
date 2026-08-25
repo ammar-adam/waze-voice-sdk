@@ -1,6 +1,6 @@
 {
-  "schema_version": 1,
-  "description": "Conservative starter phrase inventory. Confirm the current Waze app prompt list before treating this as complete.",
+  "schema_version": 2,
+  "description": "Conservative starter phrase inventory. Confirm the current Waze app prompt list on a real device before treating this as complete. Fields: id, label, required, filename, status, and the optional group, order, tts_text, notes, aliases. group and order set the export order; tts_text is what the synthesis step speaks when it differs from the display label.",
   "phrases": [
     {
       "id": "turn_left",
@@ -8,6 +8,9 @@
       "required": true,
       "filename": "turn_left.mp3",
       "status": "missing",
+      "group": "maneuver",
+      "order": 1,
+      "tts_text": "",
       "notes": ""
     },
     {
@@ -16,6 +19,9 @@
       "required": true,
       "filename": "turn_right.mp3",
       "status": "missing",
+      "group": "maneuver",
+      "order": 2,
+      "tts_text": "",
       "notes": ""
     },
     {
@@ -24,6 +30,9 @@
       "required": true,
       "filename": "keep_left.mp3",
       "status": "missing",
+      "group": "maneuver",
+      "order": 3,
+      "tts_text": "",
       "notes": ""
     },
     {
@@ -32,6 +41,9 @@
       "required": true,
       "filename": "keep_right.mp3",
       "status": "missing",
+      "group": "maneuver",
+      "order": 4,
+      "tts_text": "",
       "notes": ""
     },
     {
@@ -40,6 +52,9 @@
       "required": true,
       "filename": "slight_left.mp3",
       "status": "missing",
+      "group": "maneuver",
+      "order": 5,
+      "tts_text": "",
       "notes": ""
     },
     {
@@ -48,6 +63,9 @@
       "required": true,
       "filename": "slight_right.mp3",
       "status": "missing",
+      "group": "maneuver",
+      "order": 6,
+      "tts_text": "",
       "notes": ""
     },
     {
@@ -56,7 +74,10 @@
       "required": true,
       "filename": "make_u_turn.mp3",
       "status": "missing",
-      "notes": ""
+      "group": "maneuver",
+      "order": 7,
+      "tts_text": "Make a U turn",
+      "notes": "tts_text drops the hyphen: TTS front-ends often read 'U-turn' as a compound token."
     },
     {
       "id": "in_500_meters",
@@ -64,7 +85,10 @@
       "required": true,
       "filename": "in_500_meters.mp3",
       "status": "missing",
-      "notes": ""
+      "group": "distance",
+      "order": 1,
+      "tts_text": "In five hundred meters",
+      "notes": "Numerals are spelled out for TTS so the model does not read them digit by digit."
     },
     {
       "id": "in_200_meters",
@@ -72,6 +96,9 @@
       "required": true,
       "filename": "in_200_meters.mp3",
       "status": "missing",
+      "group": "distance",
+      "order": 2,
+      "tts_text": "In two hundred meters",
       "notes": ""
     },
     {
@@ -80,6 +107,9 @@
       "required": true,
       "filename": "in_100_meters.mp3",
       "status": "missing",
+      "group": "distance",
+      "order": 3,
+      "tts_text": "In one hundred meters",
       "notes": ""
     },
     {
@@ -88,7 +118,10 @@
       "required": true,
       "filename": "now.mp3",
       "status": "missing",
-      "notes": ""
+      "group": "distance",
+      "order": 4,
+      "tts_text": "",
+      "notes": "Chains directly onto a maneuver clip in QA routes, so keep it tight with no trailing air."
     },
     {
       "id": "arrived",
@@ -96,6 +129,9 @@
       "required": true,
       "filename": "arrived.mp3",
       "status": "missing",
+      "group": "arrival",
+      "order": 1,
+      "tts_text": "",
       "notes": ""
     },
     {
@@ -104,6 +140,9 @@
       "required": true,
       "filename": "destination_left.mp3",
       "status": "missing",
+      "group": "arrival",
+      "order": 2,
+      "tts_text": "",
       "notes": ""
     },
     {
@@ -112,6 +151,9 @@
       "required": true,
       "filename": "destination_right.mp3",
       "status": "missing",
+      "group": "arrival",
+      "order": 3,
+      "tts_text": "",
       "notes": ""
     },
     {
@@ -120,7 +162,10 @@
       "required": true,
       "filename": "recalculating.mp3",
       "status": "missing",
-      "notes": "Can be characterful instead of literal when legally produced."
+      "group": "misc",
+      "order": 1,
+      "tts_text": "",
+      "notes": "Can be characterful rather than literal when legally produced."
     },
     {
       "id": "traffic_ahead",
@@ -128,7 +173,10 @@
       "required": false,
       "filename": "traffic_ahead.mp3",
       "status": "missing",
-      "notes": "Optional until the Waze prompt list is confirmed."
+      "group": "alert",
+      "order": 1,
+      "tts_text": "",
+      "notes": "Optional until the Waze prompt list is confirmed on a real device."
     },
     {
       "id": "accident_reported",
@@ -136,7 +184,10 @@
       "required": false,
       "filename": "accident_reported.mp3",
       "status": "missing",
-      "notes": "Optional until the Waze prompt list is confirmed."
+      "group": "alert",
+      "order": 2,
+      "tts_text": "",
+      "notes": "Optional until the Waze prompt list is confirmed on a real device."
     },
     {
       "id": "speed_camera_ahead",
@@ -144,7 +195,10 @@
       "required": false,
       "filename": "speed_camera_ahead.mp3",
       "status": "missing",
-      "notes": "Optional until the Waze prompt list is confirmed."
+      "group": "alert",
+      "order": 3,
+      "tts_text": "",
+      "notes": "Optional until the Waze prompt list is confirmed on a real device."
     }
   ]
 }

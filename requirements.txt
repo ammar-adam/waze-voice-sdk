@@ -1,5 +1,17 @@
-# M0/M1 use only the Python standard library.
+# Core pipeline: Python standard library only.
 #
-# Future milestones may add:
-# ffmpeg-normalize
-# demucs
+# The audio work is done by ffmpeg, which is an external program rather than a
+# Python package. Install it separately:
+#
+#     winget install Gyan.FFmpeg
+#
+# Then confirm the whole environment with:
+#
+#     python scripts/wvs.py doctor
+#
+# Optional extras, each in its own file so nobody is forced to download PyTorch
+# to cut a clip:
+#
+#     requirements-clean.txt   Demucs vocal separation  (clean --mode demucs)
+#     requirements-tts.txt     Coqui TTS synthesis      (synth step)
+#     requirements-dev.txt     linting and type checking

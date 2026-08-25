@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "waze-voice-sdk"
+version = "0.2.0"
+description = "Windows-first toolkit for building custom navigation voice packs from your own audio."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+keywords = ["audio", "tts", "navigation", "voice", "ffmpeg"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: Microsoft :: Windows",
+  "Topic :: Multimedia :: Sound/Audio :: Editors",
+]
+
+# The core pipeline is standard library only. ffmpeg is an external program and
+# cannot be expressed here; `python scripts/wvs.py doctor` checks for it.
+dependencies = []
+
+[project.optional-dependencies]
+clean = ["demucs>=4.0.1", "torch>=2.0", "torchaudio>=2.0"]
+# Coqui TTS supports Python 3.9-3.11 only. Installing this extra on 3.12+ fails.
+tts = ["coqui-tts>=0.24.0", "torch>=2.0", "torchaudio>=2.0"]
+dev = ["ruff>=0.6", "mypy>=1.11"]
+
+[project.scripts]
+wvs = "waze_voice.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["waze_voice*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_unused_ignores = true
+ignore_missing_imports = true
