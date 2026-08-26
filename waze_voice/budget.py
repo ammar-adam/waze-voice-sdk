@@ -43,7 +43,6 @@ navigation prompt lives above 11 kHz.
 
 from __future__ import annotations
 
-import math
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -260,7 +259,8 @@ def _allocate_weighted(
         return plan
 
     def total_bytes(multiplier: float) -> int:
-        return sum(item.predicted_bytes for item in _solve_at(clips, multiplier, min_kbps, max_kbps, policy))
+        solved = _solve_at(clips, multiplier, min_kbps, max_kbps, policy)
+        return sum(item.predicted_bytes for item in solved)
 
     # Upper bound: comfortably past the point where every clip is at max_kbps.
     longest = max(clip.duration for clip in clips)

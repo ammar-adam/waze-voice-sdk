@@ -16,7 +16,9 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .. import console, media, paths, phrases as phrases_module, routes as routes_module
+from .. import console, media, paths
+from .. import phrases as phrases_module
+from .. import routes as routes_module
 from ..config import PipelineConfig
 
 PASS = "pass"
@@ -136,9 +138,15 @@ def run(
     route = book.get(route_id)
     master_dir = master_dir or paths.master_dir()
 
-    step_gap = route.step_gap_seconds if route.step_gap_seconds is not None else config.qa.step_gap_seconds
+    step_gap = (
+        route.step_gap_seconds
+        if route.step_gap_seconds is not None
+        else config.qa.step_gap_seconds
+    )
     phrase_gap = (
-        route.phrase_gap_seconds if route.phrase_gap_seconds is not None else config.qa.phrase_gap_seconds
+        route.phrase_gap_seconds
+        if route.phrase_gap_seconds is not None
+        else config.qa.phrase_gap_seconds
     )
 
     result = QAResult(route_id=route.id)
@@ -268,7 +276,10 @@ def run(
     console.info(f"QA complete: {passed} passed, {failed} failed, {total} step(s) in route.")
 
     if result.failed_phrase_ids:
-        console.bullets("Phrases marked fail (re-cut, re-clean, or re-synthesize):", result.failed_phrase_ids)
+        console.bullets(
+            "Phrases marked fail (re-cut, re-clean, or re-synthesize):",
+            result.failed_phrase_ids,
+        )
 
     return result
 

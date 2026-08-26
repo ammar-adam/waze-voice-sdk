@@ -180,7 +180,10 @@ def main() -> int:
 
     done = sum(1 for value in recorded.values() if value == "done")
     console.info("")
-    console.info(f"Recorded {done} of {len(clips)} prompt(s). Progress saved to {progress_path.name}.")
+    console.info(
+        f"Recorded {done} of {len(clips)} prompt(s). "
+        f"Progress saved to {progress_path.name}."
+    )
     console.info("Resume later with: python scripts/record_assist.py --resume")
     console.info("")
     console.info(

@@ -8,9 +8,10 @@ through this module.
 from __future__ import annotations
 
 import json
+from collections.abc import Iterable
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 
 from . import paths, wazepack
 
@@ -76,7 +77,9 @@ class Phrase:
 
     @property
     def sort_key(self) -> tuple[int, int, str]:
-        group_index = GROUP_ORDER.index(self.group) if self.group in GROUP_ORDER else len(GROUP_ORDER)
+        group_index = (
+            GROUP_ORDER.index(self.group) if self.group in GROUP_ORDER else len(GROUP_ORDER)
+        )
         return (group_index, self.order if self.order is not None else 10_000, self.id)
 
 

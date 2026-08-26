@@ -11,19 +11,14 @@ Short clips get special handling. See :func:`waze_voice.media.measure_loudness`.
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Iterable
 
-from .. import (
-    console,
-    manifest as manifest_module,
-    media,
-    paths,
-    phrases as phrases_module,
-    sources as sources_module,
-    takes,
-)
+from .. import console, media, paths, takes
+from .. import manifest as manifest_module
+from .. import phrases as phrases_module
+from .. import sources as sources_module
 from ..config import PipelineConfig
 
 # Residual error worth a second render. Well inside audibility, but tight enough

@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Iterable, Sequence
 
-from .. import console, manifest as manifest_module, media, paths, phrases as phrases_module, sources
+from .. import console, media, paths, sources
+from .. import manifest as manifest_module
+from .. import phrases as phrases_module
 from ..config import PipelineConfig
 
 

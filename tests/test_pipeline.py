@@ -16,7 +16,8 @@ from pathlib import Path
 import fixtures
 
 from waze_voice import config as config_module
-from waze_voice import console, manifest as manifest_module, media, paths, wazepack
+from waze_voice import console, media, paths, wazepack
+from waze_voice import manifest as manifest_module
 from waze_voice.steps import clean, export, extract, normalize, qa, validate
 
 HAVE_FFMPEG = media.find_tool("ffmpeg") is not None and media.find_tool("ffprobe") is not None
@@ -242,6 +243,44 @@ class PipelineTests(unittest.TestCase):
             turn.bitrate_kbps,
             "a long, rarely heard clip should not outrank a short, frequent one",
         )
+
+    def test_synthesized_clips_are_labelled_from_the_manifest(self) -> None:
+        """Normalization rewrites every status to "final".
+
+        So the inventory can no longer distinguish a synthesized clip from a cut
+        one by export time, and reading `phrase.status` here silently labelled
+        every synthetic prompt as source media. Provenance comes from the build
+        manifest instead.
+        """
+        built = manifest_module.Manifest.load()
+        record = built.record("arrived")
+        original_origin = record.origin
+        record.origin = manifest_module.ORIGIN_SYNTHESIZED
+        built.save()
+        try:
+            target = self.audio_root / "export-origin"
+            result = export.run(
+                config=self.config,
+                phrases_path=self.phrases_path,
+                export_dir=target,
+                allow_missing=True,
+            )
+            arrived = next(item for item in result.files if item.phrase.id == "arrived")
+            self.assertTrue(arrived.is_synthesized)
+            self.assertEqual(arrived.origin_label, "synthesized")
+
+            turn = next(item for item in result.files if item.phrase.id == "turn_left")
+            self.assertFalse(turn.is_synthesized)
+            self.assertEqual(turn.origin_label, "source media")
+
+            checklist = (target / export.CHECKLIST_NAME).read_text(encoding="utf-8")
+            self.assertIn("## Synthesized prompts", checklist)
+        finally:
+            # Restore on the same instance that gets saved; other tests in this
+            # class share the manifest.
+            restored = manifest_module.Manifest.load()
+            restored.record("arrived").origin = original_origin
+            restored.save()
 
     def test_export_writes_the_upload_paperwork(self) -> None:
         export_dir = paths.export_dir()

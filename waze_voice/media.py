@@ -10,9 +10,9 @@ import json
 import re
 import shutil
 import subprocess
+from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Sequence
 
 from . import console
 
@@ -201,8 +201,7 @@ def measure_loudness(
         text=True,
         encoding="utf-8",
         errors="replace",
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        capture_output=True,
     )
     if result.returncode != 0:
         tail = "\n".join((result.stderr or "").strip().splitlines()[-10:])

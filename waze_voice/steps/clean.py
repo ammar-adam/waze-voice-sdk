@@ -19,11 +19,12 @@ from __future__ import annotations
 
 import shutil
 import sys
+from collections.abc import Iterable, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Iterable, Sequence
 
-from .. import console, manifest as manifest_module, media, paths, sources
+from .. import console, media, paths, sources
+from .. import manifest as manifest_module
 from ..config import PipelineConfig
 
 MODES = ("copy", "ffmpeg", "demucs")

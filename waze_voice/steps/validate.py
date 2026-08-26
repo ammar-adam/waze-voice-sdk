@@ -18,16 +18,11 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from .. import (
-    budget as budget_module,
-    console,
-    manifest as manifest_module,
-    media,
-    paths,
-    phrases as phrases_module,
-    sources as sources_module,
-    wazepack,
-)
+from .. import budget as budget_module
+from .. import console, media, paths, wazepack
+from .. import manifest as manifest_module
+from .. import phrases as phrases_module
+from .. import sources as sources_module
 from ..config import PipelineConfig
 
 

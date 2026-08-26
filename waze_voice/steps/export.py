@@ -29,15 +29,10 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .. import (
-    budget as budget_module,
-    console,
-    manifest as manifest_module,
-    media,
-    paths,
-    phrases as phrases_module,
-    wazepack,
-)
+from .. import budget as budget_module
+from .. import console, media, paths, wazepack
+from .. import manifest as manifest_module
+from .. import phrases as phrases_module
 from ..config import PipelineConfig
 
 PACK_DIRNAME = "pack"
@@ -58,10 +53,26 @@ class PackFile:
     source: Path
     destination: Path
     allocation: budget_module.Allocation
+    # Read from the build manifest, not from the phrase's status: normalization
+    # rewrites every status to "final", so by export time the inventory can no
+    # longer tell a synthesized clip from a cut one.
+    origin: str = ""
 
     @property
     def bytes(self) -> int:
         return self.allocation.bytes
+
+    @property
+    def is_synthesized(self) -> bool:
+        return self.origin == manifest_module.ORIGIN_SYNTHESIZED
+
+    @property
+    def origin_label(self) -> str:
+        return {
+            manifest_module.ORIGIN_SYNTHESIZED: "synthesized",
+            manifest_module.ORIGIN_EXTRACTED: "source media",
+            manifest_module.ORIGIN_MANUAL: "manual",
+        }.get(self.origin, "unknown")
 
 
 @dataclass
@@ -233,14 +244,13 @@ def _checklist(result: ExportResult, config: PipelineConfig) -> str:
         result.files, key=lambda item: wazepack.FILENAME_ORDER.get(item.slot.filename, 999)
     )
     for item in ordered:
-        origin = "synthesized" if item.phrase.status == "synthesized" else "source media"
         rate = f"{item.allocation.bitrate_kbps}"
         if item.allocation.sample_rate != budget_module.SAMPLE_RATE_FULL:
             rate += f" @{item.allocation.sample_rate // 1000}k"
         lines.append(
             f"| `{item.slot.filename}` | {item.phrase.label} | "
             f'"{item.phrase.speech_text}" | {item.allocation.duration:.2f}s | '
-            f"{rate} | {_fmt_kb(item.bytes)} | {origin} |"
+            f"{rate} | {_fmt_kb(item.bytes)} | {item.origin_label} |"
         )
 
     if result.missing_core:
@@ -263,6 +273,20 @@ def _checklist(result: ExportResult, config: PipelineConfig) -> str:
         lines += ["", "## Missing, optional", ""]
         for phrase in result.missing_optional:
             lines.append(f"- `{phrase.waze_filename}` - {phrase.label}")
+
+    synthetic = [item for item in result.files if item.is_synthesized]
+    if synthetic:
+        lines += [
+            "",
+            "## Synthesized prompts",
+            "",
+            "These were not in your source media and were generated to match your",
+            "voice. Listen to each one before uploading: synthetic lines drift in pace",
+            "and emphasis more than cut audio does.",
+            "",
+        ]
+        for item in synthetic:
+            lines.append(f"- {item.phrase.label} (`{item.slot.filename}`)")
 
     if result.dropped_for_budget:
         lines += [
@@ -435,6 +459,7 @@ def _pack_manifest(result: ExportResult, config: PipelineConfig) -> dict:
                 "sample_rate": item.allocation.sample_rate,
                 "bytes": item.bytes,
                 "weight": item.phrase.weight,
+                "origin": item.origin_label,
             }
             for item in sorted(
                 result.files,
@@ -484,6 +509,7 @@ def run(
     inventory = phrases_module.load(phrases_path)
     master_dir = master_dir or paths.master_dir()
     export_dir = export_dir or paths.export_dir()
+    build = manifest_module.Manifest.load()
 
     result = ExportResult(units=units)
 
@@ -562,6 +588,7 @@ def run(
         allocation = plan.get(slot.filename)
         if allocation is None:
             continue
+        record = build.get(phrase.id)
         result.files.append(
             PackFile(
                 slot=slot,
@@ -569,6 +596,7 @@ def run(
                 source=source,
                 destination=pack_dir / slot.filename,
                 allocation=allocation,
+                origin=record.origin if record else "",
             )
         )
 

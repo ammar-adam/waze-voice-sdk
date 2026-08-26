@@ -7,8 +7,7 @@ SDK never prints non-ASCII characters. Every user-facing line goes through here.
 from __future__ import annotations
 
 import sys
-from typing import Iterable
-
+from collections.abc import Iterable
 
 _QUIET = False
 
@@ -70,7 +69,8 @@ def table(rows: list[tuple[str, ...]], headers: tuple[str, ...]) -> None:
             widths[index] = max(widths[index], len(str(cell)))
 
     def render(cells: tuple[str, ...]) -> str:
-        return "  ".join(str(cell).ljust(widths[index]) for index, cell in enumerate(cells)).rstrip()
+        padded = (str(cell).ljust(widths[index]) for index, cell in enumerate(cells))
+        return "  ".join(padded).rstrip()
 
     print(render(headers))
     print("  ".join("-" * width for width in widths))

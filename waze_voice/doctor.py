@@ -12,7 +12,6 @@ import importlib.util
 import platform
 import sys
 from dataclasses import dataclass
-from pathlib import Path
 
 from . import console, media, paths
 
@@ -63,7 +62,9 @@ def _python_check() -> list[Check]:
     version = f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
     checks = [Check("python", "ok", f"{version} ({platform.python_implementation()})")]
 
-    if sys.version_info < (3, 10):
+    # Unreachable if the interpreter is new enough to import this package at
+    # all, but doctor is exactly where someone on an old Python looks first.
+    if sys.version_info < (3, 10):  # noqa: UP036
         checks[0] = Check("python", "missing", f"{version}; 3.10 or newer required")
     return checks
 

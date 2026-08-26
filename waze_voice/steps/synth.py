@@ -29,18 +29,13 @@ from __future__ import annotations
 
 import importlib.util
 import sys
+from collections.abc import Callable, Iterable
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Callable, Iterable
 
-from .. import (
-    console,
-    manifest as manifest_module,
-    media,
-    paths,
-    phrases as phrases_module,
-    takes,
-)
+from .. import console, media, paths, takes
+from .. import manifest as manifest_module
+from .. import phrases as phrases_module
 from ..config import PipelineConfig
 
 BACKENDS = ("chatterbox", "xtts", "finetuned")

@@ -75,7 +75,7 @@ class Manifest:
     # -- lifecycle ---------------------------------------------------------
 
     @classmethod
-    def load(cls, path: Path | None = None) -> "Manifest":
+    def load(cls, path: Path | None = None) -> Manifest:
         path = path or paths.manifest_path()
         if not path.is_file():
             return cls(path=path)

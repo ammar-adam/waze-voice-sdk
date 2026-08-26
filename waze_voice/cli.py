@@ -16,9 +16,8 @@ import sys
 from dataclasses import replace
 from pathlib import Path
 
-from . import budget
+from . import budget, console, doctor, paths
 from . import config as config_module
-from . import console, doctor, paths
 from .steps import clean, export, extract, normalize, qa, synth, validate
 
 PIPELINE_ORDER = ["extract", "clean", "synth", "normalize", "validate", "export"]
@@ -63,11 +62,21 @@ def _add_synth(subparsers) -> None:
         help="Chatterbox variant. nano is the fastest on CPU; turbo is the default.",
     )
     parser.add_argument("--output-dir", type=Path)
-    parser.add_argument("--reference", type=Path, help="Speaker reference WAV. Built automatically if omitted.")
-    parser.add_argument("--model-path", type=Path, help="Checkpoint directory for the 'finetuned' backend.")
-    parser.add_argument("--model-config", type=Path, help="config.json for the 'finetuned' backend.")
+    parser.add_argument(
+        "--reference",
+        type=Path,
+        help="Speaker reference WAV. Built automatically if omitted.",
+    )
+    parser.add_argument(
+        "--model-path", type=Path, help="Checkpoint directory for the 'finetuned' backend."
+    )
+    parser.add_argument(
+        "--model-config", type=Path, help="config.json for the 'finetuned' backend."
+    )
     parser.add_argument("--only", nargs="+", metavar="PHRASE_ID")
-    parser.add_argument("--include-optional", action="store_true", help="Also fill optional phrases.")
+    parser.add_argument(
+        "--include-optional", action="store_true", help="Also fill optional phrases."
+    )
     parser.add_argument(
         "--accept-voice-terms",
         action="store_true",
@@ -78,8 +87,12 @@ def _add_synth(subparsers) -> None:
 
 
 def _add_normalize(subparsers) -> None:
-    parser = _common(subparsers.add_parser("normalize", help="Loudness-normalize into audio/master."))
-    parser.add_argument("--sources", type=Path, help="Source CSV, read for take preferences.")
+    parser = _common(
+        subparsers.add_parser("normalize", help="Loudness-normalize into audio/master.")
+    )
+    parser.add_argument(
+        "--sources", type=Path, help="Source CSV, read for take preferences."
+    )
     parser.add_argument("--output-dir", type=Path)
     parser.add_argument("--only", nargs="+", metavar="PHRASE_ID")
     parser.add_argument("--lufs", type=float, help="Override the loudness target.")
@@ -89,12 +102,23 @@ def _add_normalize(subparsers) -> None:
 def _add_qa(subparsers) -> None:
     parser = _common(subparsers.add_parser("qa", help="Audition the pack as a route."))
     parser.add_argument("--routes", type=Path)
-    parser.add_argument("--route", dest="route_id", help="Route id. Defaults to the first route.")
+    parser.add_argument(
+        "--route", dest="route_id", help="Route id. Defaults to the first route."
+    )
     parser.add_argument("--master-dir", type=Path)
-    parser.add_argument("--render", type=Path, metavar="OUT.wav", help="Render the route to a file instead of playing it.")
-    parser.add_argument("--bed", type=Path, help="Background bed to mix under a render, e.g. road noise.")
+    parser.add_argument(
+        "--render",
+        type=Path,
+        metavar="OUT.wav",
+        help="Render the route to a file instead of playing it.",
+    )
+    parser.add_argument(
+        "--bed", type=Path, help="Background bed to mix under a render, e.g. road noise."
+    )
     parser.add_argument("--bed-db", type=float, default=-20.0)
-    parser.add_argument("--auto", action="store_true", help="Play straight through without prompting.")
+    parser.add_argument(
+        "--auto", action="store_true", help="Play straight through without prompting."
+    )
     parser.add_argument("--dry-run", action="store_true", help="Print the sequence only.")
     parser.add_argument("--list-routes", action="store_true")
 
@@ -164,7 +188,9 @@ def build_parser() -> argparse.ArgumentParser:
     _add_validate(subparsers)
     _add_run(subparsers)
 
-    dataset = _common(subparsers.add_parser("dataset", help="Build an LJSpeech dataset for fine-tuning."))
+    dataset = _common(
+        subparsers.add_parser("dataset", help="Build an LJSpeech dataset for fine-tuning.")
+    )
     dataset.add_argument("--source-dir", type=Path)
     dataset.add_argument("--output-dir", type=Path)
 

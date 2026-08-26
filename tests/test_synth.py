@@ -100,9 +100,8 @@ class SignatureProbeTests(unittest.TestCase):
             synth=config_module.SynthConfig(model="nano")
         )
         stubs = {"chatterbox.tts_turbo": module, "torchaudio": types.ModuleType("torchaudio")}
-        with mock.patch.dict(sys.modules, stubs):
-            with self.assertRaises(SystemExit) as caught:
-                synth._load_chatterbox(config)
+        with mock.patch.dict(sys.modules, stubs), self.assertRaises(SystemExit) as caught:
+            synth._load_chatterbox(config)
 
         message = str(caught.exception)
         self.assertIn("nano", message)
@@ -131,9 +130,8 @@ class SignatureProbeTests(unittest.TestCase):
             )
         )
         stubs = {"chatterbox.tts_turbo": module, "torchaudio": types.ModuleType("torchaudio")}
-        with mock.patch.dict(sys.modules, stubs):
-            with self.assertRaises(SystemExit) as caught:
-                synth._load_chatterbox(config)
+        with mock.patch.dict(sys.modules, stubs), self.assertRaises(SystemExit) as caught:
+            synth._load_chatterbox(config)
 
         message = str(caught.exception)
         self.assertIn("emotion", message)
@@ -198,13 +196,15 @@ class DegradationTests(unittest.TestCase):
         self.assertEqual(result.synthesized, [])
 
     def test_missing_backend_exits_with_guidance_not_a_traceback(self) -> None:
-        with mock.patch.object(synth, "_module_present", return_value=False):
-            with self.assertRaises(SystemExit) as caught:
-                synth.run(
-                    config=self.config,
-                    phrases_path=self.phrases_path,
-                    accept_voice_terms=True,
-                )
+        with (
+            mock.patch.object(synth, "_module_present", return_value=False),
+            self.assertRaises(SystemExit) as caught,
+        ):
+            synth.run(
+                config=self.config,
+                phrases_path=self.phrases_path,
+                accept_voice_terms=True,
+            )
         message = str(caught.exception)
         self.assertIn("not installed", message)
         self.assertIn("requirements-tts.txt", message)
