@@ -86,6 +86,11 @@ step measures loudness before and after; if the clip lost more than
 `clean.max_loss_lu`, or went silent, the processed file is replaced with the original and
 the revert is reported. A noisy prompt is recoverable, a silent one is not.
 
+The guard covers Demucs too, and there it fires for a different reason: Demucs keeps what
+it recognises as a vocal and discards everything else, so pointing it at material that is
+not speech returns near-silence for the whole batch. Reverts across most of a batch mean
+the source is wrong for the mode, not that the clips are bad.
+
 ### synth
 
 Fills phrases that have no audio anywhere. Default backend is Chatterbox zero-shot

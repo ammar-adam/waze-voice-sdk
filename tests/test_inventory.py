@@ -261,8 +261,8 @@ class TakeResolutionTests(unittest.TestCase):
         self.assertEqual(found.origin, "processed")
 
     def test_synthesized_used_when_no_source_clip(self) -> None:
-        self._touch("synthesized", "recalculating.wav")
-        found = takes.find("recalculating", audio_root=self.audio)
+        self._touch("synthesized", "and_then.wav")
+        found = takes.find("and_then", audio_root=self.audio)
         assert found is not None
         self.assertTrue(found.is_synthesized)
         self.assertIsNone(found.take)

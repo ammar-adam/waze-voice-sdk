@@ -4,7 +4,7 @@ Equivalent to: python scripts/wvs.py synth
 
     python tts/generate.py --accept-voice-terms
     python tts/generate.py --model nano --accept-voice-terms
-    python tts/generate.py --only recalculating traffic_ahead --force
+    python tts/generate.py --only and_then traffic_ahead --force
     python tts/generate.py --backend finetuned --model-path models/my-voice
 """
 

@@ -292,8 +292,15 @@ def run(
             "Reverted to the unprocessed clip (cleaning was destroying the signal):",
             result.reverted,
         )
-        console.detail(
-            "Lower clean.denoise_floor_db in config/pipeline.json, or use "
-            "--mode demucs, if these clips genuinely need cleaning."
-        )
+        if mode == "demucs":
+            console.detail(
+                "Demucs keeps only what it recognises as a vocal. Reverts across "
+                "most of a batch usually mean the source is not speech, or is too "
+                "short for the model to latch onto. Try --mode ffmpeg."
+            )
+        else:
+            console.detail(
+                "Lower clean.denoise_floor_db in config/pipeline.json, or try "
+                "--mode demucs, if these clips genuinely need cleaning."
+            )
     return result
