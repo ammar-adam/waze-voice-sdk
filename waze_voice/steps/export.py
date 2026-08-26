@@ -498,6 +498,9 @@ def _pack_manifest(result: ExportResult, config: PipelineConfig) -> dict:
         "schema_version": 2,
         "generator": "waze-voice-sdk",
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        # Which pack built this. Several exports look identical otherwise, and
+        # they all carry the same Waze filenames by design.
+        "pack": paths.active_pack(),
         "units": result.units,
         "budget": {
             "limit_bytes": plan.budget_bytes,

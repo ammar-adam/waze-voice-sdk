@@ -48,6 +48,7 @@ def main() -> int:
     console.set_quiet(args.quiet)
     if args.pack:
         paths.set_active_pack(args.pack)
+        console.detail(f"Pack: {args.pack}")
 
     result = validate.run(
         config=config_module.load(args.config),

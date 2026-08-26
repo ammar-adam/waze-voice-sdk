@@ -37,6 +37,7 @@ def main() -> int:
     console.set_quiet(args.quiet)
     if args.pack:
         paths.set_active_pack(args.pack)
+        console.detail(f"Pack: {args.pack}")
 
     cfg = config_module.load(args.config)
     if args.lufs is not None:

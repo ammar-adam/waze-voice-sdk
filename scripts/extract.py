@@ -35,6 +35,7 @@ def main() -> int:
     console.set_quiet(args.quiet)
     if args.pack:
         paths.set_active_pack(args.pack)
+        console.detail(f"Pack: {args.pack}")
     result = extract.run(
         config=config_module.load(args.config),
         sources_path=args.sources,

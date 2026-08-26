@@ -40,6 +40,7 @@ def main() -> int:
     console.set_quiet(args.quiet)
     if args.pack:
         paths.set_active_pack(args.pack)
+        console.detail(f"Pack: {args.pack}")
 
     if args.list_routes:
         book = routes_module.load(args.routes)
