@@ -16,7 +16,7 @@ import sys
 from dataclasses import replace
 from pathlib import Path
 
-from . import budget, console, doctor, media, packs, paths, providers
+from . import budget, console, doctor, media, packs, paths, presets, providers
 from . import config as config_module
 from .steps import clean, export, extract, normalize, qa, synth, validate
 
@@ -175,6 +175,7 @@ def _add_run(subparsers) -> None:
     parser.add_argument("--no-tts", action="store_true", help="Do not attempt synthesis.")
     parser.add_argument("--backend", choices=synth.BACKENDS, help="Synthesis backend.")
     parser.add_argument("--voice", help="Voice id for a hosted synthesis backend.")
+    parser.add_argument("--preset", help="Character preset. See: wvs presets list")
     parser.add_argument(
         "--accept-voice-terms",
         action="store_true",
@@ -215,8 +216,30 @@ def build_parser() -> argparse.ArgumentParser:
     _add_pack(subparsers)
     _add_voices(subparsers)
     _add_quickstart(subparsers)
+    _add_presets(subparsers)
 
     return parser
+
+
+def _add_presets(subparsers) -> None:
+    parser = subparsers.add_parser(
+        "presets", help="Character presets: a voice, a direction, and 43 lines."
+    )
+    actions = parser.add_subparsers(dest="presets_command", required=True)
+
+    listing = actions.add_parser("list", help="Show every preset.")
+    listing.add_argument("--quiet", action="store_true")
+
+    show = actions.add_parser("show", help="One preset in full, including its rights.")
+    show.add_argument("name")
+    show.add_argument("--lines", action="store_true", help="Print all 43 lines.")
+    show.add_argument("--quiet", action="store_true")
+
+    checker = actions.add_parser(
+        "check", help="Validate a preset the way CI does. Use before opening a PR."
+    )
+    checker.add_argument("name", nargs="?", help="Omit to check every preset.")
+    checker.add_argument("--quiet", action="store_true")
 
 
 def _add_voices(subparsers) -> None:
@@ -243,7 +266,14 @@ def _add_quickstart(subparsers) -> None:
         choices=providers.NAMES,
         help="Defaults to whichever provider has an API key set.",
     )
-    parser.add_argument("--voice", help="Voice id. See: wvs voices")
+    parser.add_argument(
+        "--preset",
+        help=(
+            "Character preset: voice, delivery direction, and all 43 prompts "
+            "rewritten in character. See: wvs presets list"
+        ),
+    )
+    parser.add_argument("--voice", help="Voice id. Overrides the preset's voice.")
     parser.add_argument("--provider-model", help="Override the provider's default model.")
     parser.add_argument(
         "--include-optional",
@@ -653,14 +683,22 @@ def cmd_quickstart(args, cfg) -> int:
     Everything the longer pipeline does for recorded audio (cutting, cleaning,
     take selection) has nothing to do because the audio is generated to spec.
     """
-    name = _default_provider(args.provider)
+    preset = presets.load(args.preset) if args.preset else None
+
+    # A preset names the provider it was written for; an explicit --provider
+    # still wins, since the same lines work anywhere.
+    name = _default_provider(args.provider or (preset.provider if preset else None))
     cfg = replace(cfg, synth=replace(cfg.synth, backend=name))
+
+    if preset is not None and not cfg.synth.voice:
+        cfg = replace(cfg, synth=replace(cfg.synth, voice=preset.voice))
 
     if not cfg.synth.voice:
         raise SystemExit(
-            "Pick a voice first:\n"
+            "Pick a voice or a preset first:\n"
+            f"    python scripts/wvs.py presets list\n"
             f"    python scripts/wvs.py voices --provider {name}\n"
-            "then pass --voice <id>."
+            "then pass --preset <name> or --voice <id>."
         )
 
     available_now, reason = synth.is_available(name)
@@ -669,6 +707,9 @@ def cmd_quickstart(args, cfg) -> int:
 
     console.step("Quickstart")
     console.info(f"Provider: {name}   Voice: {cfg.synth.voice}")
+    if preset is not None:
+        console.info(f"Preset:   {preset.label} - {preset.rights.attribution}")
+        console.detail(preset.description)
     console.detail("Every prompt is generated from text. No recording, no timestamps.")
 
     synth_result = synth.run(
@@ -678,6 +719,7 @@ def cmd_quickstart(args, cfg) -> int:
         include_optional=args.include_optional,
         accept_voice_terms=args.accept_voice_terms,
         force=args.force,
+        preset=preset,
     )
     if not synth_result.ok:
         console.error("Some prompts could not be generated; stopping before export.")
@@ -691,6 +733,7 @@ def cmd_quickstart(args, cfg) -> int:
         units=args.units,
         allow_missing=True,
         force=args.force,
+        preset=preset,
     )
 
     console.step("Done")
@@ -708,6 +751,103 @@ def cmd_quickstart(args, cfg) -> int:
     console.info("  1. python scripts/wvs.py qa        hear it as a route")
     console.info("  2. audio/export/HOW-TO-UPLOAD.md   get it onto your phone")
     return 0
+
+
+def cmd_presets(args, cfg) -> int:
+    if args.presets_command == "list":
+        return _presets_list()
+    if args.presets_command == "show":
+        return _presets_show(args.name, show_lines=args.lines)
+    return _presets_check(args.name)
+
+
+def _presets_list() -> int:
+    found = presets.list_presets()
+    console.step("Presets")
+    if not found:
+        console.info("No presets found.")
+        return 0
+
+    console.table(
+        [
+            (
+                preset.name,
+                preset.label,
+                f"{preset.provider}/{preset.voice}",
+                preset.rights.attribution,
+            )
+            for preset in found
+        ],
+        headers=("Name", "Label", "Voice", "Source work"),
+    )
+    console.info("")
+    console.info("  python scripts/wvs.py quickstart --preset <name>")
+    return 0
+
+
+def _presets_show(name: str, *, show_lines: bool) -> int:
+    preset = presets.load(name)
+    console.step(f"Preset: {preset.label}")
+    console.info(preset.description)
+    console.info("")
+    console.table(
+        [
+            ("Voice", f"{preset.provider} / {preset.voice}"),
+            ("Lines", f"{len(preset.lines)} ({preset.total_chars} characters)"),
+            ("Options", str(preset.provider_options or "-")),
+        ],
+        headers=("Field", "Value"),
+    )
+
+    console.info("")
+    console.info("Delivery direction")
+    console.detail(preset.direction)
+
+    if preset.notes:
+        console.info("")
+        console.info("Notes")
+        console.detail(preset.notes)
+
+    rights = preset.rights
+    console.info("")
+    console.info(f"Source work: {rights.attribution}")
+    console.detail(rights.pd_basis)
+    console.bullets("Covered", rights.covered)
+    console.bullets("NOT covered", rights.not_covered)
+
+    if show_lines:
+        console.info("")
+        console.table(
+            sorted(preset.lines.items()), headers=("Phrase", "Line")
+        )
+    return 0
+
+
+def _presets_check(name: str | None) -> int:
+    """What CI runs. A preset that fails this is not shippable."""
+    names = [name] if name else sorted(
+        path.stem for path in presets.presets_dir().glob("*.json")
+    )
+    if not names:
+        console.warn("No presets to check.")
+        return 0
+
+    console.step("Checking presets")
+    failed = False
+    for preset_name in names:
+        errors, warnings = presets.check(preset_name)
+        if errors:
+            failed = True
+            console.error(f"{preset_name}: {len(errors)} problem(s)")
+            for error in errors:
+                console.detail(error)
+        else:
+            suffix = f" ({len(warnings)} warning(s))" if warnings else ""
+            console.ok(f"{preset_name}{suffix}")
+            for warning in warnings:
+                console.detail(warning)
+
+    return 1 if failed else 0
 
 
 def cmd_pack(args, cfg) -> int:
@@ -810,6 +950,7 @@ COMMANDS = {
     "pack": cmd_pack,
     "voices": cmd_voices,
     "quickstart": cmd_quickstart,
+    "presets": cmd_presets,
 }
 
 

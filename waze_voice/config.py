@@ -127,6 +127,15 @@ class ExportConfig:
     budget_bytes: int = 795_000
     # Held back before allocating, for MP3 container and tag overhead.
     overhead_reserve_bytes: int = 20_000
+    # Allocate against this fraction of the cap rather than the cap itself.
+    # Filling the limit works until a voice with slower delivery produces
+    # slightly longer clips, and Waze's rejection is a greyed-out share button
+    # with no error, so the failure is invisible and unattributable. Headroom is
+    # cheap; a pack nobody can diagnose is not.
+    target_utilisation: float = 0.85
+    # Above this, the build fails rather than producing a pack that is probably
+    # fine. Between target and this, it warns.
+    fail_above_utilisation: float = 0.92
     # "weighted" allocates per clip by importance and duration; "uniform" gives
     # every clip the same bitrate, which is what the community tooling does.
     strategy: str = "weighted"

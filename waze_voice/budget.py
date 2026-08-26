@@ -97,7 +97,12 @@ class Allocation:
 @dataclass
 class AllocationPlan:
     allocations: list[Allocation] = field(default_factory=list)
+    # The hard cap. Utilisation is always reported against this, because it is
+    # the number Waze actually enforces.
     budget_bytes: int = 0
+    # Where we aim, and where we give up. See ExportConfig.
+    target_utilisation: float = 1.0
+    fail_above_utilisation: float = 1.0
     strategy: str = STRATEGY_WEIGHTED
     notes: list[str] = field(default_factory=list)
 
@@ -118,8 +123,34 @@ class AllocationPlan:
         return self.budget_bytes - self.total_bytes
 
     @property
+    def target_bytes(self) -> int:
+        return int(self.budget_bytes * self.target_utilisation)
+
+    @property
+    def fail_bytes(self) -> int:
+        return int(self.budget_bytes * self.fail_above_utilisation)
+
+    @property
     def fits(self) -> bool:
+        """Within the hard cap Waze enforces."""
         return self.total_bytes <= self.budget_bytes
+
+    @property
+    def within_target(self) -> bool:
+        return self.total_bytes <= self.target_bytes
+
+    @property
+    def too_close_to_the_cap(self) -> bool:
+        """Over the fail threshold: technically may fit, not worth shipping."""
+        return self.total_bytes > self.fail_bytes
+
+    @property
+    def verdict(self) -> str:
+        if self.too_close_to_the_cap:
+            return "over"
+        if not self.within_target:
+            return "tight"
+        return "ok"
 
     @property
     def utilisation(self) -> float:

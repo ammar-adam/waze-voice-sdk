@@ -38,6 +38,11 @@ jobs:
       - name: mypy
         run: python -m mypy waze_voice
 
+      # A preset that clones a performance, loses a distance number, or blows
+      # the length budget must not merge.
+      - name: Validate presets
+        run: python scripts/wvs.py presets check
+
   test:
     name: Tests (${{ matrix.os }}, Python ${{ matrix.python }})
     runs-on: ${{ matrix.os }}

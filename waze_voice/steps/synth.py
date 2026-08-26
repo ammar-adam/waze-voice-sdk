@@ -36,6 +36,7 @@ from pathlib import Path
 from .. import console, media, paths, providers, takes
 from .. import manifest as manifest_module
 from .. import phrases as phrases_module
+from .. import presets as presets_module
 from ..config import PipelineConfig
 
 LOCAL_BACKENDS = ("chatterbox", "xtts", "finetuned")
@@ -345,27 +346,47 @@ def load_backend(
     backend: str,
     model_path: Path | None = None,
     model_config_path: Path | None = None,
+    preset: presets_module.Preset | None = None,
 ) -> Speaker:
     if backend == "chatterbox":
         return _load_chatterbox(config)
     if backend in ("xtts", "finetuned"):
         return _load_coqui(config, backend, model_path, model_config_path)
     if backend in HOSTED_BACKENDS:
-        return _load_hosted(config, backend)
+        return _load_hosted(config, backend, preset)
     raise SystemExit(f"Unknown backend {backend!r}. Choose one of: {', '.join(BACKENDS)}")
 
 
-def _load_hosted(config: PipelineConfig, backend: str) -> Speaker:
+def _load_hosted(
+    config: PipelineConfig,
+    backend: str,
+    preset: presets_module.Preset | None = None,
+) -> Speaker:
     """A hosted provider. No model download, no reference audio, just a key."""
+    provider_cls = providers.get(backend)
+
+    options = dict(config.synth.provider_options)
+    if preset is not None:
+        # Preset options first, then anything the user set explicitly on top.
+        options = {**preset.provider_options, **options}
+        key = provider_cls.direction_option
+        if key and preset.direction and key not in options:
+            options[key] = preset.direction
+        elif not key and preset.direction:
+            console.detail(
+                f"{backend} has no delivery-direction field, so this preset's "
+                "direction is advisory. Register will come from the voice alone."
+            )
+
     try:
-        provider = providers.get(backend).from_env(
+        provider = provider_cls.from_env(
             model=config.synth.provider_model,
-            options=config.synth.provider_options,
+            options=options,
         )
     except providers.ProviderError as error:
         raise SystemExit(str(error)) from None
 
-    voice = config.synth.voice.strip()
+    voice = config.synth.voice.strip() or (preset.voice if preset else "")
     if not voice:
         raise SystemExit(
             f"The {backend} backend needs a voice.\n"
@@ -503,6 +524,7 @@ def run(
     accept_voice_terms: bool = False,
     force: bool = False,
     dry_run: bool = False,
+    preset: presets_module.Preset | None = None,
 ) -> SynthResult:
     console.step("Synthesize")
 
@@ -528,9 +550,18 @@ def run(
         console.info("No gaps to fill: every selected phrase already has audio.")
         return result
 
+    def text_for(phrase: phrases_module.Phrase) -> str:
+        """What this prompt actually says. A preset rewrites it in character."""
+        if preset is None:
+            return phrase.speech_text
+        return preset.text_for(phrase.id, phrase.speech_text)
+
+    if preset is not None:
+        console.detail(f"Preset: {preset.label} - {preset.rights.attribution}")
+
     console.bullets(
         f"{len(gaps)} phrase(s) need synthesis:",
-        [f"{phrase.id}: {phrase.speech_text}" for phrase in gaps],
+        [f"{phrase.id}: {text_for(phrase)}" for phrase in gaps],
     )
 
     if dry_run:
@@ -557,7 +588,7 @@ def run(
         reference_path = reference or build_reference(config=config)
     result.reference = reference_path
 
-    speak = load_backend(config, backend, model_path, model_config_path)
+    speak = load_backend(config, backend, model_path, model_config_path, preset)
     output_dir.mkdir(parents=True, exist_ok=True)
     manifest = manifest_module.Manifest.load()
 
@@ -579,7 +610,7 @@ def run(
 
         suggested = output_dir / f"{phrase.id}.wav"
         try:
-            destination = speak(phrase.speech_text, suggested, reference_path)
+            destination = speak(text_for(phrase), suggested, reference_path)
         except Exception as error:  # noqa: BLE001 - surface any backend failure per phrase
             console.error(f"{phrase.id}: synthesis failed ({error})")
             result.failures.append(phrase.id)
@@ -602,7 +633,7 @@ def run(
             record.add_warning("Could not probe the synthesized clip.")
         record.mark_stage("synth")
 
-        console.ok(f'{destination.name}  "{phrase.speech_text}"')
+        console.ok(f'{destination.name}  "{text_for(phrase)}"')
         result.synthesized.append(destination)
 
     manifest.save()

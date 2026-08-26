@@ -6,6 +6,21 @@ Notable changes. Dates are when the work landed on `main`.
 
 ### Added
 
+- **Character presets.** `quickstart --preset eeyore` produces a finished pack
+  with no configuration: a licensed catalogue voice, a written delivery
+  direction, and all 43 prompts rewritten in character. Ships `eeyore`, `pooh`,
+  and `tigger`. Presets carry a mandatory rights block that is surfaced in the
+  pack output, and the schema makes cloning a performance structurally
+  impossible rather than merely discouraged. `wvs presets list|show|check`, and
+  CI runs `presets check`.
+
+### Changed
+
+- **The size allocator now aims for 85% of Waze's cap, not 100%.** Packs were
+  landing at 98.6%, which works until a voice with slower delivery produces
+  slightly longer clips, and Waze's rejection is a greyed-out share button with
+  no error. Builds fail above 92% and report utilisation on every run.
+
 - **Hosted TTS providers, and `wvs quickstart`.** A complete pack from a voice id
   and an API key: no recording, no source media, no timestamps. ElevenLabs and
   OpenAI, over plain HTTPS from the standard library, so the fastest route to a

@@ -124,6 +124,10 @@ class TtsProvider:
     env_var = ""
     signup_url = ""
     supports_voice_listing = True
+    # The request field that accepts plain-English delivery direction, if the
+    # provider has one. A preset's `direction` is routed here. None means the
+    # provider has no equivalent and direction is advisory only.
+    direction_option: str | None = None
     # Extension the provider's audio arrives in. Normalization re-encodes
     # everything anyway; this only decides what lands in audio/synthesized.
     extension = ".mp3"
@@ -230,6 +234,7 @@ class OpenAI(TtsProvider):
 
     name = "openai"
     env_var = "OPENAI_API_KEY"
+    direction_option = "instructions"
     signup_url = "https://platform.openai.com"
     default_model = "gpt-4o-mini-tts"
     base_url = "https://api.openai.com"

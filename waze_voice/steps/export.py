@@ -33,6 +33,7 @@ from .. import budget as budget_module
 from .. import console, media, paths, wazepack
 from .. import manifest as manifest_module
 from .. import phrases as phrases_module
+from .. import presets as presets_module
 from ..config import PipelineConfig
 
 PACK_DIRNAME = "pack"
@@ -84,6 +85,7 @@ class ExportResult:
     dropped_for_budget: list[str] = field(default_factory=list)
     encode_failures: list[str] = field(default_factory=list)
     units: str = "both"
+    preset: presets_module.Preset | None = None
     checklist: Path | None = None
     guide: Path | None = None
     pack_manifest: Path | None = None
@@ -95,7 +97,18 @@ class ExportResult:
 
     @property
     def over_budget(self) -> bool:
-        return self.plan is not None and not self.plan.fits
+        """Too close to the cap to ship, whether or not it technically fits.
+
+        A pack at 97% may upload today and fail tomorrow when a prompt is
+        re-recorded a beat slower. Waze reports neither case, so the build
+        refuses both.
+        """
+        return self.plan is not None and self.plan.too_close_to_the_cap
+
+    @property
+    def tight(self) -> bool:
+        """Past the target but under the fail threshold. Ships, with a warning."""
+        return self.plan is not None and not self.plan.within_target and not self.over_budget
 
     @property
     def ok(self) -> bool:
@@ -228,7 +241,7 @@ def _correct_overshoot(
     by_name = {item.allocation.filename: item for item in files}
     passes = 0
 
-    while plan.total_bytes > plan.budget_bytes and passes < MAX_CORRECTION_PASSES:
+    while plan.total_bytes > plan.target_bytes and passes < MAX_CORRECTION_PASSES:
         reduced = budget_module.reduce_to_fit(plan, min_kbps=config.export.min_kbps)
         if reduced is None:
             break
@@ -263,26 +276,64 @@ def _checklist(result: ExportResult, config: PipelineConfig) -> str:
         "",
         f"Generated {datetime.now(timezone.utc).isoformat(timespec='seconds')}",
         "",
+    ]
+
+    if result.preset is not None:
+        preset = result.preset
+        rights = preset.rights
+        lines += [
+            f"## Voice: {preset.label}",
+            "",
+            preset.description,
+            "",
+            f"- Source work: **{rights.attribution}**",
+            f"- Public domain basis: {rights.pd_basis}",
+            f"- Generated from the licensed `{preset.provider}` voice "
+            f"`{preset.voice}` with written delivery direction.",
+            "- **Not a clone of any voice performance.**",
+            "",
+            "### Covered",
+            "",
+            *[f"- {item}" for item in rights.covered],
+            "",
+            "### Not covered",
+            "",
+            *[f"- {item}" for item in rights.not_covered],
+            "",
+        ]
+
+    lines += [
         "## Size budget",
         "",
         f"- Pack total: **{_fmt_kb(result.total_bytes)}** across {len(result.files)} file(s)",
-        f"- Waze budget: {_fmt_kb(plan.budget_bytes)}",
-        f"- Headroom: {_fmt_kb(plan.headroom_bytes)} ({plan.utilisation * 100:.1f}% used)",
+        f"- Waze cap: {_fmt_kb(plan.budget_bytes)}",
+        f"- Utilisation: **{plan.utilisation * 100:.1f}%** "
+        f"(target {plan.target_utilisation * 100:.0f}%, "
+        f"fails above {plan.fail_above_utilisation * 100:.0f}%)",
+        f"- Headroom: {_fmt_kb(plan.headroom_bytes)}",
         f"- Allocation strategy: `{plan.strategy}`",
         "",
     ]
 
     if result.over_budget:
         lines += [
-            "> **This pack is over budget and Waze will reject it.** The rejection is",
-            "> silent: the share button greys out after saving, or the link downloads",
-            "> and plays nothing. Shorten the longest clips, drop optional prompts, or",
-            "> export a single unit system. See the size table below.",
+            "> **Do not upload this pack.** It sits above the fail threshold, and",
+            "> Waze rejects an oversized pack silently: the share button greys out",
+            "> after saving, or the link downloads and plays nothing. Neither says",
+            "> why. Shorten the longest clips, drop optional prompts, or export a",
+            "> single unit system. See the size table below.",
+            "",
+        ]
+    elif result.tight:
+        lines += [
+            "> This pack is above the target but under the fail threshold. It will",
+            "> probably upload. A slightly slower re-record of any prompt might not,",
+            "> so there is not much room to change anything.",
             "",
         ]
     else:
         lines += [
-            "This pack is within budget. Waze should accept it.",
+            "This pack has comfortable headroom under Waze's cap.",
             "",
         ]
 
@@ -470,6 +521,16 @@ compresses what it captures.
 def _readme(result: ExportResult, config: PipelineConfig) -> str:
     plan = result.plan
     assert plan is not None
+    if result.preset is not None:
+        voice_line = (
+            f"**{result.preset.label}** - an original interpretation of the character "
+            f"as written in {result.preset.rights.attribution}, generated from the "
+            f"licensed `{result.preset.provider}` voice `{result.preset.voice}` with "
+            f"delivery direction. Not a clone of any performance. Full rights detail "
+            f"is in {CHECKLIST_NAME}."
+        )
+    else:
+        voice_line = "Built from your own source media or chosen voice."
     return f"""# Voice pack export
 
 Generated {datetime.now(timezone.utc).isoformat(timespec='seconds')} by waze-voice-sdk.
@@ -486,6 +547,10 @@ Generated {datetime.now(timezone.utc).isoformat(timespec='seconds')} by waze-voi
 
 {_fmt_kb(result.total_bytes)} of {_fmt_kb(plan.budget_bytes)} budget
 ({plan.utilisation * 100:.1f}%), allocated with the `{plan.strategy}` strategy.
+
+## Voice
+
+{voice_line}
 
 ## Rights
 
@@ -507,11 +572,33 @@ def _pack_manifest(result: ExportResult, config: PipelineConfig) -> dict:
         # they all carry the same Waze filenames by design.
         "pack": paths.active_pack(),
         "units": result.units,
+        "preset": (
+            {
+                "name": result.preset.name,
+                "label": result.preset.label,
+                "provider": result.preset.provider,
+                "voice": result.preset.voice,
+                "cloned_performance": False,
+                "rights": {
+                    "source_work": result.preset.rights.source_work,
+                    "author": result.preset.rights.author,
+                    "year": result.preset.rights.year,
+                    "pd_basis": result.preset.rights.pd_basis,
+                    "covered": list(result.preset.rights.covered),
+                    "not_covered": list(result.preset.rights.not_covered),
+                },
+            }
+            if result.preset is not None
+            else None
+        ),
         "budget": {
             "limit_bytes": plan.budget_bytes,
             "total_bytes": result.total_bytes,
             "headroom_bytes": plan.headroom_bytes,
             "utilisation": round(plan.utilisation, 4),
+            "target_utilisation": plan.target_utilisation,
+            "fail_above_utilisation": plan.fail_above_utilisation,
+            "verdict": plan.verdict,
             "within_budget": not result.over_budget,
             "strategy": plan.strategy,
             "correction_passes": result.corrections,
@@ -566,6 +653,7 @@ def run(
     strategy: str | None = None,
     allow_missing: bool = False,
     force: bool = False,
+    preset: presets_module.Preset | None = None,
 ) -> ExportResult:
     console.step("Export")
 
@@ -585,7 +673,7 @@ def run(
     export_dir = export_dir or paths.export_dir()
     build = manifest_module.Manifest.load()
 
-    result = ExportResult(units=units)
+    result = ExportResult(units=units, preset=preset)
 
     wanted = {slot.filename: slot for slot in _wanted_slots(units)}
     by_waze = {
@@ -644,7 +732,9 @@ def run(
 
     # -- allocate ----------------------------------------------------------
     allocation_budget = max(
-        0, config.export.budget_bytes - config.export.overhead_reserve_bytes
+        0,
+        int(config.export.budget_bytes * config.export.target_utilisation)
+        - config.export.overhead_reserve_bytes,
     )
     plan = budget_module.allocate(
         specs,
@@ -654,8 +744,11 @@ def run(
         max_kbps=config.export.max_kbps,
         sample_rate_policy=config.export.sample_rate_policy,
     )
-    # Measurement and reporting are against the real limit, not the reserved figure.
+    # Measurement and reporting are against the real limit, not the reserved
+    # figure, because the cap is the number Waze enforces.
     plan.budget_bytes = config.export.budget_bytes
+    plan.target_utilisation = config.export.target_utilisation
+    plan.fail_above_utilisation = config.export.fail_above_utilisation
     result.plan = plan
 
     for slot, phrase, source in pending:
@@ -730,11 +823,30 @@ def _report(result: ExportResult, plan: budget_module.AllocationPlan) -> None:
     console.table(rows, headers=("File", "Length", "Rate", "SR", "Size"))
 
     console.info("")
-    verdict = "within budget" if plan.fits else "OVER BUDGET"
     console.info(
         f"Pack total: {_fmt_kb(result.total_bytes)} of {_fmt_kb(plan.budget_bytes)} "
-        f"({plan.utilisation * 100:.1f}%) - {verdict}"
+        f"({plan.utilisation * 100:.1f}% of Waze's cap)"
     )
+    console.detail(
+        f"target {plan.target_utilisation * 100:.0f}%  |  "
+        f"fails above {plan.fail_above_utilisation * 100:.0f}%"
+    )
+
+    if plan.verdict == "over":
+        console.error(
+            f"TOO CLOSE TO THE CAP. Waze rejects an oversized pack silently: the "
+            f"share button greys out, or the link plays nothing. Get under "
+            f"{_fmt_kb(plan.target_bytes)}."
+        )
+    elif plan.verdict == "tight":
+        console.warn(
+            f"Above the {plan.target_utilisation * 100:.0f}% target but under the "
+            f"fail threshold. This will probably upload; a slightly slower "
+            f"re-record would not."
+        )
+    else:
+        console.ok(f"Comfortable. {_fmt_kb(plan.headroom_bytes)} of headroom.")
+
     for note in plan.notes:
         console.warn(note)
 

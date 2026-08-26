@@ -73,8 +73,21 @@ Two optional extras, each isolated so nobody downloads PyTorch to cut a clip:
 
 ## Quick start
 
-The fastest route to a finished pack is a text-to-speech API key. No recording,
-no source media, no timestamps, and nothing to install:
+Pick a character, get a pack. One command, no configuration:
+
+```powershell
+$env:OPENAI_API_KEY = "sk-..."
+python scripts\wvs.py presets list
+python scripts\wvs.py quickstart --preset eeyore
+```
+
+A **preset** is a voice, a delivery direction, and all 43 Waze prompts rewritten
+in that character's register. Three ship: `eeyore`, `pooh`, and `tigger`, each an
+original interpretation of a public-domain book character, generated from a
+licensed voice and never a clone of any performance. See
+[docs/presets.md](docs/presets.md).
+
+Or pick any voice and use the standard lines:
 
 ```powershell
 $env:OPENAI_API_KEY = "sk-..."
@@ -233,6 +246,7 @@ waze_voice/          the library: every step is implemented here
 scripts/             thin CLI wrappers, one per step, plus record_assist.py
 tts/                 synthesis entry points: generate, prepare_dataset, train
 config/              phrases.json, routes.sample.json, pipeline.json (shared)
+presets/             character presets: voice, direction, and 43 lines
 data/                source inventory CSV
 packs/               one directory per voice, all Git-ignored
 audio/               working directories, all Git-ignored
