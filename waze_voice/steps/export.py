@@ -439,6 +439,11 @@ expects, and the files are already inside the size budget.
 
 You will get a UUID back. Keep it: it is the only handle on the pack.
 
+**Treat the UUID as a secret.** Anyone who has it can download every MP3 in your
+pack from the backup URL above. There is nothing else protecting it. That matters
+most if you are filming a demo: a share sheet, an address bar, or a QR code on
+screen publishes the pack, not just a video of it. See `docs/demo-video-plan.md`.
+
 ## Verify on a real device
 
 Uploading successfully is not the same as the pack working. Confirm:
