@@ -1,0 +1,73 @@
+name: Bug report
+description: Something in the pipeline does not work
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please do not attach audio you do not have the rights to share, and
+        check your paths for anything private before pasting logs.
+
+  - type: textarea
+    id: doctor
+    attributes:
+      label: Output of `python scripts/wvs.py doctor`
+      description: This answers most environment questions at once.
+      render: text
+    validations:
+      required: true
+
+  - type: input
+    id: command
+    attributes:
+      label: The command you ran
+      placeholder: "python scripts/wvs.py export --units metric"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected, and what happened instead
+    validations:
+      required: true
+
+  - type: textarea
+    id: output
+    attributes:
+      label: Full output
+      render: text
+
+  - type: dropdown
+    id: step
+    attributes:
+      label: Which step
+      options:
+        - extract
+        - clean
+        - synth
+        - normalize
+        - qa
+        - export
+        - validate
+        - doctor
+        - other / not sure
+
+  - type: textarea
+    id: source-media
+    attributes:
+      label: Source media
+      description: |
+        Format, rough duration, and whether it is video or audio. Do not attach
+        the file itself.
+      placeholder: "44.1 kHz stereo m4a, about 40 minutes, cut from a podcast I recorded"
+
+  - type: checkboxes
+    id: checked
+    attributes:
+      label: Before submitting
+      options:
+        - label: "`python tests/run_tests.py` passes on my machine"
+        - label: I have checked the logs above for private paths or personal data
+          required: true

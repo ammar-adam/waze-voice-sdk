@@ -282,6 +282,53 @@ class PipelineTests(unittest.TestCase):
             restored.record("arrived").origin = original_origin
             restored.save()
 
+    def test_export_refuses_to_wipe_a_directory_it_does_not_own(self) -> None:
+        """--export-dir is user input and clearing it deletes recursively.
+
+        `--export-dir ~/Documents` must not be a destructive typo.
+        """
+        victim = self.audio_root / "not-an-export"
+        victim.mkdir(parents=True, exist_ok=True)
+        (victim / "important.txt").write_text("user data", encoding="utf-8")
+        (victim / "notes").mkdir(exist_ok=True)
+
+        with self.assertRaises(SystemExit) as caught:
+            export.run(
+                config=self.config,
+                phrases_path=self.phrases_path,
+                export_dir=victim,
+                allow_missing=True,
+            )
+        self.assertIn("important.txt", str(caught.exception))
+        self.assertTrue((victim / "important.txt").is_file(), "user file was deleted")
+        self.assertTrue((victim / "notes").is_dir())
+
+    def test_export_force_overwrites_deliberately(self) -> None:
+        target = self.audio_root / "force-export"
+        target.mkdir(parents=True, exist_ok=True)
+        (target / "stale.txt").write_text("old", encoding="utf-8")
+
+        result = export.run(
+            config=self.config,
+            phrases_path=self.phrases_path,
+            export_dir=target,
+            allow_missing=True,
+            force=True,
+        )
+        self.assertFalse((target / "stale.txt").exists())
+        self.assertTrue(result.files)
+
+    def test_export_reuses_its_own_previous_output_without_force(self) -> None:
+        target = self.audio_root / "repeat-export"
+        for _ in range(2):
+            export.run(
+                config=self.config,
+                phrases_path=self.phrases_path,
+                export_dir=target,
+                allow_missing=True,
+            )
+        self.assertTrue((target / export.CHECKLIST_NAME).is_file())
+
     def test_export_writes_the_upload_paperwork(self) -> None:
         export_dir = paths.export_dir()
         self.assertTrue((export_dir / export.CHECKLIST_NAME).is_file())

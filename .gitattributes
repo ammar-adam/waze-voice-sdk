@@ -1,0 +1,15 @@
+# Normalise line endings so a Windows contributor and a Linux CI runner see the
+# same bytes. Without this, Git's autocrlf guesswork shows up as whole-file
+# diffs on every checkout.
+* text=auto eol=lf
+
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+*.png binary
+*.jpg binary
+*.wav binary
+*.mp3 binary
+*.m4a binary
+*.mp4 binary

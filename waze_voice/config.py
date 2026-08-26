@@ -7,12 +7,18 @@ loudness without the user passing the same flags to four scripts.
 
 from __future__ import annotations
 
+import dataclasses
 import json
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
 from . import paths
+
+
+def fields_of(cls: type) -> tuple[str, ...]:
+    """Field names of a dataclass, without reaching for the dunder directly."""
+    return tuple(f.name for f in dataclasses.fields(cls))
 
 
 @dataclass(frozen=True)
@@ -158,7 +164,7 @@ def _build_section(section: str, values: Any) -> Any:
     cls = _SECTIONS[section]
     if not isinstance(values, dict):
         raise SystemExit(f"pipeline config section '{section}' must be an object.")
-    known = {f for f in cls.__dataclass_fields__}
+    known = set(fields_of(cls))
     unknown = sorted(set(values) - known)
     if unknown:
         raise SystemExit(

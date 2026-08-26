@@ -89,7 +89,7 @@ def _gpu_detail() -> Check | None:
     if importlib.util.find_spec("torch") is None:
         return None
     try:
-        import torch  # type: ignore[import-not-found]
+        import torch
 
         if torch.cuda.is_available():
             return Check("cuda", "ok", f"{torch.cuda.get_device_name(0)}")

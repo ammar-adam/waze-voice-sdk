@@ -7,7 +7,7 @@ SDK never prints non-ASCII characters. Every user-facing line goes through here.
 from __future__ import annotations
 
 import sys
-from collections.abc import Iterable
+from collections.abc import Iterable, Sequence
 
 _QUIET = False
 
@@ -59,7 +59,7 @@ def bullets(title: str, items: Iterable[str]) -> None:
         print(f"  - {item}")
 
 
-def table(rows: list[tuple[str, ...]], headers: tuple[str, ...]) -> None:
+def table(rows: Sequence[Sequence[str]], headers: Sequence[str]) -> None:
     """Print a fixed-width ASCII table."""
     if _QUIET:
         return
@@ -68,7 +68,7 @@ def table(rows: list[tuple[str, ...]], headers: tuple[str, ...]) -> None:
         for index, cell in enumerate(row):
             widths[index] = max(widths[index], len(str(cell)))
 
-    def render(cells: tuple[str, ...]) -> str:
+    def render(cells: Sequence[str]) -> str:
         padded = (str(cell).ljust(widths[index]) for index, cell in enumerate(cells))
         return "  ".join(padded).rstrip()
 

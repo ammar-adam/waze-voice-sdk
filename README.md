@@ -1,5 +1,9 @@
 # Waze Voice SDK
 
+[![CI](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/ci.yml)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
 Windows-first toolkit for turning audio you own into a custom navigation voice pack.
 
 Point it at your media files and a CSV of timestamps. It cuts the clips, isolates the
@@ -195,6 +199,27 @@ voices, trained model weights, demo videos, or finished packs containing audio y
 cannot redistribute. The `.gitignore` is set up to make that the default outcome, but it
 is not a substitute for judgement. Read [LEGAL.md](LEGAL.md).
 
+## Contributing
+
+The most useful thing you can contribute is **what happened when you put a pack on a
+real phone**. Waze documents none of this; the filename list, the size limit, and the
+share-link flow are all things people worked out and wrote down. Negative results count.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, house style, and what CI checks.
+Security reports go through [SECURITY.md](SECURITY.md).
+
+## Project status
+
+Working and tested, with one honest gap: nobody has yet confirmed a pack built by this
+tool on a real device end to end. Everything up to the upload is verified, including
+against real ffmpeg and real Demucs. If you get there first, please
+[say so](../../issues/new?template=device-report.yml).
+
+Changes are recorded in [CHANGELOG.md](CHANGELOG.md).
+
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+The licence covers the tooling. It grants no rights to media you process, voices you
+synthesize, or packs you produce. See [LEGAL.md](LEGAL.md).

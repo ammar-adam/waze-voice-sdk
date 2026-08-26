@@ -112,8 +112,47 @@ def _wanted_slots(units: str) -> list[wazepack.WazeSlot]:
     return list(wazepack.slots_for_units(units))
 
 
-def _clear(export_dir: Path) -> None:
-    export_dir.mkdir(parents=True, exist_ok=True)
+# Everything this step is allowed to delete when rebuilding an export. Anything
+# else in the directory belongs to the user.
+_OWNED_NAMES = frozenset(
+    {
+        PACK_DIRNAME,
+        CHECKLIST_NAME,
+        GUIDE_NAME,
+        MANIFEST_NAME,
+        README_NAME,
+        ".gitkeep",
+        "record-progress.json",
+    }
+)
+
+
+def _clear(export_dir: Path, *, force: bool = False) -> None:
+    """Empty a previous export, without touching anything we did not create.
+
+    ``--export-dir`` is a user-supplied path, and this function deletes
+    recursively. Wiping whatever it is pointed at would make a single typo
+    (``--export-dir ~/Documents``) destructive, so unrecognised entries stop the
+    run instead. ``force`` is the explicit opt-out.
+    """
+    if not export_dir.exists():
+        export_dir.mkdir(parents=True, exist_ok=True)
+        return
+
+    if not export_dir.is_dir():
+        raise SystemExit(f"Export path exists and is not a directory: {export_dir}")
+
+    unexpected = sorted(
+        path.name for path in export_dir.iterdir() if path.name not in _OWNED_NAMES
+    )
+    if unexpected and not force:
+        listed = ", ".join(unexpected[:8]) + (" ..." if len(unexpected) > 8 else "")
+        raise SystemExit(
+            f"{export_dir} contains files this step did not create: {listed}\n"
+            "Refusing to delete them. Point --export-dir at an empty or "
+            "previously-exported directory, or pass --force to overwrite."
+        )
+
     for path in export_dir.iterdir():
         if path.name == ".gitkeep":
             continue
@@ -492,6 +531,7 @@ def run(
     units: str | None = None,
     strategy: str | None = None,
     allow_missing: bool = False,
+    force: bool = False,
 ) -> ExportResult:
     console.step("Export")
 
@@ -526,7 +566,7 @@ def run(
             + (" ..." if len(unmapped) > 6 else "")
         )
 
-    _clear(export_dir)
+    _clear(export_dir, force=force)
     pack_dir = export_dir / PACK_DIRNAME
     pack_dir.mkdir(parents=True, exist_ok=True)
 

@@ -1,0 +1,83 @@
+name: Device report
+description: What happened when you put a pack on a real phone
+title: "[device] "
+labels: ["device-report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The most useful thing anyone can contribute here.
+
+        Waze's behaviour is not documented by Waze, so everything this project
+        knows about filenames, the size limit, and the share-link flow came from
+        people writing down what they saw. Negative results count: "this
+        directory does not exist on my device" saves the next person the same
+        twenty minutes.
+
+        If it is relevant, please also add your findings to
+        `docs/waze-import-spike.md` in a pull request.
+
+  - type: input
+    id: device
+    attributes:
+      label: Device and OS
+      placeholder: "Pixel 8, Android 15"
+    validations:
+      required: true
+
+  - type: input
+    id: waze-version
+    attributes:
+      label: Waze version
+      description: "Settings > About. A result without a version number is not reproducible."
+      placeholder: "5.x.y.z"
+    validations:
+      required: true
+
+  - type: input
+    id: region
+    attributes:
+      label: Region and unit system
+      placeholder: "UK, metric"
+
+  - type: dropdown
+    id: method
+    attributes:
+      label: How did you install the pack?
+      options:
+        - Share link from an MP3 upload
+        - In-app recorder
+        - Something else
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you did, and what the app actually did. Not what you expected.
+    validations:
+      required: true
+
+  - type: textarea
+    id: prompt-list
+    attributes:
+      label: Prompts the app asked for, in order
+      description: |
+        Only if you used the in-app recorder. This is the only way the phrase
+        inventory gets confirmed against reality.
+
+  - type: textarea
+    id: pack-size
+    attributes:
+      label: Pack size report
+      description: "The `Pack total:` line from `wvs export`, if you have it."
+      render: text
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Before submitting
+      options:
+        - label: I have removed anything I do not want public from the logs above
+          required: true

@@ -1,0 +1,174 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# A new push to a PR makes the previous run's result irrelevant.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  PYTHONUTF8: "1"
+
+jobs:
+  lint:
+    name: Lint and types
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install tooling
+        run: python -m pip install --disable-pip-version-check -r requirements-dev.txt
+
+      - name: ruff
+        run: python -m ruff check waze_voice scripts tts tests
+
+      - name: mypy
+        run: python -m mypy waze_voice
+
+  test:
+    name: Tests (${{ matrix.os }}, Python ${{ matrix.python }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # Windows is the primary target; Linux is here because contributors and
+        # this CI run on it, and because a Windows-only assumption creeping in
+        # is exactly the sort of thing that should fail loudly.
+        os: [windows-latest, ubuntu-latest]
+        python: ["3.10", "3.13"]
+        include:
+          - os: ubuntu-latest
+            python: "3.11"
+          - os: ubuntu-latest
+            python: "3.12"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Install ffmpeg (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ffmpeg
+
+      - name: Install ffmpeg (Windows)
+        if: runner.os == 'Windows'
+        run: choco install ffmpeg --no-progress --yes
+
+      - name: Show ffmpeg build
+        run: ffmpeg -version
+
+      # The core pipeline is standard library only, so there is nothing to
+      # install. If that ever stops being true, this job notices.
+      - name: Confirm the core pipeline needs no dependencies
+        run: python -c "import waze_voice, waze_voice.cli; print(waze_voice.__version__)"
+
+      - name: Environment check
+        run: python scripts/wvs.py doctor
+
+      - name: Tests
+        run: python tests/run_tests.py -v
+
+  smoke:
+    name: End-to-end pack build
+    runs-on: ubuntu-latest
+    env:
+      # Inside the workspace so the artifact upload can find it without
+      # smuggling a temp path between steps.
+      WVS_AUDIO_ROOT: ${{ github.workspace }}/ci-run/audio
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install ffmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ffmpeg
+
+      # Proves the documented workflow works on a clean checkout, using media
+      # the fixtures generate rather than anything committed.
+      - name: Generate source media
+        run: |
+          python - <<'PY'
+          import sys
+          from pathlib import Path
+          sys.path[:0] = [".", "tests"]
+          import fixtures
+          from waze_voice import paths
+
+          paths.ensure_dirs()
+          root = Path("ci-run")
+          media = fixtures.make_source_media(root / "episode.wav", with_bed=True)
+          fixtures.make_sources_csv(root / "sources.csv", media)
+          fixtures.make_phrases_json(root / "phrases.json")
+          fixtures.make_routes_json(root / "routes.json")
+          print("fixture media ready")
+          PY
+
+      - name: Run the pipeline
+        run: |
+          python scripts/wvs.py run \
+            --sources ci-run/sources.csv \
+            --phrases ci-run/phrases.json \
+            --allow-missing
+
+      - name: Audition the route (dry run)
+        run: |
+          python scripts/wvs.py qa \
+            --phrases ci-run/phrases.json \
+            --routes ci-run/routes.json \
+            --dry-run
+
+      - name: Check the pack is well-formed
+        run: |
+          python - <<'PY'
+          import json, os, sys
+          from pathlib import Path
+          sys.path.insert(0, ".")
+          from waze_voice import wazepack
+
+          export_dir = Path(os.environ["WVS_AUDIO_ROOT"]) / "export"
+          manifest = json.loads((export_dir / "pack-manifest.json").read_text())
+
+          names = {p.name for p in (export_dir / "pack").glob("*.mp3")}
+          assert names, "pack is empty"
+
+          unknown = wazepack.unknown_filenames(names)
+          assert not unknown, f"Waze would silently ignore these: {unknown}"
+
+          assert manifest["budget"]["within_budget"], "pack exceeds the Waze size budget"
+
+          on_disk = sum(p.stat().st_size for p in (export_dir / "pack").glob("*.mp3"))
+          assert on_disk == manifest["budget"]["total_bytes"], (
+              f"reported {manifest['budget']['total_bytes']} bytes, {on_disk} on disk"
+          )
+          print(f"{len(names)} files, {on_disk} bytes, within budget")
+          PY
+
+      - name: Upload the pack for inspection
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: example-pack
+          path: ci-run/audio/export
+          if-no-files-found: warn
+          retention-days: 7

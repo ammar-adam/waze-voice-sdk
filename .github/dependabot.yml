@@ -1,0 +1,11 @@
+version: 2
+updates:
+  # The core pipeline has no Python dependencies, so the only supply chain that
+  # can drift is the CI actions themselves.
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "ci"
+    labels: ["dependencies", "ci"]

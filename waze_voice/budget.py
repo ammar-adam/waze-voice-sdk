@@ -182,6 +182,19 @@ def allocate(
         raise ValueError(f"strategy must be one of {STRATEGIES}, got {strategy!r}")
     if sample_rate_policy not in SAMPLE_RATE_POLICIES:
         raise ValueError(f"sample_rate_policy must be one of {SAMPLE_RATE_POLICIES}")
+    if min_kbps > max_kbps:
+        raise ValueError(f"min_kbps ({min_kbps}) cannot exceed max_kbps ({max_kbps})")
+    if sample_rate_policy == POLICY_FIXED and max_kbps < MPEG1_BITRATES[0]:
+        # Pinning the sample rate to 44.1 kHz restricts the encoder to MPEG-1,
+        # whose lowest rung is 32 kbps. A ceiling under that is a contradiction,
+        # and silently returning 32 would blow the very budget the ceiling
+        # exists to protect.
+        raise ValueError(
+            f"max_kbps={max_kbps} is below the {MPEG1_BITRATES[0]} kbps floor of "
+            f"MPEG-1 at {SAMPLE_RATE_FULL} Hz. Raise max_kbps, or set "
+            f"sample_rate_policy to '{POLICY_AUTO}' so clips can drop to "
+            f"{SAMPLE_RATE_LOW} Hz."
+        )
 
     plan = AllocationPlan(budget_bytes=budget_bytes, strategy=strategy)
     usable = [clip for clip in clips if clip.duration > 0]
@@ -215,7 +228,10 @@ def _solve_at(
 
         sample_rate, ladder = _resolve_sample_rate(raw_kbps, policy)
         bitrate = snap_down(raw_kbps, ladder)
-        bitrate = max(min(bitrate, max_kbps), ladder[0])
+        # Clamp downward only. Raising to the ladder floor here would silently
+        # exceed max_kbps; allocate() rejects a ceiling the ladder cannot honour
+        # up front instead.
+        bitrate = min(bitrate, max_kbps) if bitrate > max_kbps else bitrate
 
         solved.append(
             Allocation(

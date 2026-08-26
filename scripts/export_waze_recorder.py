@@ -39,6 +39,11 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Export an incomplete pack when required clips are missing.",
     )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Overwrite an export directory containing unrecognised files.",
+    )
     parser.add_argument("--quiet", action="store_true")
     return parser.parse_args()
 
@@ -54,6 +59,7 @@ def main() -> int:
         units=args.units,
         strategy=args.strategy,
         allow_missing=args.allow_missing,
+        force=args.force,
     )
     if result.over_budget:
         return 1

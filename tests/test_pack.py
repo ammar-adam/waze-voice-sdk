@@ -172,6 +172,49 @@ class AllocationTests(unittest.TestCase):
         plan = budget.allocate(clips, budget_bytes=100_000)
         self.assertEqual([item.filename for item in plan.allocations], ["Arrive.mp3"])
 
+    def test_contradictory_ceiling_is_rejected(self) -> None:
+        """Pinning 44.1 kHz restricts the encoder to MPEG-1, floor 32 kbps.
+
+        Asking for a ceiling below that used to return 32 anyway, quietly
+        exceeding the limit meant to protect the size budget.
+        """
+        with self.assertRaises(ValueError) as caught:
+            budget.allocate(
+                _clips(self.SHAPE),
+                budget_bytes=100_000,
+                max_kbps=24,
+                sample_rate_policy=budget.POLICY_FIXED,
+            )
+        self.assertIn("32", str(caught.exception))
+        self.assertIn(budget.POLICY_AUTO, str(caught.exception))
+
+    def test_auto_policy_honours_a_low_ceiling(self) -> None:
+        plan = budget.allocate(
+            _clips(self.SHAPE),
+            budget_bytes=100_000,
+            min_kbps=16,
+            max_kbps=24,
+            sample_rate_policy=budget.POLICY_AUTO,
+        )
+        self.assertTrue(all(item.bitrate_kbps <= 24 for item in plan.allocations))
+        self.assertTrue(
+            all(item.sample_rate == budget.SAMPLE_RATE_LOW for item in plan.allocations)
+        )
+
+    def test_inverted_bounds_rejected(self) -> None:
+        with self.assertRaises(ValueError):
+            budget.allocate(_clips(self.SHAPE), budget_bytes=100_000, min_kbps=64, max_kbps=32)
+
+    def test_ceiling_is_never_exceeded(self) -> None:
+        for ceiling in (32, 48, 64, 128):
+            plan = budget.allocate(
+                _clips(self.SHAPE), budget_bytes=5_000_000, max_kbps=ceiling
+            )
+            self.assertTrue(
+                all(item.bitrate_kbps <= ceiling for item in plan.allocations),
+                f"exceeded ceiling {ceiling}",
+            )
+
     def test_unknown_strategy_rejected(self) -> None:
         with self.assertRaises(ValueError):
             budget.allocate(_clips(self.SHAPE), budget_bytes=1000, strategy="vibes")

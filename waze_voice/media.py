@@ -10,6 +10,7 @@ import json
 import re
 import shutil
 import subprocess
+import sys
 from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
@@ -446,11 +447,23 @@ def silence(destination: Path, seconds: float, *, sample_rate: int = 44100) -> P
 
 
 def play(path: Path) -> None:
-    """Play a file synchronously, preferring ffplay and falling back to WinMM."""
+    """Play a file synchronously.
+
+    ffplay ships with ffmpeg and handles every format the pipeline produces, so
+    it is always the first choice. The WinMM fallback exists only for the case
+    where someone installed a stripped ffmpeg build without it, and it is
+    Windows-only and WAV-only, so nothing else should be sent down that path.
+    """
     ffplay = find_tool("ffplay")
     if ffplay:
         run([ffplay, "-nodisp", "-autoexit", "-loglevel", "error", str(path)])
         return
+
+    if sys.platform != "win32":
+        raise MediaError(
+            f"'ffplay' was not found on PATH, and there is no fallback player on "
+            f"{sys.platform}.\n{_INSTALL_HINT}"
+        )
 
     if path.suffix.lower() != ".wav":
         raise MediaError(

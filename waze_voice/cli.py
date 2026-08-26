@@ -138,6 +138,11 @@ def _add_export(subparsers) -> None:
         help="Bitrate allocation. weighted spends more on short, important clips.",
     )
     parser.add_argument("--allow-missing", action="store_true")
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Overwrite an export directory containing unrecognised files.",
+    )
 
 
 def _add_validate(subparsers) -> None:
@@ -307,6 +312,7 @@ def cmd_export(args, cfg) -> int:
         units=args.units,
         strategy=args.strategy,
         allow_missing=args.allow_missing,
+        force=args.force,
     )
     # Being over budget is never acceptable: the upload would be rejected
     # silently. --allow-missing forgives gaps, not an oversized pack.
@@ -357,19 +363,23 @@ def cmd_run(args, cfg) -> int:
     failed = False
 
     if "extract" in steps:
-        result = extract.run(
+        extract_result = extract.run(
             config=cfg,
             sources_path=args.sources,
             phrases_path=args.phrases,
             force=args.force,
         )
         summary.append(
-            ("extract", "ok" if result.ok else "failed", f"{len(result.extracted)} cut")
+            (
+                "extract",
+                "ok" if extract_result.ok else "failed",
+                f"{len(extract_result.extracted)} cut",
+            )
         )
-        failed = failed or not result.ok
+        failed = failed or not extract_result.ok
 
     if "clean" in steps:
-        result = clean.run(
+        clean_result = clean.run(
             config=cfg,
             mode=args.clean_mode,
             force=args.force,
@@ -377,11 +387,11 @@ def cmd_run(args, cfg) -> int:
         summary.append(
             (
                 "clean",
-                "ok" if result.ok else "failed",
-                f"{len(result.cleaned)} cleaned [{result.mode}]",
+                "ok" if clean_result.ok else "failed",
+                f"{len(clean_result.cleaned)} cleaned [{clean_result.mode}]",
             )
         )
-        failed = failed or not result.ok
+        failed = failed or not clean_result.ok
 
     if "synth" in steps:
         available, reason = synth.is_available(args.backend or cfg.synth.backend)
@@ -395,7 +405,7 @@ def cmd_run(args, cfg) -> int:
             summary.append(("synth", "skipped", reason))
         else:
             try:
-                result = synth.run(
+                synth_result = synth.run(
                     config=cfg,
                     phrases_path=args.phrases,
                     backend=args.backend,
@@ -405,11 +415,11 @@ def cmd_run(args, cfg) -> int:
                 summary.append(
                     (
                         "synth",
-                        "ok" if result.ok else "failed",
-                        f"{len(result.synthesized)} generated",
+                        "ok" if synth_result.ok else "failed",
+                        f"{len(synth_result.synthesized)} generated",
                     )
                 )
-                failed = failed or not result.ok
+                failed = failed or not synth_result.ok
             except SystemExit as error:
                 # Synthesis is optional. A missing model or an unacknowledged
                 # consent gate should not throw away the rest of the run.
@@ -417,7 +427,7 @@ def cmd_run(args, cfg) -> int:
                 summary.append(("synth", "skipped", "see message above"))
 
     if "normalize" in steps:
-        result = normalize.run(
+        normalize_result = normalize.run(
             config=cfg,
             phrases_path=args.phrases,
             sources_path=args.sources,
@@ -426,37 +436,43 @@ def cmd_run(args, cfg) -> int:
         summary.append(
             (
                 "normalize",
-                "ok" if result.ok else "incomplete",
-                f"{len(result.normalized)} normalized, {len(result.missing_required)} missing",
+                "ok" if normalize_result.ok else "incomplete",
+                f"{len(normalize_result.normalized)} normalized, "
+                f"{len(normalize_result.missing_required)} missing",
             )
         )
 
     if "validate" in steps:
-        result = validate.run(config=cfg, phrases_path=args.phrases, sources_path=args.sources)
+        validate_result = validate.run(
+            config=cfg, phrases_path=args.phrases, sources_path=args.sources
+        )
         summary.append(
             (
                 "validate",
-                "ok" if result.ok else "issues",
-                f"{len(result.present)} present, {len(result.missing_required)} missing",
+                "ok" if validate_result.ok else "issues",
+                f"{len(validate_result.present)} present, "
+                f"{len(validate_result.missing_required)} missing",
             )
         )
 
     if "export" in steps:
-        result = export.run(
+        export_result = export.run(
             config=cfg,
             phrases_path=args.phrases,
             units=getattr(args, "units", None),
             allow_missing=args.allow_missing,
         )
-        size = f"{result.total_bytes / 1000:.0f} kB"
+        size = f"{export_result.total_bytes / 1000:.0f} kB"
         summary.append(
             (
                 "export",
-                "over budget" if result.over_budget else ("ok" if result.ok else "incomplete"),
-                f"{len(result.files)} file(s), {size}",
+                "over budget"
+                if export_result.over_budget
+                else ("ok" if export_result.ok else "incomplete"),
+                f"{len(export_result.files)} file(s), {size}",
             )
         )
-        failed = failed or result.over_budget
+        failed = failed or export_result.over_budget
 
     console.step("Summary")
     console.table(summary, headers=("Step", "Result", "Detail"))

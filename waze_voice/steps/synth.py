@@ -184,7 +184,7 @@ def _load_chatterbox(config: PipelineConfig) -> Speaker:
         )
 
     try:
-        import torchaudio  # type: ignore[import-not-found]
+        import torchaudio
     except ImportError as error:
         raise SystemExit(f"Could not import torchaudio ({error}).\n{_CHATTERBOX_HINT}") from None
 
@@ -279,7 +279,7 @@ def _load_coqui(
         raise SystemExit(f"{reason}.\n{_COQUI_HINT}")
 
     try:
-        from TTS.api import TTS  # type: ignore[import-not-found]
+        from TTS.api import TTS
     except ImportError as error:
         raise SystemExit(f"Could not import coqui-tts ({error}).\n{_COQUI_HINT}") from None
 

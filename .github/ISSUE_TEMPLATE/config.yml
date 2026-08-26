@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Rights and licensing questions
+    url: https://github.com/ammar-adam/waze-voice-sdk/blob/main/LEGAL.md
+    about: Read LEGAL.md first. This project cannot advise on whether your source audio is cleared.
+  - name: Uploading a pack to Waze
+    url: https://github.com/pipeeeeees/waze-voicepack-links
+    about: The upload tooling and the community archive live in that project, not this one.
