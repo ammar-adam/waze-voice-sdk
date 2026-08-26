@@ -87,7 +87,10 @@ class CleanConfig:
 
 @dataclass(frozen=True)
 class SynthConfig:
-    backend: str = "chatterbox"  # chatterbox | xtts | finetuned
+    # Local: chatterbox | xtts | finetuned. Hosted: elevenlabs | openai.
+    # Hosted backends need only an API key, which is the shortest route from
+    # nothing to a finished pack.
+    backend: str = "chatterbox"
     # Chatterbox variant: turbo (350M, the default), nano (110M, fastest on
     # CPU), full (500M), multilingual (500M, 23+ languages).
     model: str = "turbo"
@@ -96,6 +99,16 @@ class SynthConfig:
     # knob does not require a change here. For Chatterbox the usual ones are
     # exaggeration and cfg_weight.
     generate_options: dict = field(default_factory=dict)
+    # Hosted providers only: which voice to speak in. A voice id from the
+    # provider's library, or one of your own. Ignored by local backends, which
+    # clone from reference audio instead.
+    voice: str = ""
+    # Override the provider's default model, e.g. eleven_turbo_v2_5.
+    provider_model: str = ""
+    # Passed through to the provider verbatim: voice_settings for ElevenLabs,
+    # instructions and speed for OpenAI. Open-ended so a provider adding a knob
+    # does not need a change here.
+    provider_options: dict = field(default_factory=dict)
     # Only used by the xtts backend.
     coqui_model_name: str = "tts_models/multilingual/multi-dataset/xtts_v2"
     language: str = "en"

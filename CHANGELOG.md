@@ -6,6 +6,12 @@ Notable changes. Dates are when the work landed on `main`.
 
 ### Added
 
+- **Hosted TTS providers, and `wvs quickstart`.** A complete pack from a voice id
+  and an API key: no recording, no source media, no timestamps. ElevenLabs and
+  OpenAI, over plain HTTPS from the standard library, so the fastest route to a
+  finished pack is also the one that installs nothing. `wvs voices` browses a
+  provider's library; `wvs doctor` reports which keys are set.
+
 - **Multiple voice packs from one clone.** `packs/<name>/` holds a voice's own
   source list, audio tree, and optional config overrides. Every command takes
   `--pack`, or set `WVS_PACK` once. `wvs pack new|list|show` manages them.

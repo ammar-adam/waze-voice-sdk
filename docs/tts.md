@@ -1,191 +1,134 @@
 # Synthesis
 
-Filling the phrases your source media never said.
+Filling prompts your source media never said, or building a whole pack from
+nothing but text.
 
-A recording of someone talking rarely contains "Keep right" or "In a quarter mile". The
-synthesis step generates those lines in the voice of the clips you already extracted.
+There are two routes, and they suit different situations.
 
-## Before anything else
+| | Hosted API | Local (Chatterbox) |
+| --- | --- | --- |
+| To install | nothing | PyTorch, multi-GB |
+| Needs | an API key | a CPU and patience |
+| Voice comes from | the provider's library, or your own cloned voice | ~10 s of your own audio |
+| Source media required | none | yes, to clone from |
+| Cost | about 1000 characters per pack | free |
+| Audio never leaves your machine | no | yes |
 
-This clones a voice. Confirm you have the rights, and where a real person is involved the
-consent, for what you intend to do with the result. [LEGAL.md](../LEGAL.md) has the
-detail. The step asks you to acknowledge this once with `--accept-voice-terms` and records
-a local, Git-ignored receipt.
+If you want a pack in the next five minutes, use the hosted route. If you want
+a specific person's voice, or you want nothing leaving your machine, use the
+local one.
 
-## Install
-
-```powershell
-python -m pip install -r requirements-tts.txt
-python scripts\wvs.py doctor
-```
-
-That installs **Chatterbox**, the default backend. It pulls in PyTorch, so expect a
-multi-GB download. No separate Python version or virtual environment is needed: it
-installs on the same interpreter as the rest of the pipeline, Python 3.10 through 3.13.
-
-For a CUDA build, install torch from the
-[PyTorch selector](https://pytorch.org/get-started/locally/) first, then run the command
-above. CPU works fine for a voice pack, which is a handful of one-second clips.
-
-## Generate
+## Hosted, from nothing
 
 ```powershell
-python scripts\wvs.py synth --accept-voice-terms
+$env:OPENAI_API_KEY = "sk-..."
+python scripts\wvs.py voices
+python scripts\wvs.py quickstart --voice nova
 ```
 
-That is the whole thing. It finds every required phrase with no audio anywhere, builds a
-speaker reference from your cleaned clips, and generates the missing lines.
-
-The first run downloads model weights from Hugging Face, which is the step most likely to
-fail behind a proxy or a restricted network. If it does, the error says so and suggests
-warming the cache separately via `HF_HOME`. Weights are cached after the first success, so
-subsequent runs are fast and offline.
+`quickstart` generates every prompt, normalizes, validates, and exports a pack
+sized for Waze. It skips extraction and cleaning entirely, because generated
+audio arrives at spec and there is nothing to cut or de-noise.
 
 ```powershell
-# See what would be generated, without loading a model
-python scripts\wvs.py synth --dry-run
+# Browse a provider's library
+python scripts\wvs.py voices --provider elevenlabs --search british
 
-# Optional phrases too
-python scripts\wvs.py synth --include-optional --accept-voice-terms
+# Optional prompts too: alerts and roundabout ordinals
+python scripts\wvs.py quickstart --voice nova --include-optional
 
-# Redo specific phrases
-python scripts\wvs.py synth --only and_then traffic_ahead --force --accept-voice-terms
-
-# Fastest variant, for CPU-only machines
-python scripts\wvs.py synth --model nano --accept-voice-terms
+# One unit system, to free up budget
+python scripts\wvs.py quickstart --voice nova --units metric
 ```
 
-Synthesized clips land in `audio/synthesized/` and are picked up by normalization
-alongside everything else.
+Providers are plain HTTPS calls made with the standard library, so the hosted
+path adds no dependencies at all. `wvs doctor` shows which keys are set.
 
-## Why Chatterbox
+### Supported providers
 
-| | Chatterbox | Coqui XTTS-v2 | F5-TTS |
-| --- | --- | --- | --- |
-| Weights licence | **MIT** | Coqui Public Model License | CC-BY-NC |
-| Commercial use | Yes | **No** | **No** |
-| Python 3.13 | Yes | Yes (via the `coqui-tts` fork) | Unclear |
-| Cloning reference needed | ~10 s | ~6 s | ~10 s |
-| Maintained by | Resemble AI | Community fork | Community |
-
-The deciding factor is licensing, not Python versions. XTTS-v2's weights are under the
-Coqui Public Model License, which permits **non-commercial use only**, and Coqui Inc. shut
-down in January 2024, so there is nobody left who can sell you a commercial licence. The
-`coqui.ai/cpml` URL printed on the model card is now a dead link. F5-TTS has the same
-problem via CC-BY-NC on its pretrained weights.
-
-For an SDK whose whole premise is "bring audio you have the right to use", shipping a
-default that quietly caps every output at non-commercial would be a poor choice.
-Chatterbox is MIT including the weights, so what you generate is yours.
-
-It also embeds [PerTh](https://github.com/resemble-ai/perth) watermarking in everything it
-generates, which means synthetic clips from this pipeline stay detectable downstream. For
-a tool that clones voices, that is a feature.
-
-### Model variants
-
-Set `synth.model` in [config/pipeline.json](../config/pipeline.json), or pass `--model`:
-
-| Variant | Size | Notes |
-| ------- | ---- | ----- |
-| `turbo` | 350M | Default. English, low latency. |
-| `nano` | 110M | Fastest on CPU. **Not exposed by chatterbox-tts 0.1.7** - see below. |
-| `full` | 500M | English, highest quality of the English models. |
-| `multilingual` | 500M | 23+ languages. Set `synth.language` too. |
-
-Chatterbox's README and its shipped package have already drifted apart: 0.1.7's README
-documents `from_pretrained(device=..., nano=True)` and a `t3_model` argument for the
-multilingual model, and the installed 0.1.7 accepts neither. This SDK reads the real
-signature before calling, so asking for a variant your installed version does not have
-gives you a sentence saying so rather than a `TypeError` from inside the library. If a
-later release adds `nano`, `--model nano` starts working with no change here.
-
-Generation knobs such as `exaggeration` and `cfg_weight` go in
-`synth.generate_options`, which is passed straight through to the backend:
+**`openai`** (`OPENAI_API_KEY`) has no voice cloning of any kind, so every voice
+it can produce is one OpenAI licenses to you. That makes it the simplest option
+to reason about. It also takes plain-English delivery instructions, which suit
+navigation prompts:
 
 ```json
 "synth": {
-  "model": "turbo",
-  "generate_options": { "exaggeration": 0.4 }
+  "provider_options": { "instructions": "Brisk and clear, like a navigation system." }
 }
 ```
 
-That field is deliberately open-ended so a backend renaming or adding a parameter does not
-require a change to this SDK.
+**`elevenlabs`** (`ELEVENLABS_API_KEY`) has a much larger library and supports
+cloning. `provider_options` accepts `voice_settings` and `output_format`;
+`wav_44100` avoids a lossy generation before our own encode, if your plan
+includes it.
 
-## The other backends
+### Filling gaps rather than starting fresh
 
-Both are optional and neither is installed by default.
-
-### `xtts`
-
-Coqui XTTS-v2 through the community-maintained `coqui-tts` fork. Worth it for languages
-Chatterbox does not cover well.
+`quickstart` is `synth` with the rest of the pipeline attached. To fill only the
+prompts your recordings are missing, keeping the real voice everywhere else:
 
 ```powershell
-python -m pip install coqui-tts
-python scripts\wvs.py synth --backend xtts --accept-voice-terms
+python scripts\wvs.py synth --backend openai --voice nova --accept-voice-terms
 ```
 
-The step prints a licence warning every time it loads, because the non-commercial
-restriction on the weights is easy to forget once the audio sounds good.
+That is worth listening to carefully. A synthetic "Recalculating" between two
+recorded prompts is very noticeable.
 
-Note the package name: the original `TTS` package from Coqui is archived and does cap at
-Python 3.11. `coqui-tts` is the maintained fork and supports 3.10 through 3.14.
-
-### `finetuned`
-
-A checkpoint you trained yourself. Rarely the right tool here.
+## Local, cloned from your own clips
 
 ```powershell
-python tts\prepare_dataset.py
-python tts\train.py --dataset datasets\voice --accept-voice-terms
-python tts\generate.py --backend finetuned --model-path models\finetune
+python -m pip install -r requirements-tts.txt
+python scripts\wvs.py synth --accept-voice-terms
 ```
 
-`prepare_dataset.py` writes the LJSpeech layout Coqui's recipes expect and reports how much
-audio you actually have. Below roughly ten minutes, fine-tuning overfits and sounds worse
-than zero-shot, and `train.py` declines to start unless you pass `--force`.
+Chatterbox (Resemble AI) conditions on about ten seconds of your cleaned clips
+and speaks new lines in that voice, with no training run. MIT licensed including
+the weights, so what you generate is yours. Variants via `--model`: `turbo`
+(default), `nano` (fastest on CPU), `full`, `multilingual`.
 
-Chatterbox has no official fine-tuning path, so this trains a Coqui model, which means
-inheriting Coqui's weight licensing. Read the table above before going down this road.
+Two other local backends exist: `xtts` (Coqui XTTS-v2, whose **weights are
+non-commercial**) and `finetuned` (a checkpoint from `tts/train.py`). See
+`waze_voice/steps/synth.py`.
+
+## Which voice you are allowed to use
+
+Provider libraries are licensed to you by the provider. Pick one and you are
+done thinking about it.
+
+Cloning is different. Every provider's terms require that you have the rights to
+the voice you clone, and this SDK passes a voice id through without being able to
+tell the difference. Cloning a performer or a recognisable character engages
+copyright, trademark, and personality rights all at once, and the provider's
+terms on top. See [LEGAL.md](../LEGAL.md). The step asks you to acknowledge this
+once with `--accept-voice-terms`.
 
 ## Making it sound right
 
-**Write for the ear, not the page.** `tts_text` in
-[config/phrases.json](../config/phrases.json) exists for this. The shipped inventory
-already uses it: `In 200 meters` is spoken as "In two hundred meters", because a TTS
-front-end left to itself may read the digits out one at a time; `Make a U-turn` drops the
-hyphen, which front-ends often read as a compound token.
+**Write for the ear.** `tts_text` in [config/phrases.json](../config/phrases.json)
+exists for this. `In 500 meters` is spoken as "In five hundred meters", because a
+front-end left alone may read the digits singly; `Make a U-turn` drops the hyphen.
 
-**Listen to every generated line.** Synthetic prompts drift in pace and emphasis more than
-cut source audio does, and a prompt that is subtly too slow is genuinely annoying at 70
-km/h. The export checklist lists synthesized clips separately for exactly this reason, and
-the QA step is where you catch them:
+**Listen to the whole thing as a route**, not clip by clip:
 
 ```powershell
 python scripts\wvs.py qa --route chained_maneuvers
 ```
 
-**More reference audio helps.** Below about six seconds, similarity falls off sharply. The
-step warns you when it has less than that. If generated lines do not sound like your
-source, extract a few more clips before reaching for other settings.
+`AndThen` is the clip to listen hardest to. It has to flow out of one instruction
+and into another, and any seam in the pack shows up there.
 
-You can supply your own reference instead of the automatic one:
+**Keep it short.** Generated prompts tend to run long, and length is what costs
+you against the 0.8 MB budget. `wvs validate` flags anything unusually long.
 
-```powershell
-python scripts\wvs.py synth --reference my-best-10-seconds.wav --accept-voice-terms
-```
+## Verification status
 
-## If you skip synthesis entirely
+The provider request shapes, key handling, retry policy, and the whole quickstart
+flow are covered by tests with the HTTP layer stubbed and real audio bytes coming
+back. What those tests cannot check is whether a vendor still accepts that request
+shape today. That needs a key.
 
-It is optional throughout, and nothing else in the pipeline depends on it.
+## Skipping synthesis entirely
 
-- `wvs run` probes for the backend first and skips the step with one line explaining why,
-  then carries on through normalize, validate, and export.
-- `wvs synth` on its own exits with install instructions rather than a stack trace.
-- Any phrase left unfilled is carried into `UPLOAD_CHECKLIST.md` under "Missing, and
-  worth fixing". Waze falls back to its default voice for anything absent.
-- `wvs run --no-tts` skips the step without probing at all.
-
-A pack where you record four lines yourself is a perfectly good pack.
+Optional throughout. `wvs run` skips it with one line when nothing is available,
+and any unfilled prompt is listed in the export checklist for you to record in
+the Waze app instead.

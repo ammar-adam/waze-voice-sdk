@@ -13,7 +13,7 @@ import platform
 import sys
 from dataclasses import dataclass
 
-from . import console, media, paths
+from . import console, media, paths, providers
 
 
 @dataclass
@@ -69,6 +69,25 @@ def _python_check() -> list[Check]:
     return checks
 
 
+def _provider_checks() -> list[Check]:
+    """Hosted TTS needs an API key and nothing else, so that is the whole check."""
+    checks = []
+    for name in providers.NAMES:
+        provider = providers.get(name)
+        if provider.key_present():
+            checks.append(Check(f"{name} key", "ok", f"${provider.env_var} is set"))
+        else:
+            checks.append(
+                Check(
+                    f"{name} key",
+                    "warn",
+                    f"${provider.env_var} not set",
+                    f"wvs quickstart --provider {name}  ({provider.signup_url})",
+                )
+            )
+    return checks
+
+
 def _config_check() -> list[Check]:
     checks: list[Check] = []
     for label, path in (
@@ -117,6 +136,7 @@ def collect() -> list[Check]:
     )
     checks.append(_module_check("torch", "demucs and synthesis backends"))
     checks.append(_module_check("torchaudio", "writing synthesized clips"))
+    checks += _provider_checks()
 
     gpu = _gpu_detail()
     if gpu is not None:

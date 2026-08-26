@@ -33,12 +33,14 @@ from collections.abc import Callable, Iterable
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from .. import console, media, paths, takes
+from .. import console, media, paths, providers, takes
 from .. import manifest as manifest_module
 from .. import phrases as phrases_module
 from ..config import PipelineConfig
 
-BACKENDS = ("chatterbox", "xtts", "finetuned")
+LOCAL_BACKENDS = ("chatterbox", "xtts", "finetuned")
+HOSTED_BACKENDS = tuple(providers.NAMES)
+BACKENDS = LOCAL_BACKENDS + HOSTED_BACKENDS
 CHATTERBOX_MODELS = ("turbo", "nano", "full", "multilingual")
 
 CONSENT_RECEIPT = ".voice-consent"
@@ -81,8 +83,10 @@ class SynthResult:
         return not self.failures
 
 
-# A backend is just a callable: speak this text, in this voice, to this file.
-Speaker = Callable[[str, Path, Path | None], None]
+# A backend is just a callable: speak this text, in this voice, to a file.
+# It returns the path it actually wrote, which is not always the one suggested:
+# hosted providers hand back MP3 while local backends produce WAV.
+Speaker = Callable[[str, Path, Path | None], Path]
 
 
 # --------------------------------------------------------------------------
@@ -97,7 +101,21 @@ def _module_present(name: str) -> bool:
         return False
 
 
+def needs_reference_audio(backend: str) -> bool:
+    """Local backends clone from a sample; hosted ones take a voice id."""
+    return backend in LOCAL_BACKENDS
+
+
 def is_available(backend: str = "chatterbox") -> tuple[bool, str]:
+    if backend in HOSTED_BACKENDS:
+        provider = providers.get(backend)
+        if not provider.key_present():
+            return False, (
+                f"{backend} needs an API key in ${provider.env_var} "
+                f"(free tier at {provider.signup_url})"
+            )
+        return True, ""
+
     """Report whether a backend can run, and why not when it cannot.
 
     The orchestrator uses this to skip synthesis with one clear line rather than
@@ -256,13 +274,14 @@ def _load_chatterbox(config: PipelineConfig) -> Speaker:
             f"Supported: {', '.join(sorted(generate_accepts - {'self', 'text'}))}"
         )
 
-    def speak(text: str, destination: Path, reference: Path | None) -> None:
+    def speak(text: str, destination: Path, reference: Path | None) -> Path:
         kwargs = dict(extra)
         if reference is not None:
             kwargs["audio_prompt_path"] = str(reference)
         wav = model.generate(text, **kwargs)
         destination.parent.mkdir(parents=True, exist_ok=True)
         torchaudio.save(str(destination), wav, sample_rate)
+        return destination
 
     return speak
 
@@ -308,7 +327,7 @@ def _load_coqui(
         console.detail("The first run downloads model weights; expect a wait.")
         model = TTS(config.synth.coqui_model_name, progress_bar=False).to(config.synth.device)
 
-    def speak(text: str, destination: Path, reference: Path | None) -> None:
+    def speak(text: str, destination: Path, reference: Path | None) -> Path:
         destination.parent.mkdir(parents=True, exist_ok=True)
         kwargs: dict[str, object] = {"text": text, "file_path": str(destination)}
         if reference is not None:
@@ -316,6 +335,7 @@ def _load_coqui(
         if backend == "xtts" or getattr(model, "is_multi_lingual", False):
             kwargs["language"] = config.synth.language
         model.tts_to_file(**kwargs)
+        return destination
 
     return speak
 
@@ -330,7 +350,41 @@ def load_backend(
         return _load_chatterbox(config)
     if backend in ("xtts", "finetuned"):
         return _load_coqui(config, backend, model_path, model_config_path)
+    if backend in HOSTED_BACKENDS:
+        return _load_hosted(config, backend)
     raise SystemExit(f"Unknown backend {backend!r}. Choose one of: {', '.join(BACKENDS)}")
+
+
+def _load_hosted(config: PipelineConfig, backend: str) -> Speaker:
+    """A hosted provider. No model download, no reference audio, just a key."""
+    try:
+        provider = providers.get(backend).from_env(
+            model=config.synth.provider_model,
+            options=config.synth.provider_options,
+        )
+    except providers.ProviderError as error:
+        raise SystemExit(str(error)) from None
+
+    voice = config.synth.voice.strip()
+    if not voice:
+        raise SystemExit(
+            f"The {backend} backend needs a voice.\n"
+            f"    python scripts/wvs.py voices --provider {backend}\n"
+            f"then pass --voice <id>, or set synth.voice in config/pipeline.json."
+        )
+
+    console.detail(f"Using {backend} voice {voice} ({provider.model})")
+
+    def speak(text: str, destination: Path, reference: Path | None) -> Path:
+        # reference is unused: the voice is chosen by id, not imitated.
+        target = destination.with_suffix(provider.extension)
+        try:
+            provider.synthesize(text, voice, target)
+        except providers.ProviderError as error:
+            raise RuntimeError(str(error)) from None
+        return target
+
+    return speak
 
 
 # --------------------------------------------------------------------------
@@ -495,7 +549,12 @@ def run(
 
     check_consent(accepted=accept_voice_terms)
 
-    reference_path = reference or build_reference(config=config)
+    # Hosted providers pick a voice by id, so there is nothing to imitate and
+    # nothing to build a reference from. That is what lets a pack be made with
+    # no source media at all.
+    reference_path: Path | None = None
+    if needs_reference_audio(backend):
+        reference_path = reference or build_reference(config=config)
     result.reference = reference_path
 
     speak = load_backend(config, backend, model_path, model_config_path)
@@ -503,20 +562,30 @@ def run(
     manifest = manifest_module.Manifest.load()
 
     for phrase in gaps:
-        destination = output_dir / f"{phrase.id}.wav"
-        if destination.is_file() and not force:
-            console.detail(f"skip (exists) {destination.name}")
+        # The extension depends on the backend, so look for whatever audio the
+        # phrase already has rather than guessing one.
+        existing = next(
+            (
+                path
+                for path in sorted(output_dir.glob(f"{phrase.id}.*"))
+                if path.suffix.lower() in takes.AUDIO_EXTENSIONS
+            ),
+            None,
+        )
+        if existing is not None and not force:
+            console.detail(f"skip (exists) {existing.name}")
             result.skipped.append(phrase.id)
             continue
 
+        suggested = output_dir / f"{phrase.id}.wav"
         try:
-            speak(phrase.speech_text, destination, reference_path)
+            destination = speak(phrase.speech_text, suggested, reference_path)
         except Exception as error:  # noqa: BLE001 - surface any backend failure per phrase
             console.error(f"{phrase.id}: synthesis failed ({error})")
             result.failures.append(phrase.id)
             continue
 
-        if not destination.is_file():
+        if destination is None or not destination.is_file():
             console.error(f"{phrase.id}: the backend reported success but wrote no file.")
             result.failures.append(phrase.id)
             continue

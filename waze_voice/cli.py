@@ -16,7 +16,7 @@ import sys
 from dataclasses import replace
 from pathlib import Path
 
-from . import budget, console, doctor, media, packs, paths
+from . import budget, console, doctor, media, packs, paths, providers
 from . import config as config_module
 from .steps import clean, export, extract, normalize, qa, synth, validate
 
@@ -70,9 +70,14 @@ def _add_synth(subparsers) -> None:
     )
     parser.add_argument("--output-dir", type=Path)
     parser.add_argument(
+        "--voice",
+        help="Voice id for a hosted backend. See: wvs voices --provider <name>",
+    )
+    parser.add_argument("--provider-model", help="Override the provider's default model.")
+    parser.add_argument(
         "--reference",
         type=Path,
-        help="Speaker reference WAV. Built automatically if omitted.",
+        help="Speaker reference WAV. Local backends only; built automatically if omitted.",
     )
     parser.add_argument(
         "--model-path", type=Path, help="Checkpoint directory for the 'finetuned' backend."
@@ -169,6 +174,7 @@ def _add_run(subparsers) -> None:
     parser.add_argument("--skip", nargs="+", choices=PIPELINE_ORDER, default=[])
     parser.add_argument("--no-tts", action="store_true", help="Do not attempt synthesis.")
     parser.add_argument("--backend", choices=synth.BACKENDS, help="Synthesis backend.")
+    parser.add_argument("--voice", help="Voice id for a hosted synthesis backend.")
     parser.add_argument(
         "--accept-voice-terms",
         action="store_true",
@@ -207,8 +213,54 @@ def build_parser() -> argparse.ArgumentParser:
     dataset.add_argument("--output-dir", type=Path)
 
     _add_pack(subparsers)
+    _add_voices(subparsers)
+    _add_quickstart(subparsers)
 
     return parser
+
+
+def _add_voices(subparsers) -> None:
+    parser = _common(
+        subparsers.add_parser("voices", help="List voices a hosted provider offers.")
+    )
+    parser.add_argument(
+        "--provider",
+        choices=providers.NAMES,
+        help="Defaults to whichever provider has an API key set.",
+    )
+    parser.add_argument("--search", help="Filter by name or description.")
+
+
+def _add_quickstart(subparsers) -> None:
+    parser = _common(
+        subparsers.add_parser(
+            "quickstart",
+            help="Build a complete pack from a hosted voice, with no source media.",
+        )
+    )
+    parser.add_argument(
+        "--provider",
+        choices=providers.NAMES,
+        help="Defaults to whichever provider has an API key set.",
+    )
+    parser.add_argument("--voice", help="Voice id. See: wvs voices")
+    parser.add_argument("--provider-model", help="Override the provider's default model.")
+    parser.add_argument(
+        "--include-optional",
+        action="store_true",
+        help="Generate the optional prompts too (alerts, roundabout ordinals).",
+    )
+    parser.add_argument(
+        "--units",
+        choices=("both", "metric", "imperial"),
+        help="Which distance callout set to include.",
+    )
+    parser.add_argument(
+        "--accept-voice-terms",
+        action="store_true",
+        help="Acknowledge that you have the rights to the voice you selected.",
+    )
+    parser.add_argument("--force", action="store_true", help="Regenerate everything.")
 
 
 def _add_pack(subparsers) -> None:
@@ -257,6 +309,18 @@ def _load_config(args: argparse.Namespace) -> config_module.PipelineConfig:
     model = getattr(args, "model", None)
     if model is not None:
         cfg = replace(cfg, synth=replace(cfg.synth, model=model))
+
+    voice = getattr(args, "voice", None)
+    if voice:
+        cfg = replace(cfg, synth=replace(cfg.synth, voice=voice))
+
+    provider_model = getattr(args, "provider_model", None)
+    if provider_model:
+        cfg = replace(cfg, synth=replace(cfg.synth, provider_model=provider_model))
+
+    backend = getattr(args, "backend", None)
+    if backend:
+        cfg = replace(cfg, synth=replace(cfg.synth, backend=backend))
 
     return cfg
 
@@ -530,6 +594,122 @@ def cmd_run(args, cfg) -> int:
     return 1 if failed else 0
 
 
+def _default_provider(requested: str | None) -> str:
+    """Pick the provider to use, when the user did not say."""
+    if requested:
+        return requested
+
+    ready = providers.available()
+    if len(ready) == 1:
+        return ready[0]
+    if not ready:
+        lines = [
+            f"  {name}: set ${providers.get(name).env_var}"
+            f"  ({providers.get(name).signup_url})"
+            for name in providers.NAMES
+        ]
+        raise SystemExit("No hosted provider has an API key set.\n" + "\n".join(lines))
+    raise SystemExit(
+        f"Several providers have keys set ({', '.join(ready)}). Pick one with --provider."
+    )
+
+
+def cmd_voices(args, cfg) -> int:
+    name = _default_provider(args.provider)
+    provider_cls = providers.get(name)
+
+    console.step(f"Voices: {name}")
+    try:
+        # A provider with a fixed catalogue needs neither a key nor a round trip.
+        if provider_cls.supports_voice_listing:
+            provider = provider_cls.from_env()
+        else:
+            provider = provider_cls("")
+        voices = provider.list_voices()
+    except providers.ProviderError as error:
+        raise SystemExit(str(error)) from None
+
+    needle = (args.search or "").lower()
+    if needle:
+        voices = [v for v in voices if needle in v.name.lower() or needle in v.summary.lower()]
+
+    if not voices:
+        console.info("No voices matched.")
+        return 0
+
+    console.table(
+        [(v.id, v.name, v.summary[:56]) for v in voices],
+        headers=("Id", "Name", "Notes"),
+    )
+    console.info("")
+    console.info(f"  python scripts/wvs.py quickstart --provider {name} --voice <id>")
+    return 0
+
+
+def cmd_quickstart(args, cfg) -> int:
+    """A finished pack from a voice id, with no source media at all.
+
+    This is the shortest path that exists: pick a voice, wait a minute, upload.
+    Everything the longer pipeline does for recorded audio (cutting, cleaning,
+    take selection) has nothing to do because the audio is generated to spec.
+    """
+    name = _default_provider(args.provider)
+    cfg = replace(cfg, synth=replace(cfg.synth, backend=name))
+
+    if not cfg.synth.voice:
+        raise SystemExit(
+            "Pick a voice first:\n"
+            f"    python scripts/wvs.py voices --provider {name}\n"
+            "then pass --voice <id>."
+        )
+
+    available_now, reason = synth.is_available(name)
+    if not available_now:
+        raise SystemExit(reason)
+
+    console.step("Quickstart")
+    console.info(f"Provider: {name}   Voice: {cfg.synth.voice}")
+    console.detail("Every prompt is generated from text. No recording, no timestamps.")
+
+    synth_result = synth.run(
+        config=cfg,
+        phrases_path=args.phrases,
+        backend=name,
+        include_optional=args.include_optional,
+        accept_voice_terms=args.accept_voice_terms,
+        force=args.force,
+    )
+    if not synth_result.ok:
+        console.error("Some prompts could not be generated; stopping before export.")
+        return 1
+
+    normalize.run(config=cfg, phrases_path=args.phrases, force=args.force)
+    validate.run(config=cfg, phrases_path=args.phrases)
+    export_result = export.run(
+        config=cfg,
+        phrases_path=args.phrases,
+        units=args.units,
+        allow_missing=True,
+        force=args.force,
+    )
+
+    console.step("Done")
+    if export_result.over_budget:
+        console.error("Pack is over Waze's size budget. The checklist says what to cut.")
+        return 1
+
+    console.info(
+        f"{len(export_result.files)} prompt(s), "
+        f"{export_result.total_bytes / 1000:.0f} kB of "
+        f"{cfg.export.budget_bytes / 1000:.0f} kB budget."
+    )
+    console.info("")
+    console.info("Next:")
+    console.info("  1. python scripts/wvs.py qa        hear it as a route")
+    console.info("  2. audio/export/HOW-TO-UPLOAD.md   get it onto your phone")
+    return 0
+
+
 def cmd_pack(args, cfg) -> int:
     if args.pack_command == "list":
         return _pack_list()
@@ -628,6 +808,8 @@ COMMANDS = {
     "dataset": cmd_dataset,
     "run": cmd_run,
     "pack": cmd_pack,
+    "voices": cmd_voices,
+    "quickstart": cmd_quickstart,
 }
 
 

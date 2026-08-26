@@ -68,25 +68,43 @@ Two optional extras, each isolated so nobody downloads PyTorch to cut a clip:
 | Extra | Enables | Install |
 | ----- | ------- | ------- |
 | [requirements-clean.txt](requirements-clean.txt) | Demucs vocal separation | `python -m pip install -r requirements-clean.txt` |
-| [requirements-tts.txt](requirements-tts.txt) | Chatterbox voice synthesis | `python -m pip install -r requirements-tts.txt` |
+| [requirements-tts.txt](requirements-tts.txt) | Chatterbox voice synthesis, offline | `python -m pip install -r requirements-tts.txt` |
+| *(none needed)* | ElevenLabs / OpenAI synthesis | just an API key, see [docs/tts.md](docs/tts.md) |
 
 ## Quick start
 
+The fastest route to a finished pack is a text-to-speech API key. No recording,
+no source media, no timestamps, and nothing to install:
+
 ```powershell
-python tests\run_tests.py
+$env:OPENAI_API_KEY = "sk-..."
+python scripts\wvs.py voices
+python scripts\wvs.py quickstart --voice nova
 ```
 
-That builds synthetic media, runs the whole pipeline on it, and checks the audio that
-comes out. It needs no media of your own, so it is the fastest way to confirm your
-install works.
+That generates all 43 prompts Waze recognises, in both metric and imperial,
+normalized and packed inside Waze's size budget. About a minute, and roughly a
+thousand characters of TTS.
 
-Then, for real:
+`elevenlabs` works the same way and has a much larger voice library:
+
+```powershell
+$env:ELEVENLABS_API_KEY = "..."
+python scripts\wvs.py voices --provider elevenlabs --search narrator
+python scripts\wvs.py quickstart --provider elevenlabs --voice <id>
+```
+
+Building from **your own recordings** instead is the longer path, and the one
+the rest of this README describes:
 
 ```powershell
 copy data\sources.sample.csv data\my-sources.csv
 notepad data\my-sources.csv
 python scripts\wvs.py run --sources data\my-sources.csv
 ```
+
+To check the install without any of the above, `python tests\run_tests.py`
+builds synthetic media and runs the whole pipeline over it.
 
 ## The pipeline
 
@@ -100,7 +118,7 @@ your media  ->  extract  ->  clean  ->  synth  ->  normalize  ->  qa  ->  export
 | ---- | ------------ |
 | `extract` | Cuts each clip from your source media with ffmpeg. Validates every CSV row before touching a file. |
 | `clean` | Isolates the vocal. `ffmpeg` mode band-limits and denoises; `demucs` mode runs full source separation; `copy` passes through. |
-| `synth` | Generates phrases your source never contained, in the voice of your own cleaned clips. Optional. |
+| `synth` | Generates phrases your source never contained. A hosted API voice, or a clone of your own clips. Optional. |
 | `normalize` | Measures each clip and applies one static gain so every prompt lands on the same loudness. |
 | `qa` | Plays the pack back as a navigation route, chained the way Waze chains prompts. Records a pass/fail verdict per instruction. |
 | `export` | Builds the uploadable pack: Waze filenames, both unit systems, bitrates allocated to fit the 0.8 MB budget. |
