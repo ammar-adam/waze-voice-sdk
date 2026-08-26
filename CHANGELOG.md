@@ -6,6 +6,12 @@ Notable changes. Dates are when the work landed on `main`.
 
 ### Added
 
+- **Multiple voice packs from one clone.** `packs/<name>/` holds a voice's own
+  source list, audio tree, and optional config overrides. Every command takes
+  `--pack`, or set `WVS_PACK` once. `wvs pack new|list|show` manages them.
+  Packs share the Waze slot list and fall back to `config/` per file, so a pack
+  usually needs only its own `sources.csv`.
+
 - CI on GitHub Actions: ruff and mypy, the test suite on Windows and Linux
   across Python 3.10 to 3.13, and an end-to-end pack build that uploads the
   resulting pack as an artifact.

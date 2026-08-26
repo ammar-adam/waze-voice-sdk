@@ -13,7 +13,7 @@ from pathlib import Path
 import _bootstrap  # noqa: F401
 
 from waze_voice import config as config_module
-from waze_voice import console
+from waze_voice import console, paths
 from waze_voice.steps import validate
 
 
@@ -35,6 +35,10 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Skip ffprobe checks of channel count, sample rate, and duration.",
     )
+    parser.add_argument(
+        "--pack",
+        help="Voice pack to work on. See: python scripts/wvs.py pack list",
+    )
     parser.add_argument("--quiet", action="store_true")
     return parser.parse_args()
 
@@ -42,6 +46,8 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     console.set_quiet(args.quiet)
+    if args.pack:
+        paths.set_active_pack(args.pack)
 
     result = validate.run(
         config=config_module.load(args.config),

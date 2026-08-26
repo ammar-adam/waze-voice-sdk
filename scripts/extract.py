@@ -9,7 +9,7 @@ from pathlib import Path
 import _bootstrap  # noqa: F401
 
 from waze_voice import config as config_module
-from waze_voice import console
+from waze_voice import console, paths
 from waze_voice.steps import extract
 
 
@@ -22,6 +22,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--only", nargs="+", metavar="PHRASE_ID", help="Limit to these phrases.")
     parser.add_argument("--force", action="store_true", help="Re-cut clips that already exist.")
     parser.add_argument("--dry-run", action="store_true", help="Report cuts without running them.")
+    parser.add_argument(
+        "--pack",
+        help="Voice pack to work on. See: python scripts/wvs.py pack list",
+    )
     parser.add_argument("--quiet", action="store_true")
     return parser.parse_args()
 
@@ -29,6 +33,8 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     console.set_quiet(args.quiet)
+    if args.pack:
+        paths.set_active_pack(args.pack)
     result = extract.run(
         config=config_module.load(args.config),
         sources_path=args.sources,

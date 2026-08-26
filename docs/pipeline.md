@@ -203,6 +203,36 @@ When even the floor overshoots, the plan says so and the export fails rather tha
 producing an unusable pack. Silently dropping below the quality floor would trade a
 rejected upload for one that uploads and sounds terrible.
 
+## Packs
+
+A pack is one voice. `packs/<name>/` holds that voice's `sources.csv`, its
+`audio/` tree, and optionally its own `phrases.json`, `routes.json`, or
+`pipeline.json`.
+
+Everything resolves through `waze_voice/paths.py`, so selecting a pack is one
+call (`set_active_pack`) made before any path is looked up. Doing it late would
+leave half a run reading one tree and half another, which is why the CLI sets it
+as the first thing after parsing arguments.
+
+Precedence for the audio tree:
+
+1. `WVS_AUDIO_ROOT`, so a test or a one-off can redirect without touching packs.
+2. The active pack, from `--pack` or `WVS_PACK`.
+3. The shared `audio/` tree.
+
+Config falls back per file rather than per pack: a pack without `phrases.json`
+uses the shared one, a pack with it uses its own. The Waze slot list does not
+change with the voice filling it, so most packs override nothing.
+
+Pack names are validated against a strict pattern rather than escaped, because
+they become directory names and the export step deletes recursively inside
+whatever directory it is handed. `--pack ..` resolving to the repo root is not a
+mistake worth being clever about.
+
+Two packs deliberately produce the **same** Waze filenames. That is required:
+Waze matches prompts by filename. Packs are separate uploads that you switch
+between on the device, not something that merges.
+
 ## Take resolution
 
 Which file represents a phrase is decided in one place, `waze_voice/takes.py`, searching

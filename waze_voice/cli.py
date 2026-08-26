@@ -16,7 +16,7 @@ import sys
 from dataclasses import replace
 from pathlib import Path
 
-from . import budget, console, doctor, media, paths
+from . import budget, console, doctor, media, packs, paths
 from . import config as config_module
 from .steps import clean, export, extract, normalize, qa, synth, validate
 
@@ -29,6 +29,13 @@ PIPELINE_ORDER = ["extract", "clean", "synth", "normalize", "validate", "export"
 
 
 def _common(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
+    parser.add_argument(
+        "--pack",
+        help=(
+            "Which voice pack to work on. Each pack keeps its own source list "
+            "and audio under packs/<name>/. Defaults to $WVS_PACK."
+        ),
+    )
     parser.add_argument("--config", type=Path, help="Path to pipeline.json.")
     parser.add_argument("--phrases", type=Path, help="Path to phrases.json.")
     parser.add_argument("--quiet", action="store_true", help="Suppress progress output.")
@@ -199,7 +206,44 @@ def build_parser() -> argparse.ArgumentParser:
     dataset.add_argument("--source-dir", type=Path)
     dataset.add_argument("--output-dir", type=Path)
 
+    _add_pack(subparsers)
+
     return parser
+
+
+def _add_pack(subparsers) -> None:
+    parser = subparsers.add_parser(
+        "pack", help="Manage voice packs (one per voice) in this clone."
+    )
+    actions = parser.add_subparsers(dest="pack_command", required=True)
+
+    listing = actions.add_parser("list", help="Show every pack and its progress.")
+    listing.add_argument("--quiet", action="store_true")
+
+    new = actions.add_parser("new", help="Create a pack.")
+    new.add_argument("name", help="Directory-safe name, e.g. narrator-voice.")
+    new.add_argument("--label", default="", help="Human-readable name.")
+    new.add_argument(
+        "--voice",
+        default="",
+        help="Where the voice comes from. Recorded here for your own reference.",
+    )
+    new.add_argument("--notes", default="", help="Anything worth remembering.")
+    new.add_argument(
+        "--copy-phrases",
+        action="store_true",
+        help="Give this pack its own phrases.json instead of sharing the default.",
+    )
+    new.add_argument(
+        "--copy-routes",
+        action="store_true",
+        help="Give this pack its own routes.json.",
+    )
+    new.add_argument("--quiet", action="store_true")
+
+    show = actions.add_parser("show", help="Show one pack in detail.")
+    show.add_argument("name")
+    show.add_argument("--quiet", action="store_true")
 
 
 def _load_config(args: argparse.Namespace) -> config_module.PipelineConfig:
@@ -486,6 +530,93 @@ def cmd_run(args, cfg) -> int:
     return 1 if failed else 0
 
 
+def cmd_pack(args, cfg) -> int:
+    if args.pack_command == "list":
+        return _pack_list()
+    if args.pack_command == "new":
+        return _pack_new(args)
+    return _pack_show(args.name)
+
+
+def _pack_list() -> int:
+    found = packs.list_packs()
+    console.step("Packs")
+    if not found:
+        console.info("No packs yet.")
+        console.info("")
+        console.info("  python scripts/wvs.py pack new my-voice --label \"My voice\"")
+        console.info("")
+        console.info(
+            "Without a pack the pipeline uses the shared audio/ tree, which is "
+            "fine for a single voice."
+        )
+        return 0
+
+    rows = []
+    for pack in found:
+        size = pack.pack_bytes()
+        rows.append(
+            (
+                pack.name,
+                pack.display_label,
+                f"{pack.master_count()} clips",
+                f"{size / 1000:.0f} kB" if size else "-",
+                "yes" if pack.has_sources else "no",
+                ", ".join(pack.overrides) or "-",
+            )
+        )
+    console.table(
+        rows, headers=("Name", "Label", "Mastered", "Pack", "Sources", "Overrides")
+    )
+    console.info("")
+    console.info("  python scripts/wvs.py run --pack <name>")
+    return 0
+
+
+def _pack_new(args) -> int:
+    pack = packs.create(
+        args.name,
+        label=args.label,
+        voice=args.voice,
+        notes=args.notes,
+        copy_phrases=args.copy_phrases,
+        copy_routes=args.copy_routes,
+    )
+    console.step(f"Created pack '{pack.name}'")
+    console.ok(str(pack.root))
+    console.info("")
+    console.info("Next:")
+    console.info(f"  1. Fill in {pack.sources_path.relative_to(paths.repo_root())}")
+    console.info(f"  2. python scripts/wvs.py run --pack {pack.name}")
+    console.info("")
+    console.detail(
+        "This pack falls back to the shared config for anything it does not "
+        "override, so the Waze prompt list is already set up."
+    )
+    return 0
+
+
+def _pack_show(name: str) -> int:
+    pack = packs.load(name)
+    console.step(f"Pack '{pack.name}'")
+    size = pack.pack_bytes()
+    console.table(
+        [
+            ("Label", pack.display_label),
+            ("Voice", pack.voice or "-"),
+            ("Notes", pack.notes or "-"),
+            ("Created", pack.created_at or "-"),
+            ("Root", str(pack.root)),
+            ("Source list", str(pack.sources_path) if pack.has_sources else "not created"),
+            ("Overrides", ", ".join(pack.overrides) or "none (uses shared config)"),
+            ("Mastered clips", str(pack.master_count())),
+            ("Exported pack", f"{size / 1000:.1f} kB" if size else "not built"),
+        ],
+        headers=("Field", "Value"),
+    )
+    return 0
+
+
 COMMANDS = {
     "extract": cmd_extract,
     "clean": cmd_clean,
@@ -496,6 +627,7 @@ COMMANDS = {
     "validate": cmd_validate,
     "dataset": cmd_dataset,
     "run": cmd_run,
+    "pack": cmd_pack,
 }
 
 
@@ -503,11 +635,27 @@ def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     console.set_quiet(getattr(args, "quiet", False))
 
+    # Set before anything resolves a path. Every directory the pipeline touches
+    # hangs off this, so choosing the pack late would have half the run reading
+    # one tree and half another.
+    requested_pack = getattr(args, "pack", None)
+    if requested_pack:
+        if not packs.exists(requested_pack):
+            packs.load(requested_pack)  # raises with the list of packs that do exist
+        paths.set_active_pack(requested_pack)
+
     if args.command == "doctor":
         return doctor.run()
 
+    if args.command == "pack":
+        return cmd_pack(args, None)
+
     cfg = _load_config(args)
     paths.ensure_dirs()
+
+    active = paths.active_pack()
+    if active:
+        console.detail(f"Pack: {active}")
 
     try:
         return COMMANDS[args.command](args, cfg)

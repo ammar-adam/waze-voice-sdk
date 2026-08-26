@@ -165,14 +165,43 @@ Defaults: mono MP3, 44.1 kHz, 128 kbps, -16 LUFS integrated, -1.5 dBTP ceiling.
 [docs/audio-targets.md](docs/audio-targets.md) explains why, including why short
 navigation prompts need different loudness handling from ordinary program material.
 
-## Building more than one pack
+## More than one voice
 
-Set `WVS_AUDIO_ROOT` to keep separate working trees from one clone:
+Each voice is a **pack**. Packs live side by side in one clone and share nothing:
+separate source lists, separate clips, separate exports.
 
 ```powershell
-$env:WVS_AUDIO_ROOT = "D:\voices\narrator"
-python scripts\wvs.py run --sources data\narrator.csv
+python scripts\wvs.py pack new narrator --label "Narrator"
+python scripts\wvs.py pack new sidekick --label "Sidekick"
+python scripts\wvs.py pack list
 ```
+
+Fill in each pack's `packs/<name>/sources.csv`, then build them independently:
+
+```powershell
+python scripts\wvs.py run --pack narrator
+python scripts\wvs.py run --pack sidekick
+python scripts\wvs.py qa  --pack sidekick
+```
+
+Every command takes `--pack`, or set `$env:WVS_PACK` once and leave it off.
+
+A pack falls back to the shared `config/` for anything it does not override, so
+the Waze prompt list is set up already. Give a pack its own copy only when it
+needs different wording, `tts_text`, or budget weights:
+
+```powershell
+python scripts\wvs.py pack new sidekick --copy-phrases
+```
+
+Both packs produce the *same* Waze filenames, because Waze matches on filename.
+They are separate packs, uploaded separately, and you switch between them on the
+phone. One pack cannot hold two voices for the same prompt.
+
+`packs/` is Git-ignored: it holds paths to your media and the audio built from it.
+
+`WVS_AUDIO_ROOT` still takes precedence over everything, for redirecting the
+audio tree without using packs at all.
 
 ## Repository layout
 
@@ -185,8 +214,9 @@ waze_voice/          the library: every step is implemented here
   cli.py             the wvs command
 scripts/             thin CLI wrappers, one per step, plus record_assist.py
 tts/                 synthesis entry points: generate, prepare_dataset, train
-config/              phrases.json, routes.sample.json, pipeline.json
+config/              phrases.json, routes.sample.json, pipeline.json (shared)
 data/                source inventory CSV
+packs/               one directory per voice, all Git-ignored
 audio/               working directories, all Git-ignored
 tests/               unittest suite, including an end-to-end ffmpeg run
 docs/                setup, pipeline design, audio targets, TTS, Waze import

@@ -42,8 +42,14 @@ MISSING_PHRASE = ("keep_left", "KeepLeft.mp3", "any", 2.0)
 SOURCE_SECONDS = 20.0
 
 
-def make_source_media(destination: Path, *, with_bed: bool = False) -> Path:
-    """Render a fake source file with tone bursts at the SEGMENTS timestamps."""
+def make_source_media(
+    destination: Path, *, with_bed: bool = False, pitch: float = 1.0
+) -> Path:
+    """Render a fake source file with tone bursts at the SEGMENTS timestamps.
+
+    ``pitch`` scales every tone, which is how the multi-pack tests get two
+    distinguishable "voices" out of one generator.
+    """
     destination.parent.mkdir(parents=True, exist_ok=True)
 
     inputs: list[str] = []
@@ -58,7 +64,7 @@ def make_source_media(destination: Path, *, with_bed: bool = False) -> Path:
             "-t",
             f"{duration:.3f}",
             "-i",
-            f"sine=frequency={frequency}:sample_rate=44100",
+            f"sine=frequency={frequency * pitch}:sample_rate=44100",
         ]
         # Alternating gain: some clips arrive quiet, some loud.
         gain = -18.0 + (index % 3) * 7.0

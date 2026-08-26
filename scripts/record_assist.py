@@ -86,11 +86,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--export-dir", type=Path, help="Directory holding the export.")
     parser.add_argument("--resume", action="store_true", help="Skip prompts already marked done.")
     parser.add_argument("--restart", action="store_true", help="Clear saved progress first.")
+    parser.add_argument(
+        "--pack",
+        help="Voice pack to work on. See: python scripts/wvs.py pack list",
+    )
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
+    if args.pack:
+        paths.set_active_pack(args.pack)
     export_dir = args.export_dir or paths.export_dir()
 
     clips = _load_pack(export_dir)

@@ -2,6 +2,19 @@
 
 Building a pack, start to finish.
 
+## 0. Building more than one voice?
+
+Make a pack per voice and pass `--pack` to everything:
+
+```powershell
+python scripts\wvs.py pack new my-voice --label "My voice"
+python scripts\wvs.py run --pack my-voice
+```
+
+Each pack keeps its own source list, clips, and export under `packs/<name>/`, so
+two voices never mix. Everything below happens inside a pack. Building only one
+voice? Ignore packs and use the shared `audio/` tree.
+
 ## 1. Pick a voice you can actually use
 
 Start with audio you have the right to use, and to redistribute if you plan to publish
@@ -49,6 +62,9 @@ phrase_id,source_path,start,end,take,preferred,gain_db,notes
 turn_left,C:\media\episode-one.m4a,00:12:03.100,00:12:04.250,1,,,first attempt
 turn_left,C:\media\episode-one.m4a,00:41:55.000,00:41:56.100,2,1,,cleaner delivery
 ```
+
+Using a pack? Its `packs/<name>/sources.csv` already exists with the right
+header and is picked up automatically, so there is nothing to copy.
 
 Practical advice:
 

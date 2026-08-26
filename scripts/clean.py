@@ -9,7 +9,7 @@ from pathlib import Path
 import _bootstrap  # noqa: F401
 
 from waze_voice import config as config_module
-from waze_voice import console
+from waze_voice import console, paths
 from waze_voice.steps import clean
 
 
@@ -27,6 +27,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--config", type=Path, help="Path to pipeline.json.")
     parser.add_argument("--only", nargs="+", metavar="PHRASE_ID")
     parser.add_argument("--force", action="store_true")
+    parser.add_argument(
+        "--pack",
+        help="Voice pack to work on. See: python scripts/wvs.py pack list",
+    )
     parser.add_argument("--quiet", action="store_true")
     return parser.parse_args()
 
@@ -34,6 +38,8 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     console.set_quiet(args.quiet)
+    if args.pack:
+        paths.set_active_pack(args.pack)
     result = clean.run(
         config=config_module.load(args.config),
         input_dir=args.input_dir,

@@ -60,6 +60,12 @@ Thumbs.db
 .idea/
 .vscode/
 
+# Voice packs. Each holds paths to your own media and the audio built from
+# it, so the whole directory stays out of Git. The README explaining the layout
+# is the one exception.
+packs/*
+!packs/README.md
+
 # Pipeline working state (generated, machine-specific)
 audio/.work/
 audio/build-manifest.json
