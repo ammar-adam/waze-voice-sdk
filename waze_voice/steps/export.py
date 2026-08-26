@@ -82,6 +82,7 @@ class ExportResult:
     missing_core: list[phrases_module.Phrase] = field(default_factory=list)
     missing_optional: list[phrases_module.Phrase] = field(default_factory=list)
     dropped_for_budget: list[str] = field(default_factory=list)
+    encode_failures: list[str] = field(default_factory=list)
     units: str = "both"
     checklist: Path | None = None
     guide: Path | None = None
@@ -98,7 +99,7 @@ class ExportResult:
 
     @property
     def ok(self) -> bool:
-        return not self.missing_core and not self.over_budget
+        return not self.missing_core and not self.over_budget and not self.encode_failures
 
 
 # --------------------------------------------------------------------------
@@ -185,10 +186,31 @@ def _encode(item: PackFile) -> int:
     return size
 
 
-def _encode_all(files: list[PackFile]) -> int:
+def _encode_all(files: list[PackFile], result: ExportResult) -> int:
+    """Encode every clip, dropping any that ffmpeg cannot produce.
+
+    One bad master file should cost you that prompt, not the whole pack. Every
+    other step reports per-clip failures and carries on; this one used to let the
+    error escape as a traceback.
+    """
     total = 0
+    survivors: list[PackFile] = []
     for item in files:
-        total += _encode(item)
+        try:
+            total += _encode(item)
+        except (media.MediaError, OSError) as error:
+            console.error(f"{item.slot.filename}: could not encode ({error})")
+            result.encode_failures.append(item.slot.filename)
+            continue
+        survivors.append(item)
+
+    if result.encode_failures:
+        failed = set(result.encode_failures)
+        files[:] = survivors
+        if result.plan is not None:
+            result.plan.allocations = [
+                a for a in result.plan.allocations if a.filename not in failed
+            ]
     return total
 
 
@@ -213,7 +235,11 @@ def _correct_overshoot(
         item = by_name.get(reduced.filename)
         if item is None:
             break
-        _encode(item)
+        try:
+            _encode(item)
+        except (media.MediaError, OSError) as error:
+            console.error(f"{reduced.filename}: re-encode failed ({error})")
+            break
         passes += 1
 
     return passes
@@ -646,7 +672,7 @@ def run(
     )
 
     # -- encode, measure, correct -----------------------------------------
-    _encode_all(result.files)
+    _encode_all(result.files, result)
     result.corrections = _correct_overshoot(result.files, plan, config)
     if result.corrections:
         console.detail(
@@ -663,6 +689,11 @@ def run(
             "Uploading it will be rejected silently."
         )
         console.detail(f"See {GUIDE_NAME} for what to cut.")
+    if result.encode_failures:
+        console.bullets(
+            "Clips that could not be encoded and are missing from the pack:",
+            result.encode_failures,
+        )
     if result.missing_core:
         console.bullets(
             "Missing prompts a pack really wants:",

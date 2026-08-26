@@ -16,7 +16,7 @@ import sys
 from dataclasses import replace
 from pathlib import Path
 
-from . import budget, console, doctor, paths
+from . import budget, console, doctor, media, paths
 from . import config as config_module
 from .steps import clean, export, extract, normalize, qa, synth, validate
 
@@ -508,7 +508,20 @@ def main(argv: list[str] | None = None) -> int:
 
     cfg = _load_config(args)
     paths.ensure_dirs()
-    return COMMANDS[args.command](args, cfg)
+
+    try:
+        return COMMANDS[args.command](args, cfg)
+    except media.MediaError as error:
+        # Steps handle per-clip failures themselves. This catches whatever they
+        # do not, so an ffmpeg problem reaches the user as a sentence rather
+        # than a stack trace ending somewhere in subprocess.
+        console.error(str(error))
+        return 1
+    except ValueError as error:
+        # Config that contradicts itself, e.g. a bitrate ceiling below the
+        # encoder floor. Raised where the constraint lives, reported here.
+        console.error(str(error))
+        return 2
 
 
 if __name__ == "__main__":

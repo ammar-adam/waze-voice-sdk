@@ -12,6 +12,7 @@ import os
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 import fixtures
 
@@ -328,6 +329,56 @@ class PipelineTests(unittest.TestCase):
                 allow_missing=True,
             )
         self.assertTrue((target / export.CHECKLIST_NAME).is_file())
+
+    def test_a_failed_encode_drops_one_clip_not_the_whole_run(self) -> None:
+        """Every other step reports per-clip failures; this one used to raise.
+
+        A single unreadable master file should cost you that prompt, not the
+        pack and not a stack trace.
+        """
+        real_render = media.render
+        target_name = "TurnLeft.mp3"
+
+        def flaky(source, destination, **kwargs):
+            if destination.name == target_name:
+                raise media.MediaError("simulated encoder failure")
+            return real_render(source, destination, **kwargs)
+
+        with mock.patch.object(media, "render", side_effect=flaky):
+            result = export.run(
+                config=self.config,
+                phrases_path=self.phrases_path,
+                export_dir=self.audio_root / "export-flaky",
+                allow_missing=True,
+            )
+
+        self.assertEqual(result.encode_failures, [target_name])
+        self.assertFalse(result.ok)
+        self.assertTrue(result.files, "the other clips should still be in the pack")
+        self.assertNotIn(
+            target_name, {item.slot.filename for item in result.files}
+        )
+
+    def test_cli_turns_a_media_failure_into_a_message(self) -> None:
+        """Nothing should reach the user as a traceback."""
+        from waze_voice import cli
+
+        with mock.patch.dict(
+            cli.COMMANDS,
+            {"validate": mock.Mock(side_effect=media.MediaError("ffmpeg exploded"))},
+        ):
+            code = cli.main(["validate", "--phrases", str(self.phrases_path), "--quiet"])
+        self.assertEqual(code, 1)
+
+    def test_cli_turns_contradictory_config_into_a_message(self) -> None:
+        from waze_voice import cli
+
+        with mock.patch.dict(
+            cli.COMMANDS,
+            {"validate": mock.Mock(side_effect=ValueError("max_kbps below the floor"))},
+        ):
+            code = cli.main(["validate", "--phrases", str(self.phrases_path), "--quiet"])
+        self.assertEqual(code, 2)
 
     def test_export_writes_the_upload_paperwork(self) -> None:
         export_dir = paths.export_dir()
