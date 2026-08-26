@@ -84,6 +84,10 @@ class ExportResult:
     missing_optional: list[phrases_module.Phrase] = field(default_factory=list)
     dropped_for_budget: list[str] = field(default_factory=list)
     encode_failures: list[str] = field(default_factory=list)
+    # Set when a preset was used: how far the measured pack drifted from what
+    # the pre-flight estimate predicted.
+    estimate_drift: float | None = None
+    estimated_bytes: int = 0
     units: str = "both"
     preset: presets_module.Preset | None = None
     checklist: Path | None = None
@@ -307,6 +311,7 @@ def _checklist(result: ExportResult, config: PipelineConfig) -> str:
         "",
         f"- Pack total: **{_fmt_kb(result.total_bytes)}** across {len(result.files)} file(s)",
         f"- Waze cap: {_fmt_kb(plan.budget_bytes)}",
+        "- Sizes below are **measured from the encoded files**, not estimated.",
         f"- Utilisation: **{plan.utilisation * 100:.1f}%** "
         f"(target {plan.target_utilisation * 100:.0f}%, "
         f"fails above {plan.fail_above_utilisation * 100:.0f}%)",
@@ -600,6 +605,12 @@ def _pack_manifest(result: ExportResult, config: PipelineConfig) -> dict:
             "fail_above_utilisation": plan.fail_above_utilisation,
             "verdict": plan.verdict,
             "within_budget": not result.over_budget,
+            "measured": True,
+            "estimate_drift": (
+                round(result.estimate_drift, 4)
+                if result.estimate_drift is not None
+                else None
+            ),
             "strategy": plan.strategy,
             "correction_passes": result.corrections,
         },
@@ -781,6 +792,7 @@ def run(
             "MP3 container overhead."
         )
 
+    _compare_with_estimate(result, config)
     _report(result, plan)
     _write_docs(result, config, export_dir)
 
@@ -804,6 +816,41 @@ def run(
             console.warn("Re-run with --allow-missing to build an incomplete pack anyway.")
 
     return result
+
+
+def _compare_with_estimate(result: ExportResult, config: PipelineConfig) -> None:
+    """Measure what was built against what the pre-flight estimate promised.
+
+    The estimate is a character count and an assumed speech rate. If a voice
+    turns out to speak much slower than assumed, a pre-flight that said "fits"
+    was wrong, and the person who trusted it should hear about it here rather
+    than discover it on the next preset.
+    """
+    if result.preset is None or result.plan is None or not result.files:
+        return
+
+    inventory = phrases_module.load()
+    padding = (config.trim.lead_in_ms + config.trim.lead_out_ms) / 1000.0
+    estimates = presets_module.estimate_durations(
+        result.preset, inventory, padding=padding
+    )
+
+    estimated_total = 0.0
+    measured_total = 0.0
+    for item in result.files:
+        estimate = estimates.get(item.slot.filename)
+        if estimate is None:
+            continue
+        estimated_total += estimate
+        measured_total += item.allocation.duration
+
+    if estimated_total <= 0:
+        return
+
+    result.estimate_drift = (measured_total - estimated_total) / estimated_total
+    # What the pack would have weighed at the estimated durations, for context.
+    if measured_total > 0:
+        result.estimated_bytes = int(result.total_bytes * estimated_total / measured_total)
 
 
 def _report(result: ExportResult, plan: budget_module.AllocationPlan) -> None:
@@ -846,6 +893,21 @@ def _report(result: ExportResult, plan: budget_module.AllocationPlan) -> None:
         )
     else:
         console.ok(f"Comfortable. {_fmt_kb(plan.headroom_bytes)} of headroom.")
+
+    if result.estimate_drift is not None:
+        drift = result.estimate_drift
+        line = (
+            f"Measured audio is {abs(drift) * 100:.0f}% "
+            f"{'longer' if drift > 0 else 'shorter'} than the pre-flight estimate."
+        )
+        if abs(drift) > presets_module.ESTIMATE_TOLERANCE:
+            console.warn(
+                line
+                + " The estimate assumes a generic speech rate; this voice differs "
+                "enough that `wvs preflight` will read low for it."
+            )
+        else:
+            console.detail(line + " Pre-flight was accurate.")
 
     for note in plan.notes:
         console.warn(note)

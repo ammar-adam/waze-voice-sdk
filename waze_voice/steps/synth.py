@@ -87,7 +87,11 @@ class SynthResult:
 # A backend is just a callable: speak this text, in this voice, to a file.
 # It returns the path it actually wrote, which is not always the one suggested:
 # hosted providers hand back MP3 while local backends produce WAV.
-Speaker = Callable[[str, Path, Path | None], Path]
+#
+# The last argument is a per-prompt options override. It exists so a preset can
+# run its greetings fast and its turn instructions at a speed a driver can
+# actually catch. Local backends ignore it.
+Speaker = Callable[[str, Path, Path | None, dict | None], Path]
 
 
 # --------------------------------------------------------------------------
@@ -275,7 +279,12 @@ def _load_chatterbox(config: PipelineConfig) -> Speaker:
             f"Supported: {', '.join(sorted(generate_accepts - {'self', 'text'}))}"
         )
 
-    def speak(text: str, destination: Path, reference: Path | None) -> Path:
+    def speak(
+        text: str,
+        destination: Path,
+        reference: Path | None,
+        options: dict | None = None,
+    ) -> Path:
         kwargs = dict(extra)
         if reference is not None:
             kwargs["audio_prompt_path"] = str(reference)
@@ -328,7 +337,12 @@ def _load_coqui(
         console.detail("The first run downloads model weights; expect a wait.")
         model = TTS(config.synth.coqui_model_name, progress_bar=False).to(config.synth.device)
 
-    def speak(text: str, destination: Path, reference: Path | None) -> Path:
+    def speak(
+        text: str,
+        destination: Path,
+        reference: Path | None,
+        options: dict | None = None,
+    ) -> Path:
         destination.parent.mkdir(parents=True, exist_ok=True)
         kwargs: dict[str, object] = {"text": text, "file_path": str(destination)}
         if reference is not None:
@@ -396,11 +410,16 @@ def _load_hosted(
 
     console.detail(f"Using {backend} voice {voice} ({provider.model})")
 
-    def speak(text: str, destination: Path, reference: Path | None) -> Path:
+    def speak(
+        text: str,
+        destination: Path,
+        reference: Path | None,
+        options: dict | None = None,
+    ) -> Path:
         # reference is unused: the voice is chosen by id, not imitated.
         target = destination.with_suffix(provider.extension)
         try:
-            provider.synthesize(text, voice, target)
+            provider.synthesize(text, voice, target, options)
         except providers.ProviderError as error:
             raise RuntimeError(str(error)) from None
         return target
@@ -610,7 +629,12 @@ def run(
 
         suggested = output_dir / f"{phrase.id}.wav"
         try:
-            destination = speak(text_for(phrase), suggested, reference_path)
+            destination = speak(
+                text_for(phrase),
+                suggested,
+                reference_path,
+                preset.options_for(phrase.id, phrase.weight) if preset else None,
+            )
         except Exception as error:  # noqa: BLE001 - surface any backend failure per phrase
             console.error(f"{phrase.id}: synthesis failed ({error})")
             result.failures.append(phrase.id)

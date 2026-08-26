@@ -75,6 +75,47 @@ HIGH_FREQUENCY_WEIGHT = 2.0
 MAX_CHARS_HIGH_FREQUENCY = 70
 MAX_CHARS_OTHER = 160
 
+def normalise(text: str) -> str:
+    """Lowercase, and reduce every run of punctuation to a single space.
+
+    Makes matching word-boundary aware without regex: a normalised haystack
+    padded with spaces contains " left " only when "left" is a whole word, so
+    "leftover" no longer satisfies a left turn.
+    """
+    out = []
+    for char in text.lower():
+        out.append(char if char.isalnum() else " ")
+    return " ".join("".join(out).split())
+
+
+def contains_word(haystack: str, phrase: str) -> bool:
+    """Whole-word (or whole-phrase) containment on normalised text."""
+    return f" {normalise(phrase)} " in f" {normalise(haystack)} "
+
+
+# Words that would make a direction ambiguous if they turned up in the wrong
+# prompt. "Turn left, not right" is a line a driver can act on wrongly.
+OPPOSITE_DIRECTION = {"left": "right", "right": "left"}
+
+ORDINALS = ("first", "second", "third", "fourth", "fifth", "sixth", "seventh")
+
+# Distance quantities, so a callout cannot name two different distances.
+DISTANCE_WORDS = (
+    "tenth of a mile",
+    "point one miles",
+    "quarter of a mile",
+    "quarter mile",
+    "half a mile",
+    "half mile",
+    "one mile",
+    "two hundred meters",
+    "four hundred meters",
+    "eight hundred meters",
+    "one kilometer",
+    "one point five kilometers",
+)
+
+
 # What each line must still communicate, whatever else it does. Any one
 # alternative satisfies the check.
 REQUIRED_TOKENS: dict[str, tuple[tuple[str, ...], ...]] = {
@@ -88,17 +129,43 @@ REQUIRED_TOKENS: dict[str, tuple[tuple[str, ...], ...]] = {
     "go_straight": (("straight", "straight on", "ahead"),),
     "u_turn": (("u turn", "u-turn", "turn around"),),
     # Distances: the quantity has to survive intact. This is the one place a
-    # preset absolutely cannot be playful.
-    "in_tenth_mile": (("tenth of a mile", "tenth mile", "0.1 mile"),),
-    "in_quarter_mile": (("quarter mile", "quarter of a mile"),),
+    # preset absolutely cannot be playful. Both spellings of metre are accepted;
+    # normalise() reduces "1.5" to "1 5", so digit forms are written that way.
+    "in_tenth_mile": (
+        ("tenth of a mile", "tenth mile", "point one miles", "point one mile"),
+    ),
+    "in_quarter_mile": (("quarter of a mile", "quarter mile"),),
     "in_half_mile": (("half a mile", "half mile"),),
     "in_one_mile": (("one mile", "a mile", "1 mile"),),
-    "in_200_meters": (("two hundred met", "200 met"),),
-    "in_400_meters": (("four hundred met", "400 met"),),
-    "in_800_meters": (("eight hundred met", "800 met"),),
-    "in_1000_meters": (("one kilomet", "a kilomet", "1 kilomet", "thousand met"),),
+    "in_200_meters": (
+        ("two hundred meters", "two hundred metres", "200 meters", "200 metres"),
+    ),
+    "in_400_meters": (
+        ("four hundred meters", "four hundred metres", "400 meters", "400 metres"),
+    ),
+    "in_800_meters": (
+        ("eight hundred meters", "eight hundred metres", "800 meters", "800 metres"),
+    ),
+    "in_1000_meters": (
+        (
+            "one kilometer",
+            "one kilometre",
+            "a kilometer",
+            "a kilometre",
+            "1 kilometer",
+            "one thousand meters",
+            "1000 meters",
+        ),
+    ),
     "in_1500_meters": (
-        ("one point five kilomet", "1.5 kilomet", "fifteen hundred met", "1500 met"),
+        (
+            "one point five kilometers",
+            "one point five kilometres",
+            "1 5 kilometers",
+            "1 5 kilometres",
+            "fifteen hundred meters",
+            "1500 meters",
+        ),
     ),
     # Roundabout ordinals: the number is the whole instruction.
     "exit_first": (("first",),),
@@ -118,6 +185,34 @@ REQUIRED_TOKENS: dict[str, tuple[tuple[str, ...], ...]] = {
     "red_light_camera_ahead": (("red light camera",),),
     "police_ahead": (("police",),),
 }
+
+
+def is_navigation_critical(phrase_id: str, weight: float) -> bool:
+    """Whether mishearing this prompt changes what the driver does.
+
+    Two ways in: the prompt carries a required token (a direction, a distance,
+    an exit number), or it is heard often enough to matter. Drive-start
+    greetings and the reroute chime are neither, which is why a preset can be
+    exuberant there and sober everywhere else.
+    """
+    return phrase_id in REQUIRED_TOKENS or weight >= HIGH_FREQUENCY_WEIGHT
+
+
+# Clear navigation speech, roughly 150 words per minute. Only ever an estimate:
+# real duration depends on the voice, the model, and the punctuation. It exists
+# so a user can see a pack will not fit *before* spending API calls, and the
+# build compares it against measured reality afterwards.
+CHARS_PER_SECOND = 14.0
+MIN_CLIP_SECONDS = 0.45
+
+# How far measured may drift from estimated before it is worth saying so.
+ESTIMATE_TOLERANCE = 0.10
+
+
+def estimate_seconds(text: str, *, speed: float = 1.0, padding: float = 0.0) -> float:
+    """Rough spoken duration of one line, before encoding."""
+    spoken = len(text) / (CHARS_PER_SECOND * max(speed, 0.01))
+    return max(MIN_CLIP_SECONDS, spoken) + padding
 
 
 class PresetError(SystemExit):
@@ -152,8 +247,19 @@ class Preset:
     lines: dict[str, str]
     rights: Rights
     provider_options: dict[str, Any] = field(default_factory=dict)
+    # Merged on top of provider_options for prompts a driver must not mishear.
+    # A character can be fast in its greetings and still has to be unambiguous
+    # on "turn left". See is_navigation_critical.
+    critical_provider_options: dict[str, Any] = field(default_factory=dict)
     notes: str = ""
     schema_version: int = SCHEMA_VERSION
+
+    def options_for(self, phrase_id: str, weight: float) -> dict[str, Any]:
+        """Provider options for one prompt, with the safety overrides applied."""
+        options = dict(self.provider_options)
+        if self.critical_provider_options and is_navigation_critical(phrase_id, weight):
+            options.update(self.critical_provider_options)
+        return options
 
     @property
     def total_chars(self) -> int:
@@ -243,6 +349,47 @@ def _check_rights(raw: dict[str, Any], errors: list[str]) -> Rights | None:
     )
 
 
+def _ambiguity_errors(phrase_id: str, text: str) -> list[str]:
+    """Catch a line that names more than one of the thing it is choosing between.
+
+    Containing the right word is not enough. "Turn left, not right" contains
+    "left" and is still a line a driver can act on wrongly, and at 70 km/h they
+    will hear whichever word landed last.
+    """
+    problems: list[str] = []
+    required = REQUIRED_TOKENS.get(phrase_id, ())
+    flat = {token for alternatives in required for token in alternatives}
+
+    # Left/right prompts must not mention the other side at all.
+    for side, opposite in OPPOSITE_DIRECTION.items():
+        if side in flat and contains_word(text, opposite):
+            problems.append(
+                f"{phrase_id}: {text!r} says both {side!r} and {opposite!r}. "
+                "A driver hears whichever landed last."
+            )
+
+    # An ordinal prompt must name exactly one ordinal.
+    named_ordinals = [word for word in ORDINALS if contains_word(text, word)]
+    if any(word in flat for word in ORDINALS) and len(named_ordinals) > 1:
+        problems.append(
+            f"{phrase_id}: {text!r} names more than one exit "
+            f"({', '.join(named_ordinals)})."
+        )
+
+    # A distance callout must name exactly one distance.
+    if phrase_id.startswith("in_"):
+        named = [word for word in DISTANCE_WORDS if contains_word(text, word)]
+        # "quarter of a mile" also matches "quarter mile"; collapse near-dupes.
+        distinct = {word.replace(" of a ", " ") for word in named}
+        if len(distinct) > 1:
+            problems.append(
+                f"{phrase_id}: {text!r} names more than one distance "
+                f"({', '.join(sorted(distinct))})."
+            )
+
+    return problems
+
+
 def _check_lines(
     lines: dict[str, str],
     inventory: phrases_module.PhraseInventory,
@@ -274,14 +421,16 @@ def _check_lines(
             errors.append(f"{phrase_id}: line is empty.")
             continue
 
-        lowered = text.lower()
         for alternatives in REQUIRED_TOKENS.get(phrase_id, ()):
-            if not any(token in lowered for token in alternatives):
+            if not any(contains_word(text, token) for token in alternatives):
                 errors.append(
                     f"{phrase_id}: {text!r} does not contain "
-                    f"{' or '.join(repr(a) for a in alternatives)}. A driver who has "
-                    "never heard of the character still has to know what to do."
+                    f"{' or '.join(repr(a) for a in alternatives)} as whole words. A "
+                    "driver who has never heard of the character still has to know "
+                    "what to do."
                 )
+
+        errors.extend(_ambiguity_errors(phrase_id, text))
 
         limit = (
             MAX_CHARS_HIGH_FREQUENCY
@@ -329,6 +478,17 @@ def validate_raw(
         errors.append("provider_options must be an object.")
         options = {}
 
+    critical = raw.get("critical_provider_options", {})
+    if not isinstance(critical, dict):
+        errors.append("critical_provider_options must be an object.")
+        critical = {}
+    smuggled_critical = sorted(CLONING_KEYS & set(critical))
+    if smuggled_critical:
+        errors.append(
+            f"critical_provider_options contains voice-cloning key(s): "
+            f"{', '.join(smuggled_critical)}. Presets never clone a performance."
+        )
+
     if errors or rights is None:
         return None, errors, warnings
 
@@ -343,6 +503,7 @@ def validate_raw(
             lines=dict(lines),
             rights=rights,
             provider_options=dict(options),
+            critical_provider_options=dict(critical),
             notes=str(raw.get("notes", "")),
             schema_version=int(raw.get("schema_version", SCHEMA_VERSION)),
         ),
@@ -388,6 +549,28 @@ def list_presets(*, phrases_path: Path | None = None) -> list[Preset]:
         if preset is not None:
             found.append(preset)
     return found
+
+
+def estimate_durations(
+    preset: Preset,
+    inventory: phrases_module.PhraseInventory,
+    *,
+    padding: float = 0.0,
+) -> dict[str, float]:
+    """Estimated seconds per Waze filename, honouring the preset's speech rates."""
+    estimates: dict[str, float] = {}
+    for phrase in inventory:
+        if not phrase.in_waze_pack:
+            continue
+        text = preset.text_for(phrase.id, "")
+        if not text:
+            continue
+        options = preset.options_for(phrase.id, phrase.weight)
+        speed = float(options.get("speed", 1.0) or 1.0)
+        estimates[phrase.waze_filename] = estimate_seconds(
+            text, speed=speed, padding=padding
+        )
+    return estimates
 
 
 def check(name: str, *, phrases_path: Path | None = None) -> tuple[list[str], list[str]]:

@@ -4,18 +4,19 @@
   "description": "Fast, bouncy and overconfident. The opposite of Eeyore, on purpose.",
   "provider": "openai",
   "voice": "nova",
-  "direction": "Speak fast and bouncy with big, exuberant energy and clear exclamation. Confident to the point of overconfident. Every direction word stays crisply enunciated despite the speed: the driver still has to catch it first time.",
+  "direction": "Speak with big, bouncy, exuberant energy and clear exclamation. Confident to the point of overconfident. Every direction word stays crisply and separately enunciated: the driver has to catch it first time, at speed, over road noise.",
   "provider_options": {
-    "speed": 1.12
+    "speed": 1.15
   },
-  "notes": "Speed is the risk here. The delivery direction insists on crisp direction words because an excited voice at 1.12x is the easiest of the three to mishear. Worth auditioning against road noise before shipping.",
+  "notes": "Two speech rates, on purpose. The greetings and the reroute run at 1.15x where nothing is at stake; everything a driver acts on drops to 1.0x. Testing an excited voice at 1.12x across the board, 'exit left' and 'exit right' were the pair most likely to be misheard, and unlike a missed greeting a missed turn costs you a junction. The energy still reads, because it comes from the exclamation in the text and the delivery direction, not from the rate.",
   "rights": {
     "source_work": "The House at Pooh Corner",
     "author": "A. A. Milne",
     "year": 1928,
     "pd_basis": "Published 1928. US copyright expired on 1 January 2024, placing the text of this book in the public domain in the United States. Tigger first appears in this book, not in the 1926 one.",
     "covered": [
-      "The text of the named book, in the United States.",
+      "The text of the named book in the United States, where its copyright term has expired.",
+      "The text of the named book in Canada. Milne died in 1956, Canada was life plus 50 at the time, so his works entered the Canadian public domain on 1 January 2007. The 2022 extension to life plus 70 was not retroactive and did not restore them.",
       "The character as written in that book: manner, register, turns of phrase.",
       "An original interpretation of that character, generated from a licensed text-to-speech voice with written delivery direction."
     ],
@@ -23,10 +24,10 @@
       "Any Disney adaptation: character designs, added characters, songs, or dialogue.",
       "Any recorded voice performance of the character, by any performer, ever.",
       "Later Milne books still in copyright.",
-      "Trademarks in the character names. Trademark is separate from copyright, does not expire, and is held by Disney in many classes.",
-      "Public domain status outside the United States. A. A. Milne died in 1956, so in the UK and EU these works remain in copyright until 1 January 2027."
+      "Trademarks in the character names. Trademark is separate from copyright, does not expire, and is held by Disney in many classes. This is the weakest point in the whole basis and you should know that before publishing anything.",
+      "The United Kingdom and the European Union, where these works remain in copyright until 1 January 2027 (A. A. Milne died in 1956; life plus 70)."
     ],
-    "notes": "This preset is written from the 1926 book only. It uses a licensed catalogue voice with delivery direction, never a clone of any performance."
+    "notes": "Written from the named book only. Uses a licensed catalogue voice with written delivery direction, never a clone of any performance. Public domain is per-country: see covered and not_covered."
   },
   "lines": {
     "in_tenth_mile": "In a tenth of a mile!",
@@ -72,5 +73,8 @@
     "red_light_camera_ahead": "Red light camera ahead! Proper stop!",
     "police_ahead": "Police ahead! Best behaviour!",
     "reroute_chime": "New route! Even better!"
+  },
+  "critical_provider_options": {
+    "speed": 1.0
   }
 }

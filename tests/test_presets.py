@@ -20,11 +20,6 @@ from waze_voice import presets
 
 SHIPPED = ("eeyore", "pooh", "tigger")
 
-# Clear navigation speech, roughly. Used to estimate clip length from line
-# length so budget pressure can be checked without an API key.
-CHARS_PER_SECOND = 14.0
-MIN_CLIP_SECONDS = 0.45
-
 
 def _base_preset(**overrides) -> dict:
     """A minimal valid preset, for tests that break one thing at a time."""
@@ -96,11 +91,8 @@ class ShippedPresetTests(unittest.TestCase):
             excluded = " ".join(preset.rights.not_covered).lower()
             for expected in ("disney", "performance", "trademark"):
                 self.assertIn(expected, excluded, f"{name} omits {expected}")
-            # Public domain is jurisdictional and these are not PD everywhere.
-            self.assertTrue(
-                "united states" in excluded or "uk" in excluded or "outside" in excluded,
-                f"{name} does not mention that PD status varies by country",
-            )
+            # Jurisdiction is asserted separately, in JurisdictionTests, because
+            # the covered and not-covered halves each carry part of it.
 
     def test_no_preset_names_a_reference_recording(self) -> None:
         for name in SHIPPED:
@@ -253,25 +245,23 @@ class PresetBudgetTests(unittest.TestCase):
 
     def _estimate(self, preset: presets.Preset, cfg) -> budget_module.AllocationPlan:
         inventory = phrases_module.load()
-        speed = float(preset.provider_options.get("speed", 1.0))
         padding = (cfg.trim.lead_in_ms + cfg.trim.lead_out_ms) / 1000.0
 
-        specs = []
-        for phrase in inventory:
-            if not phrase.in_waze_pack:
-                continue
-            text = preset.text_for(phrase.id, "")
-            if not text:
-                continue
-            spoken = len(text) / (CHARS_PER_SECOND * speed)
-            specs.append(
-                budget_module.ClipSpec(
-                    filename=phrase.waze_filename,
-                    source=Path(phrase.waze_filename),
-                    duration=max(MIN_CLIP_SECONDS, spoken) + padding,
-                    weight=phrase.weight,
-                )
+        durations = presets.estimate_durations(preset, inventory, padding=padding)
+        weights = {
+            phrase.waze_filename: phrase.weight
+            for phrase in inventory
+            if phrase.in_waze_pack
+        }
+        specs = [
+            budget_module.ClipSpec(
+                filename=filename,
+                source=Path(filename),
+                duration=seconds,
+                weight=weights.get(filename, 1.0),
             )
+            for filename, seconds in durations.items()
+        ]
 
         plan = budget_module.allocate(
             specs,
@@ -358,6 +348,138 @@ class PresetLoadingTests(unittest.TestCase):
         preset = presets.load("eeyore")
         self.assertEqual(preset.text_for("not_a_phrase", "fallback"), "fallback")
         self.assertEqual(preset.text_for("turn_left", "fallback"), "Turn left.")
+
+
+class WordBoundaryTests(unittest.TestCase):
+    """Substring matching let "leftover" satisfy a left turn."""
+
+    def test_normalise_flattens_punctuation_and_case(self) -> None:
+        self.assertEqual(presets.normalise("Make a U-turn!"), "make a u turn")
+        self.assertEqual(presets.normalise("In 1.5 kilometers."), "in 1 5 kilometers")
+
+    def test_contains_word_is_whole_word(self) -> None:
+        self.assertTrue(presets.contains_word("Turn left.", "left"))
+        self.assertFalse(presets.contains_word("Take the leftover lane.", "left"))
+        self.assertFalse(presets.contains_word("Cleft the rock.", "left"))
+
+    def test_contains_word_handles_phrases_and_hyphens(self) -> None:
+        self.assertTrue(presets.contains_word("Make a U-turn.", "u turn"))
+        self.assertTrue(presets.contains_word("In half a mile.", "half a mile"))
+        self.assertFalse(presets.contains_word("In half a minute.", "half a mile"))
+
+    def test_a_substring_match_no_longer_passes_validation(self) -> None:
+        data = _base_preset()
+        data["lines"]["turn_left"] = "Take the leftover lane."
+        preset, errors, _ = _validate(data)
+        self.assertIsNone(preset)
+        self.assertTrue(any("turn_left" in error for error in errors))
+
+
+class AmbiguityTests(unittest.TestCase):
+    """Containing the right word is not the same as being unambiguous."""
+
+    def test_naming_both_directions_is_rejected(self) -> None:
+        for phrase_id, line in (
+            ("turn_left", "Turn left, not right."),
+            ("turn_right", "Go right, definitely not left."),
+            ("keep_left", "Keep left, the right lane is closed."),
+        ):
+            with self.subTest(phrase_id=phrase_id):
+                data = _base_preset()
+                data["lines"][phrase_id] = line
+                preset, errors, _ = _validate(data)
+                self.assertIsNone(preset)
+                self.assertTrue(any("landed last" in error for error in errors))
+
+    def test_naming_two_exits_is_rejected(self) -> None:
+        data = _base_preset()
+        data["lines"]["exit_third"] = "Not the second, take the third exit."
+        preset, errors, _ = _validate(data)
+        self.assertIsNone(preset)
+        self.assertTrue(any("more than one exit" in error for error in errors))
+
+    def test_naming_two_distances_is_rejected(self) -> None:
+        data = _base_preset()
+        data["lines"]["in_half_mile"] = "In half a mile, or a quarter of a mile."
+        preset, errors, _ = _validate(data)
+        self.assertIsNone(preset)
+        self.assertTrue(any("more than one distance" in error for error in errors))
+
+    def test_shipped_presets_are_unambiguous(self) -> None:
+        for name in SHIPPED:
+            preset = presets.load(name)
+            for phrase_id, line in preset.lines.items():
+                self.assertEqual(
+                    presets._ambiguity_errors(phrase_id, line), [], f"{name}/{phrase_id}"
+                )
+
+
+class SplitSpeechRateTests(unittest.TestCase):
+    """A character can be fast where nothing is at stake and sober where it is."""
+
+    def test_navigation_critical_classification(self) -> None:
+        self.assertTrue(presets.is_navigation_critical("turn_left", 3.0))
+        self.assertTrue(presets.is_navigation_critical("exit_third", 0.7))
+        self.assertTrue(presets.is_navigation_critical("and_then", 2.5))
+        self.assertFalse(presets.is_navigation_critical("start_drive_1", 1.0))
+        self.assertFalse(presets.is_navigation_critical("reroute_chime", 0.3))
+
+    def test_tigger_slows_down_for_instructions(self) -> None:
+        tigger = presets.load("tigger")
+        self.assertTrue(tigger.critical_provider_options)
+        fast = tigger.options_for("start_drive_1", 1.0)["speed"]
+        careful = tigger.options_for("turn_left", 3.0)["speed"]
+        self.assertGreater(fast, careful)
+        self.assertLessEqual(careful, 1.0, "instructions must not be sped up")
+
+    def test_presets_without_a_split_are_uniform(self) -> None:
+        eeyore = presets.load("eeyore")
+        self.assertEqual(
+            eeyore.options_for("start_drive_1", 1.0),
+            eeyore.options_for("turn_left", 3.0),
+        )
+
+    def test_critical_options_cannot_smuggle_cloning(self) -> None:
+        data = _base_preset(critical_provider_options={"speaker_wav": "actor.wav"})
+        preset, errors, _ = _validate(data)
+        self.assertIsNone(preset)
+        self.assertTrue(any("clon" in error.lower() for error in errors))
+
+
+class JurisdictionTests(unittest.TestCase):
+    """Public domain is per country, and the docs have to say which."""
+
+    def test_canada_and_uk_are_both_stated(self) -> None:
+        for name in SHIPPED:
+            rights = presets.load(name).rights
+            covered = " ".join(rights.covered).lower()
+            not_covered = " ".join(rights.not_covered).lower()
+            self.assertIn("canada", covered, f"{name} does not state Canada")
+            self.assertIn("united states", covered, f"{name} does not state the US")
+            self.assertIn("2027", not_covered, f"{name} does not state the UK/EU date")
+
+
+class EstimatorTests(unittest.TestCase):
+    def test_estimate_scales_with_length_and_speed(self) -> None:
+        slow = presets.estimate_seconds("a" * 140, speed=0.5)
+        fast = presets.estimate_seconds("a" * 140, speed=2.0)
+        self.assertGreater(slow, fast)
+
+    def test_short_lines_hit_a_floor(self) -> None:
+        self.assertGreaterEqual(
+            presets.estimate_seconds("Go."), presets.MIN_CLIP_SECONDS
+        )
+
+    def test_padding_is_added(self) -> None:
+        bare = presets.estimate_seconds("Turn left.")
+        padded = presets.estimate_seconds("Turn left.", padding=0.5)
+        self.assertAlmostEqual(padded - bare, 0.5, places=3)
+
+    def test_estimate_durations_uses_the_split_rate(self) -> None:
+        inventory = phrases_module.load()
+        durations = presets.estimate_durations(presets.load("tigger"), inventory)
+        self.assertIn("TurnLeft.mp3", durations)
+        self.assertEqual(len(durations), 43)
 
 
 if __name__ == "__main__":

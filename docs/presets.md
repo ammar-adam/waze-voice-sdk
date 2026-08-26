@@ -19,8 +19,8 @@ a novelty. A line actually written in character is the thing people share.
 | Preset | Source work | Voice | Register |
 | ------ | ----------- | ----- | -------- |
 | `eeyore` | Winnie-the-Pooh (Milne, 1926) | `openai/ash` @0.92x | Flat, resigned, entirely correct |
-| `pooh` | Winnie-the-Pooh (Milne, 1926) | `openai/fable` @0.95x | Gentle, unhurried, slightly muddled |
-| `tigger` | The House at Pooh Corner (Milne, 1928) | `openai/nova` @1.12x | Fast, bouncy, overconfident |
+| `pooh` | Winnie-the-Pooh (Milne, 1926) | `openai/fable` @0.95x | Warm, unhurried, audibly thinking |
+| `tigger` | The House at Pooh Corner (Milne, 1928) | `openai/nova` @1.15x / **1.0x** | Fast, bouncy, overconfident |
 
 Tigger comes from the **1928** book, not the 1926 one. He does not appear in the
 first book at all, and the two entered the US public domain two years apart. That
@@ -29,6 +29,25 @@ is exactly the kind of distinction a preset's metadata exists to record.
 ```powershell
 python scripts\wvs.py presets show eeyore --lines
 ```
+
+## Two speech rates, where a character needs them
+
+Tigger runs at 1.15x for greetings and the reroute, and drops to **1.0x for
+anything a driver acts on**. That split is `critical_provider_options` in the
+preset.
+
+The reason is specific: an excited voice at speed makes `ExitLeft` and
+`ExitRight` the likeliest pair in the whole pack to be misheard, and a missed
+greeting costs nothing where a missed turn costs a junction. The energy survives
+the slowdown because it comes from the exclamation in the text and from the
+delivery direction, not from the rate.
+
+A prompt counts as navigation-critical if it carries a required token (a
+direction, a distance, an exit number) or is heard often enough to matter. That
+covers maneuvers, distances, ordinals, alerts, arrival, and `AndThen`; it leaves
+the nine drive-start greetings and the reroute chime free to be fast.
+
+Presets that need only one rate, like Eeyore and Pooh, simply omit the field.
 
 ## Where the character goes, and where it does not
 
@@ -116,9 +135,16 @@ Both of them, in this order. If either answer is no, stop.
       trademark even where the text's copyright has expired? Trademark does not
       expire. This is the weakest part of the whole arrangement and you should
       know that going in.
-- [ ] **Jurisdiction.** Public domain is not global. The Milne books are public
-      domain in the United States and are still in copyright in the UK and EU
-      until 1 January 2027. State the jurisdiction your basis applies to.
+- [ ] **Jurisdiction.** Public domain is not global, and you must state which
+      country your basis applies to. For the Milne books specifically:
+
+      | Country | Status |
+      | ------- | ------ |
+      | United States | Public domain. 1926 book from 1 Jan 2022; 1928 book from 1 Jan 2024. |
+      | Canada | Public domain since 1 Jan 2007. Milne died 1956 and Canada was life plus 50 then; the 2022 extension to life plus 70 was not retroactive. |
+      | UK and EU | **Still in copyright until 1 January 2027** (life plus 70). |
+
+      Anywhere else, check before assuming.
 
 ### 2. Write the lines
 
@@ -133,13 +159,22 @@ copy presets\eeyore.json presets\my-preset.json
   `turn_left` + `and_then` + `turn_right`. They have to flow.
 - Vary the nine `StartDrive` greetings. They are the cheapest place to be funny.
 
-### 3. Check it
+### 3. Check it, before spending anything
+
+```powershell
+python scripts\wvs.py preflight --preset my-preset
+```
+
+Pre-flight runs everything that can be checked without an API call: preset
+validation, the Waze filename mapping, the clarity rules, and an **estimated**
+size against the cap. It also prints what it cannot tell you, which is mostly
+real clip duration and how the lines actually sound.
 
 ```powershell
 python scripts\wvs.py presets check my-preset
 ```
 
-This is what CI runs. It validates the rights block, refuses cloning fields,
+`presets check` is the narrower validation-only version, and is what CI runs. It validates the rights block, refuses cloning fields,
 checks every prompt is present and still unambiguous, and enforces the length
 limits.
 
@@ -151,8 +186,13 @@ python scripts\wvs.py qa --route chained_maneuvers
 ```
 
 Check the utilisation line. Target is 85% of Waze's cap and the build fails above
-92%. A preset with slow delivery produces longer clips than the default voice, so
-confirm your own numbers rather than assuming the shipped ones transfer.
+92%. **The build's number is measured from the encoded files**; pre-flight's is an
+estimate from character counts. If the two differ by more than 10% the build says
+so, which means the estimate reads wrong for that voice and you should trust the
+build.
+
+A preset with slow delivery produces longer clips, so confirm your own numbers
+rather than assuming the shipped ones transfer.
 
 `chained_maneuvers` is the route to listen to hardest. If anything in the pack
 sounds spliced, `AndThen` is where you will hear it.
@@ -183,6 +223,16 @@ only survives repetition if the maneuvers stay clipped, so:
 - Nothing in any of the three presets uses a studio-invented catchphrase. Tigger
   does not say the thing from the song. That song is from 1968 and is not Milne.
 
-Estimated utilisation for all three sits at 82-83%, with Eeyore the largest at
-95.8 seconds of audio because he is the slowest. That is the case the 85% target
-exists to absorb.
+Estimated utilisation for all three sits at 82%, with Pooh and Eeyore around
+100 seconds of audio and Tigger at 75. That is the case the 85% target exists to
+absorb.
+
+## What was verified, and how
+
+The distance filenames are not guesswork. Eleven real packs were downloaded from
+the community archive and transcribed offline; `200.mp3` is confirmed as the
+0.1 mile callout, `400.mp3` a quarter mile, `800.mp3` half a mile, `1500.mp3`
+one mile. The full method and results are in
+[waze-import-spike.md](waze-import-spike.md), including two things it confirmed
+by accident: the 43-filename list is exactly right, and real packs sit between
+53% and 94% of the size cap.

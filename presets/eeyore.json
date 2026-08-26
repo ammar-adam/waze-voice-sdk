@@ -15,7 +15,8 @@
     "year": 1926,
     "pd_basis": "Published 1926. US copyright expired on 1 January 2022, placing the text of this book in the public domain in the United States.",
     "covered": [
-      "The text of the named book, in the United States.",
+      "The text of the named book in the United States, where its copyright term has expired.",
+      "The text of the named book in Canada. Milne died in 1956, Canada was life plus 50 at the time, so his works entered the Canadian public domain on 1 January 2007. The 2022 extension to life plus 70 was not retroactive and did not restore them.",
       "The character as written in that book: manner, register, turns of phrase.",
       "An original interpretation of that character, generated from a licensed text-to-speech voice with written delivery direction."
     ],
@@ -23,10 +24,10 @@
       "Any Disney adaptation: character designs, added characters, songs, or dialogue.",
       "Any recorded voice performance of the character, by any performer, ever.",
       "Later Milne books still in copyright.",
-      "Trademarks in the character names. Trademark is separate from copyright, does not expire, and is held by Disney in many classes.",
-      "Public domain status outside the United States. A. A. Milne died in 1956, so in the UK and EU these works remain in copyright until 1 January 2027."
+      "Trademarks in the character names. Trademark is separate from copyright, does not expire, and is held by Disney in many classes. This is the weakest point in the whole basis and you should know that before publishing anything.",
+      "The United Kingdom and the European Union, where these works remain in copyright until 1 January 2027 (A. A. Milne died in 1956; life plus 70)."
     ],
-    "notes": "This preset is written from the 1926 book only. It uses a licensed catalogue voice with delivery direction, never a clone of any performance."
+    "notes": "Written from the named book only. Uses a licensed catalogue voice with written delivery direction, never a clone of any performance. Public domain is per-country: see covered and not_covered."
   },
   "lines": {
     "in_tenth_mile": "In a tenth of a mile.",

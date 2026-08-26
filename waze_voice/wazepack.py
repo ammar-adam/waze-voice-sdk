@@ -68,8 +68,11 @@ SLOTS: tuple[WazeSlot, ...] = (
     WazeSlot("StartDrive8.mp3", UNITS_ANY, "Drive start greeting, variant 8"),
     WazeSlot("StartDrive9.mp3", UNITS_ANY, "Drive start greeting, variant 9"),
     # -- distance callouts, imperial --------------------------------------
-    WazeSlot("200.mp3", UNITS_IMPERIAL, "In 0.1 miles", core=True),
-    WazeSlot("400.mp3", UNITS_IMPERIAL, "In a quarter mile", core=True),
+    # Readings below are transcribed from 11 real packs, not inferred. The bare
+    # numbers are metre thresholds; the file holds the *imperial* announcement
+    # made at that distance. See docs/waze-import-spike.md.
+    WazeSlot("200.mp3", UNITS_IMPERIAL, 'In 0.1 miles ("zero point one miles")', core=True),
+    WazeSlot("400.mp3", UNITS_IMPERIAL, 'In a quarter of a mile', core=True),
     WazeSlot("800.mp3", UNITS_IMPERIAL, "In half a mile", core=True),
     WazeSlot("1500.mp3", UNITS_IMPERIAL, "In one mile", core=True),
     # -- distance callouts, metric ----------------------------------------
@@ -106,6 +109,9 @@ SLOTS: tuple[WazeSlot, ...] = (
     WazeSlot("ApproachRedLightCam.mp3", UNITS_ANY, "Red light camera ahead"),
     WazeSlot("Police.mp3", UNITS_ANY, "Police reported ahead"),
     # -- misc --------------------------------------------------------------
+    # Usually a half-second chime rather than speech, and three of eleven real
+    # packs ship it deliberately silent. Speech works, but it is the first
+    # thing to drop when a pack is tight.
     WazeSlot("TickerPoints.mp3", UNITS_ANY, "Reroute chime. Safe to omit to save budget"),
 )
 

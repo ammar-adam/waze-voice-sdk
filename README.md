@@ -78,6 +78,7 @@ Pick a character, get a pack. One command, no configuration:
 ```powershell
 $env:OPENAI_API_KEY = "sk-..."
 python scripts\wvs.py presets list
+python scripts\wvs.py preflight              # free: checks everything but the audio
 python scripts\wvs.py quickstart --preset eeyore
 ```
 

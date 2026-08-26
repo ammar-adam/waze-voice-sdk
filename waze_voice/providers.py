@@ -158,8 +158,18 @@ class TtsProvider:
     def list_voices(self) -> list[Voice]:
         raise NotImplementedError
 
-    def synthesize(self, text: str, voice: str, destination: Path) -> Path:
+    def synthesize(
+        self,
+        text: str,
+        voice: str,
+        destination: Path,
+        options: dict | None = None,
+    ) -> Path:
+        """``options`` overrides the instance options for this call only."""
         raise NotImplementedError
+
+    def _merged(self, options: dict | None) -> dict:
+        return {**self.options, **(options or {})}
 
 
 class ElevenLabs(TtsProvider):
@@ -206,14 +216,23 @@ class ElevenLabs(TtsProvider):
             )
         return [voice for voice in voices if voice.id]
 
-    def synthesize(self, text: str, voice: str, destination: Path) -> Path:
-        query = urllib.parse.urlencode({"output_format": self.output_format})
+    def synthesize(
+        self,
+        text: str,
+        voice: str,
+        destination: Path,
+        options: dict | None = None,
+    ) -> Path:
+        merged = self._merged(options)
+        query = urllib.parse.urlencode(
+            {"output_format": str(merged.get("output_format", self.default_output_format))}
+        )
         # safe="" so a slash in a voice id cannot walk the URL path.
         voice_segment = urllib.parse.quote(voice, safe="")
         url = f"{self.base_url}/v1/text-to-speech/{voice_segment}?{query}"
 
         payload: dict[str, object] = {"text": text, "model_id": self.model}
-        settings = self.options.get("voice_settings")
+        settings = merged.get("voice_settings")
         if isinstance(settings, dict):
             payload["voice_settings"] = settings
 
@@ -260,17 +279,24 @@ class OpenAI(TtsProvider):
     def list_voices(self) -> list[Voice]:
         return [Voice(id=name, name=name, description=note) for name, note in self.STOCK_VOICES]
 
-    def synthesize(self, text: str, voice: str, destination: Path) -> Path:
+    def synthesize(
+        self,
+        text: str,
+        voice: str,
+        destination: Path,
+        options: dict | None = None,
+    ) -> Path:
+        merged = self._merged(options)
         payload: dict[str, object] = {
             "model": self.model,
             "input": text,
             "voice": voice,
             "response_format": "mp3",
         }
-        instructions = self.options.get("instructions")
+        instructions = merged.get("instructions")
         if isinstance(instructions, str) and instructions.strip():
             payload["instructions"] = instructions
-        speed = self.options.get("speed")
+        speed = merged.get("speed")
         if isinstance(speed, (int, float)):
             payload["speed"] = float(speed)
 

@@ -6,6 +6,33 @@ Notable changes. Dates are when the work landed on `main`.
 
 ### Added
 
+- **`wvs preflight`.** Everything checkable without an API call: preset
+  validation, Waze filename mapping, clarity rules, and an estimated size
+  against the cap. Prints what it cannot tell you. CI runs it.
+- Presets can carry `critical_provider_options`, applied only to prompts a
+  driver acts on, so a character can be fast in its greetings and unambiguous on
+  "turn left". Tigger uses it: 1.15x normally, 1.0x for instructions.
+
+### Verified
+
+- **The distance filename mapping, from 11 real packs.** Downloaded from the
+  community archive and transcribed offline. `200.mp3` is the 0.1 mile callout,
+  `400.mp3` a quarter mile, `800.mp3` half a mile, `1500.mp3` one mile: the
+  readings the presets were written against are correct. Also confirmed the
+  43-filename list exactly, and that real packs sit at 53-94% of the size cap.
+  See `docs/waze-import-spike.md`.
+
+### Changed
+
+- Pack size is now **measured from the encoded files** rather than estimated,
+  and the build reports how far measured drifted from the pre-flight estimate
+  when that exceeds 10%.
+- Clarity validation is word-boundary aware, so "leftover" no longer satisfies a
+  left turn, and rejects lines that name two directions, two exits, or two
+  distances.
+- Preset rights blocks now state Canada explicitly (public domain since 2007)
+  alongside the US and the UK/EU 2027 date.
+
 - **Character presets.** `quickstart --preset eeyore` produces a finished pack
   with no configuration: a licensed catalogue voice, a written delivery
   direction, and all 43 prompts rewritten in character. Ships `eeyore`, `pooh`,

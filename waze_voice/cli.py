@@ -16,7 +16,7 @@ import sys
 from dataclasses import replace
 from pathlib import Path
 
-from . import budget, console, doctor, media, packs, paths, presets, providers
+from . import budget, console, doctor, media, packs, paths, preflight, presets, providers
 from . import config as config_module
 from .steps import clean, export, extract, normalize, qa, synth, validate
 
@@ -217,6 +217,14 @@ def build_parser() -> argparse.ArgumentParser:
     _add_voices(subparsers)
     _add_quickstart(subparsers)
     _add_presets(subparsers)
+
+    parser_preflight = _common(
+        subparsers.add_parser(
+            "preflight",
+            help="Check everything checkable before spending an API call.",
+        )
+    )
+    parser_preflight.add_argument("--preset", help="Check just this preset.")
 
     return parser
 
@@ -753,6 +761,11 @@ def cmd_quickstart(args, cfg) -> int:
     return 0
 
 
+def cmd_preflight(args, cfg) -> int:
+    report = preflight.run(config=cfg, phrases_path=args.phrases, only=args.preset)
+    return 0 if report.ok else 1
+
+
 def cmd_presets(args, cfg) -> int:
     if args.presets_command == "list":
         return _presets_list()
@@ -951,6 +964,7 @@ COMMANDS = {
     "voices": cmd_voices,
     "quickstart": cmd_quickstart,
     "presets": cmd_presets,
+    "preflight": cmd_preflight,
 }
 
 

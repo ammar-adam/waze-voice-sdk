@@ -43,6 +43,10 @@ jobs:
       - name: Validate presets
         run: python scripts/wvs.py presets check
 
+      # Catches a preset that validates but could never fit the size cap.
+      - name: Pre-flight
+        run: python scripts/wvs.py preflight
+
   test:
     name: Tests (${{ matrix.os }}, Python ${{ matrix.python }})
     runs-on: ${{ matrix.os }}
