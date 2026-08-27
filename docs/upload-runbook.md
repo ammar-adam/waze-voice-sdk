@@ -27,8 +27,8 @@ the manual part.
 
 ```powershell
 python scripts\wvs.py preflight
-python scripts\wvs.py quickstart --preset eeyore
 python scripts\wvs.py quickstart --preset pooh
+python scripts\wvs.py quickstart --preset eeyore
 python scripts\wvs.py quickstart --preset tigger
 ```
 
@@ -36,17 +36,21 @@ Each run overwrites `audio/export/`, so copy each pack out before building the
 next, or use a pack per voice:
 
 ```powershell
-python scripts\wvs.py pack new eeyore  --label "Eeyore"
-python scripts\wvs.py quickstart --pack eeyore --preset eeyore
+python scripts\wvs.py pack new pooh --label "Winnie the Pooh"
+python scripts\wvs.py quickstart --pack pooh --preset pooh --accept-voice-terms
 ```
 
-That leaves the finished files at `packs/eeyore/audio/export/pack/`.
+That leaves the finished files at `packs/pooh/audio/export/pack/`.
+
+`--accept-voice-terms` is required once per clone. Without it the first synth
+run exits instead of building.
 
 Check the utilisation line on each build. Target is 85% of Waze's cap; anything
 above 92% fails the build. Ours estimate at 82%.
 
 **Why that matters here specifically:** the upload tool re-compresses any pack
-over 0.8 MB, using one flat bitrate for every file. That would throw away this
+over 0.795 MB, using one flat bitrate for every file (binary-searched
+between 16 and 128 kbps). That would throw away this
 SDK's per-clip allocation and hand the drive-start greeting the same bitrate as
 "turn left". Staying under the cap means the uploader passes your files through
 untouched.
@@ -70,6 +74,15 @@ py -3.12 -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
+`requirements.txt` lists `openai-whisper`, which pulls in torch: roughly 2 GB
+for a language-detection helper the upload path never imports. Verified against
+the source. To skip it:
+
+```powershell
+findstr /v openai-whisper requirements.txt > req-upload.txt
+python -m pip install -r req-upload.txt
+```
+
 If you do not have 3.12:
 
 ```powershell
@@ -82,12 +95,13 @@ ffmpeg must be on `PATH`. You already have it if this SDK works.
 
 ## Step 2: stage the packs
 
-Each pack is one folder under `input_packs/`, **and the folder name becomes the
-voice name shown in Waze**. Choose it deliberately.
+Each pack is one folder under **`mp3_upload\input_packs\`** (not the repository
+root), **and the folder name becomes the voice name shown in Waze**: it is sent
+as `set_name` and as the display label. Choose it deliberately.
 
 ```powershell
-mkdir input_packs\Eeyore
-copy C:\Users\aaamm\waze-voice-sdk\packs\eeyore\audio\export\pack\*.mp3 input_packs\Eeyore\
+mkdir "mp3_upload\input_packs\Winnie the Pooh"
+copy C:\Users\aaamm\waze-voice-sdk\packs\pooh\audio\export\pack\*.mp3 "mp3_upload\input_packs\Winnie the Pooh\"
 ```
 
 Repeat for the other two. You can stage all three and upload them in one run.
@@ -96,16 +110,27 @@ Sanity check before you continue: each folder should hold exactly 43 `.mp3`
 files.
 
 ```powershell
-(Get-ChildItem input_packs\Eeyore\*.mp3).Count
+(Get-ChildItem "mp3_upload\input_packs\Winnie the Pooh\*.mp3").Count
 ```
+
+**Ingestion accepts a pack containing as little as one recognised file.**
+Missing files print a warning and the upload proceeds anyway. Do not treat
+reaching the upload stage as evidence the pack is complete; that is what step 4
+is for.
+
+**Clear `mp3_upload\compressed_packs\` between runs.** The upload stage iterates
+over every folder it finds there, not over what you just staged, so a pack left
+from an earlier run is silently uploaded again under a fresh UUID.
 
 ---
 
 ## Step 3: upload
 
-Run from the **repository root**, not from inside `mp3_upload/`. The uploader
-resolves `./mp3_upload/compressed_packs/` relative to the working directory, so
-running it from the wrong place fails with a confusing missing-directory error.
+Run from the **repository root**, not from inside `mp3_upload/`. Ingestion and
+compression resolve their paths from the script's own location and work from
+anywhere, but the upload stage hardcodes the relative path
+`./mp3_upload/compressed_packs/`, so running from anywhere else gets through
+both earlier phases and then fails with a confusing missing-directory error.
 
 ```powershell
 python mp3_upload\main.py
@@ -116,13 +141,13 @@ It runs three phases and prints progress for each:
 1. **Ingestion.** Validates filenames against its own list and checks each file
    decodes. Files it does not recognise are ignored silently; missing files are a
    warning, not an error.
-2. **Compression.** Only runs if the pack exceeds 0.8 MB. Ours should not trigger
+2. **Compression.** Only runs if the pack exceeds 0.795 MB. Ours should not trigger
    it. If it does, your pack was bigger than the build reported and something is
    wrong upstream.
 3. **Upload.** Prints, per pack:
 
 ```
-✅ Upload of Eeyore successful.
+✅ Upload of Winnie the Pooh successful.
 https://waze.com/ul?acvp=<UUID>
 https://voice-prompts-ipv6.waze.com/<UUID>.tar.gz
 ```
@@ -139,7 +164,7 @@ pack is right. Prove it:
 
 ```powershell
 cd C:\Users\aaamm\waze-voice-sdk
-python scripts\wvs.py verify-upload <UUID> --pack-dir packs\eeyore\audio\export\pack
+python scripts\wvs.py verify-upload <UUID> --pack-dir packs\pooh\audio\export\pack
 ```
 
 This downloads the live pack from Waze, unpacks it, and checks:
@@ -173,7 +198,7 @@ Drive or simulate a route and listen for:
 
 | What you see | What it means | Fix |
 | --- | --- | --- |
-| **Share button greys out right after saving** | Server-side rejection, almost always oversize. The classic signal. | Get the pack under 0.8 MB. `wvs export` reports utilisation; target 85%. |
+| **Share button greys out right after saving** | Server-side rejection, almost always oversize. The classic signal. | Get the pack under 0.795 MB. `wvs export` reports utilisation; target 85%. |
 | **Link works, every prompt is silence** | The upload landed but the audio did not, or placeholders were uploaded. | `wvs verify-upload` will show silent clips. Rebuild and re-upload. |
 | **Only distance prompts are silent** | Reported by a user in Jan 2026 who recorded only metric distances. The other unit set was left empty, so a phone on the other system hears nothing. | Ship `units: both`, which all three presets do. |
 | `The MP3 directory does not exist.` | Ran the script from the wrong directory. | Run `python mp3_upload\main.py` from the repository root. |
@@ -185,9 +210,11 @@ Drive or simulate a route and listen for:
 
 ## What I could not verify
 
-- **No upload has been performed from here.** Everything above is read from the
-  uploader's source and its README. The mechanism is clear, but the first real
-  run is yours.
+- **No upload has been performed from here.** The install, the venv on 3.12,
+  and the filename allowlist are verified locally: our 43 filenames match the
+  uploader's `valid_waze_filenames.txt` exactly, set for set. Phases 1 and 2 are
+  read from its source. The network call in phase 3 is the part nobody here has
+  run.
 - **The auth flow may be fragile.** It impersonates a Waze client with a
   hand-built protobuf payload and a hardcoded app version (`4.106.0.1`). That is
   exactly the kind of thing that breaks when Waze ships an update, and nothing in
