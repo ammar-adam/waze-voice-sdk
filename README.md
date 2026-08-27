@@ -13,8 +13,8 @@ Open one of these on your phone, with Waze installed. It adds the voice. Then
 
 | Voice | | |
 | ----- | - | - |
-| **Eeyore** — flat, resigned, and completely correct about where to go | [Add to Waze](https://waze.com/ul?acvp=REPLACE_WITH_EEYORE_UUID) | *(link pending upload)* |
 | **Pooh** — warm, unhurried, audibly thinking it through | [Add to Waze](https://waze.com/ul?acvp=REPLACE_WITH_POOH_UUID) | *(link pending upload)* |
+| **Eeyore** — flat, resigned, and completely correct about where to go | [Add to Waze](https://waze.com/ul?acvp=REPLACE_WITH_EEYORE_UUID) | *(link pending upload)* |
 | **Tigger** — fast, bouncy, overconfident | [Add to Waze](https://waze.com/ul?acvp=REPLACE_WITH_TIGGER_UUID) | *(link pending upload)* |
 
 Each works on any phone, in kilometres or miles. A pack lives on Waze's servers,
