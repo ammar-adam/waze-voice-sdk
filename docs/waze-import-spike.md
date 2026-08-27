@@ -43,14 +43,43 @@ announcement made at that distance. 400 m ≈ a quarter mile, 800 m ≈ half a m
 1500 m ≈ one mile. That is why there is a `1000meters.mp3` and no `1000.mp3`:
 one kilometre has no round imperial equivalent worth announcing.
 
-### One deliberate divergence
+### How consistent, exactly
 
-Real packs say **"zero point one miles"**. The presets here say **"a tenth of a
-mile"**. Same distance, more natural English, and the validator accepts either.
-Noted so nobody later mistakes it for an error.
+Counting packs whose transcript contains the phrase, out of 11:
+
+| File | Phrase | Packs | Non-matches |
+| ---- | ------ | ----- | ----------- |
+| `200.mp3` | "point one mile(s)" | **10 / 11** | 1 garbled ("the no point while mouse") |
+| `400.mp3` | "quarter of a mile" | **9 / 11** | 2 garbled ("quarter of an oil", "a cool of a mile") |
+| `800.mp3` | "half a mile" | **10 / 11** | 1 garbled ("in our family") |
+| `1500.mp3` | "one mile" | **10 / 11** | 1 garbled ("in know my old") |
+
+Every non-match is recognisably the same phrase mangled by a small offline STT
+model, not a different reading. Treat these as 11 / 11.
+
+### One deliberate divergence, stated plainly
+
+**No pack says "a tenth of a mile". All eleven say "point one miles."** The
+presets here say "a tenth of a mile", which is the same distance in more natural
+English and reads better in a character register. The validator accepts either.
+
+This is a wording choice, not a correction: the *distance* our presets announce
+is confirmed correct. Recorded here so nobody later mistakes it for a bug, and so
+the decision can be reversed deliberately if matching Waze's own phrasing turns
+out to matter more.
 
 Real packs also say "a quarter **of a** mile" where the presets say "a quarter
 mile". Both accepted.
+
+### What is *not* a convention
+
+Two prompts vary too much between packs to call a standard, so there is nothing
+to match:
+
+- `Arrive.mp3`: 4 of 11 say "you have reached your destination", 2 say "arrived",
+  5 say something character-specific.
+- The alert prompts: the base pattern is "*X* reported ahead", but most packs
+  extend it with character material, so only 3 of 11 transcribe cleanly to it.
 
 ### Other prompts, same method
 
@@ -60,7 +89,7 @@ mile". Both accepted.
 | `Straight.mp3` | "continue straight" |
 | `Arrive.mp3` | "you have reached your destination" |
 | `Roundabout.mp3` | "at the roundabout" |
-| `First.mp3` … `Seventh.mp3` | "take the first exit" … "take the seventh exit" |
+| `First.mp3` … `Seventh.mp3` | "take the first exit" … "take the seventh exit" (8 / 11 verbatim) |
 | `uturn.mp3` | "make a u turn" |
 | `ApproachTraffic.mp3` | "heavy traffic reported ahead" |
 | `ApproachHazard.mp3` | "hazard reported ahead" |
