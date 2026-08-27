@@ -202,6 +202,7 @@ Drive or simulate a route and listen for:
 | **Link works, every prompt is silence** | The upload landed but the audio did not, or placeholders were uploaded. | `wvs verify-upload` will show silent clips. Rebuild and re-upload. |
 | **Only distance prompts are silent** | Reported by a user in Jan 2026 who recorded only metric distances. The other unit set was left empty, so a phone on the other system hears nothing. | Ship `units: both`, which all three presets do. |
 | `The MP3 directory does not exist.` | Ran the script from the wrong directory. | Run `python mp3_upload\main.py` from the repository root. |
+| `UnicodeEncodeError: 'charmap' codec can't encode character '📝'` | The uploader prints emoji. Windows encodes console output as cp1252 whenever stdout is not a real console: piped, redirected to a file, or run from an IDE. Reproduced here. | `$env:PYTHONIOENCODING = "utf-8"` before running, or do not redirect the output. |
 | `pip install` fails building protobuf | Python 3.13. | Use 3.12. |
 | Upload prints a link, download 404s | The upload did not actually land despite the message. | Re-run. If it repeats, the pack is likely being rejected for size. |
 | Waze does not offer to add the voice | Link opened without Waze installed, or opened on desktop. | Open on the phone with Waze installed. |
@@ -213,8 +214,11 @@ Drive or simulate a route and listen for:
 - **No upload has been performed from here.** The install, the venv on 3.12,
   and the filename allowlist are verified locally: our 43 filenames match the
   uploader's `valid_waze_filenames.txt` exactly, set for set. Phases 1 and 2 are
-  read from its source. The network call in phase 3 is the part nobody here has
-  run.
+  read from its source and **rehearsed end to end** with synthetic audio: a
+  43-file Pooh pack was built, ingested, and reported `Already within limit
+  (0.64 MB)`, so compression never fired and the per-clip bitrate allocation
+  reached the upload stage intact. The network call in phase 3 is the only part
+  nobody here has run.
 - **The auth flow may be fragile.** It impersonates a Waze client with a
   hand-built protobuf payload and a hardcoded app version (`4.106.0.1`). That is
   exactly the kind of thing that breaks when Waze ships an update, and nothing in
