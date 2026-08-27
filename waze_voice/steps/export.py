@@ -668,7 +668,8 @@ def run(
 ) -> ExportResult:
     console.step("Export")
 
-    units = units or config.export.units
+    # Explicit --units beats the preset, which beats the config default.
+    units = units or (preset.units if preset is not None else None) or config.export.units
     if units not in ("both", wazepack.UNITS_METRIC, wazepack.UNITS_IMPERIAL):
         raise SystemExit(f"--units must be both, metric, or imperial; got {units!r}")
 

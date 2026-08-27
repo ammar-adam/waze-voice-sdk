@@ -30,8 +30,8 @@
     "notes": "Written from the named book only. Uses a licensed catalogue voice with written delivery direction, never a clone of any performance. Public domain is per-country: see covered and not_covered."
   },
   "lines": {
-    "in_tenth_mile": "In a tenth of a mile!",
-    "in_quarter_mile": "In a quarter mile!",
+    "in_tenth_mile": "In point one miles!",
+    "in_quarter_mile": "In a quarter of a mile!",
     "in_half_mile": "In half a mile!",
     "in_one_mile": "In one mile! Ages yet!",
     "in_200_meters": "In two hundred meters!",
@@ -76,5 +76,6 @@
   },
   "critical_provider_options": {
     "speed": 1.0
-  }
+  },
+  "units": "both"
 }

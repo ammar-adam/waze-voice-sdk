@@ -246,6 +246,10 @@ class Preset:
     direction: str
     lines: dict[str, str]
     rights: Rights
+    # "both", "metric", or "imperial". Which distance callout sets to ship.
+    # Defaults to both: one pack that works whatever the driver's phone is set
+    # to. --units overrides it.
+    units: str = "both"
     provider_options: dict[str, Any] = field(default_factory=dict)
     # Merged on top of provider_options for prompts a driver must not mishear.
     # A character can be fast in its greetings and still has to be unambiguous
@@ -460,6 +464,12 @@ def validate_raw(
     _check_no_cloning(raw, errors)
     rights = _check_rights(raw, errors)
 
+    units = str(raw.get("units", "both"))
+    if units not in ("both", "metric", "imperial"):
+        errors.append(
+            f"units must be 'both', 'metric', or 'imperial'; got {units!r}."
+        )
+
     for required in ("label", "description", "provider", "voice", "direction"):
         if not str(raw.get(required, "")).strip():
             errors.append(f"missing or empty: {required}")
@@ -502,6 +512,7 @@ def validate_raw(
             direction=str(raw["direction"]),
             lines=dict(lines),
             rights=rights,
+            units=units,
             provider_options=dict(options),
             critical_provider_options=dict(critical),
             notes=str(raw.get("notes", "")),

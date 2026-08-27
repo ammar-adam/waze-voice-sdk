@@ -30,8 +30,8 @@
     "notes": "Written from the named book only. Uses a licensed catalogue voice with written delivery direction, never a clone of any performance. Public domain is per-country: see covered and not_covered."
   },
   "lines": {
-    "in_tenth_mile": "In a tenth of a mile.",
-    "in_quarter_mile": "In a quarter mile.",
+    "in_tenth_mile": "In point one miles.",
+    "in_quarter_mile": "In a quarter of a mile.",
     "in_half_mile": "In half a mile.",
     "in_200_meters": "In two hundred meters.",
     "in_400_meters": "In four hundred meters.",
@@ -73,5 +73,6 @@
     "red_light_camera_ahead": "A red light camera ahead. Best stop properly.",
     "police_ahead": "Police ahead. Best behaviour.",
     "reroute_chime": "Oh. I'll find another way."
-  }
+  },
+  "units": "both"
 }

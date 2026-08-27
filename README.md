@@ -4,112 +4,64 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-Windows-first toolkit for turning audio you own into a custom navigation voice pack.
+Character voices for Waze navigation.
 
-Point it at your media files and a CSV of timestamps. It cuts the clips, isolates the
-vocal, synthesizes any lines your source material never said, matches every clip to one
-consistent loudness, lets you audition the result as a driving route, and exports an
-ordered folder with the paperwork you need to get it into Waze.
+## Just want the voices?
 
-This repository ships **no audio, no model weights, and no voice packs**. It is a
-production pipeline. What you feed it, and whether you have the right to use it, is
-yours to decide. See [LEGAL.md](LEGAL.md).
+Open one of these on your phone, with Waze installed. It adds the voice. Then
+`Settings > Voice and sound` and pick it. Nothing to install, no account.
 
-Not affiliated with Waze, Google, or any rights holder.
+| Voice | | |
+| ----- | - | - |
+| **Eeyore** — flat, resigned, and completely correct about where to go | [Add to Waze](https://waze.com/ul?acvp=REPLACE_WITH_EEYORE_UUID) | *(link pending upload)* |
+| **Pooh** — warm, unhurried, audibly thinking it through | [Add to Waze](https://waze.com/ul?acvp=REPLACE_WITH_POOH_UUID) | *(link pending upload)* |
+| **Tigger** — fast, bouncy, overconfident | [Add to Waze](https://waze.com/ul?acvp=REPLACE_WITH_TIGGER_UUID) | *(link pending upload)* |
 
-## How packs get onto a phone
+Each works on any phone, in kilometres or miles. A pack lives on Waze's servers,
+so a link keeps working for anyone forever once it exists.
 
-Waze stores custom voice packs **on its servers**, not on the device, and hands out share
-links of the form `https://waze.com/ul?acvp=<UUID>`. So the creation device and the
-consumption device are decoupled: build the pack on a PC, upload it, open the link on your
-phone. The Waze app itself is record-only, and that does not matter.
+Each is an original interpretation of a character as written in A. A. Milne's
+books, generated from a licensed text-to-speech voice with written delivery
+direction. **Never a clone of anyone's voice performance.** Full rights detail in
+[docs/presets.md](docs/presets.md).
 
-Two things decide whether a pack works, and both fail silently:
+## One thing to know before you decide
 
-- **Exact filenames.** Waze matches on filename and ignores anything else without an
-  error. `200.mp3` is the 0.1 mile callout; `1500.mp3` is one mile; `uturn.mp3` is
-  lowercase. Metric and imperial distances are two separate file sets and a pack needs
-  both.
-- **An aggregate size limit of roughly 0.8 MB** across every MP3. Exceeding it is
-  rejected server-side, showing up as a share button that greys out or a pack that plays
-  silence.
+**A custom Waze voice can never say a street name.** A pack is 43 fixed audio
+files with no text-to-speech at drive time, so "turn left onto Bloor Street"
+comes out as just "turn left".
 
-The export step handles both: correct names, both unit systems, and per-clip bitrate
-allocation to fit the budget. It prints the finished size against the limit before you
-upload.
+That is a Waze constraint, not a limitation of this project, and it applies to
+every custom voice anyone has ever made. Distances, turns, roundabout exits and
+hazard warnings all work normally. If street names matter to you, stay on Waze's
+built-in voice.
 
-Upload itself is done with the community tooling at
-[waze-voicepack-links](https://github.com/pipeeeeees/waze-voicepack-links), which is also
-the source for the filename list and the size limit. Full detail in
-[docs/waze-import-workflow.md](docs/waze-import-workflow.md).
+## Want to make one that does not exist yet?
 
-## Install
-
-Requirements: Windows 10 or newer, Python 3.10+, and ffmpeg.
+That is what the SDK is for. Build a pack from **an API key and a character
+idea**, or from **your own recordings**.
 
 ```powershell
 winget install Gyan.FFmpeg
-```
-
-Open a new terminal so `PATH` picks it up, then:
-
-```powershell
 git clone https://github.com/ammar-adam/waze-voice-sdk
 cd waze-voice-sdk
-python scripts/wvs.py doctor
+python scripts\wvs.py doctor
 ```
 
-`doctor` reports what is present, what is missing, and which step each missing piece
-blocks. The core pipeline needs no Python packages at all: everything runs on the
-standard library plus ffmpeg.
-
-Two optional extras, each isolated so nobody downloads PyTorch to cut a clip:
-
-| Extra | Enables | Install |
-| ----- | ------- | ------- |
-| [requirements-clean.txt](requirements-clean.txt) | Demucs vocal separation | `python -m pip install -r requirements-clean.txt` |
-| [requirements-tts.txt](requirements-tts.txt) | Chatterbox voice synthesis, offline | `python -m pip install -r requirements-tts.txt` |
-| *(none needed)* | ElevenLabs / OpenAI synthesis | just an API key, see [docs/tts.md](docs/tts.md) |
-
-## Quick start
-
-Pick a character, get a pack. One command, no configuration:
+The fastest route is a text-to-speech key. No recording, no source media,
+nothing to install beyond ffmpeg:
 
 ```powershell
 $env:OPENAI_API_KEY = "sk-..."
-python scripts\wvs.py presets list
-python scripts\wvs.py preflight              # free: checks everything but the audio
-python scripts\wvs.py quickstart --preset eeyore
+python scripts\wvs.py preflight                      # free: checks everything but the audio
+python scripts\wvs.py quickstart --preset eeyore     # or --voice nova for the plain lines
 ```
 
-A **preset** is a voice, a delivery direction, and all 43 Waze prompts rewritten
-in that character's register. Three ship: `eeyore`, `pooh`, and `tigger`, each an
-original interpretation of a public-domain book character, generated from a
-licensed voice and never a clone of any performance. See
-[docs/presets.md](docs/presets.md).
+That generates all 43 prompts, in both metric and imperial, normalized and packed
+inside Waze's size budget. About a minute.
 
-Or pick any voice and use the standard lines:
-
-```powershell
-$env:OPENAI_API_KEY = "sk-..."
-python scripts\wvs.py voices
-python scripts\wvs.py quickstart --voice nova
-```
-
-That generates all 43 prompts Waze recognises, in both metric and imperial,
-normalized and packed inside Waze's size budget. About a minute, and roughly a
-thousand characters of TTS.
-
-`elevenlabs` works the same way and has a much larger voice library:
-
-```powershell
-$env:ELEVENLABS_API_KEY = "..."
-python scripts\wvs.py voices --provider elevenlabs --search narrator
-python scripts\wvs.py quickstart --provider elevenlabs --voice <id>
-```
-
-Building from **your own recordings** instead is the longer path, and the one
-the rest of this README describes:
+Building from **your own recordings** instead is the longer path, and what most of
+this README describes:
 
 ```powershell
 copy data\sources.sample.csv data\my-sources.csv
@@ -119,6 +71,20 @@ python scripts\wvs.py run --sources data\my-sources.csv
 
 To check the install without any of the above, `python tests\run_tests.py`
 builds synthetic media and runs the whole pipeline over it.
+
+## What this does, and what it does not
+
+**It does:** produce a finished pack folder — 43 correctly-named MP3s, both unit
+systems, loudness-matched, compressed to fit Waze's undocumented size cap, with a
+checklist and a manifest.
+
+**It does not upload.** Waze has no public API for this. Uploading is a separate,
+manual step using a community tool, and pretending otherwise would waste your
+time. [docs/upload-runbook.md](docs/upload-runbook.md) walks it start to finish;
+it takes about a minute per pack and needs **no emulator**.
+
+Once uploaded you get a permanent share link, which is what the table at the top
+of this page is.
 
 ## The pipeline
 
@@ -252,7 +218,7 @@ data/                source inventory CSV
 packs/               one directory per voice, all Git-ignored
 audio/               working directories, all Git-ignored
 tests/               unittest suite, including an end-to-end ffmpeg run
-docs/                setup, pipeline design, audio targets, TTS, Waze import
+docs/                setup, pipeline design, presets, upload runbook
 ```
 
 ## Legal boundary
@@ -273,10 +239,13 @@ Security reports go through [SECURITY.md](SECURITY.md).
 
 ## Project status
 
-Working and tested, with one honest gap: nobody has yet confirmed a pack built by this
-tool on a real device end to end. Everything up to the upload is verified, including
-against real ffmpeg and real Demucs. If you get there first, please
-[say so](../../issues/new?template=device-report.yml).
+Working and tested. The 43 filenames, the distance readings, and the size cap were all
+verified against 11 real packs downloaded from Waze and transcribed offline; see
+[docs/waze-import-spike.md](docs/waze-import-spike.md).
+
+Still unconfirmed: no pack built by this tool has been uploaded and driven with yet, and
+the exact distance at which each callout fires is not knowable from pack contents. If you
+get there first, please [say so](../../issues/new?template=device-report.yml).
 
 Changes are recorded in [CHANGELOG.md](CHANGELOG.md).
 

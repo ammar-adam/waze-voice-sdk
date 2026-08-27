@@ -16,7 +16,7 @@ import sys
 from dataclasses import replace
 from pathlib import Path
 
-from . import budget, console, doctor, media, packs, paths, preflight, presets, providers
+from . import budget, console, doctor, media, packs, paths, preflight, presets, providers, verify
 from . import config as config_module
 from .steps import clean, export, extract, normalize, qa, synth, validate
 
@@ -225,6 +225,19 @@ def build_parser() -> argparse.ArgumentParser:
         )
     )
     parser_preflight.add_argument("--preset", help="Check just this preset.")
+
+    parser_verify = _common(
+        subparsers.add_parser(
+            "verify-upload",
+            help="Download an uploaded pack back from Waze and prove it is correct.",
+        )
+    )
+    parser_verify.add_argument("uuid", help="The UUID from the share link.")
+    parser_verify.add_argument(
+        "--pack-dir",
+        type=Path,
+        help="Local pack/ directory to compare against, file by file.",
+    )
 
     return parser
 
@@ -761,6 +774,16 @@ def cmd_quickstart(args, cfg) -> int:
     return 0
 
 
+def cmd_verify_upload(args, cfg) -> int:
+    pack_dir = args.pack_dir
+    if pack_dir is None:
+        # Default to this pack's own export, which is what you just uploaded.
+        candidate = paths.export_dir() / "pack"
+        pack_dir = candidate if candidate.is_dir() else None
+    result = verify.run(args.uuid, local_pack=pack_dir)
+    return 0 if result.ok else 1
+
+
 def cmd_preflight(args, cfg) -> int:
     report = preflight.run(config=cfg, phrases_path=args.phrases, only=args.preset)
     return 0 if report.ok else 1
@@ -787,11 +810,12 @@ def _presets_list() -> int:
                 preset.name,
                 preset.label,
                 f"{preset.provider}/{preset.voice}",
+                preset.units,
                 preset.rights.attribution,
             )
             for preset in found
         ],
-        headers=("Name", "Label", "Voice", "Source work"),
+        headers=("Name", "Label", "Voice", "Units", "Source work"),
     )
     console.info("")
     console.info("  python scripts/wvs.py quickstart --preset <name>")
@@ -806,6 +830,7 @@ def _presets_show(name: str, *, show_lines: bool) -> int:
     console.table(
         [
             ("Voice", f"{preset.provider} / {preset.voice}"),
+            ("Units", preset.units),
             ("Lines", f"{len(preset.lines)} ({preset.total_chars} characters)"),
             ("Options", str(preset.provider_options or "-")),
         ],
@@ -965,6 +990,7 @@ COMMANDS = {
     "quickstart": cmd_quickstart,
     "presets": cmd_presets,
     "preflight": cmd_preflight,
+    "verify-upload": cmd_verify_upload,
 }
 
 
