@@ -297,9 +297,12 @@ def _add_quickstart(subparsers) -> None:
     parser.add_argument("--voice", help="Voice id. Overrides the preset's voice.")
     parser.add_argument("--provider-model", help="Override the provider's default model.")
     parser.add_argument(
-        "--include-optional",
+        "--core-only",
         action="store_true",
-        help="Generate the optional prompts too (alerts, roundabout ordinals).",
+        help=(
+            "Generate only the 20 prompts Waze strictly needs, skipping "
+            "roundabouts, alerts, and the extra drive-start greetings."
+        ),
     )
     parser.add_argument(
         "--units",
@@ -731,13 +734,19 @@ def cmd_quickstart(args, cfg) -> int:
     if preset is not None:
         console.info(f"Preset:   {preset.label} - {preset.rights.attribution}")
         console.detail(preset.description)
-    console.detail("Every prompt is generated from text. No recording, no timestamps.")
+    total = 20 if args.core_only else 43
+    console.detail(
+        f"Generating {total} prompts from text. No recording, no timestamps."
+    )
 
+    # A complete pack is the point of quickstart. Generating only the 20
+    # strictly-required prompts leaves no roundabout instructions and no
+    # alerts at all, which you discover at the first roundabout.
     synth_result = synth.run(
         config=cfg,
         phrases_path=args.phrases,
         backend=name,
-        include_optional=args.include_optional,
+        include_optional=not args.core_only,
         accept_voice_terms=args.accept_voice_terms,
         force=args.force,
         preset=preset,

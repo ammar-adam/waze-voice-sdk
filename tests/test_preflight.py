@@ -138,7 +138,7 @@ class MeasuredSizeTests(unittest.TestCase):
             mock.patch.object(synth, "check_consent", return_value=None),
         ):
             code = cli.main(
-                ["quickstart", "--preset", preset_name, "--include-optional", "--quiet"]
+                ["quickstart", "--preset", preset_name, "--quiet"]
             )
         manifest = json.loads(
             (paths.export_dir() / export.MANIFEST_NAME).read_text(encoding="utf-8")
