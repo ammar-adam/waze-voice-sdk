@@ -42,6 +42,20 @@ rights holder or the performer.
 | `cookie-monster` | Sesame Street (1969) | `fish/a3ec9a07...` | Blunt, greedy, present tense |
 | `elmo` | Sesame Street (1980) | `fish/193f7f8f...` | Bright, giggly, third person |
 
+Pooh and Tigger have community models too, and `scripts/build_all.py --fish`
+routes them through those instead of their catalogue voice, so one key covers
+every character:
+
+| Preset | Community model |
+| ------ | --------------- |
+| `pooh` | `cf6e370cb45240b492b14c70a18d0259` |
+| `tigger` | `23ad79b4e84f46259dd256c0b01526c2` |
+
+Those two ids live in `build_all.py`, not in the preset files, and deliberately.
+`pooh` and `tigger` rest on an expired copyright and their presets should keep
+saying so; `--fish` changes only how the lines are spoken, and the run prints
+that it did.
+
 They are in the repository because people build these anyway, and a pipeline
 that quietly omits the rights position is worse than one that records it. What
 the SDK gives you here is an accurate label, not permission. The 43 lines in
