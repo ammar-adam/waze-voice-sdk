@@ -16,15 +16,22 @@ import argparse
 import os
 import sys
 from pathlib import Path
+from typing import TypedDict
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from waze_voice import console, voicelab  # noqa: E402
 
+
+class CharacterSpec(TypedDict):
+    description: str
+    search: list[str]
+
+
 OUT = Path(__file__).resolve().parent.parent / "voice-auditions"
 
 # description: what to invent.  search: archetypes to look for in the library.
-CHARACTERS: dict[str, dict[str, object]] = {
+CHARACTERS: dict[str, CharacterSpec] = {
     "pooh": {
         "description": (
             "An elderly bear with a soft, breathy, slightly husky voice, a little "
@@ -100,7 +107,7 @@ def main(argv: list[str] | None = None) -> int:
 
         if not args.skip_library:
             seen: set[str] = set()
-            for term in spec["search"]:  # type: ignore[union-attr]
+            for term in spec["search"]:
                 try:
                     found = voicelab.search_library(key, search=term, page_size=6)
                 except Exception as error:  # noqa: BLE001
@@ -120,7 +127,7 @@ def main(argv: list[str] | None = None) -> int:
 
         if not args.skip_design:
             try:
-                previews = voicelab.design(key, str(spec["description"]))
+                previews = voicelab.design(key, spec["description"])
             except Exception as error:  # noqa: BLE001
                 console.error(f"voice design failed: {error}")
                 continue
