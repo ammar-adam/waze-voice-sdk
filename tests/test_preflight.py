@@ -56,9 +56,20 @@ class PreflightTests(unittest.TestCase):
         self.assertEqual(report.filename_problems, [])
 
     def test_reports_every_shipped_preset(self) -> None:
+        """Every preset on disk, not a hardcoded list that goes stale."""
         report = preflight.run(config=self.config)
         names = {entry.name for entry in report.presets}
-        self.assertEqual(names, {"eeyore", "pooh", "tigger"})
+        self.assertEqual(names, {p.name for p in presets.list_presets()})
+        self.assertLessEqual({"eeyore", "pooh", "tigger"}, names)
+
+    def test_the_rights_status_is_reported(self) -> None:
+        """Pre-flight is the pre-spend check, so it has to say which presets do
+        not rest on an expired copyright."""
+        report = preflight.run(config=self.config)
+        by_name = {entry.name: entry for entry in report.presets}
+        self.assertEqual(by_name["pooh"].rights_status, "public-domain")
+        for name in ("paddington", "cookie-monster", "elmo"):
+            self.assertEqual(by_name[name].rights_status, "in-copyright", name)
 
     def test_estimates_are_populated_and_plausible(self) -> None:
         report = preflight.run(config=self.config)
