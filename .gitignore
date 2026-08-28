@@ -73,3 +73,6 @@ audio/qa-report.json
 
 # Local acknowledgement receipt written by the synthesis step
 .voice-consent
+
+# Local voice auditions: throwaway mp3s for picking a base voice by ear.
+voice-auditions/
