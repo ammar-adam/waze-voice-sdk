@@ -11,7 +11,7 @@ There are two routes, and they suit different situations.
 | Needs | an API key | a CPU and patience |
 | Voice comes from | the provider's library, or your own cloned voice | ~10 s of your own audio |
 | Source media required | none | yes, to clone from |
-| Cost | about 1000 characters per pack | free |
+| Cost | about 1000-1300 characters per pack | free |
 | Audio never leaves your machine | no | yes |
 
 If you want a pack in the next five minutes, use the hosted route. If you want
@@ -34,8 +34,8 @@ audio arrives at spec and there is nothing to cut or de-noise.
 # Browse a provider's library
 python scripts\wvs.py voices --provider elevenlabs --search british
 
-# Optional prompts too: alerts and roundabout ordinals
-python scripts\wvs.py quickstart --voice nova --include-optional
+# Only the 20 strictly-required prompts, if budget is desperate
+python scripts\wvs.py quickstart --voice nova --core-only
 
 # One unit system, to free up budget
 python scripts\wvs.py quickstart --voice nova --units metric
@@ -60,7 +60,33 @@ navigation prompts:
 **`elevenlabs`** (`ELEVENLABS_API_KEY`) has a much larger library and supports
 cloning. `provider_options` accepts `voice_settings` and `output_format`;
 `wav_44100` avoids a lossy generation before our own encode, if your plan
-includes it.
+includes it. Its shared library is worth understanding before you search it: only
+human-verified professional clones can be listed, and voice names may not contain
+"names of public individuals or entities", so searching it for a character by
+name returns nothing. Search by archetype instead - "grandpa", "squeaky",
+"gloomy monotone".
+
+**`hume`** (`HUME_API_KEY`) is the only provider here that *designs* a voice
+rather than picking one. Octave takes a written description as its primary
+input, so a preset's `direction` routes straight into it. That is also its one
+sharp edge: a description alone is re-interpreted on every request, and 43
+prompts each spoken by a slightly different character is a broken pack. Audition
+with `voicelab.design_hume`, then `voicelab.save_hume` to freeze the winner, and
+use the returned id as the voice.
+
+**`fish`** (`FISH_AUDIO_API_KEY`) is a community model host, and the odd one out:
+there is no catalogue. A voice is whatever model id you point at, taken from the
+last path segment of a model page URL, so `fish.audio/m/<id>/` becomes
+`--voice <id>`. It has no delivery-direction field, so a preset's `direction`
+becomes advisory and register comes entirely from the model.
+
+Two things follow from models being user-uploaded. They can be withdrawn, so a
+pack is reproducible only while its model stays up - exported audio survives, the
+ability to regenerate one line does not. And the rights position is entirely
+yours: a large share of the popular models are clones of copyrighted characters
+or living performers, uploaded without permission, and Fish's "unlock commercial
+rights" flow cannot grant rights the uploader never held. The free tier is
+personal, non-commercial use only.
 
 ### Filling gaps rather than starting fresh
 

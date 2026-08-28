@@ -191,6 +191,122 @@ class OpenAIRequestTests(unittest.TestCase):
         self.assertFalse(providers.OpenAI.supports_voice_listing)
 
 
+class FishAudioRequestTests(unittest.TestCase):
+    """Fish returns raw audio, so failures look different from the others."""
+
+    def setUp(self) -> None:
+        self.calls: list[dict] = []
+        self.body = b"ID3-audio-bytes"
+
+        def capture(url, *, headers, payload=None, method="GET"):
+            self.calls.append(
+                {"url": url, "headers": headers, "payload": payload, "method": method}
+            )
+            return self.body
+
+        self.patcher = mock.patch.object(providers, "_request", side_effect=capture)
+        self.patcher.start()
+
+    def tearDown(self) -> None:
+        self.patcher.stop()
+
+    def test_model_id_becomes_reference_id(self) -> None:
+        provider = providers.FishAudio("fk-1")
+        with tempfile.TemporaryDirectory() as tmp:
+            provider.synthesize("Turn left", "abc123", Path(tmp) / "out.mp3")
+
+        call = self.calls[-1]
+        self.assertEqual(call["method"], "POST")
+        self.assertEqual(call["url"], "https://api.fish.audio/v1/tts")
+        self.assertEqual(call["headers"]["Authorization"], "Bearer fk-1")
+        self.assertEqual(call["headers"]["model"], "s2.1-pro")
+        self.assertEqual(call["payload"]["reference_id"], "abc123")
+        self.assertEqual(call["payload"]["mp3_bitrate"], 128)
+
+    def test_no_model_id_says_where_to_find_one(self) -> None:
+        provider = providers.FishAudio("fk-1")
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            self.assertRaises(providers.ProviderError) as caught,
+        ):
+            provider.synthesize("Turn left", "", Path(tmp) / "out.mp3")
+        self.assertIn("fish.audio/m/", str(caught.exception))
+
+    def test_a_json_error_body_is_not_written_as_audio(self) -> None:
+        """The endpoint returns bytes on success, so a JSON body means failure."""
+        self.body = b'{"status": 402, "message": "insufficient credit"}'
+        provider = providers.FishAudio("fk-1")
+        with tempfile.TemporaryDirectory() as tmp:
+            destination = Path(tmp) / "out.mp3"
+            with self.assertRaises(providers.ProviderError):
+                provider.synthesize("Turn left", "abc123", destination)
+            self.assertFalse(destination.exists(), "an error body must not land on disk")
+
+    def test_listing_voices_points_at_the_model_page(self) -> None:
+        with self.assertRaises(providers.ProviderError) as caught:
+            providers.FishAudio("fk-1").list_voices()
+        self.assertIn("no fixed catalogue", str(caught.exception))
+
+
+class HumeRequestTests(unittest.TestCase):
+    """A saved voice id is what keeps all 43 clips the same character."""
+
+    def setUp(self) -> None:
+        self.calls: list[dict] = []
+
+        def capture(url, *, headers, payload=None, method="GET"):
+            self.calls.append(
+                {"url": url, "headers": headers, "payload": payload, "method": method}
+            )
+            return json.dumps({"generations": [{"generation_id": "g1", "audio": "SUQz"}]}).encode(
+                "utf-8"
+            )
+
+        self.patcher = mock.patch.object(providers, "_request", side_effect=capture)
+        self.patcher.start()
+
+    def tearDown(self) -> None:
+        self.patcher.stop()
+
+    def test_saved_voice_is_sent_as_a_voice_reference(self) -> None:
+        provider = providers.Hume("hk-1")
+        with tempfile.TemporaryDirectory() as tmp:
+            provider.synthesize("Turn left", "voice-9", Path(tmp) / "out.mp3")
+
+        call = self.calls[-1]
+        self.assertEqual(call["url"], "https://api.hume.ai/v0/tts")
+        self.assertEqual(call["headers"]["X-Hume-Api-Key"], "hk-1")
+        utterance = call["payload"]["utterances"][0]
+        self.assertEqual(utterance["voice"], {"id": "voice-9", "provider": "CUSTOM_VOICE"})
+
+    def test_description_alone_is_allowed_for_auditioning(self) -> None:
+        provider = providers.Hume("hk-1")
+        with tempfile.TemporaryDirectory() as tmp:
+            provider.synthesize(
+                "Turn left", "", Path(tmp) / "out.mp3", {"description": "a dozy bear"}
+            )
+        utterance = self.calls[-1]["payload"]["utterances"][0]
+        self.assertEqual(utterance["description"], "a dozy bear")
+        self.assertNotIn("voice", utterance)
+
+    def test_neither_a_voice_nor_a_description_is_refused(self) -> None:
+        """Otherwise every prompt would be a different character."""
+        provider = providers.Hume("hk-1")
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            self.assertRaises(providers.ProviderError) as caught,
+        ):
+            provider.synthesize("Turn left", "", Path(tmp) / "out.mp3")
+        self.assertIn("saved voice id or a description", str(caught.exception))
+
+    def test_audio_is_base64_decoded_to_disk(self) -> None:
+        provider = providers.Hume("hk-1")
+        with tempfile.TemporaryDirectory() as tmp:
+            destination = Path(tmp) / "out.mp3"
+            provider.synthesize("Turn left", "voice-9", destination)
+            self.assertEqual(destination.read_bytes(), b"ID3")
+
+
 class RetryPolicyTests(unittest.TestCase):
     """Retry what is transient; fail fast on what is not."""
 
@@ -305,9 +421,7 @@ class QuickstartTests(unittest.TestCase):
             mock.patch.object(providers, "_request", return_value=self.audio),
             mock.patch.object(synth, "check_consent", return_value=None),
         ):
-            code = cli.main(
-                ["quickstart", "--provider", "openai", "--voice", "nova", "--quiet"]
-            )
+            code = cli.main(["quickstart", "--provider", "openai", "--voice", "nova", "--quiet"])
         self.assertFalse(consent.exists())
         self.assertEqual(code, 0)
 

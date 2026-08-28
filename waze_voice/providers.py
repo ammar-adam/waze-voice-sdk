@@ -413,8 +413,89 @@ class Hume(TtsProvider):
         return destination
 
 
+class FishAudio(TtsProvider):
+    """https://fish.audio - a community model host, addressed by reference id.
+
+    Unlike the other backends there is no fixed catalogue: a voice is whatever
+    model id you point at, taken from the last path segment of a model's page
+    URL. That makes the provider a thin pipe, and puts the choice of model, and
+    the rights that come with it, entirely on the caller.
+
+    Two operational consequences worth designing around. Models are
+    user-uploaded and can disappear, so a pack is reproducible only as long as
+    its model stays up; the exported audio survives, the ability to regenerate
+    one line does not. And the response is raw audio rather than JSON, so
+    failures arrive as an HTTP status rather than a message in a body.
+    """
+
+    name = "fish"
+    env_var = "FISH_AUDIO_API_KEY"
+    signup_url = "https://fish.audio"
+    default_model = "s2.1-pro"
+    base_url = "https://api.fish.audio"
+    supports_voice_listing = False
+    # Fish exposes prosody controls, but no plain-English delivery field.
+    direction_option = None
+    extension = ".mp3"
+
+    def list_voices(self) -> list[Voice]:
+        raise ProviderError(
+            "fish has no fixed catalogue. Pass the model id from its page URL: "
+            "fish.audio/m/<id>/ becomes --voice <id>."
+        )
+
+    def synthesize(
+        self,
+        text: str,
+        voice: str,
+        destination: Path,
+        options: dict | None = None,
+    ) -> Path:
+        merged = self._merged(options)
+        if not voice:
+            raise ProviderError(
+                "fish needs a model id as the voice. Take it from the model "
+                "page URL: fish.audio/m/<id>/ becomes --voice <id>."
+            )
+
+        payload: dict[str, object] = {
+            "text": text,
+            "reference_id": voice,
+            "format": "mp3",
+            # 128k in, so our own bitrate allocation is the only lossy step
+            # that matters. Anything lower here is a second generation loss we
+            # cannot undo later.
+            "mp3_bitrate": int(merged.get("mp3_bitrate", 128)),
+        }
+        for passthrough in ("temperature", "top_p", "prosody", "chunk_length"):
+            if passthrough in merged:
+                payload[passthrough] = merged[passthrough]
+
+        # The model lives in a header here, not the body.
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "model": str(merged.get("model", self.model)),
+        }
+
+        audio = _request(
+            f"{self.base_url}/v1/tts",
+            headers=headers,
+            payload=payload,
+            method="POST",
+        )
+        if not audio:
+            raise ProviderError(f"fish returned no audio for {text[:40]!r}")
+        if audio.lstrip()[:1] == b"{":
+            raise ProviderError(f"fish returned an error instead of audio: {audio[:200]!r}")
+
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_bytes(audio)
+        return destination
+
+
 REGISTRY: dict[str, type[TtsProvider]] = {
     ElevenLabs.name: ElevenLabs,
+    FishAudio.name: FishAudio,
     Hume.name: Hume,
     OpenAI.name: OpenAI,
 }

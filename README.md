@@ -49,7 +49,11 @@ python scripts\wvs.py doctor
 ```
 
 The fastest route is a text-to-speech key. No recording, no source media,
-nothing to install beyond ffmpeg:
+nothing to install beyond ffmpeg. Four providers are supported - `openai`,
+`elevenlabs`, `hume` and `fish` - and they differ in kind, not just in price:
+OpenAI and ElevenLabs pick a voice from a catalogue, Hume designs one from a
+written description, and Fish plays whatever community model id you hand it.
+[docs/tts.md](docs/tts.md) covers the trade-offs, including the rights ones.
 
 ```powershell
 $env:OPENAI_API_KEY = "sk-..."
