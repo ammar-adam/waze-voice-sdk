@@ -27,7 +27,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from stage_for_upload import DEFAULT_UPLOADER, build, stage  # noqa: E402
 
-from waze_voice import console, presets, providers  # noqa: E402
+from waze_voice import console, packs, presets, providers  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
 
@@ -78,6 +78,14 @@ def main(argv: list[str] | None = None) -> int:
             continue
 
         console.step(f"{preset.label}  ({preset.provider}, {preset.rights.status})")
+
+        # packs/ is git-ignored, so a fresh clone has none of these and the
+        # build would fail on the first character with a message about a
+        # missing pack rather than doing the obvious thing.
+        if not packs.exists(name):
+            packs.create(name, label=CHARACTERS[name])
+            console.detail(f"Created pack {name}")
+
         if build(name, name):
             failed.append(name)
             continue
