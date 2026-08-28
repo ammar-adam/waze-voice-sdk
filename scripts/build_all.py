@@ -43,11 +43,28 @@ CHARACTERS: dict[str, str] = {
     "elmo": "Elmo",
 }
 
+# Community models for the two presets that otherwise use a catalogue voice.
+# Kept here rather than in the preset files on purpose: pooh and tigger rest on
+# an expired copyright and their preset should keep saying so. --fish swaps only
+# how the lines are spoken, and the run reports that it did.
+FISH_VOICES: dict[str, str] = {
+    "pooh": "cf6e370cb45240b492b14c70a18d0259",
+    "tigger": "23ad79b4e84f46259dd256c0b01526c2",
+}
+
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--only", action="append", help="Repeatable.")
     parser.add_argument("--no-stage", action="store_true")
+    parser.add_argument(
+        "--fish",
+        action="store_true",
+        help=(
+            "Build pooh and tigger from community models too, so every "
+            "character is a cloned voice and one key covers the run."
+        ),
+    )
     parser.add_argument("--uploader", type=Path, default=DEFAULT_UPLOADER)
     args = parser.parse_args(argv)
 
@@ -63,7 +80,9 @@ def main(argv: list[str] | None = None) -> int:
 
     for name in wanted:
         preset = presets.load(name)
-        provider = providers.get(preset.provider)
+        override_voice = FISH_VOICES.get(name, "") if args.fish else ""
+        override_provider = "fish" if override_voice else ""
+        provider = providers.get(override_provider or preset.provider)
 
         if not provider.key_present():
             skipped.append((name, f"needs ${provider.env_var}"))
@@ -77,7 +96,13 @@ def main(argv: list[str] | None = None) -> int:
             skipped.append((name, f"${provider.env_var} looks like a placeholder"))
             continue
 
-        console.step(f"{preset.label}  ({preset.provider}, {preset.rights.status})")
+        console.step(f"{preset.label}  ({provider.name}, {preset.rights.status})")
+        if override_voice:
+            console.detail(
+                "Using a community model instead of this preset's catalogue "
+                "voice. The lines are unchanged; the rights position of the "
+                "voice is not the preset's."
+            )
 
         # packs/ is git-ignored, so a fresh clone has none of these and the
         # build would fail on the first character with a message about a
@@ -86,7 +111,7 @@ def main(argv: list[str] | None = None) -> int:
             packs.create(name, label=CHARACTERS[name])
             console.detail(f"Created pack {name}")
 
-        if build(name, name):
+        if build(name, name, provider=override_provider, voice=override_voice):
             failed.append(name)
             continue
         built.append(name)

@@ -35,7 +35,13 @@ def _fail(message: str) -> int:
     return 1
 
 
-def build(preset: str, pack: str) -> int:
+def build(preset: str, pack: str, *, provider: str = "", voice: str = "") -> int:
+    """``provider`` and ``voice`` override the preset's own, keeping its script.
+
+    That separation is the useful one: the lines are the character's writing and
+    the voice is how it is spoken, so the same 43 lines can be sent through a
+    catalogue voice or a community model without maintaining two copies of them.
+    """
     command = [
         sys.executable,
         str(REPO / "scripts" / "wvs.py"),
@@ -46,6 +52,10 @@ def build(preset: str, pack: str) -> int:
         preset,
         "--accept-voice-terms",
     ]
+    if provider:
+        command += ["--provider", provider]
+    if voice:
+        command += ["--voice", voice]
     print(f"$ {' '.join(command[1:])}\n")
     return subprocess.run(command, cwd=str(REPO)).returncode
 
