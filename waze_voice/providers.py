@@ -24,6 +24,7 @@ LEGAL.md.
 
 from __future__ import annotations
 
+import base64
 import contextlib
 import json
 import os
@@ -145,7 +146,7 @@ class TtsProvider:
         if not key:
             raise ProviderError(
                 f"{cls.name} needs an API key in ${cls.env_var}.\n"
-                f"    Windows:  $env:{cls.env_var} = \"...\"\n"
+                f'    Windows:  $env:{cls.env_var} = "..."\n'
                 f"    bash:     export {cls.env_var}=...\n"
                 f"Get one at {cls.signup_url}"
             )
@@ -209,9 +210,7 @@ class ElevenLabs(TtsProvider):
                     id=str(entry.get("voice_id", "")),
                     name=str(entry.get("name", "")),
                     description=str(entry.get("description") or "")[:80],
-                    labels=tuple(
-                        str(value) for value in labels.values() if isinstance(value, str)
-                    ),
+                    labels=tuple(str(value) for value in labels.values() if isinstance(value, str)),
                 )
             )
         return [voice for voice in voices if voice.id]
@@ -311,8 +310,112 @@ class OpenAI(TtsProvider):
         return destination
 
 
+class Hume(TtsProvider):
+    """https://hume.ai - Octave, which designs a voice from a description.
+
+    Octave is the closest fit to what a character preset actually is. Where the
+    others take a catalogue voice and let you nudge its delivery, Octave takes
+    the description itself as the primary input: pass a written character and it
+    invents a voice to match, in the same call that speaks the line.
+
+    That flexibility is also the trap. A description alone re-invents the voice
+    on every request, and forty-three prompts each spoken by a slightly
+    different bear is not a voice pack. So a saved voice id wins whenever there
+    is one, and description-only synthesis is for auditioning, not for building.
+    Use ``voicelab.design`` to audition and ``voicelab.save_design`` to freeze
+    the winner, then set that id as the preset's voice.
+    """
+
+    name = "hume"
+    env_var = "HUME_API_KEY"
+    signup_url = "https://platform.hume.ai"
+    default_model = "octave"
+    base_url = "https://api.hume.ai"
+    supports_voice_listing = True
+    direction_option = "description"
+    extension = ".mp3"
+
+    @property
+    def _headers(self) -> dict[str, str]:
+        return {"X-Hume-Api-Key": self.api_key}
+
+    def list_voices(self) -> list[Voice]:
+        url = f"{self.base_url}/v0/tts/voices?provider=CUSTOM_VOICE"
+        raw = _request(url, headers=self._headers)
+        payload = json.loads(raw.decode("utf-8"))
+        voices = []
+        for entry in payload.get("voices_page", payload.get("voices", [])):
+            voice_id = str(entry.get("id", ""))
+            if voice_id:
+                voices.append(
+                    Voice(
+                        id=voice_id,
+                        name=str(entry.get("name", "")),
+                        description=str(entry.get("provider") or ""),
+                    )
+                )
+        return voices
+
+    def synthesize(
+        self,
+        text: str,
+        voice: str,
+        destination: Path,
+        options: dict | None = None,
+    ) -> Path:
+        merged = self._merged(options)
+        utterance: dict[str, object] = {"text": text}
+
+        # A saved voice keeps all forty-three clips the same character. Falling
+        # back to the description is auditioning, and is flagged as such.
+        if voice:
+            utterance["voice"] = {"id": voice, "provider": "CUSTOM_VOICE"}
+            acting = merged.get("acting_instructions") or merged.get("description")
+            if isinstance(acting, str) and acting.strip():
+                utterance["description"] = acting
+        else:
+            description = merged.get("description")
+            if not isinstance(description, str) or not description.strip():
+                raise ProviderError(
+                    "hume needs either a saved voice id or a description.\n"
+                    "Audition with `voicelab.design`, save the one you want, "
+                    "then set its id as the preset's voice."
+                )
+            utterance["description"] = description
+
+        speed = merged.get("speed")
+        if isinstance(speed, (int, float)):
+            utterance["speed"] = float(speed)
+
+        payload: dict[str, object] = {
+            "utterances": [utterance],
+            "num_generations": 1,
+            "format": {"type": "mp3"},
+        }
+
+        raw = _request(
+            f"{self.base_url}/v0/tts",
+            headers=self._headers,
+            payload=payload,
+            method="POST",
+        )
+        body = json.loads(raw.decode("utf-8"))
+        generations = body.get("generations") or []
+        if not generations:
+            raise ProviderError(f"hume returned no audio for {text[:40]!r}")
+
+        encoded = generations[0].get("audio") or ""
+        if not encoded:
+            raise ProviderError("hume returned a generation with no audio payload.")
+
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_bytes(base64.b64decode(encoded))
+        return destination
+
+
 REGISTRY: dict[str, type[TtsProvider]] = {
     ElevenLabs.name: ElevenLabs,
+    Hume.name: Hume,
     OpenAI.name: OpenAI,
 }
 
@@ -323,9 +426,7 @@ def get(name: str) -> type[TtsProvider]:
     try:
         return REGISTRY[name]
     except KeyError:
-        raise ProviderError(
-            f"Unknown provider {name!r}. Available: {', '.join(NAMES)}"
-        ) from None
+        raise ProviderError(f"Unknown provider {name!r}. Available: {', '.join(NAMES)}") from None
 
 
 def available() -> list[str]:

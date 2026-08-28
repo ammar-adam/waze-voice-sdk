@@ -88,13 +88,21 @@ CHARACTERS: dict[str, CharacterSpec] = {
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--only", help="Just this character.")
+    parser.add_argument(
+        "--provider",
+        default="hume",
+        choices=("hume", "elevenlabs"),
+        help="hume designs from a description; elevenlabs also has a shared library.",
+    )
     parser.add_argument("--skip-design", action="store_true")
     parser.add_argument("--skip-library", action="store_true")
     args = parser.parse_args(argv)
 
-    key = os.environ.get("ELEVENLABS_API_KEY", "").strip()
+    env = "HUME_API_KEY" if args.provider == "hume" else "ELEVENLABS_API_KEY"
+    signup = "https://platform.hume.ai" if args.provider == "hume" else "https://elevenlabs.io"
+    key = os.environ.get(env, "").strip()
     if not key:
-        print("Set ELEVENLABS_API_KEY first. https://elevenlabs.io")
+        print(f"Set {env} first. {signup}")
         return 1
 
     chosen = {args.only: CHARACTERS[args.only]} if args.only else CHARACTERS
@@ -105,7 +113,7 @@ def main(argv: list[str] | None = None) -> int:
     for name, spec in chosen.items():
         console.step(name)
 
-        if not args.skip_library:
+        if not args.skip_library and args.provider == "elevenlabs":
             seen: set[str] = set()
             for term in spec["search"]:
                 try:
@@ -127,11 +135,15 @@ def main(argv: list[str] | None = None) -> int:
 
         if not args.skip_design:
             try:
-                previews = voicelab.design(key, spec["description"])
+                previews = (
+                    voicelab.design_hume(key, spec["description"])
+                    if args.provider == "hume"
+                    else voicelab.design(key, spec["description"])
+                )
             except Exception as error:  # noqa: BLE001
                 console.error(f"voice design failed: {error}")
                 continue
-            voicelab.write_previews(previews, OUT, f"design-{name}")
+            voicelab.write_previews(previews, OUT, f"{args.provider}-{name}")
 
     print(f"\nPreviews in {OUT}")
     print("Pick one, then save it as a real voice with voicelab.save_design().")
