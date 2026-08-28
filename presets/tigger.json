@@ -10,6 +10,7 @@
   },
   "notes": "Two speech rates, on purpose. The greetings and the reroute run at 1.15x where nothing is at stake; everything a driver acts on drops to 1.0x. Testing an excited voice at 1.12x across the board, 'exit left' and 'exit right' were the pair most likely to be misheard, and unlike a missed greeting a missed turn costs you a junction. The energy still reads, because it comes from the exclamation in the text and the delivery direction, not from the rate.",
   "rights": {
+    "status": "public-domain",
     "source_work": "The House at Pooh Corner",
     "author": "A. A. Milne",
     "year": 1928,

@@ -102,9 +102,7 @@ def _add_normalize(subparsers) -> None:
     parser = _common(
         subparsers.add_parser("normalize", help="Loudness-normalize into audio/master.")
     )
-    parser.add_argument(
-        "--sources", type=Path, help="Source CSV, read for take preferences."
-    )
+    parser.add_argument("--sources", type=Path, help="Source CSV, read for take preferences.")
     parser.add_argument("--output-dir", type=Path)
     parser.add_argument("--only", nargs="+", metavar="PHRASE_ID")
     parser.add_argument("--lufs", type=float, help="Override the loudness target.")
@@ -114,9 +112,7 @@ def _add_normalize(subparsers) -> None:
 def _add_qa(subparsers) -> None:
     parser = _common(subparsers.add_parser("qa", help="Audition the pack as a route."))
     parser.add_argument("--routes", type=Path)
-    parser.add_argument(
-        "--route", dest="route_id", help="Route id. Defaults to the first route."
-    )
+    parser.add_argument("--route", dest="route_id", help="Route id. Defaults to the first route.")
     parser.add_argument("--master-dir", type=Path)
     parser.add_argument(
         "--render",
@@ -264,9 +260,7 @@ def _add_presets(subparsers) -> None:
 
 
 def _add_voices(subparsers) -> None:
-    parser = _common(
-        subparsers.add_parser("voices", help="List voices a hosted provider offers.")
-    )
+    parser = _common(subparsers.add_parser("voices", help="List voices a hosted provider offers."))
     parser.add_argument(
         "--provider",
         choices=providers.NAMES,
@@ -318,9 +312,7 @@ def _add_quickstart(subparsers) -> None:
 
 
 def _add_pack(subparsers) -> None:
-    parser = subparsers.add_parser(
-        "pack", help="Manage voice packs (one per voice) in this clone."
-    )
+    parser = subparsers.add_parser("pack", help="Manage voice packs (one per voice) in this clone.")
     actions = parser.add_subparsers(dest="pack_command", required=True)
 
     listing = actions.add_parser("list", help="Show every pack and its progress.")
@@ -658,8 +650,7 @@ def _default_provider(requested: str | None) -> str:
         return ready[0]
     if not ready:
         lines = [
-            f"  {name}: set ${providers.get(name).env_var}"
-            f"  ({providers.get(name).signup_url})"
+            f"  {name}: set ${providers.get(name).env_var}  ({providers.get(name).signup_url})"
             for name in providers.NAMES
         ]
         raise SystemExit("No hosted provider has an API key set.\n" + "\n".join(lines))
@@ -735,9 +726,7 @@ def cmd_quickstart(args, cfg) -> int:
         console.info(f"Preset:   {preset.label} - {preset.rights.attribution}")
         console.detail(preset.description)
     total = 20 if args.core_only else 43
-    console.detail(
-        f"Generating {total} prompts from text. No recording, no timestamps."
-    )
+    console.detail(f"Generating {total} prompts from text. No recording, no timestamps.")
 
     # A complete pack is the point of quickstart. Generating only the 20
     # strictly-required prompts leaves no roundabout instructions and no
@@ -820,11 +809,12 @@ def _presets_list() -> int:
                 preset.label,
                 f"{preset.provider}/{preset.voice}",
                 preset.units,
+                "PD" if preset.rights.public_domain else "in copyright",
                 preset.rights.attribution,
             )
             for preset in found
         ],
-        headers=("Name", "Label", "Voice", "Units", "Source work"),
+        headers=("Name", "Label", "Voice", "Units", "Rights", "Source work"),
     )
     console.info("")
     console.info("  python scripts/wvs.py quickstart --preset <name>")
@@ -840,6 +830,7 @@ def _presets_show(name: str, *, show_lines: bool) -> int:
         [
             ("Voice", f"{preset.provider} / {preset.voice}"),
             ("Units", preset.units),
+            ("Rights", preset.rights.status),
             ("Lines", f"{len(preset.lines)} ({preset.total_chars} characters)"),
             ("Options", str(preset.provider_options or "-")),
         ],
@@ -864,17 +855,13 @@ def _presets_show(name: str, *, show_lines: bool) -> int:
 
     if show_lines:
         console.info("")
-        console.table(
-            sorted(preset.lines.items()), headers=("Phrase", "Line")
-        )
+        console.table(sorted(preset.lines.items()), headers=("Phrase", "Line"))
     return 0
 
 
 def _presets_check(name: str | None) -> int:
     """What CI runs. A preset that fails this is not shippable."""
-    names = [name] if name else sorted(
-        path.stem for path in presets.presets_dir().glob("*.json")
-    )
+    names = [name] if name else sorted(path.stem for path in presets.presets_dir().glob("*.json"))
     if not names:
         console.warn("No presets to check.")
         return 0
@@ -911,7 +898,7 @@ def _pack_list() -> int:
     if not found:
         console.info("No packs yet.")
         console.info("")
-        console.info("  python scripts/wvs.py pack new my-voice --label \"My voice\"")
+        console.info('  python scripts/wvs.py pack new my-voice --label "My voice"')
         console.info("")
         console.info(
             "Without a pack the pipeline uses the shared audio/ tree, which is "
@@ -932,9 +919,7 @@ def _pack_list() -> int:
                 ", ".join(pack.overrides) or "-",
             )
         )
-    console.table(
-        rows, headers=("Name", "Label", "Mastered", "Pack", "Sources", "Overrides")
-    )
+    console.table(rows, headers=("Name", "Label", "Mastered", "Pack", "Sources", "Overrides"))
     console.info("")
     console.info("  python scripts/wvs.py run --pack <name>")
     return 0

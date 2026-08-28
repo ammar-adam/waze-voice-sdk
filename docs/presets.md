@@ -14,7 +14,12 @@ rewritten in that character's register**.
 The rewrite is the point. A generic navigation line read in a different voice is
 a novelty. A line actually written in character is the thing people share.
 
-## The three shipped presets
+## The shipped presets
+
+They fall into two groups, and the difference is not cosmetic.
+
+**Public domain.** These rest on an expired copyright term, use a licensed
+catalogue voice, and can be published without a rights argument.
 
 | Preset | Source work | Voice | Register |
 | ------ | ----------- | ----- | -------- |
@@ -25,6 +30,22 @@ a novelty. A line actually written in character is the thing people share.
 Tigger comes from the **1928** book, not the 1926 one. He does not appear in the
 first book at all, and the two entered the US public domain two years apart. That
 is exactly the kind of distinction a preset's metadata exists to record.
+
+**In copyright.** These do not rest on an expired term. Each names a third-party
+community model on Fish Audio that is presented as a clone of the original
+performance, uploaded by a member of the public without any permission from the
+rights holder or the performer.
+
+| Preset | Source | Voice | Register |
+| ------ | ------ | ----- | -------- |
+| `paddington` | A Bear Called Paddington (Bond, 1958) | `fish/51d1503a...` | Polite, earnest, faintly apologetic |
+| `cookie-monster` | Sesame Street (1969) | `fish/a3ec9a07...` | Blunt, greedy, present tense |
+| `elmo` | Sesame Street (1980) | `fish/193f7f8f...` | Bright, giggly, third person |
+
+They are in the repository because people build these anyway, and a pipeline
+that quietly omits the rights position is worse than one that records it. What
+the SDK gives you here is an accurate label, not permission. The 43 lines in
+each are original writing; the character, the name and the voice are not.
 
 ```powershell
 python scripts\wvs.py presets show eeyore --lines
@@ -72,18 +93,17 @@ capped at 70 characters, everything else at 160.
 
 ## The rules, and how they are enforced
 
-Two rules are enforced by the schema and the validator, not by asking nicely.
+Three rules are enforced by the schema and the validator, not by asking nicely.
 
-### 1. Never a cloned performance
+### 1. A preset cannot carry reference audio
 
 Public domain attaches to a **work**. It never attaches to a later performance of
 that work. A 1926 book being public domain says nothing about any recording of
 any actor reading it, and an audio likeness of a performer carries their own
 rights regardless of the text's age.
 
-So a preset names a catalogue voice and describes delivery. It has **no field for
-reference audio**, and the validator rejects any attempt to route one through
-`provider_options`:
+So a preset has **no field for reference audio**, and the validator rejects any
+attempt to route one through `provider_options`:
 
 ```
 $ python scripts/wvs.py presets check my-preset
@@ -92,10 +112,30 @@ $ python scripts/wvs.py presets check my-preset
   Presets never clone a performance.
 ```
 
-This is why the shipped presets target `openai`, which has no voice cloning of
-any kind. Every voice it can produce is one OpenAI licenses to you.
+**Be clear about what this does and does not stop.** It stops a preset from
+carrying a voice sample and cloning it here. It cannot stop a preset naming a
+provider voice id that is *already* a clone somebody else made, because a voice
+id is an opaque string and no validator can hear it. The `fish` presets above
+are exactly that case. Rule 3 exists because rule 1 has that hole.
 
-### 2. Every line still has to work as navigation
+### 2. The copyright status has to be stated
+
+`rights.status` is required, and must be `public-domain` or `in-copyright`.
+There is no default, so the flattering answer cannot be the one you get by
+saying nothing:
+
+```
+$ python scripts/wvs.py presets check my-preset
+  [error] my-preset: 1 problem(s)
+  rights.status must be one of public-domain, in-copyright; got ''.
+```
+
+An `in-copyright` preset is a legitimate thing to build, and the validator will
+pass it. What it will not do is let the question go unanswered. The status shows
+up in `presets list`, in `preflight`, and as a warning at build time, so the
+last thing you see before spending money is what you are actually building.
+
+### 3. Every line still has to work as navigation
 
 A driver who has never heard of the character must know exactly what to do.
 The validator checks that each line still contains what it exists to
@@ -220,7 +260,7 @@ only survives repetition if the maneuvers stay clipped, so:
 - `start_drive_4` gets `"Setting off. Thanks for noticing me."` That phrase is
   from the 1926 book, which is the point: it is drawn from the work in the public
   domain, not from a later adaptation.
-- Nothing in any of the three presets uses a studio-invented catchphrase. Tigger
+- Nothing in any of the three public-domain presets uses a studio-invented catchphrase. Tigger
   does not say the thing from the song. That song is from 1968 and is not Milne.
 
 Estimated utilisation for all three sits at 82%, with Pooh and Eeyore around

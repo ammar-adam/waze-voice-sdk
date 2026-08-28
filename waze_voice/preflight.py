@@ -34,6 +34,7 @@ class PresetReport:
     verdict: str = "ok"
     floored_clips: int = 0
     total_clips: int = 0
+    rights_status: str = "public-domain"
 
     @property
     def ok(self) -> bool:
@@ -72,8 +73,7 @@ def _check_filenames(inventory: phrases_module.PhraseInventory) -> list[str]:
         missing = wazepack.core_filenames(units) - claimed
         if missing:
             problems.append(
-                f"no phrase claims these core {units} prompts: "
-                f"{', '.join(sorted(missing))}"
+                f"no phrase claims these core {units} prompts: {', '.join(sorted(missing))}"
             )
     return problems
 
@@ -85,11 +85,7 @@ def _estimate(
 ) -> budget_module.AllocationPlan:
     padding = (config.trim.lead_in_ms + config.trim.lead_out_ms) / 1000.0
     durations = presets_module.estimate_durations(preset, inventory, padding=padding)
-    weights = {
-        phrase.waze_filename: phrase.weight
-        for phrase in inventory
-        if phrase.in_waze_pack
-    }
+    weights = {phrase.waze_filename: phrase.weight for phrase in inventory if phrase.in_waze_pack}
 
     specs = [
         budget_module.ClipSpec(
@@ -167,6 +163,7 @@ def run(
         if not errors:
             preset = presets_module.load(name, phrases_path=phrases_path)
             entry.label = preset.label
+            entry.rights_status = preset.rights.status
             plan = _estimate(preset, inventory, config)
             entry.estimated_seconds = plan.total_duration
             entry.estimated_bytes = plan.total_predicted_bytes
@@ -174,9 +171,7 @@ def run(
             entry.verdict = plan.verdict
             entry.total_clips = len(plan.allocations)
             entry.floored_clips = sum(
-                1
-                for item in plan.allocations
-                if item.bitrate_kbps <= config.export.min_kbps
+                1 for item in plan.allocations if item.bitrate_kbps <= config.export.min_kbps
             )
 
         report.presets.append(entry)
@@ -184,6 +179,7 @@ def run(
             (
                 name,
                 entry.label,
+                "PD" if entry.rights_status == "public-domain" else "in copyright",
                 f"{entry.estimated_seconds:.0f}s",
                 f"{entry.estimated_bytes / 1000:.0f} kB",
                 f"{entry.utilisation * 100:.0f}%",
@@ -194,7 +190,16 @@ def run(
 
     console.table(
         rows,
-        headers=("Preset", "Label", "Est audio", "Est size", "Est util", "Verdict", "At floor"),
+        headers=(
+            "Preset",
+            "Label",
+            "Rights",
+            "Est audio",
+            "Est size",
+            "Est util",
+            "Verdict",
+            "At floor",
+        ),
     )
 
     for entry in report.presets:
