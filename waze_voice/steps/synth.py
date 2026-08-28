@@ -202,8 +202,7 @@ def _load_chatterbox(config: PipelineConfig) -> Speaker:
     variant = config.synth.model
     if variant not in CHATTERBOX_MODELS:
         raise SystemExit(
-            f"Unknown chatterbox model {variant!r}. "
-            f"Choose one of: {', '.join(CHATTERBOX_MODELS)}"
+            f"Unknown chatterbox model {variant!r}. Choose one of: {', '.join(CHATTERBOX_MODELS)}"
         )
 
     try:
@@ -517,11 +516,7 @@ def find_gaps(
     if not include_optional and not only:
         selected = [phrase for phrase in selected if phrase.required]
 
-    return [
-        phrase
-        for phrase in selected
-        if takes.find(phrase.id, audio_root=audio_root) is None
-    ]
+    return [phrase for phrase in selected if takes.find(phrase.id, audio_root=audio_root) is None]
 
 
 # --------------------------------------------------------------------------
@@ -577,6 +572,14 @@ def run(
 
     if preset is not None:
         console.detail(f"Preset: {preset.label} - {preset.rights.attribution}")
+        if not preset.rights.public_domain:
+            # Stated here rather than only in the JSON, because this is the
+            # moment a pack starts existing and the last one before it does.
+            console.warn(
+                f"{preset.label} is in copyright. This preset does not rest on an "
+                "expired term, and the voice it names is a third-party model. See "
+                "its rights block before publishing anything built from it."
+            )
 
     console.bullets(
         f"{len(gaps)} phrase(s) need synthesis:",
@@ -593,8 +596,7 @@ def run(
     available, reason = is_available(backend)
     if not available:
         raise SystemExit(
-            f"{reason}.\n"
-            + (_COQUI_HINT if backend in ("xtts", "finetuned") else _CHATTERBOX_HINT)
+            f"{reason}.\n" + (_COQUI_HINT if backend in ("xtts", "finetuned") else _CHATTERBOX_HINT)
         )
 
     check_consent(accepted=accept_voice_terms)
@@ -706,9 +708,7 @@ def prepare_dataset(
             rows.append((name, phrase.speech_text, phrase.speech_text))
 
     if not rows:
-        raise SystemExit(
-            f"No cleaned clips found in {source_dir}. Run extract and clean first."
-        )
+        raise SystemExit(f"No cleaned clips found in {source_dir}. Run extract and clean first.")
 
     metadata = destination / "metadata.csv"
     with metadata.open("w", encoding="utf-8", newline="") as handle:

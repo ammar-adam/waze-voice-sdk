@@ -27,9 +27,17 @@ the manual part.
 
 ```powershell
 python scripts\wvs.py preflight
-python scripts\wvs.py quickstart --preset pooh
-python scripts\wvs.py quickstart --preset eeyore
-python scripts\wvs.py quickstart --preset tigger
+python scripts\build_all.py
+```
+
+`build_all` builds every character you hold a provider key for, checks each
+against the budget, and copies it into the uploader's `input_packs` under the
+name Waze will show the driver. Anything missing a key is reported as skipped.
+
+To do it by hand instead, one preset at a time:
+
+```powershell
+python scripts\wvs.py quickstart --preset pooh --accept-voice-terms
 ```
 
 Each run overwrites `audio/export/`, so copy each pack out before building the
@@ -200,7 +208,7 @@ Drive or simulate a route and listen for:
 | --- | --- | --- |
 | **Share button greys out right after saving** | Server-side rejection, almost always oversize. The classic signal. | Get the pack under 0.795 MB. `wvs export` reports utilisation; target 85%. |
 | **Link works, every prompt is silence** | The upload landed but the audio did not, or placeholders were uploaded. | `wvs verify-upload` will show silent clips. Rebuild and re-upload. |
-| **Only distance prompts are silent** | Reported by a user in Jan 2026 who recorded only metric distances. The other unit set was left empty, so a phone on the other system hears nothing. | Ship `units: both`, which all three presets do. |
+| **Only distance prompts are silent** | Reported by a user in Jan 2026 who recorded only metric distances. The other unit set was left empty, so a phone on the other system hears nothing. | Ship `units: both`, which every shipped preset does. |
 | `The MP3 directory does not exist.` | Ran the script from the wrong directory. | Run `python mp3_upload\main.py` from the repository root. |
 | `UnicodeEncodeError: 'charmap' codec can't encode character '📝'` | The uploader prints emoji. Windows encodes console output as cp1252 whenever stdout is not a real console: piped, redirected to a file, or run from an IDE. Reproduced here. | `$env:PYTHONIOENCODING = "utf-8"` before running, or do not redirect the output. |
 | `pip install` fails building protobuf | Python 3.13. | Use 3.12. |

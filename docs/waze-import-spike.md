@@ -12,7 +12,7 @@ you expected. Negative results are as useful as positive ones.
 ### What was checked
 
 The bare-number distance files (`200`, `400`, `800`, `1500`) had only ever been
-documented second-hand, and three shipped presets now write their text against
+documented second-hand, and the shipped presets now write their text against
 that reading. If the mapping were wrong, every preset would announce the wrong
 distance, and nothing would surface it until somebody drove with it.
 

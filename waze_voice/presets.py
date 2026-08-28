@@ -67,13 +67,29 @@ CLONING_KEYS = frozenset(
     }
 )
 
-RIGHTS_FIELDS = ("source_work", "author", "year", "pd_basis", "covered", "not_covered")
+RIGHTS_FIELDS = (
+    "status",
+    "source_work",
+    "author",
+    "year",
+    "pd_basis",
+    "covered",
+    "not_covered",
+)
+
+# A preset either rests on an expired copyright or it does not, and which one is
+# not something to leave implied. The validator checks that the answer is
+# stated, not that it is favourable: an in-copyright preset is a legitimate
+# thing to build, and pretending otherwise would only push the fact into a
+# comment nobody reads.
+RIGHTS_STATUSES = ("public-domain", "in-copyright")
 
 # Frequently-heard prompts stay short: they cost the most budget and are the
 # first thing to grate on repetition.
 HIGH_FREQUENCY_WEIGHT = 2.0
 MAX_CHARS_HIGH_FREQUENCY = 70
 MAX_CHARS_OTHER = 160
+
 
 def normalise(text: str) -> str:
     """Lowercase, and reduce every run of punctuation to a single space.
@@ -131,18 +147,12 @@ REQUIRED_TOKENS: dict[str, tuple[tuple[str, ...], ...]] = {
     # Distances: the quantity has to survive intact. This is the one place a
     # preset absolutely cannot be playful. Both spellings of metre are accepted;
     # normalise() reduces "1.5" to "1 5", so digit forms are written that way.
-    "in_tenth_mile": (
-        ("tenth of a mile", "tenth mile", "point one miles", "point one mile"),
-    ),
+    "in_tenth_mile": (("tenth of a mile", "tenth mile", "point one miles", "point one mile"),),
     "in_quarter_mile": (("quarter of a mile", "quarter mile"),),
     "in_half_mile": (("half a mile", "half mile"),),
     "in_one_mile": (("one mile", "a mile", "1 mile"),),
-    "in_200_meters": (
-        ("two hundred meters", "two hundred metres", "200 meters", "200 metres"),
-    ),
-    "in_400_meters": (
-        ("four hundred meters", "four hundred metres", "400 meters", "400 metres"),
-    ),
+    "in_200_meters": (("two hundred meters", "two hundred metres", "200 meters", "200 metres"),),
+    "in_400_meters": (("four hundred meters", "four hundred metres", "400 meters", "400 metres"),),
     "in_800_meters": (
         ("eight hundred meters", "eight hundred metres", "800 meters", "800 metres"),
     ),
@@ -223,6 +233,7 @@ class PresetError(SystemExit):
 class Rights:
     """Why this character can be interpreted, and exactly how far that goes."""
 
+    status: str
     source_work: str
     author: str
     year: int
@@ -234,6 +245,10 @@ class Rights:
     @property
     def attribution(self) -> str:
         return f"{self.source_work} ({self.author}, {self.year})"
+
+    @property
+    def public_domain(self) -> bool:
+        return self.status == "public-domain"
 
 
 @dataclass(frozen=True)
@@ -330,6 +345,11 @@ def _check_rights(raw: dict[str, Any], errors: list[str]) -> Rights | None:
         errors.append(f"rights is missing: {', '.join(missing)}")
         return None
 
+    status = str(block.get("status", ""))
+    if status not in RIGHTS_STATUSES:
+        errors.append(f"rights.status must be one of {', '.join(RIGHTS_STATUSES)}; got {status!r}.")
+        return None
+
     for list_field in ("covered", "not_covered"):
         value = block.get(list_field)
         if not isinstance(value, list) or not all(isinstance(v, str) for v in value):
@@ -343,6 +363,7 @@ def _check_rights(raw: dict[str, Any], errors: list[str]) -> Rights | None:
         return None
 
     return Rights(
+        status=status,
         source_work=str(block["source_work"]),
         author=str(block["author"]),
         year=year,
@@ -376,8 +397,7 @@ def _ambiguity_errors(phrase_id: str, text: str) -> list[str]:
     named_ordinals = [word for word in ORDINALS if contains_word(text, word)]
     if any(word in flat for word in ORDINALS) and len(named_ordinals) > 1:
         problems.append(
-            f"{phrase_id}: {text!r} names more than one exit "
-            f"({', '.join(named_ordinals)})."
+            f"{phrase_id}: {text!r} names more than one exit ({', '.join(named_ordinals)})."
         )
 
     # A distance callout must name exactly one distance.
@@ -437,9 +457,7 @@ def _check_lines(
         errors.extend(_ambiguity_errors(phrase_id, text))
 
         limit = (
-            MAX_CHARS_HIGH_FREQUENCY
-            if phrase.weight >= HIGH_FREQUENCY_WEIGHT
-            else MAX_CHARS_OTHER
+            MAX_CHARS_HIGH_FREQUENCY if phrase.weight >= HIGH_FREQUENCY_WEIGHT else MAX_CHARS_OTHER
         )
         if len(text) > limit:
             errors.append(
@@ -466,9 +484,7 @@ def validate_raw(
 
     units = str(raw.get("units", "both"))
     if units not in ("both", "metric", "imperial"):
-        errors.append(
-            f"units must be 'both', 'metric', or 'imperial'; got {units!r}."
-        )
+        errors.append(f"units must be 'both', 'metric', or 'imperial'; got {units!r}.")
 
     for required in ("label", "description", "provider", "voice", "direction"):
         if not str(raw.get(required, "")).strip():
@@ -552,9 +568,7 @@ def list_presets(*, phrases_path: Path | None = None) -> list[Preset]:
     found: list[Preset] = []
     for path in sorted(directory.glob("*.json")):
         try:
-            preset, _, _ = validate_raw(
-                _read(path), name=path.stem, inventory=inventory
-            )
+            preset, _, _ = validate_raw(_read(path), name=path.stem, inventory=inventory)
         except PresetError:
             continue
         if preset is not None:
@@ -578,9 +592,7 @@ def estimate_durations(
             continue
         options = preset.options_for(phrase.id, phrase.weight)
         speed = float(options.get("speed", 1.0) or 1.0)
-        estimates[phrase.waze_filename] = estimate_seconds(
-            text, speed=speed, padding=padding
-        )
+        estimates[phrase.waze_filename] = estimate_seconds(text, speed=speed, padding=padding)
     return estimates
 
 

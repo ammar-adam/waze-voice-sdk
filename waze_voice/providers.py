@@ -125,6 +125,10 @@ class TtsProvider:
     env_var = ""
     signup_url = ""
     supports_voice_listing = True
+    # Whether the provider has a set of voices at all. False means a voice is
+    # an opaque id the caller supplies from somewhere else, so there is nothing
+    # to validate a preset's voice against.
+    has_catalogue = True
     # The request field that accepts plain-English delivery direction, if the
     # provider has one. A preset's `direction` is routed here. None means the
     # provider has no equivalent and direction is advisory only.
@@ -430,6 +434,7 @@ class FishAudio(TtsProvider):
 
     name = "fish"
     env_var = "FISH_AUDIO_API_KEY"
+    has_catalogue = False
     signup_url = "https://fish.audio"
     default_model = "s2.1-pro"
     base_url = "https://api.fish.audio"

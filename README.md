@@ -22,8 +22,15 @@ so a link keeps working for anyone forever once it exists.
 
 Each is an original interpretation of a character as written in A. A. Milne's
 books, generated from a licensed text-to-speech voice with written delivery
-direction. **Never a clone of anyone's voice performance.** Full rights detail in
+direction. **None of these three clones anyone's voice performance.** Full rights detail in
 [docs/presets.md](docs/presets.md).
+
+The repository also ships `paddington`, `cookie-monster` and `elmo`. Those rest
+on works still in copyright and name third-party community voice models, so they
+are labelled `in-copyright` throughout the tooling and no share links for them
+are published here. `python scripts\wvs.py presets list` shows the status of
+every preset; [docs/presets.md](docs/presets.md) explains what that label means
+and what it does not.
 
 ## One thing to know before you decide
 
@@ -63,6 +70,15 @@ python scripts\wvs.py quickstart --preset eeyore     # or --voice nova for the p
 
 That generates all 43 prompts, in both metric and imperial, normalized and packed
 inside Waze's size budget. About a minute.
+
+To build every character you have a key for and stage each one for upload:
+
+```powershell
+python scripts\build_all.py
+```
+
+Characters whose provider key is missing are reported as skipped rather than
+failing the run, so it is safe before you have finished signing up for anything.
 
 Building from **your own recordings** instead is the longer path, and what most of
 this README describes:

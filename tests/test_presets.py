@@ -18,15 +18,20 @@ from waze_voice import config as config_module
 from waze_voice import phrases as phrases_module
 from waze_voice import presets
 
+# The public-domain presets, which rest on an expired copyright term.
 SHIPPED = ("eeyore", "pooh", "tigger")
+
+# The ones that do not, and say so. Shipped because the alternative is people
+# building them anyway with the rights position undocumented.
+IN_COPYRIGHT = ("cookie-monster", "elmo", "paddington")
+
+ALL_PRESETS = tuple(sorted(SHIPPED + IN_COPYRIGHT))
 
 
 def _base_preset(**overrides) -> dict:
     """A minimal valid preset, for tests that break one thing at a time."""
     inventory = phrases_module.load()
-    lines = {
-        phrase.id: phrase.speech_text for phrase in inventory if phrase.in_waze_pack
-    }
+    lines = {phrase.id: phrase.speech_text for phrase in inventory if phrase.in_waze_pack}
     data = {
         "label": "Test",
         "description": "A test preset.",
@@ -35,6 +40,7 @@ def _base_preset(**overrides) -> dict:
         "direction": "Speak plainly.",
         "lines": lines,
         "rights": {
+            "status": "public-domain",
             "source_work": "Some Book",
             "author": "Some Author",
             "year": 1900,
@@ -48,9 +54,7 @@ def _base_preset(**overrides) -> dict:
 
 
 def _validate(data: dict):
-    return presets.validate_raw(
-        data, name="test", inventory=phrases_module.load()
-    )
+    return presets.validate_raw(data, name="test", inventory=phrases_module.load())
 
 
 class ShippedPresetTests(unittest.TestCase):
@@ -64,9 +68,7 @@ class ShippedPresetTests(unittest.TestCase):
         wanted = {phrase.id for phrase in inventory if phrase.in_waze_pack}
         for name in SHIPPED:
             preset = presets.load(name)
-            self.assertEqual(
-                set(preset.lines), wanted, f"{name} does not cover every prompt"
-            )
+            self.assertEqual(set(preset.lines), wanted, f"{name} does not cover every prompt")
 
     def test_each_passes_the_contributor_check(self) -> None:
         for name in SHIPPED:
@@ -98,9 +100,7 @@ class ShippedPresetTests(unittest.TestCase):
         for name in SHIPPED:
             raw = json.loads((presets.presets_dir() / f"{name}.json").read_text())
             self.assertEqual(presets.CLONING_KEYS & set(raw), set())
-            self.assertEqual(
-                presets.CLONING_KEYS & set(raw.get("provider_options", {})), set()
-            )
+            self.assertEqual(presets.CLONING_KEYS & set(raw.get("provider_options", {})), set())
 
     def test_presets_use_a_catalogue_voice(self) -> None:
         from waze_voice import providers
@@ -109,10 +109,82 @@ class ShippedPresetTests(unittest.TestCase):
             preset = presets.load(name)
             provider = providers.get(preset.provider)
             self.assertTrue(preset.voice)
-            if not provider.supports_voice_listing:
+            if not provider.supports_voice_listing and provider.has_catalogue:
                 # A fixed catalogue: the voice must actually be in it.
                 catalogue = {voice.id for voice in provider("").list_voices()}
                 self.assertIn(preset.voice, catalogue, f"{name} uses an unknown voice")
+
+
+class DeclaredStatusTests(unittest.TestCase):
+    """A preset states whether it rests on an expired copyright. Both answers
+    are allowed; leaving it unsaid is not."""
+
+    def test_every_preset_declares_a_valid_status(self) -> None:
+        for name in ALL_PRESETS:
+            with self.subTest(name=name):
+                preset = presets.load(name)
+                self.assertIn(preset.rights.status, presets.RIGHTS_STATUSES)
+
+    def test_an_unrecognised_status_is_rejected(self) -> None:
+        data = _base_preset()
+        data["rights"] = {**data["rights"], "status": "probably fine"}
+        preset, errors, _ = _validate(data)
+        self.assertIsNone(preset)
+        self.assertTrue(any("status" in error for error in errors))
+
+    def test_public_domain_presets_report_themselves_as_such(self) -> None:
+        for name in SHIPPED:
+            with self.subTest(name=name):
+                self.assertTrue(presets.load(name).rights.public_domain)
+
+    def test_in_copyright_presets_do_not_claim_public_domain(self) -> None:
+        """The whole point: the flag cannot quietly default to the flattering
+        answer."""
+        for name in IN_COPYRIGHT:
+            with self.subTest(name=name):
+                preset = presets.load(name)
+                self.assertFalse(preset.rights.public_domain)
+                self.assertEqual(preset.rights.status, "in-copyright")
+
+    def test_in_copyright_presets_name_the_performer_situation(self) -> None:
+        """A rights block that omits the performance is the one that misleads."""
+        for name in IN_COPYRIGHT:
+            with self.subTest(name=name):
+                preset = presets.load(name)
+                excluded = " ".join(preset.rights.not_covered).lower()
+                for expected in ("performance", "trademark", "commercial"):
+                    self.assertIn(expected, excluded, f"{name} omits {expected}")
+
+
+class NewCharacterPresetTests(unittest.TestCase):
+    def test_each_covers_every_waze_prompt(self) -> None:
+        inventory = phrases_module.load()
+        wanted = {phrase.id for phrase in inventory if phrase.in_waze_pack}
+        for name in IN_COPYRIGHT:
+            with self.subTest(name=name):
+                self.assertEqual(set(presets.load(name).lines), wanted)
+
+    def test_each_passes_the_contributor_check(self) -> None:
+        for name in IN_COPYRIGHT:
+            with self.subTest(name=name):
+                errors, _ = presets.check(name)
+                self.assertEqual(errors, [], f"{name}: {errors}")
+
+    def test_each_names_a_fish_model_id(self) -> None:
+        """A Fish voice is an opaque model id, so a typo cannot be caught by a
+        catalogue lookup. Check the shape instead."""
+        for name in IN_COPYRIGHT:
+            with self.subTest(name=name):
+                preset = presets.load(name)
+                self.assertEqual(preset.provider, "fish")
+                self.assertRegex(preset.voice, r"^[0-9a-f]{32}$")
+
+    def test_the_three_have_genuinely_different_scripts(self) -> None:
+        """Same voice over one script is a voice filter, not a character."""
+        for phrase_id in ("turn_left", "arrived", "reroute_chime"):
+            with self.subTest(phrase_id=phrase_id):
+                lines = {presets.load(n).lines[phrase_id] for n in IN_COPYRIGHT}
+                self.assertEqual(len(lines), len(IN_COPYRIGHT), lines)
 
 
 class CloningIsStructurallyRefusedTests(unittest.TestCase):
@@ -126,9 +198,7 @@ class CloningIsStructurallyRefusedTests(unittest.TestCase):
                 self.assertTrue(any(key in error for error in errors))
 
     def test_reference_smuggled_through_provider_options_is_rejected(self) -> None:
-        preset, errors, _ = _validate(
-            _base_preset(provider_options={"speaker_wav": "actor.wav"})
-        )
+        preset, errors, _ = _validate(_base_preset(provider_options={"speaker_wav": "actor.wav"}))
         self.assertIsNone(preset)
         self.assertTrue(any("clon" in error.lower() for error in errors))
 
@@ -249,9 +319,7 @@ class PresetBudgetTests(unittest.TestCase):
 
         durations = presets.estimate_durations(preset, inventory, padding=padding)
         weights = {
-            phrase.waze_filename: phrase.weight
-            for phrase in inventory
-            if phrase.in_waze_pack
+            phrase.waze_filename: phrase.weight for phrase in inventory if phrase.in_waze_pack
         }
         specs = [
             budget_module.ClipSpec(
@@ -301,9 +369,7 @@ class PresetBudgetTests(unittest.TestCase):
             with self.subTest(preset=name):
                 plan = self._estimate(presets.load(name), cfg)
                 floored = [
-                    item
-                    for item in plan.allocations
-                    if item.bitrate_kbps <= cfg.export.min_kbps
+                    item for item in plan.allocations if item.bitrate_kbps <= cfg.export.min_kbps
                 ]
                 self.assertLess(
                     len(floored),
@@ -318,9 +384,7 @@ class PresetBudgetTests(unittest.TestCase):
             turn_left = plan.get("TurnLeft.mp3")
             self.assertIsNotNone(turn_left)
             assert turn_left is not None
-            self.assertGreaterEqual(
-                turn_left.bitrate_kbps, 64, f"{name}: turn_left starved"
-            )
+            self.assertGreaterEqual(turn_left.bitrate_kbps, 64, f"{name}: turn_left starved")
 
 
 class PresetLoadingTests(unittest.TestCase):
@@ -466,9 +530,7 @@ class EstimatorTests(unittest.TestCase):
         self.assertGreater(slow, fast)
 
     def test_short_lines_hit_a_floor(self) -> None:
-        self.assertGreaterEqual(
-            presets.estimate_seconds("Go."), presets.MIN_CLIP_SECONDS
-        )
+        self.assertGreaterEqual(presets.estimate_seconds("Go."), presets.MIN_CLIP_SECONDS)
 
     def test_padding_is_added(self) -> None:
         bare = presets.estimate_seconds("Turn left.")
