@@ -203,3 +203,66 @@ def write_previews(previews: list[DesignPreview], directory: Path, stem: str) ->
             f"{path.name}  {preview.duration_secs:.1f}s  id={preview.generated_voice_id}"
         )
     return written
+
+
+# --------------------------------------------------------------------------
+# Hume Octave
+# --------------------------------------------------------------------------
+
+HUME_BASE_URL = "https://api.hume.ai"
+
+
+def design_hume(
+    api_key: str,
+    description: str,
+    *,
+    text: str = DEFAULT_AUDITION_TEXT,
+    count: int = 3,
+) -> list[DesignPreview]:
+    """Invent voices from a description, Octave's way.
+
+    Octave folds design into synthesis: the description rides along with the
+    line rather than creating a voice first. Handy for auditioning, and exactly
+    why the winner has to be saved before building a pack - an unsaved
+    description is re-interpreted on every call.
+    """
+    raw = providers._request(
+        f"{HUME_BASE_URL}/v0/tts",
+        headers={"X-Hume-Api-Key": api_key},
+        payload={
+            "utterances": [{"text": text, "description": description}],
+            "num_generations": count,
+            "format": {"type": "mp3"},
+        },
+        method="POST",
+    )
+    body = json.loads(raw.decode("utf-8"))
+
+    previews = []
+    for entry in body.get("generations", []):
+        encoded = entry.get("audio") or ""
+        previews.append(
+            DesignPreview(
+                generated_voice_id=str(entry.get("generation_id", "")),
+                audio=base64.b64decode(encoded) if encoded else b"",
+                duration_secs=float(entry.get("duration") or 0.0),
+                text=text,
+            )
+        )
+    return previews
+
+
+def save_hume(api_key: str, generation_id: str, name: str) -> str:
+    """Freeze a generation into a reusable voice. Returns its id.
+
+    Without this every prompt is a slightly different character, which reads as
+    a broken pack rather than a stylistic choice.
+    """
+    raw = providers._request(
+        f"{HUME_BASE_URL}/v0/tts/voices",
+        headers={"X-Hume-Api-Key": api_key},
+        payload={"generation_id": generation_id, "name": name},
+        method="POST",
+    )
+    body = json.loads(raw.decode("utf-8"))
+    return str(body.get("id") or body.get("name") or "")
