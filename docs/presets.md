@@ -116,7 +116,7 @@ $ python scripts/wvs.py presets check my-preset
 carrying a voice sample and cloning it here. It cannot stop a preset naming a
 provider voice id that is *already* a clone somebody else made, because a voice
 id is an opaque string and no validator can hear it. The `fish` presets above
-are exactly that case. Rule 3 exists because rule 1 has that hole.
+are exactly that case. Rule 2 exists because rule 1 has that hole.
 
 ### 2. The copyright status has to be stated
 
