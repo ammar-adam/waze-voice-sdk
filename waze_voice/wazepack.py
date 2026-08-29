@@ -72,7 +72,7 @@ SLOTS: tuple[WazeSlot, ...] = (
     # numbers are metre thresholds; the file holds the *imperial* announcement
     # made at that distance. See docs/waze-import-spike.md.
     WazeSlot("200.mp3", UNITS_IMPERIAL, 'In 0.1 miles ("zero point one miles")', core=True),
-    WazeSlot("400.mp3", UNITS_IMPERIAL, 'In a quarter of a mile', core=True),
+    WazeSlot("400.mp3", UNITS_IMPERIAL, "In a quarter of a mile", core=True),
     WazeSlot("800.mp3", UNITS_IMPERIAL, "In half a mile", core=True),
     WazeSlot("1500.mp3", UNITS_IMPERIAL, "In one mile", core=True),
     # -- distance callouts, metric ----------------------------------------

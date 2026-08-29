@@ -281,9 +281,7 @@ def fade_chain(fade_ms: int, duration: float) -> list[str]:
 
 def limiter_chain(true_peak_db: float) -> list[str]:
     limit = db_to_linear(true_peak_db)
-    return [
-        f"alimiter=level_in=1:level_out=1:limit={limit:.6f}:attack=5:release=50:level=disabled"
-    ]
+    return [f"alimiter=level_in=1:level_out=1:limit={limit:.6f}:attack=5:release=50:level=disabled"]
 
 
 # --------------------------------------------------------------------------

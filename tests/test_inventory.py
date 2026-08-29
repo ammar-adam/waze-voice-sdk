@@ -146,9 +146,7 @@ class SourceCsvTests(unittest.TestCase):
         self.assertAlmostEqual(
             sources.parse_timestamp("00:01:02.500", field="start", row_number=2), 62.5
         )
-        self.assertAlmostEqual(
-            sources.parse_timestamp("1:02.5", field="start", row_number=2), 62.5
-        )
+        self.assertAlmostEqual(sources.parse_timestamp("1:02.5", field="start", row_number=2), 62.5)
         self.assertAlmostEqual(sources.parse_timestamp("62.5", field="start", row_number=2), 62.5)
 
     def test_bad_timestamp_names_the_row(self) -> None:
@@ -157,14 +155,12 @@ class SourceCsvTests(unittest.TestCase):
         self.assertIn("Row 7", str(caught.exception))
 
     def test_duration_column_instead_of_end(self) -> None:
-        path = self._csv(
-            "phrase_id,source_path,start,duration\n" "turn_left,C:\\a.wav,1.0,1.5\n"
-        )
+        path = self._csv("phrase_id,source_path,start,duration\nturn_left,C:\\a.wav,1.0,1.5\n")
         clips = sources.load(path)
         self.assertAlmostEqual(clips[0].end, 2.5)
 
     def test_end_before_start_rejected(self) -> None:
-        path = self._csv("phrase_id,source_path,start,end\n" "turn_left,C:\\a.wav,5.0,2.0\n")
+        path = self._csv("phrase_id,source_path,start,end\nturn_left,C:\\a.wav,5.0,2.0\n")
         with self.assertRaises(SystemExit):
             sources.load(path)
 
@@ -198,13 +194,13 @@ class SourceCsvTests(unittest.TestCase):
         self.assertEqual(sources.preferred_take(clips, "turn_left"), 3)
 
     def test_unknown_phrase_id_rejected(self) -> None:
-        path = self._csv("phrase_id,source_path,start,end\n" "not_a_phrase,C:\\a.wav,1.0,2.0\n")
+        path = self._csv("phrase_id,source_path,start,end\nnot_a_phrase,C:\\a.wav,1.0,2.0\n")
         with self.assertRaises(SystemExit) as caught:
             sources.load(path, known_phrase_ids={"turn_left"})
         self.assertIn("unknown phrase_id", str(caught.exception))
 
     def test_unknown_column_rejected(self) -> None:
-        path = self._csv("phrase_id,source_path,start,end,colour\n" "turn_left,C:\\a.wav,1,2,red\n")
+        path = self._csv("phrase_id,source_path,start,end,colour\nturn_left,C:\\a.wav,1,2,red\n")
         with self.assertRaises(SystemExit) as caught:
             sources.load(path)
         self.assertIn("unknown column", str(caught.exception).lower())

@@ -164,13 +164,10 @@ def _report(result: VerifyResult) -> None:
         headers=("Field", "Value"),
     )
 
-    console.bullets(
-        "Files Waze will ignore (not on its list)", result.unknown_files
-    )
+    console.bullets("Files Waze will ignore (not on its list)", result.unknown_files)
     console.bullets("Core prompts missing from the live pack", result.missing_core)
     console.bullets(
-        "Silent clips. Expected for TickerPoints; anywhere else means a "
-        "placeholder survived",
+        "Silent clips. Expected for TickerPoints; anywhere else means a placeholder survived",
         result.silent_files,
     )
     console.bullets(

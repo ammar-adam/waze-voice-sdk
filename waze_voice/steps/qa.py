@@ -25,9 +25,7 @@ PASS = "pass"
 FAIL = "fail"
 SKIPPED = "skipped"
 
-_HELP = (
-    "  [Enter] pass    r replay    f fail    s skip    b back    q quit and save"
-)
+_HELP = "  [Enter] pass    r replay    f fail    s skip    b back    q quit and save"
 
 
 @dataclass
@@ -139,9 +137,7 @@ def run(
     master_dir = master_dir or paths.master_dir()
 
     step_gap = (
-        route.step_gap_seconds
-        if route.step_gap_seconds is not None
-        else config.qa.step_gap_seconds
+        route.step_gap_seconds if route.step_gap_seconds is not None else config.qa.step_gap_seconds
     )
     phrase_gap = (
         route.phrase_gap_seconds

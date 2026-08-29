@@ -129,11 +129,7 @@ class Pack:
 
     def save(self) -> Path:
         self.root.mkdir(parents=True, exist_ok=True)
-        payload = {
-            key: value
-            for key, value in asdict(self).items()
-            if not key.startswith("_")
-        }
+        payload = {key: value for key, value in asdict(self).items() if not key.startswith("_")}
         self.config_path.write_text(
             json.dumps(payload, indent=2, ensure_ascii=True) + "\n", encoding="utf-8"
         )
@@ -161,11 +157,7 @@ def load(name: str) -> Pack:
 
     if not config_path.is_file():
         available = [pack.name for pack in list_packs()]
-        hint = (
-            f" Existing packs: {', '.join(available)}."
-            if available
-            else " No packs exist yet."
-        )
+        hint = f" Existing packs: {', '.join(available)}." if available else " No packs exist yet."
         raise SystemExit(
             f"No pack named {validated!r}.{hint}\n"
             f"Create it with: python scripts/wvs.py pack new {validated}"

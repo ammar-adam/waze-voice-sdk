@@ -148,9 +148,7 @@ class MeasuredSizeTests(unittest.TestCase):
             mock.patch.object(providers, "_request", return_value=audio),
             mock.patch.object(synth, "check_consent", return_value=None),
         ):
-            code = cli.main(
-                ["quickstart", "--preset", preset_name, "--quiet"]
-            )
+            code = cli.main(["quickstart", "--preset", preset_name, "--quiet"])
         manifest = json.loads(
             (paths.export_dir() / export.MANIFEST_NAME).read_text(encoding="utf-8")
         )
@@ -221,9 +219,7 @@ class MeasuredSizeTests(unittest.TestCase):
                 ),
             ),
         ):
-            code = cli.main(
-                ["quickstart", "--preset", "eeyore", "--quiet"]
-            )
+            code = cli.main(["quickstart", "--preset", "eeyore", "--quiet"])
         self.assertEqual(code, 1, "an oversized pack must not report success")
 
 

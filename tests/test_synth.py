@@ -96,9 +96,7 @@ class SignatureProbeTests(unittest.TestCase):
         module = types.ModuleType("chatterbox.tts_turbo")
         module.ChatterboxTurboTTS = FakeTurbo  # type: ignore[attr-defined]
 
-        config = config_module.PipelineConfig(
-            synth=config_module.SynthConfig(model="nano")
-        )
+        config = config_module.PipelineConfig(synth=config_module.SynthConfig(model="nano"))
         stubs = {"chatterbox.tts_turbo": module, "torchaudio": types.ModuleType("torchaudio")}
         with mock.patch.dict(sys.modules, stubs), self.assertRaises(SystemExit) as caught:
             synth._load_chatterbox(config)
@@ -125,9 +123,7 @@ class SignatureProbeTests(unittest.TestCase):
         module.ChatterboxTurboTTS = FakeTurbo  # type: ignore[attr-defined]
 
         config = config_module.PipelineConfig(
-            synth=config_module.SynthConfig(
-                model="turbo", generate_options={"emotion": 0.5}
-            )
+            synth=config_module.SynthConfig(model="turbo", generate_options={"emotion": 0.5})
         )
         stubs = {"chatterbox.tts_turbo": module, "torchaudio": types.ModuleType("torchaudio")}
         with mock.patch.dict(sys.modules, stubs), self.assertRaises(SystemExit) as caught:
