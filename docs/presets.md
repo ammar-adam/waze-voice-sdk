@@ -42,9 +42,9 @@ rights holder or the performer.
 | `cookie-monster` | Sesame Street (1969) | `fish/a3ec9a07...` | Blunt, greedy, present tense |
 | `elmo` | Sesame Street (1980) | `fish/193f7f8f...` | Bright, giggly, third person |
 
-Pooh and Tigger have community models too, and `scripts/build_all.py --fish`
-routes them through those instead of their catalogue voice, so one key covers
-every character:
+Pooh and Tigger have community models too, and `scripts/build_all.py` uses
+them by default so one key covers every character. `--catalogue` builds those
+two from their licensed voice instead:
 
 | Preset | Community model |
 | ------ | --------------- |
@@ -53,8 +53,8 @@ every character:
 
 Those two ids live in `build_all.py`, not in the preset files, and deliberately.
 `pooh` and `tigger` rest on an expired copyright and their presets should keep
-saying so; `--fish` changes only how the lines are spoken, and the run prints
-that it did.
+saying so; routing them through a clone changes only how the lines are spoken,
+and the run prints that it did.
 
 They are in the repository because people build these anyway, and a pipeline
 that quietly omits the rights position is worse than one that records it. What

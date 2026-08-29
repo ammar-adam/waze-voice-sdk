@@ -102,6 +102,17 @@ def _request(
                 ) from None
             if error.code == 400:
                 raise ProviderError(f"{url} rejected the request (400).\n{detail}") from None
+            if error.code == 402:
+                # A balance does not refill during a backoff, and a pack is 43
+                # requests, so retrying turns one clear answer into a slow one
+                # repeated forty-three times.
+                raise ProviderError(
+                    f"{url} says the account is out of API credit (402).\n"
+                    "On Fish Audio, API credit is billed separately from platform "
+                    "credit, so a free or student plan that works on the website "
+                    "can still have none for the API. Check "
+                    f"https://fish.audio/app/developers\n{detail}"
+                ) from None
             if error.code == 404:
                 raise ProviderError(
                     f"{url} returned 404. Usually a voice id that does not exist on "
