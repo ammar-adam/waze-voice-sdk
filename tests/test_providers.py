@@ -11,6 +11,7 @@ That needs a key. See docs/tts.md.
 
 from __future__ import annotations
 
+import io
 import json
 import os
 import tempfile
@@ -332,6 +333,29 @@ class RetryPolicyTests(unittest.TestCase):
             providers._request("http://x", headers={})
         self.assertEqual(opener.call_count, 1)
         self.assertIn("voice id", str(caught.exception))
+
+    def test_no_credit_fails_immediately(self) -> None:
+        """A balance does not refill during a backoff, and a pack is 43
+        requests, so retrying turns one clear answer into a slow one."""
+        calls = []
+
+        def deny(request, timeout=None):
+            calls.append(request)
+            raise urllib.error.HTTPError(
+                request.full_url,
+                402,
+                "Payment Required",
+                {},
+                io.BytesIO(b'{"status":402,"message":"Insufficient API credit."}'),
+            )
+
+        with (
+            mock.patch.object(providers.urllib.request, "urlopen", deny),
+            self.assertRaises(providers.ProviderError) as caught,
+        ):
+            providers._request("https://api.fish.audio/v1/tts", headers={})
+        self.assertEqual(len(calls), 1, "402 must not be retried")
+        self.assertIn("API credit", str(caught.exception))
 
     def test_rate_limit_is_retried(self) -> None:
         opener = mock.Mock(side_effect=self._http_error(429))

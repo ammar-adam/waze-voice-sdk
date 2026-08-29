@@ -102,6 +102,14 @@ class BuildCommandTests(unittest.TestCase):
             stage_for_upload.build("pooh", "pooh", **kwargs)
         return run.call_args[0][0]
 
+    def test_regenerating_is_the_default(self) -> None:
+        """Reusing another voice's clips is silent and survives every check
+        downstream, because they are real audio of the right length."""
+        self.assertIn("--force", self._command())
+
+    def test_reuse_is_available_for_resuming(self) -> None:
+        self.assertNotIn("--force", self._command(force=False))
+
     def test_consent_is_always_passed(self) -> None:
         """Without it the first build on a clean clone exits instead of building."""
         self.assertIn("--accept-voice-terms", self._command())
@@ -121,32 +129,42 @@ class BuildCommandTests(unittest.TestCase):
 class PlaceholderKeyTests(unittest.TestCase):
     """A README placeholder is 'present' and then fails as a 401 mid-build."""
 
-    def _results(self, env: dict[str, str]) -> dict[str, str]:
+    def _results(self, env: dict[str, str], argv: list[str] | None = None) -> dict[str, str]:
+        # clear=True so a key in the real environment cannot decide the result.
         with (
-            mock.patch.dict(os.environ, env, clear=False),
+            mock.patch.dict(os.environ, env, clear=True),
             mock.patch.object(build_all, "build", return_value=0) as build,
             mock.patch.object(build_all, "stage", return_value=0),
             mock.patch.object(build_all.console, "table") as table,
             mock.patch.object(build_all.packs, "exists", return_value=True),
         ):
-            build_all.main(["--only", "pooh", "--no-stage"])
+            build_all.main(["--only", "pooh", "--no-stage", *(argv or [])])
             self.built = build.called
         return dict(table.call_args[0][0])
 
     def test_a_placeholder_key_is_skipped_not_built(self) -> None:
-        results = self._results({"OPENAI_API_KEY": "sk-..."})
+        results = self._results({"FISH_AUDIO_API_KEY": "sk-..."})
         self.assertIn("placeholder", results["pooh"])
         self.assertFalse(self.built, "no request should be made with a placeholder")
 
     def test_a_plausible_key_builds(self) -> None:
-        results = self._results({"OPENAI_API_KEY": "sk-proj-" + "a" * 40})
+        results = self._results({"FISH_AUDIO_API_KEY": "sk-fish-" + "a" * 40})
         self.assertEqual(results["pooh"], "built")
         self.assertTrue(self.built)
 
     def test_an_absent_key_is_reported_as_missing_not_broken(self) -> None:
-        with mock.patch.dict(os.environ, {}, clear=True):
-            results = self._results({})
-        self.assertIn("OPENAI_API_KEY", results["pooh"])
+        results = self._results({})
+        self.assertIn("FISH_AUDIO_API_KEY", results["pooh"])
+
+    def test_the_default_route_is_fish_even_with_an_openai_key(self) -> None:
+        """--catalogue is opt-in, so an OpenAI key alone builds nothing."""
+        results = self._results({"OPENAI_API_KEY": "sk-proj-" + "a" * 40})
+        self.assertIn("FISH_AUDIO_API_KEY", results["pooh"])
+        self.assertFalse(self.built)
+
+    def test_catalogue_uses_the_presets_own_provider(self) -> None:
+        results = self._results({"OPENAI_API_KEY": "sk-proj-" + "a" * 40}, ["--catalogue"])
+        self.assertEqual(results["pooh"], "built")
 
 
 class FishRoutingTests(unittest.TestCase):

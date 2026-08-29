@@ -35,12 +35,27 @@ def _fail(message: str) -> int:
     return 1
 
 
-def build(preset: str, pack: str, *, provider: str = "", voice: str = "") -> int:
+def build(
+    preset: str,
+    pack: str,
+    *,
+    provider: str = "",
+    voice: str = "",
+    force: bool = True,
+) -> int:
     """``provider`` and ``voice`` override the preset's own, keeping its script.
 
     That separation is the useful one: the lines are the character's writing and
     the voice is how it is spoken, so the same 43 lines can be sent through a
     catalogue voice or a community model without maintaining two copies of them.
+
+    ``force`` defaults to true, unlike ``synth``, and the difference matters.
+    Synthesis skips a phrase that already has audio, which is right when filling
+    gaps and wrong here: asking for a pack in one voice and receiving clips a
+    different voice generated earlier is silent, survives every check downstream
+    because the files are real audio of the right length, and is only audible
+    once the pack is on a phone. Pass ``force=False`` to resume a run that was
+    interrupted partway, where reusing is what you want.
     """
     command = [
         sys.executable,
@@ -52,6 +67,8 @@ def build(preset: str, pack: str, *, provider: str = "", voice: str = "") -> int
         preset,
         "--accept-voice-terms",
     ]
+    if force:
+        command.append("--force")
     if provider:
         command += ["--provider", provider]
     if voice:

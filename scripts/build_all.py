@@ -1,19 +1,21 @@
 """Build every character and stage it for upload, in one command.
 
-The five characters do not share a provider, and that is not an accident. Pooh
-and Tigger rest on Milne's 1926 and 1928 books, whose copyright has expired, so
-they are built from a licensed catalogue voice and are the two that can be
-published without a rights argument. Paddington, Cookie Monster and Elmo are in
-copyright, and are built from third-party community models that clone the
-original performances.
+Every character runs on a Fish Audio community model by default, so one key
+covers the whole run.
 
-A missing key is not an error here. Whichever half you have a key for gets
-built, and the other half is reported as skipped, so this is safe to run
-before you have finished signing up for anything.
+Pooh and Tigger also have catalogue-voice presets, and `--catalogue` uses those
+instead. That route matters more than its length here suggests: those two rest
+on Milne's 1926 and 1928 books, whose copyright has expired, so they are the
+only packs publishable without a rights argument. It is also the fallback when
+a community model is withdrawn, which happens, or when Fish's free tier ends.
 
-    python scripts/build_all.py                 # everything you have keys for
-    python scripts/build_all.py --only elmo     # just one
-    python scripts/build_all.py --no-stage      # build, do not copy anywhere
+A missing key is not an error. Anything without a usable key is reported as
+skipped, so this is safe to run before you have finished signing up.
+
+    python scripts/build_all.py                  # all five, via Fish
+    python scripts/build_all.py --catalogue      # pooh and tigger on OpenAI
+    python scripts/build_all.py --only elmo      # just one
+    python scripts/build_all.py --no-stage       # build, do not copy anywhere
 """
 
 from __future__ import annotations
@@ -39,10 +41,10 @@ CHARACTERS: dict[str, str] = {
     "elmo": "Elmo",
 }
 
-# Community models for the two presets that otherwise use a catalogue voice.
+# Community models for the two presets whose own voice is a catalogue one.
 # Kept here rather than in the preset files on purpose: pooh and tigger rest on
-# an expired copyright and their preset should keep saying so. --fish swaps only
-# how the lines are spoken, and the run reports that it did.
+# an expired copyright and their presets should keep saying so. Routing them
+# through a clone changes only how the lines are spoken, and the run says so.
 FISH_VOICES: dict[str, str] = {
     "pooh": "cf6e370cb45240b492b14c70a18d0259",
     "tigger": "23ad79b4e84f46259dd256c0b01526c2",
@@ -54,11 +56,21 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--only", action="append", help="Repeatable.")
     parser.add_argument("--no-stage", action="store_true")
     parser.add_argument(
-        "--fish",
+        "--reuse",
         action="store_true",
         help=(
-            "Build pooh and tigger from community models too, so every "
-            "character is a cloned voice and one key covers the run."
+            "Keep clips that already exist instead of regenerating. For "
+            "resuming an interrupted run; not for switching voice, since the "
+            "old voice's clips would be kept without saying so."
+        ),
+    )
+    parser.add_argument(
+        "--catalogue",
+        action="store_true",
+        help=(
+            "Build pooh and tigger from their licensed catalogue voice instead "
+            "of a community model. Needs $OPENAI_API_KEY, and gives the two "
+            "packs that carry no rights argument."
         ),
     )
     parser.add_argument("--uploader", type=Path, default=DEFAULT_UPLOADER)
@@ -76,7 +88,7 @@ def main(argv: list[str] | None = None) -> int:
 
     for name in wanted:
         preset = presets.load(name)
-        override_voice = FISH_VOICES.get(name, "") if args.fish else ""
+        override_voice = "" if args.catalogue else FISH_VOICES.get(name, "")
         override_provider = "fish" if override_voice else ""
         provider = providers.get(override_provider or preset.provider)
 
@@ -103,7 +115,13 @@ def main(argv: list[str] | None = None) -> int:
             packs.create(name, label=CHARACTERS[name])
             console.detail(f"Created pack {name}")
 
-        if build(name, name, provider=override_provider, voice=override_voice):
+        if build(
+            name,
+            name,
+            provider=override_provider,
+            voice=override_voice,
+            force=not args.reuse,
+        ):
             failed.append(name)
             continue
         built.append(name)
