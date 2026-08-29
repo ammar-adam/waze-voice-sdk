@@ -8,7 +8,7 @@ through this module.
 from __future__ import annotations
 
 import json
-from collections.abc import Iterable
+from collections.abc import Iterable, Iterator
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -88,7 +88,7 @@ class PhraseInventory:
     phrases: list[Phrase]
     schema_version: int = 1
 
-    def __iter__(self):
+    def __iter__(self) -> Iterator[Phrase]:
         return iter(self.phrases)
 
     def __len__(self) -> int:

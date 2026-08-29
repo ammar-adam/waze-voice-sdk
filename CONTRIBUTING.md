@@ -37,12 +37,22 @@ pipeline.
 ```bash
 python tests/run_tests.py
 python -m ruff check waze_voice scripts tts tests
+python -m ruff format --check waze_voice scripts tts tests
 python -m mypy waze_voice
 ```
 
-CI runs all three, plus the test suite on Windows and Linux across Python 3.10
+CI runs all four, plus the test suite on Windows and Linux across Python 3.10
 to 3.13, plus an end-to-end pack build. Running them locally first is faster than
 finding out from a red check.
+
+`ruff format --check` is there so the tree stays in the formatter's shape.
+Without it, the next person to run `ruff format` gets twenty files of unrelated
+churn in their diff.
+
+mypy runs with `disallow_untyped_defs`, so a new function needs annotations.
+That is not ceremony: switching it on found two functions returning `Any`
+through a concrete annotation, and a handler being passed `None` for a
+parameter typed as a config.
 
 ## What must never be committed
 

@@ -277,9 +277,10 @@ only survives repetition if the maneuvers stay clipped, so:
 - Nothing in any of the three public-domain presets uses a studio-invented catchphrase. Tigger
   does not say the thing from the song. That song is from 1968 and is not Milne.
 
-Estimated utilisation for all three sits at 82%, with Pooh and Eeyore around
-100 seconds of audio and Tigger at 75. That is the case the 85% target exists to
-absorb.
+Estimated utilisation sits at 82% for every shipped preset, across 75 to 109
+seconds of audio depending on how talkative the character is. That spread
+landing on the same utilisation is the allocator doing its job, and the case
+the 85% target exists to absorb.
 
 ## What was verified, and how
 

@@ -112,7 +112,8 @@ mkdir "mp3_upload\input_packs\Winnie the Pooh"
 copy C:\Users\aaamm\waze-voice-sdk\packs\pooh\audio\export\pack\*.mp3 "mp3_upload\input_packs\Winnie the Pooh\"
 ```
 
-Repeat for the other two. You can stage all three and upload them in one run.
+Repeat for each character. You can stage all of them and upload in one run;
+`scripts/build_all.py` does the staging for every character at once.
 
 Sanity check before you continue: each folder should hold exactly 43 `.mp3`
 files.
