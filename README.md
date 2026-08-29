@@ -63,10 +63,17 @@ written description, and Fish plays whatever community model id you hand it.
 [docs/tts.md](docs/tts.md) covers the trade-offs, including the rights ones.
 
 ```powershell
-$env:OPENAI_API_KEY = "sk-..."
+$env:OPENAI_API_KEY = "<paste your real key here>"
+python scripts\wvs.py doctor                         # confirms the key looks real
 python scripts\wvs.py preflight                      # free: checks everything but the audio
-python scripts\wvs.py quickstart --preset eeyore     # or --voice nova for the plain lines
+python scripts\wvs.py quickstart --preset eeyore --accept-voice-terms
 ```
+
+`--accept-voice-terms` is asked once per clone and recorded locally; without it
+the first build stops rather than generating anything. `doctor` is worth the two
+seconds: setting the variable to a placeholder satisfies every emptiness check
+in the pipeline and then fails as a 401 partway through a build, so it is
+checked for explicitly.
 
 That generates all 43 prompts, in both metric and imperial, normalized and packed
 inside Waze's size budget. About a minute.
@@ -89,8 +96,30 @@ notepad data\my-sources.csv
 python scripts\wvs.py run --sources data\my-sources.csv
 ```
 
+Every command is also available as `wvs` if you install the package:
+
+```powershell
+python -m pip install -e .
+wvs preflight
+```
+
+The scripts path needs no install at all, which is why the docs use it.
+
 To check the install without any of the above, `python tests\run_tests.py`
 builds synthetic media and runs the whole pipeline over it.
+
+## Where the rest of the documentation is
+
+| | |
+| --- | --- |
+| [docs/tts.md](docs/tts.md) | The four providers, what each is good at, and the rights questions each raises |
+| [docs/presets.md](docs/presets.md) | How a character is defined, and how to add one |
+| [docs/pipeline.md](docs/pipeline.md) | What each step does to the audio, and why |
+| [docs/upload-runbook.md](docs/upload-runbook.md) | Getting a finished pack onto Waze, start to finish |
+| [docs/windows-setup.md](docs/windows-setup.md) | ffmpeg, Python, and the Windows-specific traps |
+| [docs/audio-targets.md](docs/audio-targets.md) | Loudness and size targets, and where the numbers came from |
+| [docs/waze-import-workflow.md](docs/waze-import-workflow.md) | How Waze packs actually work |
+| [docs/waze-import-spike.md](docs/waze-import-spike.md) | What was measured from real packs, and what is still unverified |
 
 ## What this does, and what it does not
 

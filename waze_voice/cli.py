@@ -28,6 +28,15 @@ PIPELINE_ORDER = ["extract", "clean", "synth", "normalize", "validate", "export"
 # --------------------------------------------------------------------------
 
 
+# argparse does not export a public type for the object add_subparsers returns.
+SubParsers = argparse._SubParsersAction
+
+# Most commands need a resolved pipeline config. `pack`, `presets` and
+# `verify-upload` do not: they run before one exists, or have nothing to read
+# from it. They keep the shared dispatch signature and take None.
+ConfigOrNone = "config_module.PipelineConfig | None"
+
+
 def _common(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
     parser.add_argument(
         "--pack",
@@ -42,7 +51,7 @@ def _common(parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
     return parser
 
 
-def _add_extract(subparsers) -> None:
+def _add_extract(subparsers: SubParsers) -> None:
     parser = _common(subparsers.add_parser("extract", help="Cut clips from source media."))
     parser.add_argument("--sources", type=Path, help="Source inventory CSV.")
     parser.add_argument("--output-dir", type=Path)
@@ -51,7 +60,7 @@ def _add_extract(subparsers) -> None:
     parser.add_argument("--dry-run", action="store_true")
 
 
-def _add_clean(subparsers) -> None:
+def _add_clean(subparsers: SubParsers) -> None:
     parser = _common(subparsers.add_parser("clean", help="Isolate the vocal / reduce noise."))
     parser.add_argument("--input-dir", type=Path)
     parser.add_argument("--output-dir", type=Path)
@@ -60,7 +69,7 @@ def _add_clean(subparsers) -> None:
     parser.add_argument("--force", action="store_true")
 
 
-def _add_synth(subparsers) -> None:
+def _add_synth(subparsers: SubParsers) -> None:
     parser = _common(subparsers.add_parser("synth", help="Synthesize phrases missing from source."))
     parser.add_argument("--backend", choices=synth.BACKENDS)
     parser.add_argument(
@@ -98,7 +107,7 @@ def _add_synth(subparsers) -> None:
     parser.add_argument("--dry-run", action="store_true", help="List gaps without loading a model.")
 
 
-def _add_normalize(subparsers) -> None:
+def _add_normalize(subparsers: SubParsers) -> None:
     parser = _common(
         subparsers.add_parser("normalize", help="Loudness-normalize into audio/master.")
     )
@@ -109,7 +118,7 @@ def _add_normalize(subparsers) -> None:
     parser.add_argument("--force", action="store_true")
 
 
-def _add_qa(subparsers) -> None:
+def _add_qa(subparsers: SubParsers) -> None:
     parser = _common(subparsers.add_parser("qa", help="Audition the pack as a route."))
     parser.add_argument("--routes", type=Path)
     parser.add_argument("--route", dest="route_id", help="Route id. Defaults to the first route.")
@@ -131,7 +140,7 @@ def _add_qa(subparsers) -> None:
     parser.add_argument("--list-routes", action="store_true")
 
 
-def _add_export(subparsers) -> None:
+def _add_export(subparsers: SubParsers) -> None:
     parser = _common(subparsers.add_parser("export", help="Build an uploadable Waze pack."))
     parser.add_argument("--master-dir", type=Path)
     parser.add_argument("--export-dir", type=Path)
@@ -153,7 +162,7 @@ def _add_export(subparsers) -> None:
     )
 
 
-def _add_validate(subparsers) -> None:
+def _add_validate(subparsers: SubParsers) -> None:
     parser = _common(subparsers.add_parser("validate", help="Check inventory, coverage, audio."))
     parser.add_argument("--master-dir", type=Path)
     parser.add_argument("--sources", type=Path)
@@ -161,7 +170,7 @@ def _add_validate(subparsers) -> None:
     parser.add_argument("--no-audio-check", action="store_true")
 
 
-def _add_run(subparsers) -> None:
+def _add_run(subparsers: SubParsers) -> None:
     parser = _common(subparsers.add_parser("run", help="Run the full pipeline end to end."))
     parser.add_argument("--sources", type=Path)
     parser.add_argument("--clean-mode", choices=clean.MODES)
@@ -238,7 +247,7 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def _add_presets(subparsers) -> None:
+def _add_presets(subparsers: SubParsers) -> None:
     parser = subparsers.add_parser(
         "presets", help="Character presets: a voice, a direction, and 43 lines."
     )
@@ -259,7 +268,7 @@ def _add_presets(subparsers) -> None:
     checker.add_argument("--quiet", action="store_true")
 
 
-def _add_voices(subparsers) -> None:
+def _add_voices(subparsers: SubParsers) -> None:
     parser = _common(subparsers.add_parser("voices", help="List voices a hosted provider offers."))
     parser.add_argument(
         "--provider",
@@ -269,7 +278,7 @@ def _add_voices(subparsers) -> None:
     parser.add_argument("--search", help="Filter by name or description.")
 
 
-def _add_quickstart(subparsers) -> None:
+def _add_quickstart(subparsers: SubParsers) -> None:
     parser = _common(
         subparsers.add_parser(
             "quickstart",
@@ -311,7 +320,7 @@ def _add_quickstart(subparsers) -> None:
     parser.add_argument("--force", action="store_true", help="Regenerate everything.")
 
 
-def _add_pack(subparsers) -> None:
+def _add_pack(subparsers: SubParsers) -> None:
     parser = subparsers.add_parser("pack", help="Manage voice packs (one per voice) in this clone.")
     actions = parser.add_subparsers(dest="pack_command", required=True)
 
@@ -376,7 +385,7 @@ def _load_config(args: argparse.Namespace) -> config_module.PipelineConfig:
 # --------------------------------------------------------------------------
 
 
-def cmd_extract(args, cfg) -> int:
+def cmd_extract(args: argparse.Namespace, cfg: config_module.PipelineConfig) -> int:
     result = extract.run(
         config=cfg,
         sources_path=args.sources,
@@ -389,7 +398,7 @@ def cmd_extract(args, cfg) -> int:
     return 0 if result.ok else 1
 
 
-def cmd_clean(args, cfg) -> int:
+def cmd_clean(args: argparse.Namespace, cfg: config_module.PipelineConfig) -> int:
     result = clean.run(
         config=cfg,
         input_dir=args.input_dir,
@@ -401,7 +410,7 @@ def cmd_clean(args, cfg) -> int:
     return 0 if result.ok else 1
 
 
-def cmd_synth(args, cfg) -> int:
+def cmd_synth(args: argparse.Namespace, cfg: config_module.PipelineConfig) -> int:
     result = synth.run(
         config=cfg,
         phrases_path=args.phrases,
@@ -419,7 +428,7 @@ def cmd_synth(args, cfg) -> int:
     return 0 if result.ok else 1
 
 
-def cmd_normalize(args, cfg) -> int:
+def cmd_normalize(args: argparse.Namespace, cfg: config_module.PipelineConfig) -> int:
     result = normalize.run(
         config=cfg,
         phrases_path=args.phrases,
@@ -431,7 +440,7 @@ def cmd_normalize(args, cfg) -> int:
     return 0 if result.ok else 1
 
 
-def cmd_qa(args, cfg) -> int:
+def cmd_qa(args: argparse.Namespace, cfg: config_module.PipelineConfig) -> int:
     if args.list_routes:
         from . import routes as routes_module
 
@@ -457,7 +466,7 @@ def cmd_qa(args, cfg) -> int:
     return 0 if result.ok else 1
 
 
-def cmd_export(args, cfg) -> int:
+def cmd_export(args: argparse.Namespace, cfg: config_module.PipelineConfig) -> int:
     result = export.run(
         config=cfg,
         phrases_path=args.phrases,
@@ -475,7 +484,7 @@ def cmd_export(args, cfg) -> int:
     return 0 if (result.ok or args.allow_missing) else 1
 
 
-def cmd_validate(args, cfg) -> int:
+def cmd_validate(args: argparse.Namespace, cfg: config_module.PipelineConfig) -> int:
     result = validate.run(
         config=cfg,
         phrases_path=args.phrases,
@@ -488,7 +497,7 @@ def cmd_validate(args, cfg) -> int:
     return 0 if args.allow_missing and not result.property_problems else 1
 
 
-def cmd_dataset(args, cfg) -> int:
+def cmd_dataset(args: argparse.Namespace, cfg: config_module.PipelineConfig) -> int:
     synth.prepare_dataset(
         phrases_path=args.phrases,
         source_dir=args.source_dir,
@@ -497,7 +506,7 @@ def cmd_dataset(args, cfg) -> int:
     return 0
 
 
-def cmd_run(args, cfg) -> int:
+def cmd_run(args: argparse.Namespace, cfg: config_module.PipelineConfig) -> int:
     """Run the pipeline end to end, reporting a summary of what each step did."""
     steps = list(PIPELINE_ORDER)
     if args.from_step:
@@ -659,7 +668,7 @@ def _default_provider(requested: str | None) -> str:
     )
 
 
-def cmd_voices(args, cfg) -> int:
+def cmd_voices(args: argparse.Namespace, cfg: config_module.PipelineConfig) -> int:
     name = _default_provider(args.provider)
     provider_cls = providers.get(name)
 
@@ -691,7 +700,7 @@ def cmd_voices(args, cfg) -> int:
     return 0
 
 
-def cmd_quickstart(args, cfg) -> int:
+def cmd_quickstart(args: argparse.Namespace, cfg: config_module.PipelineConfig) -> int:
     """A finished pack from a voice id, with no source media at all.
 
     This is the shortest path that exists: pick a voice, wait a minute, upload.
@@ -772,7 +781,7 @@ def cmd_quickstart(args, cfg) -> int:
     return 0
 
 
-def cmd_verify_upload(args, cfg) -> int:
+def cmd_verify_upload(args: argparse.Namespace, cfg: config_module.PipelineConfig | None) -> int:
     pack_dir = args.pack_dir
     if pack_dir is None:
         # Default to this pack's own export, which is what you just uploaded.
@@ -782,12 +791,12 @@ def cmd_verify_upload(args, cfg) -> int:
     return 0 if result.ok else 1
 
 
-def cmd_preflight(args, cfg) -> int:
+def cmd_preflight(args: argparse.Namespace, cfg: config_module.PipelineConfig) -> int:
     report = preflight.run(config=cfg, phrases_path=args.phrases, only=args.preset)
     return 0 if report.ok else 1
 
 
-def cmd_presets(args, cfg) -> int:
+def cmd_presets(args: argparse.Namespace, cfg: config_module.PipelineConfig | None) -> int:
     if args.presets_command == "list":
         return _presets_list()
     if args.presets_command == "show":
@@ -884,7 +893,7 @@ def _presets_check(name: str | None) -> int:
     return 1 if failed else 0
 
 
-def cmd_pack(args, cfg) -> int:
+def cmd_pack(args: argparse.Namespace, cfg: config_module.PipelineConfig | None) -> int:
     if args.pack_command == "list":
         return _pack_list()
     if args.pack_command == "new":
@@ -925,7 +934,7 @@ def _pack_list() -> int:
     return 0
 
 
-def _pack_new(args) -> int:
+def _pack_new(args: argparse.Namespace) -> int:
     pack = packs.create(
         args.name,
         label=args.label,

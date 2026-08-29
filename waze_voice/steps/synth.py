@@ -176,7 +176,7 @@ _CHATTERBOX_VARIANTS: dict[str, tuple[str, str, dict[str, object]]] = {
 }
 
 
-def _accepted_kwargs(function) -> set[str]:
+def _accepted_kwargs(function: Callable[..., object]) -> set[str]:
     """Parameter names a callable will accept, or an empty set if it takes **kwargs."""
     import inspect
 

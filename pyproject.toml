@@ -45,5 +45,14 @@ select = ["E", "F", "I", "UP", "B", "SIM"]
 
 [tool.mypy]
 python_version = "3.10"
-warn_unused_ignores = true
 ignore_missing_imports = true
+warn_unused_ignores = true
+# Every public function is annotated, so require it of new ones too. These
+# caught three real things when first switched on: two functions returning Any
+# through a float/bytes annotation, and a handler being passed None for a
+# parameter typed as a config.
+disallow_untyped_defs = true
+warn_return_any = true
+warn_unreachable = true
+no_implicit_optional = true
+warn_redundant_casts = true

@@ -246,7 +246,8 @@ RESET_TIMELINE = "asetpts=N/SR/TB"
 
 
 def db_to_linear(db: float) -> float:
-    return 10.0 ** (db / 20.0)
+    # float(...) because ** widens to Any under a strict checker.
+    return float(10.0 ** (db / 20.0))
 
 
 def trim_silence_chain(threshold_db: float) -> list[str]:

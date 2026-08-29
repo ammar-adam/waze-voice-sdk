@@ -88,7 +88,9 @@ def _request(
     for attempt in range(1, MAX_ATTEMPTS + 1):
         try:
             with urllib.request.urlopen(request, timeout=REQUEST_TIMEOUT) as response:
-                return response.read()
+                # urlopen is typed loosely enough that the body arrives as Any.
+                received: bytes = response.read()
+                return received
         except urllib.error.HTTPError as error:
             detail = ""
             # The status code carries the meaning; the body is a bonus.
