@@ -19,7 +19,6 @@ before you have finished signing up for anything.
 from __future__ import annotations
 
 import argparse
-import os
 import sys
 from pathlib import Path
 
@@ -30,9 +29,6 @@ from stage_for_upload import DEFAULT_UPLOADER, build, stage  # noqa: E402
 from waze_voice import console, packs, presets, providers  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
-
-# Shorter than any real provider key, longer than every placeholder.
-MIN_PLAUSIBLE_KEY = 20
 
 # preset name -> the folder name, which is the voice name Waze shows the driver.
 CHARACTERS: dict[str, str] = {
@@ -88,11 +84,7 @@ def main(argv: list[str] | None = None) -> int:
             skipped.append((name, f"needs ${provider.env_var}"))
             continue
 
-        # A placeholder copied out of the README counts as "present" and then
-        # fails as a 401, several requests in. Real keys are long; nothing this
-        # short is one.
-        key = os.environ.get(provider.env_var, "").strip()
-        if len(key) < MIN_PLAUSIBLE_KEY or key.endswith("..."):
+        if not provider.key_looks_real():
             skipped.append((name, f"${provider.env_var} looks like a placeholder"))
             continue
 

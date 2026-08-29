@@ -39,6 +39,10 @@ from . import console
 
 USER_AGENT = "waze-voice-sdk"
 REQUEST_TIMEOUT = 90
+# Shorter than any real provider key, longer than every placeholder anyone
+# copies out of a README.
+MIN_PLAUSIBLE_KEY = 20
+
 MAX_ATTEMPTS = 4
 
 
@@ -159,6 +163,18 @@ class TtsProvider:
     @classmethod
     def key_present(cls) -> bool:
         return bool(os.environ.get(cls.env_var, "").strip())
+
+    @classmethod
+    def key_looks_real(cls) -> bool:
+        """Whether the key is plausible, not just non-empty.
+
+        Setting the variable to the placeholder from the README is a common
+        first move, and it satisfies every emptiness check while failing as a
+        401 partway through a build. Real keys from every supported provider are
+        far longer than this.
+        """
+        key = os.environ.get(cls.env_var, "").strip()
+        return len(key) >= MIN_PLAUSIBLE_KEY and not key.endswith("...")
 
     def list_voices(self) -> list[Voice]:
         raise NotImplementedError

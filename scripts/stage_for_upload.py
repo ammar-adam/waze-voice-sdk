@@ -23,11 +23,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from waze_voice import wazepack  # noqa: E402
 from waze_voice.steps import export as export_step  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
 DEFAULT_UPLOADER = REPO.parent / "waze-voicepack-links"
-EXPECTED_FILES = 43
 
 
 def _fail(message: str) -> int:
@@ -62,12 +62,37 @@ def build(preset: str, pack: str, *, provider: str = "", voice: str = "") -> int
 
 def stage(pack_dir: Path, uploader: Path, name: str) -> int:
     mp3s = sorted(pack_dir.glob("*.mp3"))
-    if len(mp3s) != EXPECTED_FILES:
+    if not mp3s:
+        return _fail(f"No mp3 files in {pack_dir}. Did the build run?")
+
+    # Checking names rather than counting them. A count rejects a legitimate
+    # single-unit pack, which is 39 files rather than 43, while still passing a
+    # pack of 43 files with one of them misnamed - the case that actually hurts,
+    # because the uploader ingests whatever it recognises and silently drops the
+    # rest.
+    names = {path.name for path in mp3s}
+    if unknown := wazepack.unknown_filenames(names):
         return _fail(
-            f"{len(mp3s)} mp3 files in {pack_dir}, expected {EXPECTED_FILES}. "
-            "The uploader accepts a pack containing a single valid file, so it "
-            "would take this one and publish it incomplete."
+            f"{len(unknown)} file(s) Waze does not recognise and would silently "
+            f"ignore: {', '.join(sorted(unknown))}"
         )
+
+    missing = wazepack.core_filenames() - names
+    # A single-unit pack is missing the other system's distances by design, so
+    # it only has to be complete for one of them.
+    if missing:
+        for units in (wazepack.UNITS_METRIC, wazepack.UNITS_IMPERIAL):
+            if not wazepack.core_filenames(units) - names:
+                print(f"  [note] {units}-only pack: {len(mp3s)} files.")
+                print("         Drivers on the other system hear Waze's own voice for distances.")
+                break
+        else:
+            return _fail(
+                f"{len(missing)} core prompt(s) missing: "
+                f"{', '.join(sorted(missing))}.\n"
+                "The uploader publishes a pack containing a single valid file "
+                "without complaining, so this has to be caught here."
+            )
 
     destination = uploader / "mp3_upload" / "input_packs" / name
     if destination.exists():
