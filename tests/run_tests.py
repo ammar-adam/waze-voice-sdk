@@ -1,7 +1,7 @@
 """Run the test suite with nothing installed but Python and ffmpeg.
 
-    python tests/run_tests.py
-    python tests/run_tests.py -v
+python tests/run_tests.py
+python tests/run_tests.py -v
 """
 
 from __future__ import annotations

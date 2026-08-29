@@ -129,9 +129,7 @@ def _check_pack_coverage(
             "to kilometers, every distance prompt falls back to the default Waze voice."
         )
     elif not has_metric and not has_imperial:
-        result.pack_problems.append(
-            "Pack has no distance callouts in either unit system."
-        )
+        result.pack_problems.append("Pack has no distance callouts in either unit system.")
 
 
 def _estimate_pack_size(

@@ -59,8 +59,7 @@ def _check_preconditions(dataset: Path, *, force: bool) -> float:
     wavs = dataset / "wavs"
     if not metadata.is_file() or not wavs.is_dir():
         raise SystemExit(
-            f"{dataset} does not look like a prepared dataset.\n"
-            "Run: python tts/prepare_dataset.py"
+            f"{dataset} does not look like a prepared dataset.\nRun: python tts/prepare_dataset.py"
         )
 
     total = 0.0
@@ -218,9 +217,7 @@ def main() -> int:
 
     console.info("")
     console.info("Training finished. Generate with the fine-tuned checkpoint:")
-    console.info(
-        f"    python tts/generate.py --backend finetuned --model-path {args.output_dir}"
-    )
+    console.info(f"    python tts/generate.py --backend finetuned --model-path {args.output_dir}")
     return 0
 
 

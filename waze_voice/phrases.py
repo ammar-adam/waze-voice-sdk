@@ -204,9 +204,7 @@ def validate_raw(data: dict[str, Any]) -> tuple[list[Phrase], list[str]]:
 
         group = str(entry.get("group", "misc"))
         if group not in GROUP_ORDER:
-            errors.append(
-                f"{location}.group '{group}' is not one of: {', '.join(GROUP_ORDER)}"
-            )
+            errors.append(f"{location}.group '{group}' is not one of: {', '.join(GROUP_ORDER)}")
 
         order = entry.get("order")
         if order is not None and not isinstance(order, int):
@@ -236,15 +234,12 @@ def validate_raw(data: dict[str, Any]) -> tuple[list[Phrase], list[str]]:
 
         units = str(entry.get("units", "any"))
         if units not in (wazepack.UNITS_ANY, wazepack.UNITS_METRIC, wazepack.UNITS_IMPERIAL):
-            errors.append(
-                f"{location}.units {units!r} must be 'any', 'metric', or 'imperial'."
-            )
+            errors.append(f"{location}.units {units!r} must be 'any', 'metric', or 'imperial'.")
         elif waze_filename and wazepack.is_valid(waze_filename):
             expected = wazepack.BY_FILENAME[waze_filename].units
             if units != expected:
                 errors.append(
-                    f"{location}.units is {units!r} but {waze_filename} is a "
-                    f"{expected!r} slot."
+                    f"{location}.units is {units!r} but {waze_filename} is a {expected!r} slot."
                 )
 
         weight = entry.get("weight", 1.0)

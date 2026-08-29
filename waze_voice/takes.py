@@ -104,8 +104,4 @@ def missing_phrase_ids(
 ) -> list[str]:
     """Phrase IDs with no usable audio anywhere in the pipeline."""
     audio_root = audio_root or paths.audio_root()
-    return [
-        phrase_id
-        for phrase_id in phrase_ids
-        if find(phrase_id, audio_root=audio_root) is None
-    ]
+    return [phrase_id for phrase_id in phrase_ids if find(phrase_id, audio_root=audio_root) is None]

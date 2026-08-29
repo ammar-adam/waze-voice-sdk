@@ -20,9 +20,7 @@ KNOWN_COLUMNS = REQUIRED_COLUMNS | OPTIONAL_COLUMNS
 TAKE_SUFFIX = "__take"
 _STEM_PATTERN = re.compile(rf"^(?P<phrase_id>.+?){re.escape(TAKE_SUFFIX)}(?P<take>\d+)$")
 
-_TIMESTAMP = re.compile(
-    r"^(?:(?:(?P<hours>\d+):)?(?P<minutes>\d+):)?(?P<seconds>\d+(?:\.\d+)?)$"
-)
+_TIMESTAMP = re.compile(r"^(?:(?:(?P<hours>\d+):)?(?P<minutes>\d+):)?(?P<seconds>\d+(?:\.\d+)?)$")
 
 
 class SourceError(SystemExit):
@@ -165,9 +163,7 @@ def load(
         if end_text:
             end = parse_timestamp(end_text, field="end", row_number=row_number)
         elif duration_text:
-            end = start + parse_timestamp(
-                duration_text, field="duration", row_number=row_number
-            )
+            end = start + parse_timestamp(duration_text, field="duration", row_number=row_number)
         else:
             raise SourceError(f"Row {row_number}: provide either 'end' or 'duration'.")
 

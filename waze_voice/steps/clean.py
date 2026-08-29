@@ -53,9 +53,7 @@ class CleanResult:
 def _input_clips(input_dir: Path) -> list[Path]:
     """Extracted clips, sorted for deterministic ordering."""
     return sorted(
-        path
-        for path in input_dir.glob("*.wav")
-        if path.is_file() and not path.name.startswith(".")
+        path for path in input_dir.glob("*.wav") if path.is_file() and not path.name.startswith(".")
     )
 
 
@@ -180,9 +178,7 @@ def _run_demucs(
 
     missing = [path.stem for path in clips if path.stem not in separated]
     if missing:
-        console.warn(
-            "Demucs produced no vocal stem for: " + ", ".join(sorted(missing))
-        )
+        console.warn("Demucs produced no vocal stem for: " + ", ".join(sorted(missing)))
     return separated
 
 
@@ -219,9 +215,11 @@ def run(
         console.warn(f"No clips found in {input_dir}. Run the extract step first.")
         return result
 
-    pending = clips if force else [
-        path for path in clips if not (output_dir / f"{path.stem}.wav").is_file()
-    ]
+    pending = (
+        clips
+        if force
+        else [path for path in clips if not (output_dir / f"{path.stem}.wav").is_file()]
+    )
     for path in clips:
         if path not in pending:
             console.detail(f"skip (exists) {path.stem}.wav")

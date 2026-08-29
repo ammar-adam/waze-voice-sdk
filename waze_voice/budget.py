@@ -233,9 +233,7 @@ def allocate(
         return plan
 
     if strategy == STRATEGY_UNIFORM:
-        return _allocate_uniform(
-            usable, budget_bytes, min_kbps, max_kbps, sample_rate_policy, plan
-        )
+        return _allocate_uniform(usable, budget_bytes, min_kbps, max_kbps, sample_rate_policy, plan)
     return _allocate_weighted(usable, budget_bytes, min_kbps, max_kbps, sample_rate_policy, plan)
 
 

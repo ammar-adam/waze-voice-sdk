@@ -122,12 +122,10 @@ def main() -> int:
     console.info("  3. Quiet room, phone 15-30 cm from your speaker, fixed volume.")
     console.info("")
     console.warn(
-        "Waze asks for prompts in its own order. Match by wording, not by the "
-        "number shown here."
+        "Waze asks for prompts in its own order. Match by wording, not by the number shown here."
     )
     console.detail(
-        "Uploading the pack instead preserves audio quality. See "
-        + export_step.GUIDE_NAME
+        "Uploading the pack instead preserves audio quality. See " + export_step.GUIDE_NAME
     )
 
     index = 0
@@ -143,7 +141,7 @@ def main() -> int:
         marker = " (done)" if recorded.get(phrase_id) == "done" else ""
 
         print(f"\n({index + 1}/{len(clips)}) {clip.get('label')}{marker}")
-        print(f"  say:    \"{clip.get('text')}\"")
+        print(f'  say:    "{clip.get("text")}"')
         print(
             f"  clip:   {path.name}  [{clip.get('duration_seconds')}s, "
             f"{clip.get('bitrate_kbps')} kbps]"
@@ -187,8 +185,7 @@ def main() -> int:
     done = sum(1 for value in recorded.values() if value == "done")
     console.info("")
     console.info(
-        f"Recorded {done} of {len(clips)} prompt(s). "
-        f"Progress saved to {progress_path.name}."
+        f"Recorded {done} of {len(clips)} prompt(s). Progress saved to {progress_path.name}."
     )
     console.info("Resume later with: python scripts/record_assist.py --resume")
     console.info("")

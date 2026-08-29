@@ -222,9 +222,7 @@ class PipelineTests(unittest.TestCase):
     def test_pack_fits_the_budget(self) -> None:
         self.assertIsNotNone(self.export_result.plan)
         self.assertFalse(self.export_result.over_budget)
-        self.assertLessEqual(
-            self.export_result.total_bytes, self.config.export.budget_bytes
-        )
+        self.assertLessEqual(self.export_result.total_bytes, self.config.export.budget_bytes)
 
     def test_reported_size_matches_bytes_on_disk(self) -> None:
         """The number in the report has to be the number Waze will see."""
@@ -355,9 +353,7 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(result.encode_failures, [target_name])
         self.assertFalse(result.ok)
         self.assertTrue(result.files, "the other clips should still be in the pack")
-        self.assertNotIn(
-            target_name, {item.slot.filename for item in result.files}
-        )
+        self.assertNotIn(target_name, {item.slot.filename for item in result.files})
 
     def test_cli_turns_a_media_failure_into_a_message(self) -> None:
         """Nothing should reach the user as a traceback."""

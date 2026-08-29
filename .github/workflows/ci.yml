@@ -35,6 +35,12 @@ jobs:
       - name: ruff
         run: python -m ruff check waze_voice scripts tts tests
 
+      # Without this the tree drifts out of the formatter's shape, and the next
+      # person to run `ruff format` gets thirty files of unrelated churn mixed
+      # into their diff.
+      - name: ruff format
+        run: python -m ruff format --check waze_voice scripts tts tests
+
       - name: mypy
         run: python -m mypy waze_voice
 

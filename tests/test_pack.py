@@ -207,9 +207,7 @@ class AllocationTests(unittest.TestCase):
 
     def test_ceiling_is_never_exceeded(self) -> None:
         for ceiling in (32, 48, 64, 128):
-            plan = budget.allocate(
-                _clips(self.SHAPE), budget_bytes=5_000_000, max_kbps=ceiling
-            )
+            plan = budget.allocate(_clips(self.SHAPE), budget_bytes=5_000_000, max_kbps=ceiling)
             self.assertTrue(
                 all(item.bitrate_kbps <= ceiling for item in plan.allocations),
                 f"exceeded ceiling {ceiling}",

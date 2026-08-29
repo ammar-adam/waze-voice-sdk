@@ -160,9 +160,7 @@ def _clear(export_dir: Path, *, force: bool = False) -> None:
     if not export_dir.is_dir():
         raise SystemExit(f"Export path exists and is not a directory: {export_dir}")
 
-    unexpected = sorted(
-        path.name for path in export_dir.iterdir() if path.name not in _OWNED_NAMES
-    )
+    unexpected = sorted(path.name for path in export_dir.iterdir() if path.name not in _OWNED_NAMES)
     if unexpected and not force:
         listed = ", ".join(unexpected[:8]) + (" ..." if len(unexpected) > 8 else "")
         raise SystemExit(
@@ -386,8 +384,7 @@ def _checklist(result: ExportResult, config: PipelineConfig) -> str:
         ]
         for phrase in result.missing_core:
             lines.append(
-                f"- [ ] `{phrase.waze_filename}` - {phrase.label} "
-                f'("{phrase.speech_text}")'
+                f'- [ ] `{phrase.waze_filename}` - {phrase.label} ("{phrase.speech_text}")'
             )
 
     if result.missing_optional:
@@ -538,7 +535,7 @@ def _readme(result: ExportResult, config: PipelineConfig) -> str:
         voice_line = "Built from your own source media or chosen voice."
     return f"""# Voice pack export
 
-Generated {datetime.now(timezone.utc).isoformat(timespec='seconds')} by waze-voice-sdk.
+Generated {datetime.now(timezone.utc).isoformat(timespec="seconds")} by waze-voice-sdk.
 
 ## Contents
 
@@ -607,9 +604,7 @@ def _pack_manifest(result: ExportResult, config: PipelineConfig) -> dict:
             "within_budget": not result.over_budget,
             "measured": True,
             "estimate_drift": (
-                round(result.estimate_drift, 4)
-                if result.estimate_drift is not None
-                else None
+                round(result.estimate_drift, 4) if result.estimate_drift is not None else None
             ),
             "strategy": plan.strategy,
             "correction_passes": result.corrections,
@@ -676,8 +671,7 @@ def run(
     strategy = strategy or config.export.strategy
     if strategy not in budget_module.STRATEGIES:
         raise SystemExit(
-            f"Unknown strategy {strategy!r}. Choose one of: "
-            f"{', '.join(budget_module.STRATEGIES)}"
+            f"Unknown strategy {strategy!r}. Choose one of: {', '.join(budget_module.STRATEGIES)}"
         )
 
     inventory = phrases_module.load(phrases_path)
@@ -688,16 +682,13 @@ def run(
     result = ExportResult(units=units, preset=preset)
 
     wanted = {slot.filename: slot for slot in _wanted_slots(units)}
-    by_waze = {
-        phrase.waze_filename: phrase for phrase in inventory if phrase.in_waze_pack
-    }
+    by_waze = {phrase.waze_filename: phrase for phrase in inventory if phrase.in_waze_pack}
 
     unmapped = [phrase.id for phrase in inventory if not phrase.in_waze_pack]
     if unmapped:
         console.warn(
             f"{len(unmapped)} phrase(s) have no waze_filename and cannot be part of a "
-            f"pack: {', '.join(sorted(unmapped)[:6])}"
-            + (" ..." if len(unmapped) > 6 else "")
+            f"pack: {', '.join(sorted(unmapped)[:6])}" + (" ..." if len(unmapped) > 6 else "")
         )
 
     _clear(export_dir, force=force)
@@ -832,9 +823,7 @@ def _compare_with_estimate(result: ExportResult, config: PipelineConfig) -> None
 
     inventory = phrases_module.load()
     padding = (config.trim.lead_in_ms + config.trim.lead_out_ms) / 1000.0
-    estimates = presets_module.estimate_durations(
-        result.preset, inventory, padding=padding
-    )
+    estimates = presets_module.estimate_durations(result.preset, inventory, padding=padding)
 
     estimated_total = 0.0
     measured_total = 0.0
@@ -903,8 +892,7 @@ def _report(result: ExportResult, plan: budget_module.AllocationPlan) -> None:
         )
         if abs(drift) > presets_module.ESTIMATE_TOLERANCE:
             console.warn(
-                line
-                + " The estimate assumes a generic speech rate; this voice differs "
+                line + " The estimate assumes a generic speech rate; this voice differs "
                 "enough that `wvs preflight` will read low for it."
             )
         else:
