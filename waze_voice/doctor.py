@@ -74,7 +74,17 @@ def _provider_checks() -> list[Check]:
     checks = []
     for name in providers.NAMES:
         provider = providers.get(name)
-        if provider.key_present():
+        if provider.key_present() and not provider.key_looks_real():
+            # Worse than unset: every check passes and the build dies on a 401.
+            checks.append(
+                Check(
+                    f"{name} key",
+                    "warn",
+                    f"${provider.env_var} is set but looks like a placeholder",
+                    f"Set the real key, or unset it  ({provider.signup_url})",
+                )
+            )
+        elif provider.key_present():
             checks.append(Check(f"{name} key", "ok", f"${provider.env_var} is set"))
         else:
             checks.append(
