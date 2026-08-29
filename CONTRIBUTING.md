@@ -38,16 +38,23 @@ pipeline.
 python tests/run_tests.py
 python -m ruff check waze_voice scripts tts tests
 python -m ruff format --check waze_voice scripts tts tests
-python -m mypy waze_voice
+python -m mypy --platform linux waze_voice
+python -m mypy --platform win32 waze_voice
 ```
 
-CI runs all four, plus the test suite on Windows and Linux across Python 3.10
+CI runs all five, plus the test suite on Windows and Linux across Python 3.10
 to 3.13, plus an end-to-end pack build. Running them locally first is faster than
 finding out from a red check.
 
 `ruff format --check` is there so the tree stays in the formatter's shape.
 Without it, the next person to run `ruff format` gets twenty files of unrelated
 churn in their diff.
+
+mypy runs twice because it narrows `sys.platform` to whichever platform it is
+running on: a Windows-only branch reads as unreachable on Linux, and the CI
+runner is Linux, so a single run only ever checks half the platform-specific
+code. Prefer a plain `bool` constant over a direct `sys.platform` comparison
+when a branch has to survive both.
 
 mypy runs with `disallow_untyped_defs`, so a new function needs annotations.
 That is not ceremony: switching it on found two functions returning `Any`

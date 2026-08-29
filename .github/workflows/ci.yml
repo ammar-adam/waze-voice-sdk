@@ -41,8 +41,14 @@ jobs:
       - name: ruff format
         run: python -m ruff format --check waze_voice scripts tts tests
 
-      - name: mypy
-        run: python -m mypy waze_voice
+      # Both platforms, because mypy narrows sys.platform to whichever one it
+      # runs on. A Windows-only branch reads as dead code on Linux, and the
+      # runner here is Linux, so checking one platform checks half the code.
+      - name: mypy (linux)
+        run: python -m mypy --platform linux waze_voice
+
+      - name: mypy (windows)
+        run: python -m mypy --platform win32 waze_voice
 
       # A preset that clones a performance, loses a distance number, or blows
       # the length budget must not merge.

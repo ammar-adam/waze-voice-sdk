@@ -22,6 +22,11 @@ class MediaError(RuntimeError):
     """Raised when an external media tool is missing or fails."""
 
 
+# mypy narrows a direct `sys.platform` comparison to whichever platform it is
+# running on, so the Windows-only fallback below reads as dead code on Linux
+# and vice versa. Going through a plain bool keeps the branch honest on both.
+IS_WINDOWS: bool = sys.platform == "win32"
+
 _INSTALL_HINT = (
     "Install ffmpeg and make sure it is on PATH. On Windows:\n"
     "    winget install Gyan.FFmpeg\n"
@@ -458,7 +463,7 @@ def play(path: Path) -> None:
         run([ffplay, "-nodisp", "-autoexit", "-loglevel", "error", str(path)])
         return
 
-    if sys.platform != "win32":
+    if not IS_WINDOWS:
         raise MediaError(
             f"'ffplay' was not found on PATH, and there is no fallback player on "
             f"{sys.platform}.\n{_INSTALL_HINT}"
