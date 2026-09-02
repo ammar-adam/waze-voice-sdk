@@ -12,7 +12,7 @@ a community model is withdrawn, which happens, or when Fish's free tier ends.
 A missing key is not an error. Anything without a usable key is reported as
 skipped, so this is safe to run before you have finished signing up.
 
-    python scripts/build_all.py                  # all five, via Fish
+    python scripts/build_all.py                  # every character, via Fish
     python scripts/build_all.py --catalogue      # pooh and tigger on OpenAI
     python scripts/build_all.py --only elmo      # just one
     python scripts/build_all.py --no-stage       # build, do not copy anywhere
@@ -39,6 +39,8 @@ CHARACTERS: dict[str, str] = {
     "paddington": "Paddington",
     "cookie-monster": "Cookie Monster",
     "elmo": "Elmo",
+    "bugs-bunny": "Bugs Bunny",
+    "daffy-duck": "Daffy Duck",
 }
 
 # Community models for the two presets whose own voice is a catalogue one.
