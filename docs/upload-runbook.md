@@ -226,16 +226,70 @@ Drive or simulate a route and listen for:
   read from its source and **rehearsed end to end** with synthetic audio: a
   43-file Pooh pack was built, ingested, and reported `Already within limit
   (0.64 MB)`, so compression never fired and the per-clip bitrate allocation
-  reached the upload stage intact. The network call in phase 3 is the only part
-  nobody here has run.
+  reached the upload stage intact. Synthesis is exercised against the live Fish
+  Audio API. The network call in phase 3 is the only part nobody here has run;
+  somebody else ran it successfully on 26 August 2026, which is not the same
+  thing.
 - **The auth flow may be fragile.** It impersonates a Waze client with a
   hand-built protobuf payload and a hardcoded app version (`4.106.0.1`). That is
   exactly the kind of thing that breaks when Waze ships an update, and nothing in
   this SDK can detect it in advance. If the login POST fails, that is what
-  happened, and the fix is upstream.
-- **Trigger distances remain unconfirmed.** Which callout fires at which distance
-  is still not known from pack contents alone. If you note it while driving,
-  `docs/waze-import-spike.md` has a place for it.
+  happened, and the fix is upstream. As of 26 August 2026 it was working for at
+  least one person.
+- **Trigger distances remain unconfirmed, and are not documented anywhere.**
+  Which callout fires at which distance is not knowable from pack contents, and
+  Waze does not publish it. The Wazeopedia "Voice prompt" page covers
+  map-editor instruction overrides rather than the audio files, and the
+  Community Hub page covers how to record prompts rather than when each one
+  plays. A filename tells you which slot a clip occupies and nothing about when
+  Waze reaches for it.
+
+  Practically: a pack can pass every check in this repository and still say the
+  wrong distance, because the slot-to-trigger mapping lives in the app. Note
+  what you hear while driving; `docs/waze-import-spike.md` has a place for it.
+
+## What the uploader's issue tracker says
+
+Read in August 2026, and worth knowing before you spend an evening on it.
+
+**It works.** Issue #210, filed 26 August 2026, is somebody reporting a
+successful upload after one fix. That is the most recent evidence available.
+
+**There is a size cliff just under 0.795 MB.** That reporter first got:
+
+```
+Upload failed: ('Connection aborted.', ConnectionResetError(10054, ...))
+```
+
+and fixed it by lowering `TARGET_FOLDER_SIZE` in `file_compression.py` from
+`0.795` to `0.79`. Waze drops the connection on a pack sitting exactly at the
+documented cap, so the real limit is slightly below it. **This SDK's packs land
+around 0.64 MB**, well clear, and the uploader's compression never runs on them.
+If you ever see a connection reset, this is the first thing to try.
+
+**It may fail by region.** Issue #200 is a user in the Netherlands getting
+`SSLError(SSLEOFError)` on every attempt at the final POST, while the maintainer
+in the US had no trouble on a normal connection or through several VPNs. Nobody
+diagnosed it. If the POST fails from Canada with an SSL error rather than a
+connection reset, that is this rather than your pack, and a US VPN is worth
+trying.
+
+**The maintainer will run the upload for you.** He offers it in several threads
+and says he does it regularly. That is the fallback if the tool will not work
+from your machine, at the cost of handing your files to a stranger.
+
+**Distances get silently rotated, and it happens to good packs.** Issues #204
+and #207 are the *official* Cookie Monster pack playing the wrong distance in
+three slots: `1500meters`, `1000meters` and `1500` were rotated in a loop, so
+"in 1.5 kilometers" came out as "in 1 mile". Nothing catches that except
+driving, because every file is present, correctly named, and real audio.
+
+It is also independent confirmation of this SDK's mapping, from a different
+source than the transcription work in
+[waze-import-spike.md](waze-import-spike.md): the corrected pack puts "one
+kilometer" in `1000meters.mp3`, "one point five kilometers" in
+`1500meters.mp3`, and "one mile" in `1500.mp3`. That is what
+`config/phrases.json` has.
 
 ## Two things worth knowing before you publish
 
