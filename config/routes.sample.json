@@ -9,11 +9,39 @@
       "phrase_gap_seconds": 0.12,
       "notes": "The everyday case. Listen for distance and maneuver clips that do not sit well together.",
       "steps": [
-        { "say": ["start_drive_1"], "context": "Drive begins" },
-        { "say": ["in_half_mile", "turn_right"], "context": "First instruction" },
-        { "say": ["in_quarter_mile", "keep_left"], "context": "Approaching a fork" },
-        { "say": ["turn_left"], "context": "Immediate maneuver, no distance" },
-        { "say": ["in_tenth_mile", "arrived"], "context": "Arrival" }
+        {
+          "say": [
+            "start_drive_1"
+          ],
+          "context": "Drive begins"
+        },
+        {
+          "say": [
+            "in_half_mile",
+            "turn_right"
+          ],
+          "context": "First instruction"
+        },
+        {
+          "say": [
+            "in_quarter_mile",
+            "keep_left"
+          ],
+          "context": "Approaching a fork"
+        },
+        {
+          "say": [
+            "turn_left"
+          ],
+          "context": "Immediate maneuver, no distance"
+        },
+        {
+          "say": [
+            "in_tenth_mile",
+            "arrived"
+          ],
+          "context": "Arrival"
+        }
       ]
     },
     {
@@ -22,11 +50,39 @@
       "step_gap_seconds": 1.6,
       "notes": "Same drive with the metric file set. Run both: a pack missing one set falls back to the default Waze voice mid-drive, which is worse than it sounds.",
       "steps": [
-        { "say": ["start_drive_1"], "context": "Drive begins" },
-        { "say": ["in_800_meters", "turn_right"], "context": "First instruction" },
-        { "say": ["in_400_meters", "keep_left"], "context": "Approaching a fork" },
-        { "say": ["in_200_meters", "turn_left"], "context": "Close maneuver" },
-        { "say": ["arrived"], "context": "Arrival" }
+        {
+          "say": [
+            "start_drive_1"
+          ],
+          "context": "Drive begins"
+        },
+        {
+          "say": [
+            "in_800_meters",
+            "turn_right"
+          ],
+          "context": "First instruction"
+        },
+        {
+          "say": [
+            "in_400_meters",
+            "keep_left"
+          ],
+          "context": "Approaching a fork"
+        },
+        {
+          "say": [
+            "in_200_meters",
+            "turn_left"
+          ],
+          "context": "Close maneuver"
+        },
+        {
+          "say": [
+            "arrived"
+          ],
+          "context": "Arrival"
+        }
       ]
     },
     {
@@ -36,8 +92,24 @@
       "phrase_gap_seconds": 0.1,
       "notes": "AndThen is the hardest clip to get right. It has to flow out of one instruction and into another without a seam. If anything in the pack sounds spliced, it shows up here.",
       "steps": [
-        { "say": ["in_quarter_mile", "turn_left", "and_then", "turn_right"], "context": "Chained pair" },
-        { "say": ["in_tenth_mile", "keep_right", "and_then", "exit_right"], "context": "Exit pair" }
+        {
+          "say": [
+            "in_quarter_mile",
+            "turn_left",
+            "and_then",
+            "turn_right"
+          ],
+          "context": "Chained pair"
+        },
+        {
+          "say": [
+            "in_tenth_mile",
+            "keep_right",
+            "and_then",
+            "exit_right"
+          ],
+          "context": "Exit pair"
+        }
       ]
     },
     {
@@ -46,9 +118,29 @@
       "step_gap_seconds": 1.6,
       "notes": "Roundabout chains onto an ordinal. Check that the ordinals share the pace of the maneuver clips.",
       "steps": [
-        { "say": ["in_quarter_mile", "roundabout", "exit_second"], "context": "Second exit" },
-        { "say": ["roundabout", "exit_third"], "context": "Third exit" },
-        { "say": ["in_200_meters", "roundabout", "exit_first"], "context": "Metric, first exit" }
+        {
+          "say": [
+            "in_quarter_mile",
+            "roundabout",
+            "exit_second"
+          ],
+          "context": "Second exit"
+        },
+        {
+          "say": [
+            "roundabout",
+            "exit_third"
+          ],
+          "context": "Third exit"
+        },
+        {
+          "say": [
+            "in_200_meters",
+            "roundabout",
+            "exit_first"
+          ],
+          "context": "Metric, first exit"
+        }
       ]
     },
     {
@@ -57,11 +149,39 @@
       "step_gap_seconds": 2.2,
       "notes": "Longer gaps, as at highway speed. Pair with --bed road-noise.wav to check intelligibility over engine and tyre noise.",
       "steps": [
-        { "say": ["in_one_mile", "keep_right"], "context": "Merge lane" },
-        { "say": ["go_straight"], "context": "Holding the lane" },
-        { "say": ["in_half_mile", "exit_right"], "context": "Exit approach" },
-        { "say": ["in_tenth_mile", "keep_left"], "context": "Ramp" },
-        { "say": ["u_turn"], "context": "Correction after a missed exit" }
+        {
+          "say": [
+            "in_one_mile",
+            "keep_right"
+          ],
+          "context": "Merge lane"
+        },
+        {
+          "say": [
+            "go_straight"
+          ],
+          "context": "Holding the lane"
+        },
+        {
+          "say": [
+            "in_half_mile",
+            "exit_right"
+          ],
+          "context": "Exit approach"
+        },
+        {
+          "say": [
+            "in_tenth_mile",
+            "keep_left"
+          ],
+          "context": "Ramp"
+        },
+        {
+          "say": [
+            "u_turn"
+          ],
+          "context": "Correction after a missed exit"
+        }
       ]
     },
     {
@@ -70,12 +190,284 @@
       "step_gap_seconds": 1.8,
       "notes": "Optional prompts. These are the first to lose bitrate when a pack is over budget, so listen for artefacts here before shipping.",
       "steps": [
-        { "say": ["traffic_ahead"] },
-        { "say": ["accident_ahead"] },
-        { "say": ["hazard_ahead"] },
-        { "say": ["police_ahead"] },
-        { "say": ["speed_camera_ahead"] },
-        { "say": ["red_light_camera_ahead"] }
+        {
+          "say": [
+            "traffic_ahead"
+          ]
+        },
+        {
+          "say": [
+            "accident_ahead"
+          ]
+        },
+        {
+          "say": [
+            "hazard_ahead"
+          ]
+        },
+        {
+          "say": [
+            "police_ahead"
+          ]
+        },
+        {
+          "say": [
+            "speed_camera_ahead"
+          ]
+        },
+        {
+          "say": [
+            "red_light_camera_ahead"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "metric_every_distance",
+      "label": "Every metric distance, one maneuver",
+      "step_gap_seconds": 1.4,
+      "phrase_gap_seconds": 0.12,
+      "notes": "Each metric distance clip against the same maneuver. Listen for one that ends on a different pitch or pace from the others: it will sound wrong against every maneuver, not just this one.",
+      "steps": [
+        {
+          "say": [
+            "in_200_meters",
+            "turn_left"
+          ],
+          "context": "200 meters"
+        },
+        {
+          "say": [
+            "in_400_meters",
+            "turn_left"
+          ],
+          "context": "400 meters"
+        },
+        {
+          "say": [
+            "in_800_meters",
+            "turn_left"
+          ],
+          "context": "800 meters"
+        },
+        {
+          "say": [
+            "in_1000_meters",
+            "turn_left"
+          ],
+          "context": "1000 meters"
+        },
+        {
+          "say": [
+            "in_1500_meters",
+            "turn_left"
+          ],
+          "context": "1500 meters"
+        }
+      ]
+    },
+    {
+      "id": "metric_every_maneuver",
+      "label": "Every maneuver at a metric distance",
+      "step_gap_seconds": 1.4,
+      "phrase_gap_seconds": 0.12,
+      "notes": "The same distance against all eight maneuvers. This is the pairing matrix from the other side, and catches a maneuver that starts too abruptly to follow a distance.",
+      "steps": [
+        {
+          "say": [
+            "in_400_meters",
+            "turn_left"
+          ],
+          "context": "turn left"
+        },
+        {
+          "say": [
+            "in_400_meters",
+            "turn_right"
+          ],
+          "context": "turn right"
+        },
+        {
+          "say": [
+            "in_400_meters",
+            "keep_left"
+          ],
+          "context": "keep left"
+        },
+        {
+          "say": [
+            "in_400_meters",
+            "keep_right"
+          ],
+          "context": "keep right"
+        },
+        {
+          "say": [
+            "in_400_meters",
+            "exit_left"
+          ],
+          "context": "exit left"
+        },
+        {
+          "say": [
+            "in_400_meters",
+            "exit_right"
+          ],
+          "context": "exit right"
+        },
+        {
+          "say": [
+            "in_400_meters",
+            "go_straight"
+          ],
+          "context": "go straight"
+        },
+        {
+          "say": [
+            "in_400_meters",
+            "u_turn"
+          ],
+          "context": "u turn"
+        }
+      ]
+    },
+    {
+      "id": "metric_roundabout_all_exits",
+      "label": "Roundabout, every exit, metric",
+      "step_gap_seconds": 1.4,
+      "phrase_gap_seconds": 0.12,
+      "notes": "Three clips in a row: distance, 'at the roundabout', then the ordinal. The longest chain Waze builds, and the one most likely to sound assembled.",
+      "steps": [
+        {
+          "say": [
+            "in_400_meters",
+            "roundabout",
+            "exit_first"
+          ],
+          "context": "exit_first"
+        },
+        {
+          "say": [
+            "in_400_meters",
+            "roundabout",
+            "exit_second"
+          ],
+          "context": "exit_second"
+        },
+        {
+          "say": [
+            "in_400_meters",
+            "roundabout",
+            "exit_third"
+          ],
+          "context": "exit_third"
+        },
+        {
+          "say": [
+            "in_400_meters",
+            "roundabout",
+            "exit_fourth"
+          ],
+          "context": "exit_fourth"
+        },
+        {
+          "say": [
+            "in_400_meters",
+            "roundabout",
+            "exit_fifth"
+          ],
+          "context": "exit_fifth"
+        },
+        {
+          "say": [
+            "in_400_meters",
+            "roundabout",
+            "exit_sixth"
+          ],
+          "context": "exit_sixth"
+        },
+        {
+          "say": [
+            "in_400_meters",
+            "roundabout",
+            "exit_seventh"
+          ],
+          "context": "exit_seventh"
+        }
+      ]
+    },
+    {
+      "id": "metric_chained",
+      "label": "Chained maneuvers, metric",
+      "step_gap_seconds": 1.6,
+      "phrase_gap_seconds": 0.12,
+      "notes": "AndThen joins two maneuvers Waze expects you to make in quick succession. It is a real prompt, not a contrivance: the slot exists because Waze needs it, and it is the hardest seam in the pack.",
+      "steps": [
+        {
+          "say": [
+            "in_400_meters",
+            "turn_left",
+            "and_then",
+            "turn_right"
+          ],
+          "context": "left then right"
+        },
+        {
+          "say": [
+            "in_800_meters",
+            "keep_right",
+            "and_then",
+            "exit_right"
+          ],
+          "context": "fork then exit"
+        },
+        {
+          "say": [
+            "in_200_meters",
+            "roundabout",
+            "exit_second",
+            "and_then",
+            "turn_left"
+          ],
+          "context": "roundabout then turn"
+        }
+      ]
+    },
+    {
+      "id": "imperial_every_distance",
+      "label": "Every imperial distance, one maneuver",
+      "step_gap_seconds": 1.4,
+      "phrase_gap_seconds": 0.12,
+      "notes": "The other unit set. A pack shipping both has to hold up in both.",
+      "steps": [
+        {
+          "say": [
+            "in_tenth_mile",
+            "turn_left"
+          ],
+          "context": "tenth mile"
+        },
+        {
+          "say": [
+            "in_quarter_mile",
+            "turn_left"
+          ],
+          "context": "quarter mile"
+        },
+        {
+          "say": [
+            "in_half_mile",
+            "turn_left"
+          ],
+          "context": "half mile"
+        },
+        {
+          "say": [
+            "in_one_mile",
+            "turn_left"
+          ],
+          "context": "one mile"
+        }
       ]
     }
   ]
