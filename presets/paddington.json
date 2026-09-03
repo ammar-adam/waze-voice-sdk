@@ -40,10 +40,10 @@
     "start_drive_1": "Right then. Off we go, and thank you for having me.",
     "start_drive_2": "Hello. I've had a look at the map and I think I've got it.",
     "start_drive_3": "Good morning. I do hope you've had breakfast.",
-    "start_drive_4": "Off we go. I've brought a marmalade sandwich, just in case.",
+    "start_drive_4": "Off we go. I've a marmalade sandwich under my hat, just in case.",
     "start_drive_5": "Ready when you are. Do take your time.",
     "start_drive_6": "Aunt Lucy always said to set off early. So here we are.",
-    "start_drive_7": "Hello again. I've been looking forward to this.",
+    "start_drive_7": "Please do look after this bear. And mind the road.",
     "start_drive_8": "Off we go then. Mind how you go.",
     "start_drive_9": "I've checked the route twice. I think it's a good one.",
     "turn_left": "Turn left, if you wouldn't mind.",
@@ -63,13 +63,13 @@
     "exit_fourth": "take the fourth exit.",
     "exit_fifth": "take the fifth exit, please.",
     "exit_sixth": "take the sixth exit. Goodness, what a lot.",
-    "exit_seventh": "take the seventh exit. I did count, honestly.",
+    "exit_seventh": "take the seventh exit. I did count. Twice, in fact.",
     "traffic_ahead": "Traffic ahead. We shall simply have to be patient.",
     "accident_ahead": "An accident ahead. Oh dear. Do go carefully.",
     "hazard_ahead": "A hazard ahead. Please do take care.",
     "speed_camera_ahead": "A speed camera ahead. Best to be sensible.",
     "red_light_camera_ahead": "A red light camera ahead. Do stop properly.",
-    "police_ahead": "Police ahead. Best behaviour, I should think.",
+    "police_ahead": "Police ahead. Best behaviour. I shall give them a hard stare.",
     "reroute_chime": "Oh. Not to worry. I'll find another way."
   }
 }
