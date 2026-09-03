@@ -43,7 +43,7 @@
     "start_drive_4": "Off we go. I've a marmalade sandwich under my hat, just in case.",
     "start_drive_5": "Ready when you are. Do take your time.",
     "start_drive_6": "Aunt Lucy always said to set off early. So here we are.",
-    "start_drive_7": "Please do look after this bear. And mind the road.",
+    "start_drive_7": "Aunt Lucy always said to set off early. So here we are.",
     "start_drive_8": "Off we go then. Mind how you go.",
     "start_drive_9": "I've checked the route twice. I think it's a good one.",
     "turn_left": "Turn left, if you wouldn't mind.",
@@ -53,7 +53,7 @@
     "exit_left": "Take the exit on the left, please.",
     "exit_right": "Take the exit on the right, please.",
     "go_straight": "Straight ahead, please.",
-    "u_turn": "A U turn, I'm afraid. Terribly sorry.",
+    "u_turn": "A U turn, I'm afraid. Terribly sorry about that.",
     "and_then": "and then, if you please,",
     "arrived": "We've arrived. Thank you for the lift.",
     "roundabout": "At the roundabout.",
@@ -69,7 +69,7 @@
     "hazard_ahead": "A hazard ahead. Please do take care.",
     "speed_camera_ahead": "A speed camera ahead. Best to be sensible.",
     "red_light_camera_ahead": "A red light camera ahead. Do stop properly.",
-    "police_ahead": "Police ahead. Best behaviour. I shall give them a hard stare.",
+    "police_ahead": "Police ahead. Best behaviour, I should think.",
     "reroute_chime": "Oh. Not to worry. I'll find another way."
   }
 }
