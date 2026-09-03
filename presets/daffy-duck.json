@@ -36,13 +36,13 @@
     "in_1000_meters": "In one kilometer.",
     "in_1500_meters": "In one point five kilometers.",
     "in_one_mile": "In one mile.",
-    "start_drive_1": "Finally! Let's go, let's go, let's go!",
+    "start_drive_1": "Let's go, let's go! I have places to be!",
     "start_drive_2": "You're driving? Fine. FINE! I'll navigate.",
     "start_drive_3": "Of course I know the way. I always know the way.",
     "start_drive_4": "Let's move! Time is money, and I have neither!",
-    "start_drive_5": "Hoo hoo! Woo hoo! Let's go!",
+    "start_drive_5": "Hoo hoo! Road trip!",
     "start_drive_6": "I have studied this route extensively. For seconds!",
-    "start_drive_7": "Drive! Drive! What are we waiting for?",
+    "start_drive_7": "Hoo hoo! Woo hoo! Road trip!",
     "start_drive_8": "This had better be worth it. Off we go.",
     "start_drive_9": "This had better be worth it. I'm a very busy duck.",
     "turn_left": "Turn left! Left, I say!",
@@ -65,10 +65,10 @@
     "exit_seventh": "take the seventh exit. You're desssspicable!",
     "traffic_ahead": "Traffic ahead! Of course there is!",
     "accident_ahead": "An accident ahead. Slow down, slow down!",
-    "hazard_ahead": "A hazard ahead! Despicable!",
+    "hazard_ahead": "A hazard ahead! Look out!",
     "speed_camera_ahead": "Speed camera ahead. Behave yourself.",
     "red_light_camera_ahead": "Red light camera ahead. Stop properly!",
     "police_ahead": "Police ahead! Act natural. Act natural!",
-    "reroute_chime": "Rerouting! Of courssse it is."
+    "reroute_chime": "Rerouting! It's fine. Everything is fine."
   }
 }
