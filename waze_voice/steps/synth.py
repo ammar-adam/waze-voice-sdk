@@ -549,14 +549,24 @@ def run(
     output_dir = output_dir or paths.synthesized_dir()
     result = SynthResult(backend=backend)
 
-    gaps = find_gaps(
-        phrases_path=phrases_path,
-        include_optional=include_optional,
-        only=only,
-    )
-    if force and only:
+    if force:
+        # `force` means regenerate, so the work is every selected phrase rather
+        # than only the ones missing audio. Restricting this to `only` made
+        # --force silently do nothing on a complete pack: find_gaps returned
+        # empty, the early return below fired, and the export repackaged
+        # yesterday's clips. Rewriting a preset and rebuilding gave you the old
+        # words in files with fresh timestamps, which is invisible until you
+        # hear it.
         inventory = phrases_module.load(phrases_path)
         gaps = phrases_module.filter_ids(inventory, only)
+        if not include_optional and not only:
+            gaps = [phrase for phrase in gaps if phrase.required]
+    else:
+        gaps = find_gaps(
+            phrases_path=phrases_path,
+            include_optional=include_optional,
+            only=only,
+        )
 
     result.gaps = [phrase.id for phrase in gaps]
 

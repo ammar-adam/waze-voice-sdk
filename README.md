@@ -11,26 +11,39 @@ Character voices for Waze navigation.
 Open one of these on your phone, with Waze installed. It adds the voice. Then
 `Settings > Voice and sound` and pick it. Nothing to install, no account.
 
-| Voice | | |
-| ----- | - | - |
-| **Pooh** — warm, unhurried, audibly thinking it through | [Add to Waze](https://waze.com/ul?acvp=REPLACE_WITH_POOH_UUID) | *(link pending upload)* |
-| **Eeyore** — flat, resigned, and completely correct about where to go | [Add to Waze](https://waze.com/ul?acvp=REPLACE_WITH_EEYORE_UUID) | *(link pending upload)* |
-| **Tigger** — fast, bouncy, overconfident | [Add to Waze](https://waze.com/ul?acvp=REPLACE_WITH_TIGGER_UUID) | *(link pending upload)* |
+| Voice | | Rights |
+| ----- | - | ------ |
+| **Winnie the Pooh** — warm, unhurried, audibly thinking it through | [Add to Waze](https://waze.com/ul?acvp=2eaaa591-f10f-4c8d-902c-b7c01ffff4db) | text PD |
+| **Tigger** — fast, bouncy, overconfident | [Add to Waze](https://waze.com/ul?acvp=6d20255d-2338-4bc8-b4cb-ba850d7f2450) | text PD |
+| **Paddington** — unfailingly polite, and quietly certain you will do the right thing | [Add to Waze](https://waze.com/ul?acvp=8382bd16-260c-4d3b-9184-793cb67f0670) | in copyright |
+| **Cookie Monster** — blunt, delighted, entirely present tense | [Add to Waze](https://waze.com/ul?acvp=c00a5470-0846-4004-bedb-3c107981a6be) | in copyright |
+| **Elmo** — bright, giggly, third person throughout | [Add to Waze](https://waze.com/ul?acvp=a886fea0-321e-4ae7-905c-f4d9f81e3983) | in copyright |
+| **Bugs Bunny** — unbothered, wisecracking, a beat ahead of you | [Add to Waze](https://waze.com/ul?acvp=bf80837c-4d4b-4501-9c03-c15c58f128f3) | in copyright |
+| **Daffy Duck** — loud, theatrical, personally offended by traffic | [Add to Waze](https://waze.com/ul?acvp=f8e1b874-4b62-4644-be44-3359edbc31f2) | in copyright |
+
+Every pack above was verified after upload: downloaded back from Waze, all 43
+files present, none silent, none misnamed, every file byte-identical to the
+build. `wvs verify-upload <uuid>` does that for any pack, including these.
+
+An eighth preset, `eeyore`, ships without a published pack. Build it yourself
+with `python scripts\wvs.py quickstart --preset eeyore`.
 
 Each works on any phone, in kilometres or miles. A pack lives on Waze's servers,
 so a link keeps working for anyone forever once it exists.
 
-Each is an original interpretation of a character as written in A. A. Milne's
-books, generated from a licensed text-to-speech voice with written delivery
-direction. **None of these three clones anyone's voice performance.** Full rights detail in
-[docs/presets.md](docs/presets.md).
+**The rights column is not decoration.** Pooh and Tigger rest on A. A. Milne's
+1926 and 1928 books, whose copyright has expired in the US and Canada, and their
+scripts are original writing in that register. The other five are characters
+still in copyright, spoken by community voice models that clone the original
+performances, uploaded to Fish Audio by members of the public. No permission
+from any rights holder or performer is claimed.
 
-The repository also ships `paddington`, `cookie-monster` and `elmo`. Those rest
-on works still in copyright and name third-party community voice models, so they
-are labelled `in-copyright` throughout the tooling and no share links for them
-are published here. `python scripts\wvs.py presets list` shows the status of
-every preset; [docs/presets.md](docs/presets.md) explains what that label means
-and what it does not.
+The packs are labelled `in-copyright` everywhere in the tooling, and the label
+is enforced by the preset schema rather than left to a note: `rights.status` is
+a required field with no default, so a preset cannot decline to answer.
+
+[docs/presets.md](docs/presets.md) sets out exactly what each preset covers and
+what it does not. Read it before building anything on top of these.
 
 ## One thing to know before you decide
 
