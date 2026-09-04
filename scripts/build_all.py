@@ -39,7 +39,10 @@ CHARACTERS: dict[str, str] = {
     "paddington": "Paddington",
     "cookie-monster": "Cookie Monster",
     "elmo": "Elmo",
-    "bugs-bunny": "Bugs Bunny",
+    # FINAL in the name so it is unmistakable against earlier uploads sitting
+    # on a phone. Waze lists every pack you have ever added, all with the name
+    # they were uploaded under.
+    "bugs-bunny": "Bugs Bunny FINAL",
     "daffy-duck": "Daffy Duck",
 }
 
@@ -133,7 +136,7 @@ def main(argv: list[str] | None = None) -> int:
                 skipped.append((name, f"no uploader at {args.uploader}"))
                 continue
             pack_dir = REPO / "packs" / name / "audio" / "export" / "pack"
-            if stage(pack_dir, args.uploader, CHARACTERS[name]):
+            if stage(pack_dir, args.uploader, CHARACTERS[name], preset=name):
                 failed.append(name)
 
     console.info("")
