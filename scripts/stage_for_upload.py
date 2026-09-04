@@ -77,10 +77,38 @@ def build(
     return subprocess.run(command, cwd=str(REPO)).returncode
 
 
-def stage(pack_dir: Path, uploader: Path, name: str) -> int:
+def preset_is_newer(pack_dir: Path, preset: str) -> bool:
+    """Whether the script was edited after the audio was generated.
+
+    This is the check that would have caught seven packs shipping a day-old
+    script. Nothing else can: the stale clips are real audio, correctly named,
+    the right length, and byte-identical to the local build that verify-upload
+    compares against, so every downstream check agrees with itself. Only the
+    timestamps disagree.
+
+    Compares against the synthesized clips rather than the exported pack,
+    because export rewrites its outputs on every run and would always look
+    fresh.
+    """
+    preset_path = REPO / "presets" / f"{preset}.json"
+    clips = list((pack_dir.parent.parent / "synthesized").glob("*.*"))
+    if not preset_path.is_file() or not clips:
+        return False
+    return preset_path.stat().st_mtime > min(clip.stat().st_mtime for clip in clips)
+
+
+def stage(pack_dir: Path, uploader: Path, name: str, preset: str = "") -> int:
     mp3s = sorted(pack_dir.glob("*.mp3"))
     if not mp3s:
         return _fail(f"No mp3 files in {pack_dir}. Did the build run?")
+
+    if preset and preset_is_newer(pack_dir, preset):
+        return _fail(
+            f"{preset}.json was edited after this audio was generated, so the "
+            "pack says the old words in files with new timestamps.\n"
+            "Rebuild before staging: the difference is inaudible to every "
+            "other check and obvious the moment you play it."
+        )
 
     # Checking names rather than counting them. A count rejects a legitimate
     # single-unit pack, which is 39 files rather than 43, while still passing a

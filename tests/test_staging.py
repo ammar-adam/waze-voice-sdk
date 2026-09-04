@@ -95,6 +95,57 @@ class StageGateTests(unittest.TestCase):
         self.assertEqual(len(list(staged.glob("*.mp3"))), 43)
 
 
+class StalenessGateTests(unittest.TestCase):
+    """A pack whose script was rewritten after its audio must not ship.
+
+    This shipped once. The clips were real audio, correctly named, the right
+    length, and byte-identical to the local build, so every other check agreed.
+    Only the timestamps disagreed.
+    """
+
+    def setUp(self) -> None:
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self.tmp.name)
+        self.uploader = self.root / "uploader"
+        (self.uploader / "mp3_upload" / "input_packs").mkdir(parents=True)
+        # pack_dir is <pack>/audio/export/pack; synthesized sits at <pack>/audio.
+        self.audio = self.root / "audio"
+        (self.audio / "synthesized").mkdir(parents=True)
+        self.pack_dir = self.audio / "export" / "pack"
+        self.pack_dir.mkdir(parents=True)
+        for name in wazepack.VALID_FILENAMES:
+            (self.pack_dir / name).write_bytes(b"ID3" + bytes(64))
+
+    def tearDown(self) -> None:
+        self.tmp.cleanup()
+
+    def _clip(self, mtime: float) -> None:
+        clip = self.audio / "synthesized" / "start_drive_1.mp3"
+        clip.write_bytes(b"ID3")
+        os.utime(clip, (mtime, mtime))
+
+    def test_audio_older_than_the_preset_is_refused(self) -> None:
+        preset = ROOT / "presets" / "pooh.json"
+        self._clip(preset.stat().st_mtime - 3600)
+        self.assertTrue(stage_for_upload.preset_is_newer(self.pack_dir, "pooh"))
+        code = stage_for_upload.stage(self.pack_dir, self.uploader, "Pooh", preset="pooh")
+        self.assertEqual(code, 1)
+        staged = self.uploader / "mp3_upload" / "input_packs" / "Pooh"
+        self.assertFalse(staged.exists(), "a stale pack must not reach the uploader")
+
+    def test_audio_newer_than_the_preset_is_fine(self) -> None:
+        preset = ROOT / "presets" / "pooh.json"
+        self._clip(preset.stat().st_mtime + 3600)
+        self.assertFalse(stage_for_upload.preset_is_newer(self.pack_dir, "pooh"))
+        code = stage_for_upload.stage(self.pack_dir, self.uploader, "Pooh", preset="pooh")
+        self.assertEqual(code, 0)
+
+    def test_without_a_preset_name_the_check_is_skipped(self) -> None:
+        """Staging a pack by hand should not need to know its preset."""
+        self._clip((ROOT / "presets" / "pooh.json").stat().st_mtime - 3600)
+        self.assertEqual(stage_for_upload.stage(self.pack_dir, self.uploader, "Pooh"), 0)
+
+
 class BuildCommandTests(unittest.TestCase):
     def _command(self, **kwargs) -> list[str]:
         with mock.patch.object(stage_for_upload.subprocess, "run") as run:
