@@ -17,6 +17,7 @@ import fixtures
 
 from waze_voice import config as config_module
 from waze_voice import console, media, paths
+from waze_voice import phrases as phrases_module
 from waze_voice.steps import synth
 
 HAVE_FFMPEG = media.find_tool("ffmpeg") is not None and media.find_tool("ffprobe") is not None
@@ -257,6 +258,74 @@ class DegradationTests(unittest.TestCase):
 
 
 @unittest.skipUnless(HAVE_FFMPEG, "ffmpeg is required")
+class ForceRegeneratesTests(unittest.TestCase):
+    """--force has to mean regenerate, including on a pack with no gaps.
+
+    This is the bug that shipped seven voice packs with a day-old script. The
+    preset was rewritten, the build ran with --force, synthesis reported "no
+    gaps to fill" and returned, and export repackaged the previous clips into
+    files with fresh timestamps. Every check downstream passed, because the
+    audio was real, correctly named and the right length. It was only audible.
+    """
+
+    def setUp(self) -> None:
+        console.set_quiet(True)
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self.tmp.name)
+        self.previous = os.environ.get(paths.AUDIO_ROOT_ENV)
+        os.environ[paths.AUDIO_ROOT_ENV] = str(self.root / "audio")
+        paths.ensure_dirs()
+        self.config = config_module.PipelineConfig()
+        self.phrases_path = fixtures.make_phrases_json(self.root / "phrases.json")
+
+        # A pack with audio for every phrase: find_gaps returns nothing.
+        for phrase in phrases_module.load(self.phrases_path):
+            (paths.synthesized_dir() / f"{phrase.id}.wav").write_bytes(b"RIFF-stale")
+
+    def tearDown(self) -> None:
+        if self.previous is None:
+            os.environ.pop(paths.AUDIO_ROOT_ENV, None)
+        else:
+            os.environ[paths.AUDIO_ROOT_ENV] = self.previous
+        console.set_quiet(False)
+        self.tmp.cleanup()
+
+    def _gaps(self, **kwargs) -> list[str]:
+        with mock.patch.object(synth, "_module_present", return_value=False):
+            result = synth.run(
+                config=self.config,
+                phrases_path=self.phrases_path,
+                dry_run=True,
+                **kwargs,
+            )
+        return result.gaps
+
+    def test_without_force_a_complete_pack_has_no_work(self) -> None:
+        self.assertEqual(self._gaps(), [])
+
+    def test_force_selects_every_phrase_even_with_no_gaps(self) -> None:
+        gaps = self._gaps(force=True)
+        self.assertTrue(gaps, "--force on a complete pack must still regenerate")
+
+    def test_force_without_only_is_not_a_no_op(self) -> None:
+        """The exact shape of the bug: force was honoured only alongside
+        `only`, so `--force` by itself quietly did nothing."""
+        self.assertEqual(self._gaps(force=True, only=["turn_left"]), ["turn_left"])
+        self.assertGreater(
+            len(self._gaps(force=True)),
+            0,
+            "force without only regenerated nothing",
+        )
+
+    def test_force_still_respects_the_optional_filter(self) -> None:
+        """Regenerating everything must not quietly widen the pack."""
+        required = {p.id for p in phrases_module.load(self.phrases_path) if p.required}
+        self.assertTrue(set(self._gaps(force=True)) <= required)
+        self.assertTrue(
+            len(self._gaps(force=True, include_optional=True)) >= len(self._gaps(force=True))
+        )
+
+
 class ReferenceAudioTests(unittest.TestCase):
     def setUp(self) -> None:
         console.set_quiet(True)
