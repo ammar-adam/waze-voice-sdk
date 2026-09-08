@@ -115,6 +115,83 @@ class ShippedPresetTests(unittest.TestCase):
                 self.assertIn(preset.voice, catalogue, f"{name} uses an unknown voice")
 
 
+class RepeatFrequencyTests(unittest.TestCase):
+    """Character belongs on the slots you hear once, not the ones on a loop.
+
+    Waze replays the maneuver clip at every distance callout on the approach:
+    "in 800 metres, turn left", "in 400 metres, turn left", "in 200 metres,
+    turn left", "turn left". Four plays of one file in about a minute. The
+    distance clip differs each time because distances are nine separate files.
+
+    So a flourish on `turn_left` is heard four times a turn, and the same
+    flourish spread across the nine distances is heard once each and reads as
+    variety. This asserts the split rather than trusting whoever writes the
+    next preset to remember it.
+    """
+
+    # Replayed several times while approaching a single maneuver.
+    HIGH_REPEAT = (
+        "turn_left",
+        "turn_right",
+        "keep_left",
+        "keep_right",
+        "exit_left",
+        "exit_right",
+        "go_straight",
+        "and_then",
+        "roundabout",
+        "exit_first",
+        "exit_second",
+        "exit_third",
+        "exit_fourth",
+    )
+
+    def test_repeating_prompts_are_short(self) -> None:
+        """A long line is a line you notice, and you hear these four a turn."""
+        for name in ALL_PRESETS:
+            preset = presets.load(name)
+            for phrase_id in self.HIGH_REPEAT:
+                with self.subTest(name=name, phrase=phrase_id):
+                    self.assertLessEqual(
+                        len(preset.lines[phrase_id]),
+                        30,
+                        f"{name}.{phrase_id} is long for a prompt heard several times per maneuver",
+                    )
+
+    def test_repeating_prompts_carry_no_aside(self) -> None:
+        """One sentence. A second is where a catchphrase gets in."""
+        for name in ALL_PRESETS:
+            preset = presets.load(name)
+            for phrase_id in self.HIGH_REPEAT:
+                with self.subTest(name=name, phrase=phrase_id):
+                    text = preset.lines[phrase_id].rstrip(".!?")
+                    self.assertEqual(text.count("."), 0, f"{name}.{phrase_id} has an aside")
+                    self.assertEqual(text.count("!"), 0, f"{name}.{phrase_id} has an aside")
+
+    def test_the_nine_distances_are_not_all_identical_in_shape(self) -> None:
+        """If every distance is bare, the sequence is as flat as before; the
+        variety has to live somewhere."""
+        for name in ALL_PRESETS:
+            with self.subTest(name=name):
+                preset = presets.load(name)
+                distances = [preset.lines[p] for p in preset.lines if p.startswith("in_")]
+                self.assertEqual(len(distances), 9)
+                varied = [d for d in distances if len(d.rstrip(".!?").split()) > 4]
+                self.assertGreaterEqual(
+                    len(varied),
+                    2,
+                    f"{name}: no distance clip carries any character, so an "
+                    "approach sounds identical every time",
+                )
+
+    def test_greetings_all_differ(self) -> None:
+        """Waze picks one of nine at random; duplicates waste the rotation."""
+        for name in ALL_PRESETS:
+            with self.subTest(name=name):
+                greetings = {presets.load(name).lines[f"start_drive_{i}"] for i in range(1, 10)}
+                self.assertEqual(len(greetings), 9, f"{name} repeats a greeting")
+
+
 class DeclaredStatusTests(unittest.TestCase):
     """A preset states whether it rests on an expired copyright. Both answers
     are allowed; leaving it unsaid is not."""
@@ -180,8 +257,13 @@ class NewCharacterPresetTests(unittest.TestCase):
                 self.assertRegex(preset.voice, r"^[0-9a-f]{32}$")
 
     def test_the_three_have_genuinely_different_scripts(self) -> None:
-        """Same voice over one script is a voice filter, not a character."""
-        for phrase_id in ("turn_left", "arrived", "reroute_chime"):
+        """Same voice over one script is a voice filter, not a character.
+
+        Checked on slots heard once a drive. `turn_left` is deliberately
+        identical across every preset now: it replays at each distance callout,
+        so character there is character on a loop. See RepeatFrequencyTests.
+        """
+        for phrase_id in ("start_drive_1", "arrived", "reroute_chime"):
             with self.subTest(phrase_id=phrase_id):
                 lines = {presets.load(n).lines[phrase_id] for n in IN_COPYRIGHT}
                 self.assertEqual(len(lines), len(IN_COPYRIGHT), lines)
