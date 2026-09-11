@@ -8,42 +8,37 @@ Character voices for Waze navigation.
 
 ## Just want the voices?
 
-Open one of these on your phone, with Waze installed. It adds the voice. Then
-`Settings > Voice and sound` and pick it. Nothing to install, no account.
+**[Pick one here](https://claude.ai/code/artifact/02f68bd0-af45-409b-a48a-448810b0f430)** — tap to hear it, tap to install. Nothing to set up,
+no account. Open it on a phone with Waze installed, because the install link
+only does anything on a device running the app.
+
+The direct links, if you would rather skip the page:
 
 | Voice | | Rights |
 | ----- | - | ------ |
-| **Winnie the Pooh** — warm, unhurried, audibly thinking it through | [Add to Waze](https://waze.com/ul?acvp=569e92b8-4624-4d70-9d1e-c52b46d8cedd) | text PD |
-| **Tigger** — fast, bouncy, overconfident | [Add to Waze](https://waze.com/ul?acvp=64c9f245-bfeb-4036-a6e4-2d76d9c1b26e) | text PD |
-| **Paddington** — unfailingly polite, and quietly certain you will do the right thing | [Add to Waze](https://waze.com/ul?acvp=30a7cee6-6d59-4a11-9110-16c32356bc6a) | in copyright |
-| **Cookie Monster** — blunt, delighted, entirely present tense | [Add to Waze](https://waze.com/ul?acvp=d85af7bb-f020-46e1-956e-28899d619329) | in copyright |
-| **Elmo** — bright, giggly, third person throughout | [Add to Waze](https://waze.com/ul?acvp=58a0ca23-fddd-4984-8bc1-29b92bd2b59b) | in copyright |
-| **Bugs Bunny** (listed as *Bugs Bunny FINAL*) — unbothered, wisecracking, a beat ahead of you | [Add to Waze](https://waze.com/ul?acvp=85bea99d-4f41-415a-9b06-2da25c8a273d) | in copyright |
-| **Daffy Duck** — loud, theatrical, personally offended by traffic | [Add to Waze](https://waze.com/ul?acvp=8ce8c245-abfb-45a6-8549-68634e4ddda0) | in copyright |
+| **Bugs Bunny** — unbothered, wisecracking, a beat ahead of you | [Add to Waze](https://waze.com/ul?acvp=d1bbee51-c541-478f-a3a2-0ae9e319a6fd) | in copyright |
+| **Winnie the Pooh** — warm, unhurried, audibly thinking it through | [Add to Waze](https://waze.com/ul?acvp=e6ad4e53-06dd-44ff-bbd1-c8a5cd6fb6b8) | text PD |
+| **Tigger** — fast, bouncy, overconfident | [Add to Waze](https://waze.com/ul?acvp=9046b9ab-c7b0-459c-b035-4b51b4d31d42) | text PD |
+| **Paddington** — unfailingly polite, marmalade under the hat | [Add to Waze](https://waze.com/ul?acvp=8d800927-198d-4826-aa22-4c7ad60d1adc) | in copyright |
+| **Cookie Monster** — blunt, delighted, entirely present tense | [Add to Waze](https://waze.com/ul?acvp=2f6ccacd-9d5c-415b-a580-54b17c511653) | in copyright |
+| **Elmo** — bright, giggly, third person throughout | [Add to Waze](https://waze.com/ul?acvp=bd90b917-c393-4880-9ff4-9637fe3117c8) | in copyright |
+| **Daffy Duck** — loud, theatrical, personally offended by traffic | [Add to Waze](https://waze.com/ul?acvp=befcdaf8-2409-4302-b2d3-f5c4c6dca9cf) | in copyright |
 
-Every pack above was verified after upload: downloaded back from Waze, all 43
-files present, none silent, none misnamed, every file byte-identical to the
-build. `wvs verify-upload <uuid>` does that for any pack, including these.
+Each was verified after upload: downloaded back from Waze, all 43 files
+present, none silent, none misnamed, every file byte-identical to the build.
+`wvs verify-upload <uuid>` does that for any pack, including somebody else's.
 
-An eighth preset, `eeyore`, ships without a published pack. Build it yourself
-with `python scripts\wvs.py quickstart --preset eeyore`.
-
-Each works on any phone, in kilometres or miles. A pack lives on Waze's servers,
-so a link keeps working for anyone forever once it exists.
+An eighth preset, `eeyore`, ships without a published pack. Build it with
+`python scripts\wvs.py quickstart --preset eeyore`.
 
 **The rights column is not decoration.** Pooh and Tigger rest on A. A. Milne's
-1926 and 1928 books, whose copyright has expired in the US and Canada, and their
-scripts are original writing in that register. The other five are characters
-still in copyright, spoken by community voice models that clone the original
-performances, uploaded to Fish Audio by members of the public. No permission
-from any rights holder or performer is claimed.
-
-The packs are labelled `in-copyright` everywhere in the tooling, and the label
-is enforced by the preset schema rather than left to a note: `rights.status` is
-a required field with no default, so a preset cannot decline to answer.
-
-[docs/presets.md](docs/presets.md) sets out exactly what each preset covers and
-what it does not. Read it before building anything on top of these.
+1926 and 1928 books, whose copyright has expired in the US and Canada, and
+their scripts are original writing in that register. The other five are
+characters still in copyright, spoken by community voice models that clone the
+original performances. No permission from any rights holder or performer is
+claimed. `rights.status` is a required preset field with no default, so a
+preset cannot decline to answer; [docs/presets.md](docs/presets.md) sets out
+what each one covers.
 
 ## One thing to know before you decide
 
@@ -299,15 +294,59 @@ share-link flow are all things people worked out and wrote down. Negative result
 See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, house style, and what CI checks.
 Security reports go through [SECURITY.md](SECURITY.md).
 
+## What had to be worked out
+
+Waze has no API for custom voices and publishes nothing about the format. All
+of this came from pulling apart real packs.
+
+**A pack is exactly 43 MP3s with fixed names.** A file Waze does not recognise
+is ignored silently — not rejected, not warned about, just absent at the
+junction. `wazepack.py` holds the list and `wvs preflight` checks a build
+against it before you spend anything.
+
+**The distance filenames do not mean what they look like.** `1500.mp3` is "in
+one mile", not 1.5 km; `1500meters.mp3` is the metric one. Confirmed twice, by
+different routes: eleven real packs downloaded and transcribed offline with
+Vosk ([docs/waze-import-spike.md](docs/waze-import-spike.md)), and later by a
+community bug report where three of these slots had been rotated in a shipped
+pack and nobody noticed until somebody drove it.
+
+**Metric and imperial are separate file sets in the same pack.** Ship one and
+drivers on the other system hear Waze's own voice for distances, mid-drive.
+Presets default to `units: both`.
+
+**Waze replays the maneuver clip at every distance callout.** Approaching one
+turn you hear it three or four times — 800 m, 400 m, 200 m, junction — while
+the distance clip changes each time. That inverts where character can go: a
+catchphrase on `turn_left` is a catchphrase four times a minute, and the same
+line spread across the nine distance files is heard once each. Tests enforce
+the split.
+
+**There is an undocumented size cap around 0.8 MB**, and exceeding it fails
+silently. The exporter allocates bitrate per clip against a byte budget rather
+than encoding everything at one rate, so frequent short prompts stay clean and
+long rare ones absorb the loss. `wvs export` reports utilisation; the build
+fails above 92%.
+
+**Nothing downstream can tell you the audio is stale.** A pack rebuilt from an
+edited script but serving yesterday's clips is real audio, correctly named, the
+right length, and byte-identical to a local build that is equally stale — so
+every check agrees with itself. Staging now refuses a pack whose preset is
+newer than its audio.
+
 ## Project status
 
-Working and tested. The 43 filenames, the distance readings, and the size cap were all
-verified against 11 real packs downloaded from Waze and transcribed offline; see
-[docs/waze-import-spike.md](docs/waze-import-spike.md).
+Working, and in use. Seven packs built by this tool are live on Waze, verified
+byte-identical after upload, and driven with.
 
-Still unconfirmed: no pack built by this tool has been uploaded and driven with yet, and
-the exact distance at which each callout fires is not knowable from pack contents. If you
-get there first, please [say so](../../issues/new?template=device-report.yml).
+**Trigger distances are confirmed correct** — which callout fires at which
+range was the last thing not knowable from pack contents, and a real drive
+settled it.
+
+Still worth reporting if you hit it: the community uploader can drop a pack
+from a batch silently, succeeding on retry with no change. Count its success
+lines. If you find something else,
+[say so](../../issues/new?template=device-report.yml).
 
 Changes are recorded in [CHANGELOG.md](CHANGELOG.md).
 
