@@ -3,3 +3,6 @@
 
 ruff>=0.6
 mypy>=1.11
+
+# Site build only: pre-renders the desktop install QR codes as SVG.
+segno>=1.6

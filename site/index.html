@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Backseat — Make your GPS iconic</title>
+  <meta name="description" content="Character voice packs for Waze. Tap to hear one, tap again to put it in your car. Free, no account.">
+  <link rel="canonical" href="https://backseat.fm/">
+  <meta name="theme-color" content="#ffd23f">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://backseat.fm/">
+  <meta property="og:title" content="Backseat — Make your GPS iconic">
+  <meta property="og:description" content="Same route. Different voice. Character voice packs for Waze, free, one tap to install.">
+  <meta property="og:image" content="https://backseat.fm/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://backseat.fm/og.png">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=JetBrains+Mono:wght@500&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="characters.css">
+
+  <script defer data-domain="backseat.fm" src="https://plausible.io/js/script.js"></script>
+  <script src="track.js"></script>
+</head>
+<body>
+  <header class="bar">
+    <div class="wrap">
+      <a class="logo sticker" href="./"><span class="lamp" aria-hidden="true"></span>Backseat</a>
+      <nav><a href="#how">How it works</a></nav>
+    </div>
+  </header>
+
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="wrap">
+      <div class="hero-card sticker">
+        <p class="kicker">Voice packs for Waze</p>
+        <h1 id="hero-h">Make your GPS <span class="pop">iconic.</span></h1>
+        <p class="lede">Pick a navigator. Hear it. One tap and it's riding in your car.</p>
+        <a class="btn" href="#voices">Pick a voice
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v13"/><path d="m6 12 6 6 6-6"/></svg></a>
+      </div>
+      <!-- Filled from voices.json by app.js, so a new voice appears here too. -->
+      <nav class="cast" id="cast" aria-label="Jump to a voice"></nav>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <div class="inapp sticker" id="inapp" hidden>
+      <b>Open this in your browser first.</b>
+      <span>This app's built-in browser can't hand the voice to Waze. Tap the
+      <b>•••</b> menu, choose <b>Open in browser</b>, then tap Install again.</span>
+    </div>
+
+    <section class="block" id="voices" aria-labelledby="voices-h">
+      <h2 id="voices-h">Pick your navigator</h2>
+      <p class="sub">Every clip is a real line from the pack — exactly what you'll hear at the junction.</p>
+      <ul class="voices" id="voice-list">
+        <li class="voice"><div class="label"><p class="blurb">Loading voices…</p></div></li>
+      </ul>
+      <noscript><p class="sub">The previews need JavaScript. The voices don't: see the <a href="install.html">install guide</a>.</p></noscript>
+    </section>
+
+    <section class="block" aria-labelledby="install-h">
+      <h2 id="install-h">Ten seconds, three taps</h2>
+      <p class="sub">No account, nothing to download from us.</p>
+      <ol class="steps">
+        <li class="sticker"><span class="n">1</span><b>Tap Install in Waze</b><span>on your phone, under the voice you want.</span></li>
+        <li class="sticker"><span class="n">2</span><b>Waze offers the voice.</b><span>Say yes.</span></li>
+        <li class="sticker"><span class="n">3</span><b>Pick it.</b><span>Settings → Voice &amp; sound → Waze voice.</span></li>
+      </ol>
+      <a class="textlink" href="install.html">Having trouble? Manual install guide →</a>
+    </section>
+
+    <section class="block" aria-labelledby="signup-h">
+      <div class="signup sticker">
+        <h2 id="signup-h">Get new voices first</h2>
+        <p>More characters are on the way. One email when each one drops, nothing else.</p>
+        <!-- Buttondown embed. The username at the end of the action must match
+             the Buttondown account; this is the only place it appears. -->
+        <form id="signup" action="https://buttondown.com/api/emails/embed-subscribe/backseat"
+              method="post" target="signup-frame">
+          <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address" autocomplete="email">
+          <input type="hidden" name="embed" value="1">
+          <input type="hidden" name="tag" value="launch">
+          <button class="btn" type="submit">Keep me posted</button>
+        </form>
+        <p class="done" id="signup-done" hidden>You're on the list. Check your inbox to confirm.</p>
+        <iframe name="signup-frame" title="Signup" hidden></iframe>
+      </div>
+    </section>
+
+    <section class="block" id="how" aria-labelledby="how-h">
+      <h2 id="how-h">How the hell does this work?</h2>
+      <p class="sub">Waze has no API for custom voices, so the voice-pack format was reverse-engineered from real packs.</p>
+      <ol class="pipe">
+        <li class="sticker"><b>43 files</b><span>A pack is exactly 43 MP3s with fixed names. Get one wrong and Waze ignores it silently.</span></li>
+        <li class="sticker"><b>The schema</b><span><code>1500.mp3</code> means "one mile", not 1.5 km. Confirmed by transcribing real packs.</span></li>
+        <li class="sticker"><b>The voice</b><span>Every line rewritten in character, then spoken by a voice model.</span></li>
+        <li class="sticker"><b>Normalize</b><span>Every clip matched to −16 LUFS so nothing jumps out at you mid-drive.</span></li>
+        <li class="sticker"><b>Validate</b><span>Squeezed under Waze's undocumented ~0.8 MB cap and checked file by file.</span></li>
+        <li class="sticker"><b>Ship it</b><span>Uploaded to Waze, downloaded back, and verified byte for byte.</span></li>
+      </ol>
+      <a class="builders sticker" id="github" href="https://github.com/ammar-adam/waze-voice-sdk">
+        <div><b>Make your own voice</b><span>The whole toolkit is open source.</span></div>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13"/><path d="m12 6 6 6-6 6"/></svg>
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>Independent project. Not affiliated with Waze or Google.</span>
+      <span>Custom voices can't say street names. That's Waze, not us.</span>
+    </div>
+  </footer>
+
+  <div class="ask sticker" id="ask" role="dialog" aria-labelledby="ask-q" hidden>
+    <button class="close" type="button" aria-label="Dismiss">×</button>
+    <p id="ask-q"><b>Did it work?</b> <span id="ask-name"></span></p>
+    <div class="row">
+      <button class="btn" type="button" data-answer="yes">Yes!</button>
+      <button class="btn plain" type="button" data-answer="no">No</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

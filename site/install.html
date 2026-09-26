@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Install guide — Backseat</title>
+  <meta name="description" content="How to install a Backseat voice in Waze, and what to do when it doesn't work.">
+  <link rel="canonical" href="https://backseat.fm/install.html">
+  <meta name="theme-color" content="#eef3ff">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=JetBrains+Mono:wght@500&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script defer data-domain="backseat.fm" src="https://plausible.io/js/script.js"></script>
+  <script src="track.js"></script>
+</head>
+<body>
+  <header class="bar">
+    <div class="wrap"><a class="logo sticker" href="./"><span class="lamp" aria-hidden="true"></span>Backseat</a></div>
+  </header>
+
+  <main class="wrap">
+    <section class="block">
+      <h1>Installing a <span class="pop">voice.</span></h1>
+      <p class="sub" style="margin-top:1rem">Usually one tap. When it isn't, it's almost always one of the five things below.</p>
+    </section>
+
+    <div class="guide">
+      <ol class="steps">
+        <li class="sticker"><span class="n">1</span><b>Open <a href="./">backseat.fm</a> on your phone,</b> <span>in Safari or Chrome, with Waze installed.</span></li>
+        <li class="sticker"><span class="n">2</span><b>Tap Install in Waze</b> <span>under the voice you want. Waze opens and asks to add it. Say yes.</span></li>
+        <li class="sticker"><span class="n">3</span><b>Select it.</b> <span>In Waze: Settings → Voice &amp; sound → Waze voice. It's under Custom voices.</span></li>
+      </ol>
+
+      <h3>Nothing happened, or a Waze web page opened instead of the app</h3>
+      <p>You're probably inside TikTok's, Instagram's or another app's built-in
+      browser. Those often won't hand a link to a different app. Tap the
+      <b>•••</b> or share menu, choose <b>Open in browser</b> (or <b>Open in
+      Safari</b>), then tap Install again.</p>
+
+      <h3>I don't have Waze</h3>
+      <p>The Install link takes you to Waze's own page with a download button.</p>
+      <ul>
+        <li><b>Android:</b> installing Waze from that page carries the voice through, so it's waiting when Waze first opens.</li>
+        <li><b>iPhone:</b> install Waze, open it once, then come back here and tap Install again.</li>
+      </ul>
+      <div class="store">
+        <a class="btn plain" href="https://apps.apple.com/app/waze-navigation-live-traffic/id323229106">App Store</a>
+        <a class="btn plain" href="https://play.google.com/store/apps/details?id=com.waze">Google Play</a>
+      </div>
+
+      <h3>It's added, but Waze still sounds normal</h3>
+      <p>Adding a voice doesn't switch to it. Go to Settings → Voice &amp; sound →
+      Waze voice and tap the one you want. A blue check marks the active voice.</p>
+
+      <h3>I'm on a computer</h3>
+      <p>Waze voices live on your phone. On the <a href="./">home page</a>, tap
+      <b>Install on your phone</b> under any voice and scan the QR code with your
+      phone's camera.</p>
+
+      <h3>It never says street names</h3>
+      <p>That's Waze, not the voice. A custom voice is 43 recorded clips with no
+      text-to-speech at drive time, so "turn left onto Main Street" comes out as
+      "turn left". Every custom voice works this way.</p>
+
+      <h3>I've got duplicates in my voice list</h3>
+      <p>Waze keeps every voice you've ever added, even older versions. Swipe the
+      extras to delete them.</p>
+
+      <p style="margin-top:2rem"><a class="btn" href="./">Back to the voices</a></p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>Independent project. Not affiliated with Waze or Google.</span>
+      <a class="textlink" href="https://github.com/ammar-adam/waze-voice-sdk/issues/new?template=device-report.yml">Still stuck? Report it</a>
+    </div>
+  </footer>
+</body>
+</html>

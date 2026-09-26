@@ -1,44 +1,48 @@
-# Waze Voice SDK
+# Backseat
+
+**Make your GPS iconic.** Character voice packs for Waze: hear one, tap once, and
+it's giving you directions.
+
+### → [backseat.fm](https://backseat.fm)
+
+Open it on your phone. Tap a voice to hear the real lines, then **Install in
+Waze**. No account, nothing to download from us. On a computer, each voice has a
+QR code to scan.
+
+The voices: **Bugs Bunny, Cookie Monster, Daffy Duck, Elmo, Tigger, Winnie the
+Pooh and Paddington.**
 
 [![CI](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/ci.yml)
+[![Link health](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/link-health.yml/badge.svg)](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/link-health.yml)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-Character voices for Waze navigation.
+*Independent project. Not affiliated with Waze or Google.*
 
-## Just want the voices?
+---
 
-**[Pick one here](https://claude.ai/code/artifact/02f68bd0-af45-409b-a48a-448810b0f430)** — tap to hear it, tap to install. Nothing to set up,
-no account. Open it on a phone with Waze installed, because the install link
-only does anything on a device running the app.
+## What this repository is
 
-The direct links, if you would rather skip the page:
+The open-source toolkit behind Backseat. Waze has no API for custom voices and
+publishes nothing about the format, so everything here was worked out by pulling
+apart real packs. It turns a character idea into a finished, verified,
+uploadable Waze voice pack.
 
-| Voice | | Rights |
-| ----- | - | ------ |
-| **Bugs Bunny** — unbothered, wisecracking, a beat ahead of you | [Add to Waze](https://waze.com/ul?acvp=d1bbee51-c541-478f-a3a2-0ae9e319a6fd) | in copyright |
-| **Winnie the Pooh** — warm, unhurried, audibly thinking it through | [Add to Waze](https://waze.com/ul?acvp=e6ad4e53-06dd-44ff-bbd1-c8a5cd6fb6b8) | text PD |
-| **Tigger** — fast, bouncy, overconfident | [Add to Waze](https://waze.com/ul?acvp=9046b9ab-c7b0-459c-b035-4b51b4d31d42) | text PD |
-| **Paddington** — unfailingly polite, marmalade under the hat | [Add to Waze](https://waze.com/ul?acvp=8d800927-198d-4826-aa22-4c7ad60d1adc) | in copyright |
-| **Cookie Monster** — blunt, delighted, entirely present tense | [Add to Waze](https://waze.com/ul?acvp=2f6ccacd-9d5c-415b-a580-54b17c511653) | in copyright |
-| **Elmo** — bright, giggly, third person throughout | [Add to Waze](https://waze.com/ul?acvp=bd90b917-c393-4880-9ff4-9637fe3117c8) | in copyright |
-| **Daffy Duck** — loud, theatrical, personally offended by traffic | [Add to Waze](https://waze.com/ul?acvp=befcdaf8-2409-4302-b2d3-f5c4c6dca9cf) | in copyright |
+If you just want a voice, you want [backseat.fm](https://backseat.fm). If you
+want to make one, read on.
 
-Each was verified after upload: downloaded back from Waze, all 43 files
-present, none silent, none misnamed, every file byte-identical to the build.
-`wvs verify-upload <uuid>` does that for any pack, including somebody else's.
+**The rights, plainly.** Pooh and Tigger rest on A. A. Milne's 1926 and 1928
+books, whose copyright has expired in the US and Canada; their scripts are
+original writing in that register. The other five are characters still in
+copyright, spoken by community voice models that clone the original
+performances, and no permission from any rights holder or performer is claimed.
+`rights.status` is a required preset field with no default, so a preset cannot
+decline to answer; [docs/presets.md](docs/presets.md) sets out what each covers.
 
-An eighth preset, `eeyore`, ships without a published pack. Build it with
-`python scripts\wvs.py quickstart --preset eeyore`.
-
-**The rights column is not decoration.** Pooh and Tigger rest on A. A. Milne's
-1926 and 1928 books, whose copyright has expired in the US and Canada, and
-their scripts are original writing in that register. The other five are
-characters still in copyright, spoken by community voice models that clone the
-original performances. No permission from any rights holder or performer is
-claimed. `rights.status` is a required preset field with no default, so a
-preset cannot decline to answer; [docs/presets.md](docs/presets.md) sets out
-what each one covers.
+**Where the links live.** Every pack UUID is in
+[`site/voices.json`](site/voices.json) and nowhere else. Waze has no
+update-in-place, so a re-upload mints a new UUID; keeping one copy is what stops
+links going stale. A scheduled check confirms every one still resolves.
 
 ## One thing to know before you decide
 
