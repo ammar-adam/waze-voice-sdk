@@ -94,6 +94,7 @@
     card.querySelector(".said").textContent = said ? "“" + said + "”" : "";
     audio.play().catch(function () {});
     track("preview_play", { character: voice.slug, clip: clip });
+    track("character_click", { character: voice.slug, action: "preview" });
   }
 
   /* ---------------- did it work? ---------------- */
@@ -197,6 +198,8 @@
         store(false, { slug: voice.slug, name: voice.name, at: Date.now() });
         wentAway = false;
         track("install_click", { character: voice.slug, via: "button", device: device, inapp: inapp });
+        // One event for every way a voice gets downloaded, per character.
+        track("download", { character: voice.slug, method: "tap" });
       });
     }
 
@@ -210,6 +213,7 @@
         if (!panel.hidden && !shown) {
           shown = true;
           track("install_qr_shown", { character: voice.slug });
+          track("download", { character: voice.slug, method: "qr" });
         }
       });
     }
@@ -232,6 +236,7 @@
         document.querySelectorAll(".voice.picked").forEach(function (c) { c.classList.remove("picked"); });
         document.getElementById(v.slug).classList.add("picked");
         track("cast_click", { character: v.slug });
+        track("character_click", { character: v.slug, action: "face" });
       });
       cast.appendChild(a);
     });
@@ -266,19 +271,7 @@
     node.hidden = node.getAttribute("data-device") !== (window.isPhone ? "phone" : "desktop");
   });
 
-  /* ---------------- links out ---------------- */
-
-  document.querySelectorAll('#github, [data-track="github_click"]').forEach(function (link) {
-    link.addEventListener("click", function (e) {
-      var href = this.href;
-      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) {
-        track("github_click", {});
-        return;
-      }
-      e.preventDefault();
-      track("github_click", {}, function () { location.href = href; });
-    });
-  });
+  /* GitHub links are tracked site-wide by track.js. */
 
   /* ---------------- who should ride next? ---------------- */
   // Backed by /api/suggestions (api/suggestions.js). Until its store is

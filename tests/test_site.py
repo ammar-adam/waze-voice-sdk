@@ -144,6 +144,52 @@ class DomainTests(unittest.TestCase):
                 )
 
 
+class AnalyticsTests(unittest.TestCase):
+    """Vercel Web Analytics counts a page only if the page loads its script."""
+
+    def pages(self) -> list[Path]:
+        pages = sorted(SITE.glob("*.html"))
+        self.assertTrue(pages)
+        return pages
+
+    def test_every_page_loads_vercel_web_analytics(self) -> None:
+        for path in self.pages():
+            html = path.read_text(encoding="utf-8")
+            with self.subTest(page=path.name):
+                self.assertIn('<script defer src="/_vercel/insights/script.js"></script>', html)
+                # The queue has to exist before anything calls va().
+                self.assertIn("window.va = window.va || function", html)
+                self.assertLess(html.index("window.va = "), html.index("</head>"))
+
+    def test_every_page_with_a_github_link_counts_the_click(self) -> None:
+        """track.js tracks github_click site-wide; a page without it goes uncounted."""
+        for path in self.pages():
+            html = path.read_text(encoding="utf-8")
+            if 'href="https://github.com/' in html:
+                with self.subTest(page=path.name):
+                    self.assertIn('<script src="track.js"></script>', html)
+
+    def test_docs_report_readership(self) -> None:
+        for name in ("how-it-works.html", "make-your-own.html"):
+            with self.subTest(page=name):
+                self.assertIn("<body data-doc-read>", (SITE / name).read_text(encoding="utf-8"))
+
+    def test_every_event_sends_at_most_two_properties_to_vercel(self) -> None:
+        """Vercel Pro keeps 2 custom-event properties; more would be dropped."""
+        js = (SITE / "track.js").read_text(encoding="utf-8")
+        table = re.search(r"var VERCEL_PROPS = \{(.*?)\};", js, re.S)
+        self.assertIsNotNone(table)
+        entries = re.findall(r"(\w+): \[([^\]]*)\]", table.group(1))
+        for name, keys in entries:
+            with self.subTest(event=name):
+                self.assertLessEqual(len(re.findall(r'"\w+"', keys)), 2)
+        declared = {name for name, _ in entries}
+        sent = re.findall(r'track\("([a-z_]+)"', (SITE / "app.js").read_text(encoding="utf-8") + js)
+        for name in set(sent):
+            with self.subTest(event=name):
+                self.assertIn(name, declared)
+
+
 class LinkCheckTests(unittest.TestCase):
     def _run(self, respond) -> int:
         with (
