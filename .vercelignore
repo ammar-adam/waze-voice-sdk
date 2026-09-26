@@ -1,0 +1,5 @@
+# The site is site/ and nothing else. Keeps packs, audio and the SDK out of
+# CLI uploads; Git deploys clone the repo but only serve outputDirectory.
+/*
+!/site
+!/vercel.json
