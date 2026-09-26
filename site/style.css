@@ -78,6 +78,8 @@ a { color: inherit; }
 
 /* The cast, as stickers. Each one jumps to its card. */
 .cast { display: flex; flex-wrap: wrap; justify-content: center; gap: .2rem; padding: .4rem 0; }
+/* Twelve faces: a 4x3 block on phones, so nobody is left on a row of two. */
+@media (max-width: 899px) { .cast { display: grid; grid-template-columns: repeat(4, auto); justify-content: center; } }
 .cast a {
   width: clamp(4.6rem, 20vw, 8.2rem); aspect-ratio: 1; margin: -.35rem;
   border-radius: 50%; background: var(--bg, #fff);

@@ -10,7 +10,8 @@ Waze**. No account, nothing to download from us. On a computer, each voice has a
 QR code to scan.
 
 The voices: **Bugs Bunny, Cookie Monster, Daffy Duck, Elmo, Tigger, Winnie the
-Pooh and Paddington.**
+Pooh, Paddington, Vito Corleone, Darth Vader, Batman, the Terminator and
+Patrick Bateman.**
 
 [![CI](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/ci.yml)
 [![Link health](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/link-health.yml/badge.svg)](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/link-health.yml)
@@ -33,7 +34,7 @@ want to make one, read on.
 
 **The rights, plainly.** Pooh and Tigger rest on A. A. Milne's 1926 and 1928
 books, whose copyright has expired in the US and Canada; their scripts are
-original writing in that register. The other five are characters still in
+original writing in that register. The other ten are characters still in
 copyright, spoken by community voice models that clone the original
 performances, and no permission from any rights holder or performer is claimed.
 `rights.status` is a required preset field with no default, so a preset cannot
@@ -340,7 +341,7 @@ newer than its audio.
 
 ## Project status
 
-Working, and in use. Seven packs built by this tool are live on Waze, verified
+Working, and in use. Twelve packs built by this tool are live on Waze, verified
 byte-identical after upload, and driven with.
 
 **Trigger distances are confirmed correct** — which callout fires at which

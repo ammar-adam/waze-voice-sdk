@@ -1,6 +1,6 @@
 {
   "_comment": "Single source for every UUID on the site. The page, the preview builder and the link checker all read this, so a stale pack is a one-line fix in one place. UUIDs change on every re-upload because Waze has no update-in-place.",
-  "updated": "2026-09-25",
+  "updated": "2026-09-26",
   "voices": [
     {
       "slug": "bugs-bunny",
@@ -63,6 +63,51 @@
       "waze_name": "Paddington",
       "blurb": "Unfailingly polite. Marmalade under the hat.",
       "uuid": "8d800927-198d-4826-aa22-4c7ad60d1adc",
+      "rights": "in-copyright"
+    },
+    {
+      "slug": "vito-corleone",
+      "preset": "vito-corleone",
+      "name": "Vito Corleone",
+      "waze_name": "Vito Corleone",
+      "blurb": "Quiet. Unhurried. Every turn is a favour.",
+      "uuid": "4b260cc6-d492-4b4a-aa8c-ddcacab0609a",
+      "rights": "in-copyright"
+    },
+    {
+      "slug": "darth-vader",
+      "preset": "darth-vader",
+      "name": "Darth Vader",
+      "waze_name": "Darth Vader",
+      "blurb": "Imperious, disappointed, expecting you to fail.",
+      "uuid": "76a93dad-a8ed-44f6-8a83-0017b6f19333",
+      "rights": "in-copyright"
+    },
+    {
+      "slug": "batman",
+      "preset": "batman",
+      "name": "Batman",
+      "waze_name": "Batman",
+      "blurb": "Gravel-voiced. Clipped. Treats your commute as a mission.",
+      "uuid": "985d737c-3cbf-4390-a82e-d35e697a882a",
+      "rights": "in-copyright"
+    },
+    {
+      "slug": "terminator",
+      "preset": "terminator",
+      "name": "The Terminator",
+      "waze_name": "The Terminator",
+      "blurb": "Flat, literal, and it will not stop.",
+      "uuid": "05b7c413-85c1-4293-89a5-bca7f2f45498",
+      "rights": "in-copyright"
+    },
+    {
+      "slug": "patrick-bateman",
+      "preset": "patrick-bateman",
+      "name": "Patrick Bateman",
+      "waze_name": "Patrick Bateman",
+      "blurb": "Smooth, precise, has a reservation at Dorsia.",
+      "uuid": "5a1864bf-c7cd-4a39-8470-39d3bac2c437",
       "rights": "in-copyright"
     }
   ]

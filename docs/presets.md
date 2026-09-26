@@ -41,6 +41,13 @@ rights holder or the performer.
 | `paddington` | A Bear Called Paddington (Bond, 1958) | `fish/51d1503a...` | Polite, earnest, faintly apologetic |
 | `cookie-monster` | Sesame Street (1969) | `fish/a3ec9a07...` | Blunt, greedy, present tense |
 | `elmo` | Sesame Street (1980) | `fish/193f7f8f...` | Bright, giggly, third person |
+| `bugs-bunny` | Looney Tunes (1940) | `fish/9a1c3a3b...` | Laid-back, amused, never in a hurry |
+| `daffy-duck` | Looney Tunes (1937) | `fish/5ded4503...` | Loud, theatrical, personally offended |
+| `vito-corleone` | The Godfather (Puzo, 1969) | `fish/ea3ef168...` | Quiet, unhurried, every turn a favour |
+| `darth-vader` | Star Wars (1977) | `fish/3446a5f0...` | Imperious and disappointed in you |
+| `batman` | Batman (DC, 1939); the Bale register | `fish/c324b5bc...` | Gravel-voiced, clipped, on a mission |
+| `terminator` | The Terminator (1984) | `fish/59744e40...` | Flat, literal, mission-focused |
+| `patrick-bateman` | American Psycho (Ellis, 1991) | `fish/9b046b6e...` | Smooth, precise, faintly unhinged |
 
 Pooh and Tigger have community models too, and `scripts/build_all.py` uses
 them by default so one key covers every character. `--catalogue` builds those

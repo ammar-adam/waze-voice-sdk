@@ -33,5 +33,30 @@
     "turn": "In a quarter of a mile, if you please. Turn right.",
     "reroute": "Oh. Not to worry. I'll find another way.",
     "arrive": "We've arrived. Thank you kindly for the lift."
+  },
+  "vito-corleone": {
+    "turn": "In a quarter of a mile, my friend. Turn right.",
+    "reroute": "You missed the turn. I'll forget it. This time. Recalculating.",
+    "arrive": "We have arrived. Get out of the car and spend time with your family."
+  },
+  "darth-vader": {
+    "turn": "In a quarter of a mile. Do not fail me. Turn right.",
+    "reroute": "You have failed me for the last time with that turn. Recalculating.",
+    "arrive": "You have arrived. Your journey is complete. The Force is with you."
+  },
+  "batman": {
+    "turn": "In a quarter of a mile. Be ready. Turn right.",
+    "reroute": "Wrong turn. We adapt. Recalculating.",
+    "arrive": "We're here. This is your destination."
+  },
+  "terminator": {
+    "turn": "In a quarter of a mile. Proceed. Turn right.",
+    "reroute": "Error. Trajectory changed. Recalculating. I'll be back on route.",
+    "arrive": "Destination reached. You have arrived. Your ride is terminated."
+  },
+  "patrick-bateman": {
+    "turn": "In a quarter of a mile. Try to keep up. Turn right.",
+    "reroute": "Wait, you missed it. I'm completely losing my mind. Recalculating.",
+    "arrive": "We're here. Now, excuse me. I have to return some videotapes."
   }
 }

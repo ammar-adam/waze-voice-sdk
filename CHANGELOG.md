@@ -6,6 +6,12 @@ Notable changes. Dates are when the work landed on `main`.
 
 ### Added
 
+- **Five new voices**: Vito Corleone, Darth Vader, Batman (the Bale register),
+  the Terminator and Patrick Bateman. Each is a full 43-line preset on a Fish
+  community model, built to the v3 pattern (maneuvers plain, character on
+  distances and alerts, nine rotating greetings), uploaded, and on the site
+  with its own face and colours. All five are in copyright and their presets
+  say so.
 - **backseat.fm**, the consumer site, in `site/` and deployed to GitHub
   Pages. Each voice is a sticker face on its own colour with three real clips from its pack,
   the words it actually says, and one-tap install; desktop visitors get a QR
