@@ -75,7 +75,7 @@
       return;
     }
 
-    var W = 600, H = 230, top = 22, bottom = 196, left = 6, right = 594;
+    var W = 600, H = 236, top = 26, bottom = 196, left = 6, right = 594;
     var svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-labelledby": "chart-cap" }, box);
     var step = (right - left) / days.length;
     var barW = Math.max(step - 5, 3);
