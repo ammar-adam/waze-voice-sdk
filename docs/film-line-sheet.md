@@ -5,13 +5,15 @@ live on Waze. **Do not hand-edit.** If a line here does not work for the
 film, change the preset and rebuild the pack, so the film and the
 product never disagree.
 
-Three beats, the same slots in every loop:
+Four beats, the same slots for every character. The film is cut from
+beat 2; see [launch-film.md](launch-film.md).
 
 | Beat | Slots | Waze files |
 | --- | --- | --- |
 | 1 | `in_quarter_mile` + `turn_right` | `400.mp3` then `TurnRight.mp3` |
 | 2 | `reroute_chime` | `TickerPoints.mp3` |
-| 3 | `arrived` | `Arrive.mp3` |
+| 3 | `police_ahead` | `Police.mp3` |
+| 4 | `arrived` | `Arrive.mp3` |
 
 Beat 1 is two files because that is how Waze says it: the distance clip,
 then the maneuver clip, back to back. The cut audio here is joined the
@@ -23,75 +25,154 @@ filenames do not match their numbers, which is documented in
 
 ---
 
-## Loop 1: Default
+## Cold open: Default
 
-*Generated for the film, not a pack. Flat, stock-GPS delivery.*
+*Generated for the film, not a pack. Flat, stock-GPS delivery. The cold open.*
 
 | Beat | What it says | Clip | Length |
 | --- | --- | --- | --- |
-| 1-quarter-mile-turn-right | "In a quarter mile, turn right." | `film-audio/default/1-quarter-mile-turn-right.mp3` | 2.5s |
+| 1-quarter-mile-turn-right | "In a quarter mile, turn right." | `film-audio/default/1-quarter-mile-turn-right.mp3` | 2.4s |
 | 2-reroute | "Recalculating." | `film-audio/default/2-reroute.mp3` | 1.4s |
-| 3-arrive | "You have arrived." | `film-audio/default/3-arrive.mp3` | 1.4s |
+| 3-police | "Police reported ahead." | `film-audio/default/3-police.mp3` | 1.9s |
+| 4-arrive | "You have arrived." | `film-audio/default/4-arrive.mp3` | 1.5s |
 
-## Loop 1 alternate
+## Cold open alternate
 
 *Second option if the first reads too warm.*
 
 | Beat | What it says | Clip | Length |
 | --- | --- | --- | --- |
-| 1-quarter-mile-turn-right | "In a quarter mile, turn right." | `film-audio/default-alt/1-quarter-mile-turn-right.mp3` | 1.9s |
-| 2-reroute | "Recalculating." | `film-audio/default-alt/2-reroute.mp3` | 1.2s |
-| 3-arrive | "You have arrived." | `film-audio/default-alt/3-arrive.mp3` | 1.2s |
+| 1-quarter-mile-turn-right | "In a quarter mile, turn right." | `film-audio/default-alt/1-quarter-mile-turn-right.mp3` | 2.2s |
+| 2-reroute | "Recalculating." | `film-audio/default-alt/2-reroute.mp3` | 1.1s |
+| 3-police | "Police reported ahead." | `film-audio/default-alt/3-police.mp3` | 1.5s |
+| 4-arrive | "You have arrived." | `film-audio/default-alt/4-arrive.mp3` | 1.2s |
 
-## Loop 2: Paddington
+## 1. Paddington
 
-*Polite, a little nervous.*
+*Unfailingly polite, earnest, and quietly certain you will do the right thing.*
 
 | Beat | What it says | Clip | Length |
 | --- | --- | --- | --- |
 | 1-quarter-mile-turn-right | "In a quarter of a mile, if you please. Turn right." | `film-audio/paddington/1-quarter-mile-turn-right.mp3` | 3.9s |
 | 2-reroute | "Oh. Not to worry. I'll find another way." | `film-audio/paddington/2-reroute.mp3` | 3.8s |
-| 3-arrive | "We've arrived. Thank you kindly for the lift." | `film-audio/paddington/3-arrive.mp3` | 3.2s |
+| 3-police | "Police ahead. I shall give them a hard stare." | `film-audio/paddington/3-police.mp3` | 4.0s |
+| 4-arrive | "We've arrived. Thank you kindly for the lift." | `film-audio/paddington/4-arrive.mp3` | 3.2s |
 
-## Loop 3: Cookie Monster
+## 2. Elmo
 
-*Shouting, urgent, chaotic.*
-
-| Beat | What it says | Clip | Length |
-| --- | --- | --- | --- |
-| 1-quarter-mile-turn-right | "In a quarter of a mile! Turn right." | `film-audio/cookie-monster/1-quarter-mile-turn-right.mp3` | 3.3s |
-| 2-reroute | "Oops. Me find new way." | `film-audio/cookie-monster/2-reroute.mp3` | 2.7s |
-| 3-arrive | "We arrived! Now me get cookie!" | `film-audio/cookie-monster/3-arrive.mp3` | 3.1s |
-
----
-
-## End card and follow-up posts
-
-The same three beats for the other characters.
-
-### Bugs Bunny
-
-| Beat | What it says | Clip | Length |
-| --- | --- | --- | --- |
-| 1-quarter-mile-turn-right | "In a quarter of a mile, doc. Turn right." | `film-audio/bugs-bunny/1-quarter-mile-turn-right.mp3` | 3.1s |
-| 2-reroute | "Eh, no problem. I know a shortcut." | `film-audio/bugs-bunny/2-reroute.mp3` | 3.5s |
-| 3-arrive | "We've arrived. Told ya, doc." | `film-audio/bugs-bunny/3-arrive.mp3` | 2.6s |
-
-### Daffy Duck
-
-| Beat | What it says | Clip | Length |
-| --- | --- | --- | --- |
-| 1-quarter-mile-turn-right | "In a quarter of a mile! Turn right." | `film-audio/daffy-duck/1-quarter-mile-turn-right.mp3` | 3.1s |
-| 2-reroute | "Rerouting! It's fine. Everything is fine." | `film-audio/daffy-duck/2-reroute.mp3` | 4.1s |
-| 3-arrive | "We've arrived! You're welcome, obviously." | `film-audio/daffy-duck/3-arrive.mp3` | 3.3s |
-
-### Elmo
+*Bright, giggly and delighted to be helping, in the third person throughout.*
 
 | Beat | What it says | Clip | Length |
 | --- | --- | --- | --- |
 | 1-quarter-mile-turn-right | "In a quarter of a mile! Turn right." | `film-audio/elmo/1-quarter-mile-turn-right.mp3` | 3.3s |
 | 2-reroute | "Uh oh! Elmo will find a new way!" | `film-audio/elmo/2-reroute.mp3` | 3.5s |
-| 3-arrive | "We arrived! Elmo is so proud of you!" | `film-audio/elmo/3-arrive.mp3` | 3.4s |
+| 3-police | "Police ahead. Elmo says be good!" | `film-audio/elmo/3-police.mp3` | 3.7s |
+| 4-arrive | "We arrived! Elmo is so proud of you!" | `film-audio/elmo/4-arrive.mp3` | 3.4s |
+
+## 3. Pooh
+
+*Warm, unhurried and audibly thinking it through, but never vague about the turn.*
+
+| Beat | What it says | Clip | Length |
+| --- | --- | --- | --- |
+| 1-quarter-mile-turn-right | "In a quarter of a mile, if you please. Turn right." | `film-audio/pooh/1-quarter-mile-turn-right.mp3` | 3.7s |
+| 2-reroute | "Oh. I'll find another way." | `film-audio/pooh/2-reroute.mp3` | 2.6s |
+| 3-police | "Police ahead. Best behaviour." | `film-audio/pooh/3-police.mp3` | 2.8s |
+| 4-arrive | "We've arrived. There now. I said we would." | `film-audio/pooh/4-arrive.mp3` | 3.9s |
+
+## 4. Cookie Monster
+
+*Blunt, delighted, entirely present tense, and thinking about snacks.*
+
+| Beat | What it says | Clip | Length |
+| --- | --- | --- | --- |
+| 1-quarter-mile-turn-right | "In a quarter of a mile! Turn right." | `film-audio/cookie-monster/1-quarter-mile-turn-right.mp3` | 3.3s |
+| 2-reroute | "Oops. Me find new way." | `film-audio/cookie-monster/2-reroute.mp3` | 2.7s |
+| 3-police | "Police ahead! Me behave!" | `film-audio/cookie-monster/3-police.mp3` | 3.0s |
+| 4-arrive | "We arrived! Now me get cookie!" | `film-audio/cookie-monster/4-arrive.mp3` | 3.1s |
+
+## 5. Bugs Bunny
+
+*Unbothered, wisecracking, and slightly amused that you needed directions.*
+
+| Beat | What it says | Clip | Length |
+| --- | --- | --- | --- |
+| 1-quarter-mile-turn-right | "In a quarter of a mile, doc. Turn right." | `film-audio/bugs-bunny/1-quarter-mile-turn-right.mp3` | 3.1s |
+| 2-reroute | "Eh, no problem. I know a shortcut." | `film-audio/bugs-bunny/2-reroute.mp3` | 3.5s |
+| 3-police | "Police ahead. Best behaviour, doc." | `film-audio/bugs-bunny/3-police.mp3` | 3.2s |
+| 4-arrive | "We've arrived. Told ya, doc." | `film-audio/bugs-bunny/4-arrive.mp3` | 2.6s |
+
+## 6. Daffy Duck
+
+*Loud, theatrical, personally offended by traffic, and certain he is right.*
+
+| Beat | What it says | Clip | Length |
+| --- | --- | --- | --- |
+| 1-quarter-mile-turn-right | "In a quarter of a mile! Turn right." | `film-audio/daffy-duck/1-quarter-mile-turn-right.mp3` | 3.1s |
+| 2-reroute | "Rerouting! It's fine. Everything is fine." | `film-audio/daffy-duck/2-reroute.mp3` | 4.1s |
+| 3-police | "Police ahead! Act natural. Act natural!" | `film-audio/daffy-duck/3-police.mp3` | 4.3s |
+| 4-arrive | "We've arrived! You're welcome, obviously." | `film-audio/daffy-duck/4-arrive.mp3` | 3.3s |
+
+## 7. The Terminator
+
+*Flat, literal, and mission-focused. Treats the driver as a unit to be directed.*
+
+| Beat | What it says | Clip | Length |
+| --- | --- | --- | --- |
+| 1-quarter-mile-turn-right | "In a quarter of a mile. Proceed. Turn right." | `film-audio/terminator/1-quarter-mile-turn-right.mp3` | 3.3s |
+| 2-reroute | "Error. Trajectory changed. Recalculating. I'll be back on route." | `film-audio/terminator/2-reroute.mp3` | 5.1s |
+| 3-police | "Warning. Police unit detected ahead." | `film-audio/terminator/3-police.mp3` | 3.0s |
+| 4-arrive | "Destination reached. You have arrived. Your ride is terminated." | `film-audio/terminator/4-arrive.mp3` | 4.3s |
+
+## 8. Batman
+
+*Gravel-voiced, clipped, and treating every commute as a mission.*
+
+| Beat | What it says | Clip | Length |
+| --- | --- | --- | --- |
+| 1-quarter-mile-turn-right | "In a quarter of a mile. Be ready. Turn right." | `film-audio/batman/1-quarter-mile-turn-right.mp3` | 3.0s |
+| 2-reroute | "Wrong turn. We adapt. Recalculating." | `film-audio/batman/2-reroute.mp3` | 3.3s |
+| 3-police | "Police ahead. GCPD. Drop your speed. Now!" | `film-audio/batman/3-police.mp3` | 4.2s |
+| 4-arrive | "We're here. This is your destination." | `film-audio/batman/4-arrive.mp3` | 3.4s |
+
+## 9. Eric Cartman
+
+*Bossy, whiny, entitled, and convinced he is in charge of the car.*
+
+| Beat | What it says | Clip | Length |
+| --- | --- | --- | --- |
+| 1-quarter-mile-turn-right | "In a quarter of a mile, you guys. Turn right." | `film-audio/eric-cartman/1-quarter-mile-turn-right.mp3` | 1.9s |
+| 2-reroute | "You missed it! Oh my God, you guys. Recalculating." | `film-audio/eric-cartman/2-reroute.mp3` | 2.6s |
+| 3-police | "Police ahead! Respect their authoritah!" | `film-audio/eric-cartman/3-police.mp3` | 1.9s |
+| 4-arrive | "We're here! Screw you guys, I'm going home." | `film-audio/eric-cartman/4-arrive.mp3` | 2.0s |
+
+## 10. Vito Corleone
+
+*Quiet, unhurried, and in charge. Every instruction is a favour you will repay.*
+
+| Beat | What it says | Clip | Length |
+| --- | --- | --- | --- |
+| 1-quarter-mile-turn-right | "In a quarter of a mile, my friend. Turn right." | `film-audio/vito-corleone/1-quarter-mile-turn-right.mp3` | 2.8s |
+| 2-reroute | "You missed the turn. I'll forget it. This time. Recalculating." | `film-audio/vito-corleone/2-reroute.mp3` | 3.9s |
+| 3-police | "Police ahead. Keep it steady. Let's not give them a reason to pull us over." | `film-audio/vito-corleone/3-police.mp3` | 4.4s |
+| 4-arrive | "We have arrived. Get out of the car and spend time with your family." | `film-audio/vito-corleone/4-arrive.mp3` | 3.7s |
+
+## 11. Darth Vader
+
+*Imperious, disappointed, and entirely certain the driver will fail him.*
+
+| Beat | What it says | Clip | Length |
+| --- | --- | --- | --- |
+| 1-quarter-mile-turn-right | "In a quarter of a mile. Do not fail me. Turn right." | `film-audio/darth-vader/1-quarter-mile-turn-right.mp3` | 4.8s |
+| 2-reroute | "You have failed me for the last time with that turn. Recalculating." | `film-audio/darth-vader/2-reroute.mp3` | 5.7s |
+| 3-police | "Police ahead. I sense a disturbance in the speed limit. Slow down." | `film-audio/darth-vader/3-police.mp3` | 6.0s |
+| 4-arrive | "You have arrived. Your journey is complete. The Force is with you." | `film-audio/darth-vader/4-arrive.mp3` | 5.3s |
+
+---
+
+## Not in the supercut
+
+In the end card and the follow-up posts.
 
 ### Tigger
 
@@ -99,15 +180,8 @@ The same three beats for the other characters.
 | --- | --- | --- | --- |
 | 1-quarter-mile-turn-right | "In a quarter of a mile! Turn right." | `film-audio/tigger/1-quarter-mile-turn-right.mp3` | 3.3s |
 | 2-reroute | "Never mind! Another way!" | `film-audio/tigger/2-reroute.mp3` | 2.4s |
-| 3-arrive | "We've arrived! That was tremendous!" | `film-audio/tigger/3-arrive.mp3` | 3.3s |
-
-### Pooh
-
-| Beat | What it says | Clip | Length |
-| --- | --- | --- | --- |
-| 1-quarter-mile-turn-right | "In a quarter of a mile, if you please. Turn right." | `film-audio/pooh/1-quarter-mile-turn-right.mp3` | 3.7s |
-| 2-reroute | "Oh. I'll find another way." | `film-audio/pooh/2-reroute.mp3` | 2.6s |
-| 3-arrive | "We've arrived. There now. I said we would." | `film-audio/pooh/3-arrive.mp3` | 3.9s |
+| 3-police | "Police ahead! Best behave!" | `film-audio/tigger/3-police.mp3` | 2.9s |
+| 4-arrive | "We've arrived! That was tremendous!" | `film-audio/tigger/4-arrive.mp3` | 3.3s |
 
 ---
 

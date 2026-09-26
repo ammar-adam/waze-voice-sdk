@@ -7,11 +7,18 @@ Notable changes. Dates are when the work landed on `main`.
 ### Added
 
 - **Five new voices**: Vito Corleone, Darth Vader, Batman (the Bale register),
-  the Terminator and Patrick Bateman. Each is a full 43-line preset on a Fish
+  the Terminator and Eric Cartman. Each is a full 43-line preset on a Fish
   community model, built to the v3 pattern (maneuvers plain, character on
   distances and alerts, nine rotating greetings), uploaded, and on the site
   with its own face and colours. All five are in copyright and their presets
-  say so.
+  say so. Patrick Bateman shipped briefly and was replaced by Cartman.
+- **Voice models are checked against their cover art and description, not
+  just their title.** Two first picks were the wrong performance: "Batman" was
+  Pattinson's (cover art from The Batman, 2022), and "Arnold Schwarzenegger" was
+  his motivational-speaker voice rather than the T-800. Both packs were rebuilt
+  on models whose metadata points at the right source, and re-uploaded.
+- **The launch film is rebuilt around the missed turn**: one reroute moment,
+  eleven characters in escalating order. See `docs/launch-film.md`.
 - **backseat.fm**, the consumer site, in `site/` and deployed to GitHub
   Pages. Each voice is a sticker face on its own colour with three real clips from its pack,
   the words it actually says, and one-tap install; desktop visitors get a QR

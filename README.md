@@ -11,7 +11,7 @@ QR code to scan.
 
 The voices: **Bugs Bunny, Cookie Monster, Daffy Duck, Elmo, Tigger, Winnie the
 Pooh, Paddington, Vito Corleone, Darth Vader, Batman, the Terminator and
-Patrick Bateman.**
+Eric Cartman.**
 
 [![CI](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/ci.yml)
 [![Link health](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/link-health.yml/badge.svg)](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/link-health.yml)

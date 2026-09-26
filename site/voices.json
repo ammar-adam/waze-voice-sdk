@@ -87,27 +87,27 @@
       "slug": "batman",
       "preset": "batman",
       "name": "Batman",
-      "waze_name": "Batman",
+      "waze_name": "Batman (Dark Knight)",
       "blurb": "Gravel-voiced. Clipped. Treats your commute as a mission.",
-      "uuid": "985d737c-3cbf-4390-a82e-d35e697a882a",
+      "uuid": "b1858712-ca11-4d10-bb4d-80c438d3b71f",
       "rights": "in-copyright"
     },
     {
       "slug": "terminator",
       "preset": "terminator",
       "name": "The Terminator",
-      "waze_name": "The Terminator",
+      "waze_name": "Terminator T-800",
       "blurb": "Flat, literal, and it will not stop.",
-      "uuid": "05b7c413-85c1-4293-89a5-bca7f2f45498",
+      "uuid": "48ce4ad0-7cb1-4596-9a3b-cd8076a57057",
       "rights": "in-copyright"
     },
     {
-      "slug": "patrick-bateman",
-      "preset": "patrick-bateman",
-      "name": "Patrick Bateman",
-      "waze_name": "Patrick Bateman",
-      "blurb": "Smooth, precise, has a reservation at Dorsia.",
-      "uuid": "5a1864bf-c7cd-4a39-8470-39d3bac2c437",
+      "slug": "eric-cartman",
+      "preset": "eric-cartman",
+      "name": "Eric Cartman",
+      "waze_name": "Eric Cartman",
+      "blurb": "Bossy, whiny, and in charge of the car now.",
+      "uuid": "39a02d0d-0377-4a8f-a6f8-8da21fc53b21",
       "rights": "in-copyright"
     }
   ]

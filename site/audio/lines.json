@@ -54,9 +54,9 @@
     "reroute": "Error. Trajectory changed. Recalculating. I'll be back on route.",
     "arrive": "Destination reached. You have arrived. Your ride is terminated."
   },
-  "patrick-bateman": {
-    "turn": "In a quarter of a mile. Try to keep up. Turn right.",
-    "reroute": "Wait, you missed it. I'm completely losing my mind. Recalculating.",
-    "arrive": "We're here. Now, excuse me. I have to return some videotapes."
+  "eric-cartman": {
+    "turn": "In a quarter of a mile, you guys. Turn right.",
+    "reroute": "You missed it! Oh my God, you guys. Recalculating.",
+    "arrive": "We're here! Screw you guys, I'm going home."
   }
 }
