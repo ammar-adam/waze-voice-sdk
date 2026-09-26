@@ -1,7 +1,7 @@
 // First-party counters: permanent totals that do not depend on any analytics
 // plan. site/track.js sends a beacon here alongside Plausible and Vercel.
 //
-// POST /api/track {event, character?, method?, page?, worked?}
+// POST /api/tally {event, character?, method?, page?, worked?}
 //
 // Only the events below are counted, and every field is checked against a
 // fixed list, so nobody can invent a character or a page. Each count goes to

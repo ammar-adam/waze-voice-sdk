@@ -1,7 +1,7 @@
 // The public numbers behind site/stats.html.
 //
 // GET /api/stats  all-time totals, per-character counts and a 30-day series,
-// read from the counters api/track.js keeps. Cached at the edge for a minute,
+// read from the counters api/tally.js keeps. Cached at the edge for a minute,
 // so a busy stats page costs one Redis round trip a minute.
 
 const {SLUGS, NAMES, PAGES, DOCS, KEY, config, redis, today} = require('./_store');

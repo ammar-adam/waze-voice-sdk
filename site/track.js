@@ -1,7 +1,7 @@
 /* The only place the site talks to an analytics provider.
 
    Every event goes through track(name, props) and is sent to Plausible,
-   Vercel Web Analytics, and the site's own counters (api/track.js, shown on
+   Vercel Web Analytics, and the site's own counters (api/tally.js, shown on
    stats.html). Swapping or adding a provider is a change to this one file. It never throws: a blocked script or a privacy extension must not
    break the page it is measuring. */
 
@@ -45,7 +45,7 @@ function vercelData(name, props) {
 }
 
 /* The site's own counters: permanent, and free of any analytics plan's
-   limits. Only these events are counted; api/track.js checks every field. */
+   limits. Only these events are counted; api/tally.js checks every field. */
 var COUNTED = {
   character_click: 1, download: 1, install_worked: 1,
   github_click: 1, doc_read: 1, suggest: 1
@@ -66,8 +66,8 @@ function count(name, props) {
       page: props.page, worked: props.worked
     });
     if (navigator.sendBeacon &&
-        navigator.sendBeacon("/api/track", new Blob([body], { type: "text/plain" }))) return;
-    fetch("/api/track", { method: "POST", body: body, keepalive: true }).catch(function () {});
+        navigator.sendBeacon("/api/tally", new Blob([body], { type: "text/plain" }))) return;
+    fetch("/api/tally", { method: "POST", body: body, keepalive: true }).catch(function () {});
   } catch (e) { /* the page still works */ }
 }
 
