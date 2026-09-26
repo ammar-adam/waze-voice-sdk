@@ -57,18 +57,18 @@
   },
   "voice_pooh": {
     "file": "ad/voice_pooh.wav",
-    "seconds": 2.791896
+    "seconds": 2.730708
   },
-  "voice_batman": {
-    "file": "ad/voice_batman.wav",
-    "seconds": 3.424771
+  "voice_ramsay": {
+    "file": "ad/voice_ramsay.wav",
+    "seconds": 3.646792
   },
   "voice_elmo": {
     "file": "ad/voice_elmo.wav",
-    "seconds": 2.79025
+    "seconds": 5.016042
   },
-  "voice_cookie": {
-    "file": "ad/voice_cookie.wav",
-    "seconds": 2.959563
+  "voice_vader": {
+    "file": "ad/voice_vader.wav",
+    "seconds": 3.769979
   }
 }

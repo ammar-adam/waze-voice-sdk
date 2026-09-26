@@ -24,10 +24,10 @@ OUT = REPO / "film" / "voices"
 
 # ad name -> (pack, [phrase ids in order])
 LINES = {
-    "pooh": ("pooh", ["in_quarter_mile", "turn_right"]),
-    "batman": ("batman", ["reroute_chime"]),
-    "elmo": ("elmo", ["arrived"]),
-    "cookie": ("cookie-monster", ["in_quarter_mile", "turn_right"]),
+    "pooh": ("pooh", ["traffic_ahead"]),
+    "ramsay": ("gordon-ramsay", ["reroute_chime"]),
+    "elmo": ("elmo", ["traffic_ahead"]),
+    "vader": ("darth-vader", ["start_drive_9"]),
 }
 
 TRIM = (
