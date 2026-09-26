@@ -5,7 +5,10 @@
   "provider": "fish",
   "voice": "5ded4503023f4baba6dabbc664d43d0e",
   "direction": "Speak fast, loud and theatrically, with enormous wounded dignity. Indignant at very small things, prone to sudden outbursts, absolutely certain of himself. Keep the direction word crisp even at full volume.",
-  "provider_options": {},
+  "provider_options": {
+    "temperature": 0.5,
+    "top_p": 0.6
+  },
   "notes": "The lisp belongs to the voice, not the script, so the text is spelled normally. Writing it in would mangle the direction word, which is the one thing that has to survive.",
   "units": "both",
   "rights": {

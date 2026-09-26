@@ -5,7 +5,10 @@
   "provider": "fish",
   "voice": "f6fd51174e2743db91c4e91fe5de4ec1",
   "direction": "Speak warm, gruff and big-hearted, with a broad West Country accent. Kind, a little flustered, prone to oversharing. Keep the direction word clear.",
-  "provider_options": {},
+  "provider_options": {
+    "temperature": 0.5,
+    "top_p": 0.6
+  },
   "notes": "The model's cover is Robbie Coltrane as Hagrid. The dialect belongs to the voice; the text is spelled normally so the direction word survives.",
   "units": "both",
   "rights": {
@@ -36,7 +39,7 @@
     "in_1000_meters": "In one kilometer. Nice and easy.",
     "in_1500_meters": "In one point five kilometers. Mind the hippogriffs.",
     "in_one_mile": "In one mile. Blimey.",
-    "start_drive_1": "You're a driver, Harry! Off we go.",
+    "start_drive_1": "Harry! You're a driver now! Blimey, look at you. Off we go!",
     "start_drive_2": "Blimey! Hop in, let's get going.",
     "start_drive_3": "Blimey, what a day for a drive!",
     "start_drive_4": "I know the way. Mostly. Dumbledore trusts me.",
@@ -69,6 +72,6 @@
     "speed_camera_ahead": "Speed camera ahead. Easy does it.",
     "red_light_camera_ahead": "Red light camera ahead. Stop there, now.",
     "police_ahead": "Police ahead. I shouldn't have said that. Slow down.",
-    "reroute_chime": "Missed it! Blimey. That's my fault, that is. Recalculating."
+    "reroute_chime": "Missed it! Blimey. That's my fault, that is."
   }
 }

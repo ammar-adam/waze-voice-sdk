@@ -5,7 +5,10 @@
   "provider": "fish",
   "voice": "b4f55643a15944e499defe42964d2ebf",
   "direction": "Speak like a bratty, bossy, nasal ten-year-old: whiny, indignant, self-important, quick to complain. Keep the direction word clear under the attitude.",
-  "provider_options": {},
+  "provider_options": {
+    "temperature": 0.5,
+    "top_p": 0.6
+  },
   "notes": "The most-liked Cartman model on Fish by a factor of five. Catchphrases sit on greetings, alerts and arrival, never on a slot a driver acts on.",
   "units": "both",
   "rights": {
@@ -69,6 +72,6 @@
     "speed_camera_ahead": "Speed camera ahead. Act cool, you guys.",
     "red_light_camera_ahead": "Red light camera ahead. Stop! Respect the authoritah!",
     "police_ahead": "Police ahead! Respect their authoritah!",
-    "reroute_chime": "You missed it! Oh my God, you guys. Recalculating."
+    "reroute_chime": "You missed it! Oh my God, you guys."
   }
 }

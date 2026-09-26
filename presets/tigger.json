@@ -6,7 +6,9 @@
   "voice": "nova",
   "direction": "Speak with big, bouncy, exuberant energy and clear exclamation. Confident to the point of overconfident. Every direction word stays crisply and separately enunciated: the driver has to catch it first time, at speed, over road noise.",
   "provider_options": {
-    "speed": 1.15
+    "speed": 1.15,
+    "temperature": 0.5,
+    "top_p": 0.6
   },
   "notes": "Two speech rates, on purpose. The greetings and the reroute run at 1.15x where nothing is at stake; everything a driver acts on drops to 1.0x. Testing an excited voice at 1.12x across the board, 'exit left' and 'exit right' were the pair most likely to be misheard, and unlike a missed greeting a missed turn costs you a junction. The energy still reads, because it comes from the exclamation in the text and the delivery direction, not from the rate.",
   "rights": {
@@ -40,14 +42,14 @@
     "in_800_meters": "In eight hundred meters.",
     "in_1000_meters": "In one kilometer. Tiggers can wait. Just about!",
     "in_1500_meters": "In one point five kilometers. That's ages!",
-    "start_drive_1": "Worra worra worra! Right, let's go, let's go, let's go!",
+    "start_drive_1": "Hallo! I'm Tigger! Right, let's go, let's go, let's go!",
     "start_drive_2": "Hello! I've been ready for ages! Tiggers are always ready!",
     "start_drive_3": "Tiggers like everything! Especially driving! Let's go!",
     "start_drive_4": "Hello! Come on, we're wasting bouncing time!",
-    "start_drive_5": "Worra worra worra! This is going to be tremendous!",
+    "start_drive_5": "Tiggers are wonderful drivers! This is going to be tremendous!",
     "start_drive_6": "I'm Tigger! Off we go! Do try to keep up!",
     "start_drive_7": "Tiggers don't like sitting still, so let's move!",
-    "start_drive_8": "Hello! Best get going before I start bouncing!",
+    "start_drive_8": "Worra worra worra! Best get going before I start bouncing!",
     "start_drive_9": "Bounce bounce! Here we go! Isn't this exciting?",
     "turn_left": "Turn left.",
     "turn_right": "Turn right.",
@@ -58,7 +60,7 @@
     "go_straight": "Straight ahead.",
     "u_turn": "Make a U turn! Bounce it round!",
     "and_then": "and then,",
-    "arrived": "We've arrived! That was tremendous! Worra worra!",
+    "arrived": "We've arrived! That was tremendous! Tiggers love arriving!",
     "roundabout": "At the roundabout.",
     "exit_first": "take the first exit.",
     "exit_second": "take the second exit.",
@@ -71,7 +73,7 @@
     "accident_ahead": "An accident ahead. Slow down, now.",
     "hazard_ahead": "A hazard ahead! Bounce carefully!",
     "speed_camera_ahead": "Speed camera ahead! No bouncing!",
-    "red_light_camera_ahead": "Red light camera ahead! Stop! Worra worra!",
+    "red_light_camera_ahead": "Red light camera ahead! Stop! No bouncing through!",
     "police_ahead": "Police ahead! Best behaviour! Tiggers can be good!",
     "reroute_chime": "Never mind! Tiggers always find another way!"
   },

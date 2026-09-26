@@ -1,6 +1,6 @@
 {
   "_comment": "Single source for every UUID on the site. The page, the preview builder and the link checker all read this, so a stale pack is a one-line fix in one place. UUIDs change on every re-upload because Waze has no update-in-place.",
-  "updated": "2026-09-26",
+  "updated": "2026-09-27",
   "voices": [
     {
       "slug": "bugs-bunny",
@@ -8,7 +8,7 @@
       "name": "Bugs Bunny",
       "waze_name": "Bugs Bunny FINAL",
       "blurb": "Unbothered. Wisecracking. A beat ahead of you.",
-      "uuid": "dcab3ced-b047-4d93-957b-31d666e62708",
+      "uuid": "9f9f6fa4-43dc-4f0e-adba-71fdfc1d4146",
       "rights": "in-copyright"
     },
     {
@@ -17,7 +17,7 @@
       "name": "Cookie Monster",
       "waze_name": "Cookie Monster",
       "blurb": "Blunt, delighted, thinking about snacks.",
-      "uuid": "35a2c0bb-b1fc-446e-9b11-dc4b4fc7095c",
+      "uuid": "942cb57c-690a-4561-b46b-ab185aed25dc",
       "rights": "in-copyright"
     },
     {
@@ -26,7 +26,7 @@
       "name": "Daffy Duck",
       "waze_name": "Daffy Duck",
       "blurb": "Loud, theatrical, personally offended by traffic.",
-      "uuid": "1020654e-4a4b-4c70-a921-984e26f5e4c1",
+      "uuid": "fe6e7793-2fc9-46bd-800e-b43fbd56a554",
       "rights": "in-copyright"
     },
     {
@@ -35,7 +35,7 @@
       "name": "Elmo",
       "waze_name": "Elmo",
       "blurb": "Bright, giggly, and proud of you for merging.",
-      "uuid": "08939976-c872-4e8f-8b43-a34d2e25e127",
+      "uuid": "d258c3c8-540e-42f7-830e-bee395d2874b",
       "rights": "in-copyright"
     },
     {
@@ -44,7 +44,7 @@
       "name": "Tigger",
       "waze_name": "Tigger",
       "blurb": "Fast, bouncy, overconfident.",
-      "uuid": "561ac96e-07ae-49bb-a4d1-d60fcf22118f",
+      "uuid": "74ac53f6-9d64-4855-a5c6-5bdf8d15e66b",
       "rights": "text-public-domain"
     },
     {
@@ -53,7 +53,7 @@
       "name": "Winnie the Pooh",
       "waze_name": "Winnie the Pooh",
       "blurb": "Warm, unhurried, audibly thinking it through.",
-      "uuid": "542f5f98-b623-4c2a-b129-9c4b91156c28",
+      "uuid": "d2516502-6a93-4af6-98f4-f2968d06605e",
       "rights": "text-public-domain"
     },
     {
@@ -62,7 +62,7 @@
       "name": "Paddington",
       "waze_name": "Paddington",
       "blurb": "Unfailingly polite. Marmalade under the hat.",
-      "uuid": "00ecb969-cd8e-40cd-a872-3f852cda659e",
+      "uuid": "b6fddfb7-6998-4297-9985-778226153f31",
       "rights": "in-copyright"
     },
     {
@@ -71,7 +71,7 @@
       "name": "Hagrid",
       "waze_name": "Hagrid",
       "blurb": "Huge, warm, and definitely should not have said that.",
-      "uuid": "02b8c86a-6501-4a3f-a4f8-e8649c9c8ec2",
+      "uuid": "5e1009a8-03cd-400b-a7d0-9901aad936ca",
       "rights": "in-copyright"
     },
     {
@@ -79,17 +79,17 @@
       "preset": "darth-vader",
       "name": "Darth Vader",
       "waze_name": "Darth Vader",
-      "blurb": "Imperious, disappointed, expecting you to fail.",
-      "uuid": "47bd74a4-1fdb-4512-92dc-a2771151f511",
+      "blurb": "The real voice of Vader. Deep, calm, and disappointed in you.",
+      "uuid": "db3230ba-6272-4110-a47f-a0505a63cc21",
       "rights": "in-copyright"
     },
     {
       "slug": "batman",
       "preset": "batman",
       "name": "Batman",
-      "waze_name": "Batman (Dark Knight)",
-      "blurb": "Gravel-voiced. Clipped. Treats your commute as a mission.",
-      "uuid": "0b9855e4-61ac-446f-bffb-afc6503c44f2",
+      "waze_name": "Batman (Classic)",
+      "blurb": "The classic. Low, calm, and already has the Batmobile running.",
+      "uuid": "c2412ecf-493c-4a2c-a7fc-e90ca828a8f8",
       "rights": "in-copyright"
     },
     {
@@ -98,7 +98,7 @@
       "name": "Gordon Ramsay",
       "waze_name": "Gordon Ramsay",
       "blurb": "Furious, exacting, and calling you a donkey.",
-      "uuid": "16d33a9e-7d17-4271-9206-42b35ae5d751",
+      "uuid": "dd279026-4d80-42b4-a24d-7a6e2d962ba7",
       "rights": "in-copyright"
     },
     {
@@ -107,7 +107,7 @@
       "name": "Eric Cartman",
       "waze_name": "Eric Cartman",
       "blurb": "Bossy, whiny, and in charge of the car now.",
-      "uuid": "e8348eee-6afc-4eeb-94d4-e22ae2355354",
+      "uuid": "5cba202f-34a0-4504-b7b1-41cc566acacc",
       "rights": "in-copyright"
     }
   ]

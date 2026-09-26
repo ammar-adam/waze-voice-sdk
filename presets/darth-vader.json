@@ -3,10 +3,13 @@
   "label": "Darth Vader",
   "description": "Imperious, disappointed, and entirely certain the driver will fail him.",
   "provider": "fish",
-  "voice": "3446a5f02a1c4d6fa6e85cf467302f4f",
+  "voice": "d2cde6a780614f048bd07e623ec3b191",
   "direction": "Speak deep, slow and resonant, with cold command and measured menace. Every word deliberate. Keep the direction word crisp.",
-  "provider_options": {},
-  "notes": "The breathing belongs to the voice model, not the script; writing it in would be spoken aloud.",
+  "provider_options": {
+    "temperature": 0.5,
+    "top_p": 0.6
+  },
+  "notes": "James Earl Jones's own voice, not a 'Darth Vader' model: the three Vader-titled models measured 230 to 280 Hz, far too high and bright; this one measures about 100 Hz. The breathing is left to the imagination; a stage direction in the text would be read aloud.",
   "units": "both",
   "rights": {
     "status": "in-copyright",
@@ -69,6 +72,6 @@
     "speed_camera_ahead": "Speed camera ahead. I sense your speed. Reduce it.",
     "red_light_camera_ahead": "Red light camera ahead. Stop. That is an order.",
     "police_ahead": "Police ahead. I sense a disturbance in the speed limit. Slow down.",
-    "reroute_chime": "You have failed me for the last time with that turn. Recalculating."
+    "reroute_chime": "You have failed me for the last time with that turn."
   }
 }

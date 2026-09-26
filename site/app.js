@@ -63,6 +63,7 @@
   /* ---------------- audio ---------------- */
 
   var current = null;
+  var TALKS = ["rock", "nod", "turn", "bob", "tilt"];
 
   function stop() {
     if (!current) return;
@@ -86,6 +87,9 @@
     };
     current = { audio: audio, button: button, card: card };
     button.classList.add("on");
+    // A different way of talking each time: nod, turn, bob, tilt or rock.
+    var face = card.querySelector(".face");
+    if (face) face.dataset.move = TALKS[Math.floor(Math.random() * TALKS.length)];
     card.classList.add("playing");
     card.querySelector(".said").textContent = said ? "“" + said + "”" : "";
     audio.play().catch(function () {});
@@ -256,26 +260,129 @@
         '<a href="install.html">install guide</a>.</p></li>';
     });
 
-  /* ---------------- signup and github ---------------- */
+  /* ---------------- install steps, by device ---------------- */
 
-  var form = document.getElementById("signup");
-  form.addEventListener("submit", function () {
-    track("signup", { device: device });
-    // The form posts into a hidden frame so nobody leaves the page. Buttondown
-    // may refuse to render inside a frame; the subscription still lands.
-    setTimeout(function () {
-      form.hidden = true;
-      document.getElementById("signup-done").hidden = false;
-    }, 600);
+  document.querySelectorAll("[data-device]").forEach(function (node) {
+    node.hidden = node.getAttribute("data-device") !== (window.isPhone ? "phone" : "desktop");
   });
 
-  document.getElementById("github").addEventListener("click", function (e) {
-    var href = this.href;
-    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) {
-      track("github_click", {});
-      return;
-    }
+  /* ---------------- links out ---------------- */
+
+  document.querySelectorAll('#github, [data-track="github_click"]').forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      var href = this.href;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) {
+        track("github_click", {});
+        return;
+      }
+      e.preventDefault();
+      track("github_click", {}, function () { location.href = href; });
+    });
+  });
+
+  /* ---------------- who should ride next? ---------------- */
+  // Backed by /api/suggestions (api/suggestions.js). Until its store is
+  // connected the endpoint answers 503, and suggestions go to GitHub instead.
+
+  var VOTED_KEY = "backseat.voted";
+  var board = document.getElementById("board");
+  var note = document.getElementById("suggest-note");
+  var suggestForm = document.getElementById("suggest-form");
+  var suggestName = document.getElementById("suggest-name");
+  var ISSUE = "https://github.com/ammar-adam/waze-voice-sdk/issues/new?labels=voice-request&title=";
+
+  function voted() {
+    try { return JSON.parse(localStorage.getItem(VOTED_KEY) || "[]"); } catch (e) { return []; }
+  }
+  function remember(key) {
+    try {
+      var list = voted();
+      if (list.indexOf(key) < 0) list.push(key);
+      localStorage.setItem(VOTED_KEY, JSON.stringify(list));
+    } catch (e) {}
+  }
+  function keyOf(name) { return name.toLowerCase().replace(/[^a-z0-9]+/g, ""); }
+
+  function drawBoard(items) {
+    var mine = voted();
+    board.innerHTML = "";
+    items.forEach(function (item) {
+      var done = mine.indexOf(item.key) >= 0;
+      var li = el(
+        '<li><span class="who">' + escapeHtml(item.name) + "</span>" +
+        '<button class="vote' + (done ? " done" : "") + '" type="button"' + (done ? " disabled" : "") +
+        ' aria-label="Back ' + escapeHtml(item.name) + '">' +
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 14 6-6 6 6"/></svg>' +
+        '<span class="n">' + item.votes + "</span></button></li>"
+      );
+      li.querySelector(".vote").addEventListener("click", function () { send(item.name); });
+      board.appendChild(li);
+    });
+  }
+
+  function offline(name) {
+    note.innerHTML = 'Suggestions open soon. Meanwhile, <a href="' + ISSUE +
+      encodeURIComponent(name ? "Voice request: " + name : "Voice request: ") + '">suggest it on GitHub</a>.';
+  }
+
+  function send(name) {
+    var key = keyOf(name);
+    if (voted().indexOf(key) >= 0) { note.textContent = "You've already backed " + name + "."; return; }
+    fetch("api/suggestions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: name })
+    }).then(function (r) {
+      return r.json().then(function (body) { return { ok: r.ok, status: r.status, body: body }; });
+    }).then(function (res) {
+      if (res.status === 503) { offline(name); return; }
+      if (!res.ok) { note.textContent = res.body.error || "That didn't go through. Try again."; return; }
+      if (res.body.live) { note.textContent = res.body.live + " is already here. Scroll up and install it!"; return; }
+      remember(key);
+      note.textContent = "Thanks! " + name + " is on the list.";
+      drawBoard(res.body.items);
+      track("suggest", { character: key });
+    }).catch(function () { offline(name); });
+  }
+
+  suggestForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    track("github_click", {}, function () { location.href = href; });
+    var name = suggestName.value.trim();
+    if (name.length < 2) return;
+    suggestName.value = "";
+    send(name);
   });
+
+  fetch("api/suggestions", { cache: "no-cache" }).then(function (r) {
+    if (r.status === 503 || !r.ok) throw new Error("offline");
+    return r.json();
+  }).then(function (body) { drawBoard(body.items); }).catch(function () { offline(""); });
+
+  /* ---------------- every now and then, somebody moves ---------------- */
+  // Faces idle, and once in a while one of them spins, hops, nods, turns or
+  // wiggles. Random face, random move, random gap, so it never loops.
+
+  var MOVES = ["spin", "hop", "nod", "turn", "wiggle"];
+  var still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function onScreen(node) {
+    var r = node.getBoundingClientRect();
+    return r.bottom > 0 && r.top < window.innerHeight;
+  }
+
+  function fidget() {
+    var faces = Array.prototype.slice.call(document.querySelectorAll(".cast img, .voice:not(.playing) .face"))
+      .filter(onScreen);
+    if (faces.length && !document.hidden) {
+      var face = faces[Math.floor(Math.random() * faces.length)];
+      var move = MOVES[Math.floor(Math.random() * MOVES.length)];
+      face.classList.add("move-" + move);
+      face.addEventListener("animationend", function done() {
+        face.classList.remove("move-" + move);
+        face.removeEventListener("animationend", done);
+      });
+    }
+    setTimeout(fidget, 1800 + Math.random() * 3200);
+  }
+  if (!still) setTimeout(fidget, 1500);
 })();

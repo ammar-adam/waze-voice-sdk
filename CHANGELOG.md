@@ -6,6 +6,19 @@ Notable changes. Dates are when the work landed on `main`.
 
 ### Added
 
+- **Drive-test voice pass.** New voices for Darth Vader (James Earl Jones: every
+  "Darth Vader" model measured 230 to 280 Hz, far too high) and Batman (Kevin
+  Conroy, the classic). "Recalculating" is gone from every reroute. Greetings
+  vary more (Bugs no longer opens every one with "Eh"), catchphrases repeat
+  less (Elmo, Tigger, Cookie Monster), and lines were reworked where they
+  didn't land. Every Fish voice runs at a lower temperature, and
+  `scripts/voice_consistency.py` fingerprints each clip against a reference
+  take so a pack sounds like one person. All twelve rebuilt and re-uploaded.
+- **Site.** A full-screen hero; faces that talk in five different ways and
+  fidget at random; redrawn Hagrid, Tigger and Bugs; install steps that match
+  what Waze actually does, per device; a "Who should ride next?" suggestion
+  board (`api/suggestions.js`, needs a Redis store connected in Vercel); and
+  two new pages: how it works, and make your own (the docs).
 - **Catchphrases where a drive can't predict them, never where it repeats.**
   Waze plays one recording per prompt and only rotates the greetings, so a
   catchphrase on the quarter mile or 400 m callout was heard at every junction
@@ -130,6 +143,19 @@ Notable changes. Dates are when the work landed on `main`.
 
 ### Added
 
+- **Drive-test voice pass.** New voices for Darth Vader (James Earl Jones: every
+  "Darth Vader" model measured 230 to 280 Hz, far too high) and Batman (Kevin
+  Conroy, the classic). "Recalculating" is gone from every reroute. Greetings
+  vary more (Bugs no longer opens every one with "Eh"), catchphrases repeat
+  less (Elmo, Tigger, Cookie Monster), and lines were reworked where they
+  didn't land. Every Fish voice runs at a lower temperature, and
+  `scripts/voice_consistency.py` fingerprints each clip against a reference
+  take so a pack sounds like one person. All twelve rebuilt and re-uploaded.
+- **Site.** A full-screen hero; faces that talk in five different ways and
+  fidget at random; redrawn Hagrid, Tigger and Bugs; install steps that match
+  what Waze actually does, per device; a "Who should ride next?" suggestion
+  board (`api/suggestions.js`, needs a Redis store connected in Vercel); and
+  two new pages: how it works, and make your own (the docs).
 - **The full pipeline**: extract, clean, synth, normalize, qa, export, plus a
   `wvs` command that runs them end to end and a `doctor` that reports what is
   missing and which step it blocks.

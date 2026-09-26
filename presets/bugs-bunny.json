@@ -5,7 +5,10 @@
   "provider": "fish",
   "voice": "9a1c3a3b2e0b4f658a9137d79ccfc55b",
   "direction": "Speak with relaxed Brooklyn confidence, unhurried and faintly amused. Never rattled, never hurried, always a beat ahead of the driver. Wry rather than loud, and the instruction itself lands clean.",
-  "provider_options": {},
+  "provider_options": {
+    "temperature": 0.5,
+    "top_p": 0.6
+  },
   "notes": "Voice is the Joe Alaskey model, who took the role after Mel Blanc died: 1.33% like and save rate against the previous model's 0.37%, on a fifth of the traffic. Fish has no star ratings, so saves are the best available signal - people bookmark what they mean to use again. All nine greetings open with the catchphrase because Waze chooses between them at random.",
   "units": "both",
   "rights": {
@@ -36,15 +39,15 @@
     "in_1000_meters": "In one kilometer. Eh, no rush, doc.",
     "in_1500_meters": "In one point five kilometers. Plenty of time, doc.",
     "in_one_mile": "In one mile. Take it easy, doc.",
-    "start_drive_1": "Eh, what's up, doc? Looks like we're in for a good one.",
-    "start_drive_2": "Eh, what's up, doc? Let's get rolling.",
-    "start_drive_3": "Eh, what's up, doc? I know the way.",
-    "start_drive_4": "Eh, what's up, doc? Of course, you realize, this means driving.",
-    "start_drive_5": "Eh, what's up, doc? Sit back, I got this one.",
-    "start_drive_6": "Eh, what's up, doc? Nice day for it.",
-    "start_drive_7": "Eh, what's up, doc? You drive, I'll navigate.",
-    "start_drive_8": "Eh, what's up, doc? What's the hassle?",
-    "start_drive_9": "Eh, what's up, doc? Try to keep up.",
+    "start_drive_1": "What's up, doc? Looks like we're in for a good one.",
+    "start_drive_2": "Of course you realize, this means driving. Let's go.",
+    "start_drive_3": "What's up, doc? Sit back, I got this one.",
+    "start_drive_4": "Carrots packed? Good. Let's hop to it.",
+    "start_drive_5": "What's up, doc? Nice day for it.",
+    "start_drive_6": "I know this road like the back of my ears.",
+    "start_drive_7": "What's up, doc? You drive, I'll navigate.",
+    "start_drive_8": "Watch me pull a shortcut out of my hat. Let's go.",
+    "start_drive_9": "Ain't I a stinker? Relax, I know the way.",
     "turn_left": "Turn left.",
     "turn_right": "Turn right.",
     "keep_left": "Keep left.",
@@ -69,6 +72,6 @@
     "speed_camera_ahead": "Speed camera ahead. Ain't I a stinker? Slow down.",
     "red_light_camera_ahead": "Red light camera ahead. Stop, doc.",
     "police_ahead": "Police ahead. Act casual, doc.",
-    "reroute_chime": "I knew I shoulda taken that turn at Albuquerque! Recalculating."
+    "reroute_chime": "I knew I shoulda taken that turn at Albuquerque!"
   }
 }
