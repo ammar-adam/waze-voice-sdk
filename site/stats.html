@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Live stats — Backseat</title>
+  <meta name="description" content="Backseat by the numbers: visitors, install taps, confirmed installs and the most-wanted voices, counted live.">
+  <link rel="canonical" href="https://backseatnav.com/stats.html">
+  <meta name="theme-color" content="#ffd23f">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://backseatnav.com/stats.html">
+  <meta property="og:title" content="Backseat, by the numbers">
+  <meta property="og:description" content="Live counts for the character voice packs for Waze: visitors, install taps, confirmed installs and the voice leaderboard.">
+  <meta property="og:image" content="https://backseatnav.com/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://backseatnav.com/og.png">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=JetBrains+Mono:wght@500&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="characters.css">
+
+  <script defer data-domain="backseatnav.com" src="https://plausible.io/js/script.js"></script>
+  <script src="track.js"></script>
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+  <header class="bar">
+    <div class="wrap">
+      <a class="logo sticker" href="./"><span class="lamp" aria-hidden="true"></span>Backseat</a>
+      <nav>
+        <a href="./#voices">Voices</a>
+        <a href="how-it-works.html">How it works</a>
+        <a href="https://github.com/ammar-adam/waze-voice-sdk">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="stats-hero" aria-labelledby="stats-h">
+      <div class="wrap">
+        <p class="kicker"><span class="live-dot" aria-hidden="true"></span>Live stats</p>
+        <h1 id="stats-h">Backseat, <span class="pop">by the numbers.</span></h1>
+        <p class="lede" id="stats-since">Counted on our own server and updated every minute.</p>
+
+        <ul class="big-stats" aria-label="Headline numbers">
+          <li class="sticker"><span class="num" data-stat="visitors">–</span><span class="what">visitors</span></li>
+          <li class="sticker tilt"><span class="num" data-stat="install_taps">–</span><span class="what">install taps</span></li>
+          <li class="sticker"><span class="num" data-stat="confirmed_installs">–</span><span class="what">confirmed installs<sup>*</sup></span></li>
+          <li class="sticker tilt"><span class="num" data-stat="character_clicks">–</span><span class="what">character clicks</span></li>
+        </ul>
+        <p class="stats-state sticker" id="stats-state" hidden></p>
+      </div>
+    </section>
+
+    <section class="block wrap" aria-labelledby="chart-h">
+      <div class="chart-head">
+        <div>
+          <h2 id="chart-h">The last 30 days</h2>
+          <p class="sub">One bar a day, UTC. Today is the yellow one.</p>
+        </div>
+        <div class="chart-tabs" role="group" aria-label="What to chart">
+          <button type="button" data-series="visitors" aria-pressed="true">Visitors</button>
+          <button type="button" data-series="downloads" aria-pressed="false">Install taps + QR</button>
+          <button type="button" data-series="clicks" aria-pressed="false">Character clicks</button>
+          <button type="button" data-series="pageviews" aria-pressed="false">Page views</button>
+        </div>
+      </div>
+      <figure class="chart sticker" id="chart">
+        <figcaption class="sr-only" id="chart-cap"></figcaption>
+      </figure>
+    </section>
+
+    <section class="block wrap" aria-labelledby="board-h">
+      <h2 id="board-h">The leaderboard</h2>
+      <p class="sub">Every voice, ranked by install taps on a phone plus QR codes opened on a computer.</p>
+      <ol class="leader" id="leader"></ol>
+    </section>
+
+    <section class="block wrap" aria-labelledby="more-h">
+      <h2 id="more-h">And the rest</h2>
+      <ul class="small-stats">
+        <li class="sticker"><span class="num" data-stat="qr_opens">–</span><span class="what">QR codes opened on a computer</span></li>
+        <li class="sticker"><span class="num" data-stat="pageviews">–</span><span class="what">page views</span></li>
+        <li class="sticker"><span class="num" data-stat="doc_reads">–</span><span class="what">docs and blog read most of the way through</span></li>
+        <li class="sticker"><span class="num" data-stat="github_clicks">–</span><span class="what">trips to the GitHub repo</span></li>
+        <li class="sticker"><span class="num" data-stat="suggestions">–</span><span class="what">characters suggested</span></li>
+      </ul>
+
+      <div class="how-counted sticker">
+        <h3>How these are counted</h3>
+        <ul>
+          <li><b>Install taps</b> are taps on “Install in Waze” on a phone. Waze takes it from there and doesn't report back, so a tap is an install started, not one Waze has confirmed.</li>
+          <li><b><sup>*</sup>Confirmed installs</b> are people who answered “Yes” to the “Did it work?” prompt after coming back from Waze. They're self-reported, and plenty of people never answer, so the real number is higher.</li>
+          <li><b>Visitors</b> are estimated without cookies: a one-way hash of the connection, counted in a structure that can't be turned back into who anyone is. No IP address is stored.</li>
+          <li><b>Character clicks</b> are preview plays plus taps on a face at the top of the page. Known bots aren't counted.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>Independent project. Not affiliated with Waze or Google.</span>
+      <nav class="foot-links">
+        <a href="./">Voices</a>
+        <a href="how-it-works.html">How it works</a>
+        <a href="make-your-own.html">Make your own</a>
+        <a href="https://github.com/ammar-adam/waze-voice-sdk">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="stats.js"></script>
+</body>
+</html>

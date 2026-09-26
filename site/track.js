@@ -1,8 +1,8 @@
 /* The only place the site talks to an analytics provider.
 
-   Every event goes through track(name, props) and is sent to both Plausible
-   and Vercel Web Analytics. Swapping or adding a provider is a change to this
-   one file. It never throws: a blocked script or a privacy extension must not
+   Every event goes through track(name, props) and is sent to Plausible,
+   Vercel Web Analytics, and the site's own counters (api/track.js, shown on
+   stats.html). Swapping or adding a provider is a change to this one file. It never throws: a blocked script or a privacy extension must not
    break the page it is measuring. */
 
 window.plausible = window.plausible || function () {
@@ -44,6 +44,33 @@ function vercelData(name, props) {
   return data;
 }
 
+/* The site's own counters: permanent, and free of any analytics plan's
+   limits. Only these events are counted; api/track.js checks every field. */
+var COUNTED = {
+  character_click: 1, download: 1, install_worked: 1,
+  github_click: 1, doc_read: 1, suggest: 1
+};
+
+// "/" and "/index.html" are both /index; "/how-it-works.html" is /how-it-works.
+function pagePath() {
+  var path = location.pathname.replace(/\.html$/, "");
+  return path === "/" || path === "" ? "/index" : path;
+}
+
+// Fire and forget. sendBeacon survives the page unloading (a tap to Waze or
+// GitHub); text/plain keeps it a simple request. Never throws, never waits.
+function count(name, props) {
+  try {
+    var body = JSON.stringify({
+      event: name, character: props.character, method: props.method,
+      page: props.page, worked: props.worked
+    });
+    if (navigator.sendBeacon &&
+        navigator.sendBeacon("/api/track", new Blob([body], { type: "text/plain" }))) return;
+    fetch("/api/track", { method: "POST", body: body, keepalive: true }).catch(function () {});
+  } catch (e) { /* the page still works */ }
+}
+
 window.track = function track(name, props, done) {
   var finished = false;
   props = props || {};
@@ -58,6 +85,7 @@ window.track = function track(name, props, done) {
   try {
     window.plausible(name, { props: props, callback: finish });
   } catch (e) { /* the page still works */ }
+  if (COUNTED[name]) count(name, props);
   // A blocked script never calls back. Do not make the user wait on it.
   if (done) setTimeout(finish, 900);
 };
@@ -85,10 +113,10 @@ window.isPhone = (function () {
 })();
 
 (function () {
-  function page() {
-    var path = location.pathname.replace(/\.html$/, "");
-    return path === "/" || path === "" ? "/index" : path;
-  }
+  var page = pagePath;
+
+  // Plausible and Vercel count page views themselves; the counters need telling.
+  count("pageview", { page: page() });
 
   /* Every link to GitHub, on every page, counts as a GitHub visit. Delegated,
      so links added later (the "suggest it on GitHub" note) count too. */
