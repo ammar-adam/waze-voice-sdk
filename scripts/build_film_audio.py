@@ -49,15 +49,15 @@ BEATS = [
 # harder turn than the last and Vader closes it. docs/launch-film.md has why.
 FILM = [
     "paddington",
+    "hagrid",
     "elmo",
     "pooh",
     "cookie-monster",
     "bugs-bunny",
     "daffy-duck",
-    "terminator",
-    "batman",
+    "gordon-ramsay",
     "eric-cartman",
-    "vito-corleone",
+    "batman",
     "darth-vader",
 ]
 # In the end card and the follow-up posts, not the supercut.

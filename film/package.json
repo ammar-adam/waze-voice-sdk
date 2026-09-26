@@ -1,0 +1,19 @@
+{
+  "name": "backseat-film",
+  "private": true,
+  "scripts": {
+    "prepare-assets": "python ../scripts/prepare_film.py",
+    "studio": "remotion studio",
+    "render": "remotion render MissedTurn out/missed-turn.mp4 && remotion render VaderOpen out/vader-open.mp4 && remotion render PoliceAhead out/police-ahead.mp4 && remotion render Arrived out/arrived.mp4"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.507",
+    "remotion": "4.0.507",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.18",
+    "typescript": "5.9.3"
+  }
+}

@@ -1,61 +1,61 @@
 {
   "bugs-bunny": {
-    "turn": "In a quarter of a mile, doc. Turn right.",
-    "reroute": "Eh, no problem. I know a shortcut.",
-    "arrive": "We've arrived. Told ya, doc."
+    "start": "Eh, what's up, doc? Looks like we're in for a good one.",
+    "reroute": "I knew I shoulda taken that turn at Albuquerque! Recalculating.",
+    "arrive": "We've arrived. That's all, folks!"
   },
   "cookie-monster": {
-    "turn": "In a quarter of a mile! Turn right.",
-    "reroute": "Oops. Me find new way.",
-    "arrive": "We arrived! Now me get cookie!"
+    "start": "Om nom nom! Okay. Me drive now!",
+    "reroute": "Oops. Me find new way. Om nom nom.",
+    "arrive": "We arrived! Now me get cookie! Om nom nom!"
   },
   "daffy-duck": {
-    "turn": "In a quarter of a mile! Turn right.",
-    "reroute": "Rerouting! It's fine. Everything is fine.",
-    "arrive": "We've arrived! You're welcome, obviously."
+    "start": "Hoo hoo! Woo hoo! Road trip!",
+    "reroute": "Rerouting! It's fine. Everything is fine. You're despicable!",
+    "arrive": "We've arrived! You're welcome, obviously. Woo hoo!"
   },
   "elmo": {
-    "turn": "In a quarter of a mile! Turn right.",
-    "reroute": "Uh oh! Elmo will find a new way!",
-    "arrive": "We arrived! Elmo is so proud of you!"
+    "start": "Hi! Elmo loves you! Let's go!",
+    "reroute": "Uh oh! Elmo will find a new way! Ha ha!",
+    "arrive": "We arrived! Elmo loves you!"
   },
   "tigger": {
-    "turn": "In a quarter of a mile! Turn right.",
-    "reroute": "Never mind! Another way!",
-    "arrive": "We've arrived! That was tremendous!"
+    "start": "Worra worra worra! Right, let's go, let's go, let's go!",
+    "reroute": "Never mind! Tiggers always find another way!",
+    "arrive": "We've arrived! That was tremendous! Worra worra!"
   },
   "pooh": {
-    "turn": "In a quarter of a mile, if you please. Turn right.",
-    "reroute": "Oh. I'll find another way.",
-    "arrive": "We've arrived. There now. I said we would."
+    "start": "Oh, bother. No, it's quite all right. Off we go.",
+    "reroute": "Oh, bother. I'll find another way.",
+    "arrive": "We've arrived. Time for a little something, I think."
   },
   "paddington": {
-    "turn": "In a quarter of a mile, if you please. Turn right.",
-    "reroute": "Oh. Not to worry. I'll find another way.",
-    "arrive": "We've arrived. Thank you kindly for the lift."
+    "start": "Please look after this bear. Thank you. Off we go.",
+    "reroute": "Oh dear. Things are always happening to me. Recalculating.",
+    "arrive": "We've arrived. Please look after this bear. Thank you."
   },
-  "vito-corleone": {
-    "turn": "In a quarter of a mile, my friend. Turn right.",
-    "reroute": "You missed the turn. I'll forget it. This time. Recalculating.",
-    "arrive": "We have arrived. Get out of the car and spend time with your family."
+  "hagrid": {
+    "start": "You're a driver, Harry! Off we go.",
+    "reroute": "Missed it! Blimey. That's my fault, that is. Recalculating.",
+    "arrive": "We're here! Brilliant. I'll put the kettle on."
   },
   "darth-vader": {
-    "turn": "In a quarter of a mile. Do not fail me. Turn right.",
+    "start": "The coordinates are set. Your journey to the Dark Side begins.",
     "reroute": "You have failed me for the last time with that turn. Recalculating.",
     "arrive": "You have arrived. Your journey is complete. The Force is with you."
   },
   "batman": {
-    "turn": "In a quarter of a mile. Be ready. Turn right.",
-    "reroute": "Wrong turn. We adapt. Recalculating.",
+    "start": "The city needs us. Let's move!",
+    "reroute": "Wrong turn. Why do we fall? Recalculating.",
     "arrive": "We're here. This is your destination."
   },
-  "terminator": {
-    "turn": "In a quarter of a mile. Proceed. Turn right.",
-    "reroute": "Error. Trajectory changed. Recalculating. I'll be back on route.",
-    "arrive": "Destination reached. You have arrived. Your ride is terminated."
+  "gordon-ramsay": {
+    "start": "Right, let's go! Service is open!",
+    "reroute": "You missed it, you donkey! Recalculating.",
+    "arrive": "We're here. Finally! Beautiful. Well done."
   },
   "eric-cartman": {
-    "turn": "In a quarter of a mile, you guys. Turn right.",
+    "start": "Respect my authoritah! Now drive.",
     "reroute": "You missed it! Oh my God, you guys. Recalculating.",
     "arrive": "We're here! Screw you guys, I'm going home."
   }

@@ -15,57 +15,71 @@ Every line is a real prompt from a live pack, cut by
 and lengths are in [film-line-sheet.md](film-line-sheet.md). Trimming the tail
 of a clip is fine; adding a word that is not in the pack is not.
 
+## Rendering: no hand edit
+
+All four cuts are rendered straight to MP4 by the Remotion project in `film/`:
+an illustrated night drive in the site's sticker style, the character's face
+landing on the phone, and the line as a word-by-word caption. Timing comes
+from the real clip lengths, so a changed line re-times itself.
+
+    python scripts/build_film_audio.py     # cut the beats from the live packs
+    python scripts/prepare_film.py         # cuts.json + audio, faces, fonts
+    cd film && npm install && npm run render
+
+The four MP4s land in `film/out/`, ready to post. The cut order and hooks live
+in `CUTS` in `scripts/prepare_film.py`; the look lives in `film/src/Film.tsx`.
+Runway footage (below) is an optional upgrade that goes behind the same edit.
+
 ---
 
-## Cut A: "Missed turn" (hero, about 35s, 9:16)
+## Cut A: "Missed turn" (hero, 44s, 9:16)
 
-Audio animatic: `film-audio/cut-a-missed-turn.mp3`. Play it before you edit.
-The rhythm is the film.
+Rendered to `film/out/missed-turn.mp4`. Timings are the real clip lengths.
 
 | Time | Picture | Audio (real prompt) |
 | --- | --- | --- |
-| 0.0 | Night POV, the exit sign slides past on the right. Text: **POV: you missed your exit** | Default: "Recalculating." |
-| 1.7 | Hard cut. Paddington sticker slams onto the phone screen | "Oh. Not to worry. I'll find another way." |
-| 5.8 | Elmo | "Uh oh! Elmo will find a new way!" |
-| 9.6 | Cookie Monster | "Oops. Me find new way." |
-| 12.6 | Terminator. Picture desaturates slightly | "Error. Trajectory changed. Recalculating." (trim "I'll be back on route" if it drags) |
-| 18.0 | Cartman | "You missed it! Oh my God, you guys. Recalculating." |
-| 20.9 | Vito. Music drops out | "You missed the turn. I'll forget it. This time. Recalculating." |
-| 25.1 | Vader. Red tint, the car is silent | "You have failed me for the last time with that turn. Recalculating." |
-| 31.1 | One second of nothing. Indicator ticks. Driver takes the next exit, very carefully | (silence) |
-| 32.4 | Driveway, engine off | Cartman: "We're here! Screw you guys, I'm going home." |
-| 34.7 | End card, below | none |
+| 0.0 | Night POV, the exit sign slides past on the right. Text: **POV: you missed your exit** | "Recalculating." |
+| 1.7 | Hard cut. Paddington's face slams onto the phone | "Oh dear. Things are always happening to me. Recalculating." |
+| 7.8 | Hagrid | "Missed it! Blimey. That's my fault, that is. Recalculating." |
+| 14.3 | Cookie Monster | "Oops. Me find new way. Om nom nom." |
+| 18.8 | Gordon Ramsay | "You missed it, you donkey! Recalculating." |
+| 22.9 | Eric Cartman | "You missed it! Oh my God, you guys. Recalculating." |
+| 26.0 | Batman | "Wrong turn. Why do we fall? Recalculating." |
+| 29.9 | Vader. Red tint, the car goes silent | "You have failed me for the last time with that turn. Recalculating." |
+| 36.3 | A beat of nothing. Indicator blinks. Text: **Next exit. Very carefully.** | (silence) |
+| 37.5 | Driveway, a house at the end of the road | Eric Cartman: "We're here! Screw you guys, I'm going home." |
+| 39.9 | End card, below | none |
 
 **Why this order.** Each cut has to be a harder turn than the last, or the
-supercut flattens into a list. Sweet (Paddington, Elmo), then chaos (Cookie),
-then cold (Terminator), rude (Cartman), quietly menacing (Vito), and Vader to
+supercut flattens into a list. Sweet (Paddington, Hagrid), then chaos
+(Cookie), then fury (Ramsay), rude (Cartman), cold (Batman), and Vader to
 close it. The silence after Vader is the laugh. Cartman's "I'm going home" is
 the button because it undercuts all the menace that came before.
 
-**End card, 3s.** The twelve faces pop in one at a time, the same layout as
+**End card.** The twelve faces pop in one at a time, the same layout as
 `site/og.png`. **Make your GPS iconic.** Under it: **backseatnav.com**, and "Free.
-One tap into Waze." The old card said "WEIRD", so it needs remaking.
+One tap into Waze."
 
 ## Cut B: "Vader cold open" (about 21s)
 
-For feeds where the first second decides everything. Animatic:
-`film-audio/cut-b-vader-open.mp3`.
+For feeds where the first second decides everything. Rendered to
+`film/out/vader-open.mp4`.
 
 Vader first, with no setup: "You have failed me for the last time with that
-turn." Then Cartman, Elmo and Vito, one after another, and the Cartman arrival
+turn." Then Cartman, Elmo and Ramsay, one after another, and the Cartman arrival
 as the button. Text on frame one: **your GPS, but it's Darth Vader**. Post it
 as a separate video, not as a remix of A, so the two get compared cleanly.
 
 ## The series
 
-Each post is one beat, cut the same way, on a different slot. Animatics are
-in `film-audio/`:
+Each post is one beat, cut the same way, on a different slot. Rendered to
+`film/out/`:
 
-| Post | Beat | Order | Animatic |
+| Post | Beat | Order | Video |
 | --- | --- | --- | --- |
-| 2. Police ahead | `police_ahead` | Default, Paddington ("I shall give them a hard stare"), Daffy ("Act natural!"), Cartman ("Respect their authoritah!"), Batman ("GCPD"), Vito, Vader ("a disturbance in the speed limit") | `post-police.mp3` |
-| 3. You've arrived | `arrived` | Default, Elmo, Bugs, Terminator ("Your ride is terminated"), Vito ("spend time with your family"), Cartman | `post-arrived.mp3` |
-| 4. Cute vs. evil | any | Split screen: Elmo against Vader on the same beat, and Pooh against the Terminator | cut from the line sheet |
+| 2. Police ahead | `police_ahead` | Default, Paddington ("I shall give them a hard stare"), Hagrid ("I shouldn't have said that"), Daffy ("Act natural!"), Ramsay ("Idiot sandwich? Not today"), Cartman ("Respect their authoritah!"), Batman ("GCPD"), Vader ("a disturbance in the speed limit") | `police-ahead.mp4` |
+| 3. You've arrived | `arrived` | Default, Elmo, Hagrid ("I'll put the kettle on"), Bugs ("That's all, folks!"), Ramsay ("Finally! Beautiful"), Cartman | `arrived.mp4` |
+| 4. Cute vs. evil | any | Split screen: Elmo against Vader on the same beat, and Pooh against Ramsay | not rendered yet |
 | 5. Pick yours | none | The twelve faces. "Which one's riding with you?" Point people to the comments | none |
 
 Post 2 is the strongest follow-up. The police alert is where the villains
@@ -111,5 +125,5 @@ I'll quote the credit cost from the Runway API before generating anything.
   than just views.
 - **Pinned comment:** "Free. Tap a voice on backseatnav.com and it's in your Waze."
 - **Takedown risk.** Vader (Disney) and Batman (Warner Bros.) are the likeliest
-  to be muted or claimed. Cut A still lands without them, ending on Vito, so
+  to be muted or claimed. Cut A still lands without them, ending on Cartman, so
   keep that export ready.

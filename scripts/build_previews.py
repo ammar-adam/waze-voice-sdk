@@ -26,8 +26,11 @@ from waze_voice import media, phrases, presets  # noqa: E402
 OUT = REPO / "site" / "audio"
 VOICES = REPO / "site" / "voices.json"
 
+# The greeting leads, not a turn: the prompts heard at every junction are
+# plain by design (docs/presets.md), so they are the least characterful thing
+# a voice says and the worst thing to audition it on.
 CLIPS = [
-    ("turn", ["in_quarter_mile", "turn_right"]),
+    ("start", ["start_drive_1"]),
     ("reroute", ["reroute_chime"]),
     ("arrive", ["arrived"]),
 ]
@@ -123,7 +126,6 @@ def main() -> int:
             print(f"  {line}")
         return 1
     print("all clips present, audible, and sensibly sized")
-    print("\nListen to every *-turn.mp3: that is the pairing Waze stitches at drive time.")
     return 0
 
 

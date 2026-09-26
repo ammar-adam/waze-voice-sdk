@@ -10,8 +10,8 @@ Waze**. No account, nothing to download from us. On a computer, each voice has a
 QR code to scan.
 
 The voices: **Bugs Bunny, Cookie Monster, Daffy Duck, Elmo, Tigger, Winnie the
-Pooh, Paddington, Vito Corleone, Darth Vader, Batman, the Terminator and
-Eric Cartman.**
+Pooh, Paddington, Hagrid, Gordon Ramsay, Darth Vader, Batman and Eric
+Cartman.**
 
 [![CI](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/ci.yml)
 [![Link health](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/link-health.yml/badge.svg)](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/link-health.yml)

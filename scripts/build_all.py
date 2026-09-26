@@ -44,14 +44,13 @@ CHARACTERS: dict[str, str] = {
     # they were uploaded under.
     "bugs-bunny": "Bugs Bunny FINAL",
     "daffy-duck": "Daffy Duck",
-    "vito-corleone": "Vito Corleone",
     "darth-vader": "Darth Vader",
-    # Renamed so they stand apart from the first uploads, which were the wrong
-    # performances (Pattinson; Arnold the motivational speaker) and are still
-    # listed on any phone that added them.
+    # Renamed so it stands apart from the first upload, which was the wrong
+    # performance (Pattinson) and is still listed on any phone that added it.
     "batman": "Batman (Dark Knight)",
-    "terminator": "Terminator T-800",
     "eric-cartman": "Eric Cartman",
+    "hagrid": "Hagrid",
+    "gordon-ramsay": "Gordon Ramsay",
 }
 
 # Community models for the two presets whose own voice is a catalogue one.

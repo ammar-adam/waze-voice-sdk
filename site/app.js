@@ -11,8 +11,8 @@
   var PENDING_MAX_AGE = 7 * 24 * 3600 * 1000;
 
   var CLIPS = [
-    { id: "turn", cap: "¼ mi · Turn right",
-      icon: '<path d="M6 20v-7a5 5 0 0 1 5-5h7"/><path d="m15 4 4 4-4 4"/>' },
+    { id: "start", cap: "Starting a drive",
+      icon: '<path d="M7 4v16l13-8z"/>' },
     { id: "reroute", cap: "Recalculating",
       icon: '<path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/>' },
     { id: "arrive", cap: "Arrived",

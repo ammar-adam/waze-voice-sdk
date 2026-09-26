@@ -1,0 +1,389 @@
+{
+  "fps": 30,
+  "cuts": {
+    "MissedTurn": {
+      "hook": "POV: you missed your exit",
+      "scene": "exit",
+      "pause": "Next exit. Very carefully.",
+      "segments": [
+        {
+          "slug": "default",
+          "name": "Your GPS",
+          "line": "Recalculating.",
+          "audio": "audio/default-2-reroute.mp3",
+          "frames": 50,
+          "bg": "#dfe7f5",
+          "tone": "#3b5bdb",
+          "toneInk": "#ffffff"
+        },
+        {
+          "slug": "paddington",
+          "name": "Paddington",
+          "line": "Oh dear. Things are always happening to me. Recalculating.",
+          "audio": "audio/paddington-2-reroute.mp3",
+          "frames": 184,
+          "bg": "#c9dcf5",
+          "tone": "#2d5da8",
+          "toneInk": "#ffffff"
+        },
+        {
+          "slug": "hagrid",
+          "name": "Hagrid",
+          "line": "Missed it! Blimey. That's my fault, that is. Recalculating.",
+          "audio": "audio/hagrid-2-reroute.mp3",
+          "frames": 194,
+          "bg": "#e8dcc8",
+          "tone": "#6b4226",
+          "toneInk": "#ffffff"
+        },
+        {
+          "slug": "cookie-monster",
+          "name": "Cookie Monster",
+          "line": "Oops. Me find new way. Om nom nom.",
+          "audio": "audio/cookie-monster-2-reroute.mp3",
+          "frames": 135,
+          "bg": "#bfd6ff",
+          "tone": "#2a6ce8",
+          "toneInk": "#ffffff"
+        },
+        {
+          "slug": "gordon-ramsay",
+          "name": "Gordon Ramsay",
+          "line": "You missed it, you donkey! Recalculating.",
+          "audio": "audio/gordon-ramsay-2-reroute.mp3",
+          "frames": 124,
+          "bg": "#ffe3d3",
+          "tone": "#c0392b",
+          "toneInk": "#ffffff"
+        },
+        {
+          "slug": "eric-cartman",
+          "name": "Eric Cartman",
+          "line": "You missed it! Oh my God, you guys. Recalculating.",
+          "audio": "audio/eric-cartman-2-reroute.mp3",
+          "frames": 93,
+          "bg": "#d6f3ff",
+          "tone": "#25b7c7",
+          "toneInk": "#15172b"
+        },
+        {
+          "slug": "batman",
+          "name": "Batman",
+          "line": "Wrong turn. Why do we fall? Recalculating.",
+          "audio": "audio/batman-2-reroute.mp3",
+          "frames": 118,
+          "bg": "#fff0a8",
+          "tone": "#1f2330",
+          "toneInk": "#ffd23f"
+        },
+        {
+          "slug": "darth-vader",
+          "name": "Darth Vader",
+          "line": "You have failed me for the last time with that turn. Recalculating.",
+          "audio": "audio/darth-vader-2-reroute.mp3",
+          "frames": 190,
+          "bg": "#ffc9c9",
+          "tone": "#1c1d24",
+          "toneInk": "#ff5a4d"
+        }
+      ],
+      "button": {
+        "slug": "eric-cartman",
+        "name": "Eric Cartman",
+        "line": "We're here! Screw you guys, I'm going home.",
+        "audio": "audio/eric-cartman-4-arrive.mp3",
+        "frames": 73,
+        "bg": "#d6f3ff",
+        "tone": "#25b7c7",
+        "toneInk": "#15172b"
+      }
+    },
+    "VaderOpen": {
+      "hook": "your GPS, but it's Darth Vader",
+      "scene": "exit",
+      "pause": "",
+      "segments": [
+        {
+          "slug": "darth-vader",
+          "name": "Darth Vader",
+          "line": "You have failed me for the last time with that turn. Recalculating.",
+          "audio": "audio/darth-vader-2-reroute.mp3",
+          "frames": 190,
+          "bg": "#ffc9c9",
+          "tone": "#1c1d24",
+          "toneInk": "#ff5a4d"
+        },
+        {
+          "slug": "eric-cartman",
+          "name": "Eric Cartman",
+          "line": "You missed it! Oh my God, you guys. Recalculating.",
+          "audio": "audio/eric-cartman-2-reroute.mp3",
+          "frames": 93,
+          "bg": "#d6f3ff",
+          "tone": "#25b7c7",
+          "toneInk": "#15172b"
+        },
+        {
+          "slug": "elmo",
+          "name": "Elmo",
+          "line": "Uh oh! Elmo will find a new way! Ha ha!",
+          "audio": "audio/elmo-2-reroute.mp3",
+          "frames": 141,
+          "bg": "#ffd0cc",
+          "tone": "#e8261c",
+          "toneInk": "#ffffff"
+        },
+        {
+          "slug": "gordon-ramsay",
+          "name": "Gordon Ramsay",
+          "line": "You missed it, you donkey! Recalculating.",
+          "audio": "audio/gordon-ramsay-2-reroute.mp3",
+          "frames": 124,
+          "bg": "#ffe3d3",
+          "tone": "#c0392b",
+          "toneInk": "#ffffff"
+        }
+      ],
+      "button": {
+        "slug": "eric-cartman",
+        "name": "Eric Cartman",
+        "line": "We're here! Screw you guys, I'm going home.",
+        "audio": "audio/eric-cartman-4-arrive.mp3",
+        "frames": 73,
+        "bg": "#d6f3ff",
+        "tone": "#25b7c7",
+        "toneInk": "#15172b"
+      }
+    },
+    "PoliceAhead": {
+      "hook": "POV: police reported ahead",
+      "scene": "police",
+      "pause": "",
+      "segments": [
+        {
+          "slug": "default",
+          "name": "Your GPS",
+          "line": "Police reported ahead.",
+          "audio": "audio/default-3-police.mp3",
+          "frames": 60,
+          "bg": "#dfe7f5",
+          "tone": "#3b5bdb",
+          "toneInk": "#ffffff"
+        },
+        {
+          "slug": "paddington",
+          "name": "Paddington",
+          "line": "Police ahead. I shall give them a hard stare.",
+          "audio": "audio/paddington-3-police.mp3",
+          "frames": 139,
+          "bg": "#c9dcf5",
+          "tone": "#2d5da8",
+          "toneInk": "#ffffff"
+        },
+        {
+          "slug": "hagrid",
+          "name": "Hagrid",
+          "line": "Police ahead. I shouldn't have said that. Slow down.",
+          "audio": "audio/hagrid-3-police.mp3",
+          "frames": 160,
+          "bg": "#e8dcc8",
+          "tone": "#6b4226",
+          "toneInk": "#ffffff"
+        },
+        {
+          "slug": "daffy-duck",
+          "name": "Daffy Duck",
+          "line": "Police ahead! Act natural. Act natural!",
+          "audio": "audio/daffy-duck-3-police.mp3",
+          "frames": 113,
+          "bg": "#a8e6d6",
+          "tone": "#23232e",
+          "toneInk": "#ffb14a"
+        },
+        {
+          "slug": "gordon-ramsay",
+          "name": "Gordon Ramsay",
+          "line": "Police ahead. Idiot sandwich? Not today. Slow down.",
+          "audio": "audio/gordon-ramsay-3-police.mp3",
+          "frames": 152,
+          "bg": "#ffe3d3",
+          "tone": "#c0392b",
+          "toneInk": "#ffffff"
+        },
+        {
+          "slug": "eric-cartman",
+          "name": "Eric Cartman",
+          "line": "Police ahead! Respect their authoritah!",
+          "audio": "audio/eric-cartman-3-police.mp3",
+          "frames": 65,
+          "bg": "#d6f3ff",
+          "tone": "#25b7c7",
+          "toneInk": "#15172b"
+        },
+        {
+          "slug": "batman",
+          "name": "Batman",
+          "line": "Police ahead. GCPD. Drop your speed. Now!",
+          "audio": "audio/batman-3-police.mp3",
+          "frames": 154,
+          "bg": "#fff0a8",
+          "tone": "#1f2330",
+          "toneInk": "#ffd23f"
+        },
+        {
+          "slug": "darth-vader",
+          "name": "Darth Vader",
+          "line": "Police ahead. I sense a disturbance in the speed limit. Slow down.",
+          "audio": "audio/darth-vader-3-police.mp3",
+          "frames": 189,
+          "bg": "#ffc9c9",
+          "tone": "#1c1d24",
+          "toneInk": "#ff5a4d"
+        }
+      ],
+      "button": null
+    },
+    "Arrived": {
+      "hook": "POV: you made it",
+      "scene": "arrive",
+      "pause": "",
+      "segments": [
+        {
+          "slug": "default",
+          "name": "Your GPS",
+          "line": "You have arrived.",
+          "audio": "audio/default-4-arrive.mp3",
+          "frames": 49,
+          "bg": "#dfe7f5",
+          "tone": "#3b5bdb",
+          "toneInk": "#ffffff"
+        },
+        {
+          "slug": "elmo",
+          "name": "Elmo",
+          "line": "We arrived! Elmo loves you!",
+          "audio": "audio/elmo-4-arrive.mp3",
+          "frames": 99,
+          "bg": "#ffd0cc",
+          "tone": "#e8261c",
+          "toneInk": "#ffffff"
+        },
+        {
+          "slug": "hagrid",
+          "name": "Hagrid",
+          "line": "We're here! Brilliant. I'll put the kettle on.",
+          "audio": "audio/hagrid-4-arrive.mp3",
+          "frames": 140,
+          "bg": "#e8dcc8",
+          "tone": "#6b4226",
+          "toneInk": "#ffffff"
+        },
+        {
+          "slug": "bugs-bunny",
+          "name": "Bugs Bunny",
+          "line": "We've arrived. That's all, folks!",
+          "audio": "audio/bugs-bunny-4-arrive.mp3",
+          "frames": 111,
+          "bg": "#ffd2a1",
+          "tone": "#ff7a1a",
+          "toneInk": "#15172b"
+        },
+        {
+          "slug": "gordon-ramsay",
+          "name": "Gordon Ramsay",
+          "line": "We're here. Finally! Beautiful. Well done.",
+          "audio": "audio/gordon-ramsay-4-arrive.mp3",
+          "frames": 137,
+          "bg": "#ffe3d3",
+          "tone": "#c0392b",
+          "toneInk": "#ffffff"
+        },
+        {
+          "slug": "eric-cartman",
+          "name": "Eric Cartman",
+          "line": "We're here! Screw you guys, I'm going home.",
+          "audio": "audio/eric-cartman-4-arrive.mp3",
+          "frames": 73,
+          "bg": "#d6f3ff",
+          "tone": "#25b7c7",
+          "toneInk": "#15172b"
+        }
+      ],
+      "button": null
+    }
+  },
+  "cast": [
+    {
+      "slug": "bugs-bunny",
+      "bg": "#ffd2a1",
+      "tone": "#ff7a1a",
+      "toneInk": "#15172b"
+    },
+    {
+      "slug": "cookie-monster",
+      "bg": "#bfd6ff",
+      "tone": "#2a6ce8",
+      "toneInk": "#ffffff"
+    },
+    {
+      "slug": "daffy-duck",
+      "bg": "#a8e6d6",
+      "tone": "#23232e",
+      "toneInk": "#ffb14a"
+    },
+    {
+      "slug": "elmo",
+      "bg": "#ffd0cc",
+      "tone": "#e8261c",
+      "toneInk": "#ffffff"
+    },
+    {
+      "slug": "tigger",
+      "bg": "#ffd9b0",
+      "tone": "#ff8a1a",
+      "toneInk": "#15172b"
+    },
+    {
+      "slug": "pooh",
+      "bg": "#ffe9a8",
+      "tone": "#f2b33d",
+      "toneInk": "#15172b"
+    },
+    {
+      "slug": "paddington",
+      "bg": "#c9dcf5",
+      "tone": "#2d5da8",
+      "toneInk": "#ffffff"
+    },
+    {
+      "slug": "hagrid",
+      "bg": "#e8dcc8",
+      "tone": "#6b4226",
+      "toneInk": "#ffffff"
+    },
+    {
+      "slug": "darth-vader",
+      "bg": "#ffc9c9",
+      "tone": "#1c1d24",
+      "toneInk": "#ff5a4d"
+    },
+    {
+      "slug": "batman",
+      "bg": "#fff0a8",
+      "tone": "#1f2330",
+      "toneInk": "#ffd23f"
+    },
+    {
+      "slug": "gordon-ramsay",
+      "bg": "#ffe3d3",
+      "tone": "#c0392b",
+      "toneInk": "#ffffff"
+    },
+    {
+      "slug": "eric-cartman",
+      "bg": "#d6f3ff",
+      "tone": "#25b7c7",
+      "toneInk": "#15172b"
+    }
+  ]
+}
