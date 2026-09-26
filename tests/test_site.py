@@ -123,6 +123,7 @@ class DomainTests(unittest.TestCase):
             "install.html",
             "how-it-works.html",
             "make-your-own.html",
+            "stats.html",
         ):
             html = (SITE / name).read_text(encoding="utf-8")
             with self.subTest(page=name):
@@ -137,6 +138,7 @@ class DomainTests(unittest.TestCase):
             "install.html",
             "how-it-works.html",
             "make-your-own.html",
+            "stats.html",
         ):
             with self.subTest(page=name):
                 self.assertIn(
@@ -168,6 +170,22 @@ class AnalyticsTests(unittest.TestCase):
             if 'href="https://github.com/' in html:
                 with self.subTest(page=path.name):
                     self.assertIn('<script src="track.js"></script>', html)
+
+    def test_every_page_links_the_live_stats(self) -> None:
+        for path in self.pages():
+            if path.name == "stats.html":
+                continue
+            html = path.read_text(encoding="utf-8")
+            with self.subTest(page=path.name):
+                footer = html[html.index("<footer") :]
+                self.assertRegex(footer, r'href="/?stats\.html"')
+
+    def test_stats_page_is_honest_about_installs(self) -> None:
+        """Waze never reports installs; the page must not imply it does."""
+        html = (SITE / "stats.html").read_text(encoding="utf-8")
+        self.assertIn("install taps", html)
+        self.assertIn("Did it work?", html)
+        self.assertNotRegex(html.lower(), r"verified install|installs? verified|waze-verified")
 
     def test_docs_report_readership(self) -> None:
         for name in ("how-it-works.html", "make-your-own.html"):
