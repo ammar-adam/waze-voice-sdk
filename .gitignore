@@ -76,3 +76,9 @@ audio/qa-report.json
 
 # Local voice auditions: throwaway mp3s for picking a base voice by ear.
 voice-auditions/
+
+# Film cut audio. Derived from packs; regenerate with scripts/build_film_audio.py
+film-audio/
+
+# Generated from site/voices.json by scripts/build_site.py, locally and in CI.
+site/qr/

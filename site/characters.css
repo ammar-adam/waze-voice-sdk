@@ -1,0 +1,12 @@
+/* One colour world per character: the panel behind the face, and the Install
+   button in the character's own colour with ink picked for contrast. Keyed on
+   the slug, so a new voice in voices.json needs a line here and a face in
+   faces/<slug>.svg - the tests check for both. */
+
+#bugs-bunny     { --bg: #ffd2a1; --tone: #ff7a1a; --tone-ink: #15172b; }
+#cookie-monster { --bg: #bfd6ff; --tone: #2a6ce8; --tone-ink: #ffffff; }
+#daffy-duck     { --bg: #a8e6d6; --tone: #23232e; --tone-ink: #ffb14a; }
+#elmo           { --bg: #ffd0cc; --tone: #e8261c; --tone-ink: #ffffff; }
+#tigger         { --bg: #ffd9b0; --tone: #ff8a1a; --tone-ink: #15172b; }
+#pooh           { --bg: #ffe9a8; --tone: #f2b33d; --tone-ink: #15172b; }
+#paddington     { --bg: #c9dcf5; --tone: #2d5da8; --tone-ink: #ffffff; }

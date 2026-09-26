@@ -1,0 +1,69 @@
+{
+  "_comment": "Single source for every UUID on the site. The page, the preview builder and the link checker all read this, so a stale pack is a one-line fix in one place. UUIDs change on every re-upload because Waze has no update-in-place.",
+  "updated": "2026-09-25",
+  "voices": [
+    {
+      "slug": "bugs-bunny",
+      "preset": "bugs-bunny",
+      "name": "Bugs Bunny",
+      "waze_name": "Bugs Bunny FINAL",
+      "blurb": "Unbothered. Wisecracking. A beat ahead of you.",
+      "uuid": "d1bbee51-c541-478f-a3a2-0ae9e319a6fd",
+      "rights": "in-copyright"
+    },
+    {
+      "slug": "cookie-monster",
+      "preset": "cookie-monster",
+      "name": "Cookie Monster",
+      "waze_name": "Cookie Monster",
+      "blurb": "Blunt, delighted, thinking about snacks.",
+      "uuid": "2f6ccacd-9d5c-415b-a580-54b17c511653",
+      "rights": "in-copyright"
+    },
+    {
+      "slug": "daffy-duck",
+      "preset": "daffy-duck",
+      "name": "Daffy Duck",
+      "waze_name": "Daffy Duck",
+      "blurb": "Loud, theatrical, personally offended by traffic.",
+      "uuid": "befcdaf8-2409-4302-b2d3-f5c4c6dca9cf",
+      "rights": "in-copyright"
+    },
+    {
+      "slug": "elmo",
+      "preset": "elmo",
+      "name": "Elmo",
+      "waze_name": "Elmo",
+      "blurb": "Bright, giggly, and proud of you for merging.",
+      "uuid": "bd90b917-c393-4880-9ff4-9637fe3117c8",
+      "rights": "in-copyright"
+    },
+    {
+      "slug": "tigger",
+      "preset": "tigger",
+      "name": "Tigger",
+      "waze_name": "Tigger",
+      "blurb": "Fast, bouncy, overconfident.",
+      "uuid": "9046b9ab-c7b0-459c-b035-4b51b4d31d42",
+      "rights": "text-public-domain"
+    },
+    {
+      "slug": "pooh",
+      "preset": "pooh",
+      "name": "Winnie the Pooh",
+      "waze_name": "Winnie the Pooh",
+      "blurb": "Warm, unhurried, audibly thinking it through.",
+      "uuid": "e6ad4e53-06dd-44ff-bbd1-c8a5cd6fb6b8",
+      "rights": "text-public-domain"
+    },
+    {
+      "slug": "paddington",
+      "preset": "paddington",
+      "name": "Paddington",
+      "waze_name": "Paddington",
+      "blurb": "Unfailingly polite. Marmalade under the hat.",
+      "uuid": "8d800927-198d-4826-aa22-4c7ad60d1adc",
+      "rights": "in-copyright"
+    }
+  ]
+}

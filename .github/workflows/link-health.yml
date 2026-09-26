@@ -1,0 +1,51 @@
+name: Link health
+
+# Every six hours, confirm each voice on backseat.fm still resolves on Waze.
+# A dead pack means the site's main button silently stops working, and during a
+# launch nobody files a bug about that - they just leave. So a failure opens an
+# issue instead of waiting for someone to look at a red badge.
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["site/voices.json", "scripts/check_links.py"]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Check every voice resolves
+        id: check
+        run: |
+          set -o pipefail
+          python scripts/check_links.py | tee link-report.txt
+
+      # One open issue at a time: comment on it rather than filing a new one
+      # every six hours for the same outage.
+      - name: Report failure
+        if: failure() && steps.check.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          body=$(printf 'The scheduled link check found a voice that no longer resolves on Waze.\n\n```\n%s\n```\n\nRun: %s/%s/actions/runs/%s' \
+            "$(cat link-report.txt)" "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID")
+          existing=$(gh issue list --state open --label link-health --json number --jq '.[0].number')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh label create link-health --color d93f0b --description "Voice links failing on Waze" 2>/dev/null || true
+            gh issue create --title "A voice on backseat.fm no longer resolves" --label link-health --body "$body"
+          fi

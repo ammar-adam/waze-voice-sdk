@@ -6,6 +6,27 @@ Notable changes. Dates are when the work landed on `main`.
 
 ### Added
 
+- **backseat.fm**, the consumer site, in `site/` and deployed to GitHub
+  Pages. Each voice is a sticker face on its own colour with three real clips from its pack,
+  the words it actually says, and one-tap install; desktop visitors get a QR
+  code. Funnel events go to Plausible through one `track()` function, and a
+  "Did it work?" prompt appears when the visitor comes back from Waze.
+- **`site/voices.json`** is the only place a pack UUID lives. The page, the
+  preview builder, the QR generator and the link checker all read it, and a test
+  fails if a UUID appears anywhere else in the site.
+- **`scripts/check_links.py`** and a scheduled workflow that checks every voice
+  resolves on Waze every six hours and opens an issue when one does not.
+- **`scripts/build_film_audio.py`** and `docs/film-line-sheet.md`: the launch
+  film's three beats cut from the live packs, so the film cannot say a line the
+  product does not.
+- **`scripts/build_previews.py`**: the site's preview clips, cut from existing
+  pack audio with no API calls, with a loudness and duration check on each.
+
+### Removed
+
+- `BUILD_PLAN.md` and `PRD.md`. Pre-build planning; what stayed true is in
+  `docs/` and the README, and the rest is in history.
+
 - **`wvs preflight`.** Everything checkable without an API call: preset
   validation, Waze filename mapping, clarity rules, and an estimated size
   against the cap. Prints what it cannot tell you. CI runs it.

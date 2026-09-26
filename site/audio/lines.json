@@ -1,0 +1,37 @@
+{
+  "bugs-bunny": {
+    "turn": "In a quarter of a mile, doc. Turn right.",
+    "reroute": "Eh, no problem. I know a shortcut.",
+    "arrive": "We've arrived. Told ya, doc."
+  },
+  "cookie-monster": {
+    "turn": "In a quarter of a mile! Turn right.",
+    "reroute": "Oops. Me find new way.",
+    "arrive": "We arrived! Now me get cookie!"
+  },
+  "daffy-duck": {
+    "turn": "In a quarter of a mile! Turn right.",
+    "reroute": "Rerouting! It's fine. Everything is fine.",
+    "arrive": "We've arrived! You're welcome, obviously."
+  },
+  "elmo": {
+    "turn": "In a quarter of a mile! Turn right.",
+    "reroute": "Uh oh! Elmo will find a new way!",
+    "arrive": "We arrived! Elmo is so proud of you!"
+  },
+  "tigger": {
+    "turn": "In a quarter of a mile! Turn right.",
+    "reroute": "Never mind! Another way!",
+    "arrive": "We've arrived! That was tremendous!"
+  },
+  "pooh": {
+    "turn": "In a quarter of a mile, if you please. Turn right.",
+    "reroute": "Oh. I'll find another way.",
+    "arrive": "We've arrived. There now. I said we would."
+  },
+  "paddington": {
+    "turn": "In a quarter of a mile, if you please. Turn right.",
+    "reroute": "Oh. Not to worry. I'll find another way.",
+    "arrive": "We've arrived. Thank you kindly for the lift."
+  }
+}
