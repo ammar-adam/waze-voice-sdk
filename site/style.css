@@ -378,6 +378,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   padding: clamp(1.8rem, 6vw, 4rem) 0 clamp(2.2rem, 6vw, 4rem);
 }
 .stats-hero .wrap { display: grid; gap: 1rem; }
+.stats-hero h1 { margin-bottom: .3em; } /* the tilted pop line needs room */
 .stats-hero .kicker { display: inline-flex; align-items: center; gap: .45rem; background: var(--label); }
 .live-dot {
   width: .55rem; height: .55rem; border-radius: 50%; background: #ff3b30;
@@ -414,7 +415,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .chart .bar:hover { fill: #ff5a1f; }
 .chart .axis { stroke: var(--line); stroke-width: 2.5; }
 .chart .grid { stroke: #cfd6ea; stroke-width: 1.5; stroke-dasharray: 4 5; }
-.chart .peak, .chart .day { font: 500 12px var(--data); fill: var(--ink-soft); }
+.chart .peak, .chart .day { font: 500 15px var(--data); fill: var(--ink-soft); }
 .chart-empty { margin: 0; padding: 3rem 1rem; text-align: center; font-weight: 700; color: var(--ink-soft); }
 
 .leader { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; }
