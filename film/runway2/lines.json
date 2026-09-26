@@ -1,0 +1,551 @@
+[
+ {
+  "slug": "elmo",
+  "phrase_id": "start_drive_1",
+  "text": "Hi! Elmo is so happy to see you! Let's go!",
+  "transcript": "Hi! Elmo is so happy to see you! Let's go!",
+  "duration": 4.9,
+  "format": "44100,1,128000",
+  "lufs": -15.6,
+  "true_peak": -2.0,
+  "words": [
+   {
+    "w": "Hi!",
+    "start": 0.0,
+    "end": 0.56
+   },
+   {
+    "w": "Elmo",
+    "start": 1.26,
+    "end": 1.44
+   },
+   {
+    "w": "is",
+    "start": 1.44,
+    "end": 1.62
+   },
+   {
+    "w": "so",
+    "start": 1.62,
+    "end": 1.92
+   },
+   {
+    "w": "happy",
+    "start": 1.92,
+    "end": 2.3
+   },
+   {
+    "w": "to",
+    "start": 2.3,
+    "end": 2.6
+   },
+   {
+    "w": "see",
+    "start": 2.6,
+    "end": 2.92
+   },
+   {
+    "w": "you!",
+    "start": 2.92,
+    "end": 3.36
+   },
+   {
+    "w": "Let's",
+    "start": 3.68,
+    "end": 4.0
+   },
+   {
+    "w": "go!",
+    "start": 4.0,
+    "end": 4.42
+   }
+  ]
+ },
+ {
+  "slug": "gordon-ramsay",
+  "phrase_id": "traffic_ahead",
+  "text": "Traffic ahead. It's moving slower than your risotto.",
+  "transcript": "traffic ahead it's moving slower than your risotto",
+  "duration": 3.84,
+  "format": "44100,1,128000",
+  "lufs": -16.0,
+  "true_peak": -1.9,
+  "words": [
+   {
+    "w": "traffic",
+    "start": 0.0,
+    "end": 0.44
+   },
+   {
+    "w": "ahead",
+    "start": 0.44,
+    "end": 0.92
+   },
+   {
+    "w": "it's",
+    "start": 0.92,
+    "end": 1.94
+   },
+   {
+    "w": "moving",
+    "start": 1.94,
+    "end": 2.16
+   },
+   {
+    "w": "slower",
+    "start": 2.16,
+    "end": 2.6
+   },
+   {
+    "w": "than",
+    "start": 2.6,
+    "end": 2.84
+   },
+   {
+    "w": "your",
+    "start": 2.84,
+    "end": 3.02
+   },
+   {
+    "w": "risotto",
+    "start": 3.02,
+    "end": 3.48
+   }
+  ]
+ },
+ {
+  "slug": "pooh",
+  "phrase_id": "traffic_ahead",
+  "text": "Traffic ahead. Oh, bother.",
+  "transcript": "Traffic ahead. Who bother?",
+  "duration": 2.68,
+  "format": "44100,1,128000",
+  "lufs": -15.6,
+  "true_peak": -1.9,
+  "words": [
+   {
+    "w": "Traffic",
+    "start": 0.0,
+    "end": 0.54
+   },
+   {
+    "w": "ahead.",
+    "start": 0.54,
+    "end": 1.02
+   },
+   {
+    "w": "Who",
+    "start": 1.66,
+    "end": 1.7
+   },
+   {
+    "w": "bother?",
+    "start": 1.7,
+    "end": 2.24
+   }
+  ]
+ },
+ {
+  "slug": "eric-cartman",
+  "phrase_id": "traffic_ahead",
+  "text": "Traffic ahead. Screw this traffic!",
+  "transcript": "Traffic ahead. Screw this traffic.",
+  "duration": 1.85,
+  "format": "44100,1,128000",
+  "lufs": -15.4,
+  "true_peak": -1.8,
+  "words": [
+   {
+    "w": "Traffic",
+    "start": 0.0,
+    "end": 0.32
+   },
+   {
+    "w": "ahead.",
+    "start": 0.32,
+    "end": 0.66
+   },
+   {
+    "w": "Screw",
+    "start": 1.14,
+    "end": 1.22
+   },
+   {
+    "w": "this",
+    "start": 1.22,
+    "end": 1.42
+   },
+   {
+    "w": "traffic.",
+    "start": 1.42,
+    "end": 1.68
+   }
+  ]
+ },
+ {
+  "slug": "darth-vader",
+  "phrase_id": "traffic_ahead",
+  "text": "Traffic ahead. I find this delay disturbing.",
+  "transcript": "Traffic ahead. I find this delay disturbing.",
+  "duration": 3.69,
+  "format": "44100,1,128000",
+  "lufs": -16.8,
+  "true_peak": -1.6,
+  "words": [
+   {
+    "w": "Traffic",
+    "start": 0.0,
+    "end": 0.4
+   },
+   {
+    "w": "ahead.",
+    "start": 0.4,
+    "end": 0.78
+   },
+   {
+    "w": "I",
+    "start": 1.84,
+    "end": 1.98
+   },
+   {
+    "w": "find",
+    "start": 1.98,
+    "end": 2.2
+   },
+   {
+    "w": "this",
+    "start": 2.2,
+    "end": 2.4
+   },
+   {
+    "w": "delay",
+    "start": 2.4,
+    "end": 2.68
+   },
+   {
+    "w": "disturbing.",
+    "start": 2.68,
+    "end": 3.14
+   }
+  ]
+ },
+ {
+  "slug": "gordon-ramsay",
+  "phrase_id": "reroute_chime",
+  "text": "You missed it, you donkey!",
+  "transcript": "You missed it! You donkey!",
+  "duration": 2.42,
+  "format": "44100,1,128000",
+  "lufs": -15.5,
+  "true_peak": -3.0,
+  "words": [
+   {
+    "w": "You",
+    "start": 0.0,
+    "end": 0.28
+   },
+   {
+    "w": "missed",
+    "start": 0.28,
+    "end": 0.58
+   },
+   {
+    "w": "it!",
+    "start": 0.58,
+    "end": 1.04
+   },
+   {
+    "w": "You",
+    "start": 1.36,
+    "end": 1.58
+   },
+   {
+    "w": "donkey!",
+    "start": 1.58,
+    "end": 1.94
+   }
+  ]
+ },
+ {
+  "slug": "bugs-bunny",
+  "phrase_id": "arrived",
+  "text": "We've arrived. That's all, folks!",
+  "transcript": "We've arrived. That's all folks.",
+  "duration": 2.67,
+  "format": "44100,1,128000",
+  "lufs": -15.5,
+  "true_peak": -3.0,
+  "words": [
+   {
+    "w": "We've",
+    "start": 0.0,
+    "end": 0.5
+   },
+   {
+    "w": "arrived.",
+    "start": 0.5,
+    "end": 0.92
+   },
+   {
+    "w": "That's",
+    "start": 1.54,
+    "end": 1.74
+   },
+   {
+    "w": "all",
+    "start": 1.74,
+    "end": 2.0
+   },
+   {
+    "w": "folks.",
+    "start": 2.0,
+    "end": 2.32
+   }
+  ]
+ },
+ {
+  "slug": "elmo",
+  "phrase_id": "start_drive_9",
+  "text": "Here we go! Elmo loves you!",
+  "transcript": "Here we go! Elmo loves you!",
+  "duration": 2.98,
+  "format": "44100,1,128000",
+  "lufs": -16.0,
+  "true_peak": -3.3,
+  "words": [
+   {
+    "w": "Here",
+    "start": 0.0,
+    "end": 0.3
+   },
+   {
+    "w": "we",
+    "start": 0.3,
+    "end": 0.52
+   },
+   {
+    "w": "go!",
+    "start": 0.52,
+    "end": 1.0
+   },
+   {
+    "w": "Elmo",
+    "start": 1.6,
+    "end": 1.82
+   },
+   {
+    "w": "loves",
+    "start": 1.82,
+    "end": 2.16
+   },
+   {
+    "w": "you!",
+    "start": 2.16,
+    "end": 2.64
+   }
+  ]
+ },
+ {
+  "slug": "batman",
+  "phrase_id": "traffic_ahead",
+  "text": "Gridlock. Traffic has the streets completely paralyzed.",
+  "transcript": "Gridlock. Traffic has the streets completely paralyzed.",
+  "duration": 4.11,
+  "format": "44100,1,128000",
+  "lufs": -16.4,
+  "true_peak": -1.9,
+  "words": [
+   {
+    "w": "Gridlock.",
+    "start": 0.0,
+    "end": 0.68
+   },
+   {
+    "w": "Traffic",
+    "start": 1.72,
+    "end": 1.9
+   },
+   {
+    "w": "has",
+    "start": 1.9,
+    "end": 2.14
+   },
+   {
+    "w": "the",
+    "start": 2.14,
+    "end": 2.3
+   },
+   {
+    "w": "streets",
+    "start": 2.3,
+    "end": 2.56
+   },
+   {
+    "w": "completely",
+    "start": 2.56,
+    "end": 3.02
+   },
+   {
+    "w": "paralyzed.",
+    "start": 3.02,
+    "end": 3.68
+   }
+  ]
+ },
+ {
+  "slug": "hagrid",
+  "phrase_id": "reroute_chime",
+  "text": "Missed it! Blimey. That's my fault, that is.",
+  "transcript": "Missed it! Blimey. That's my fault, that is.",
+  "duration": 3.74,
+  "format": "44100,1,128000",
+  "lufs": -16.7,
+  "true_peak": -1.5,
+  "words": [
+   {
+    "w": "Missed",
+    "start": 0.0,
+    "end": 0.48
+   },
+   {
+    "w": "it!",
+    "start": 0.48,
+    "end": 0.68
+   },
+   {
+    "w": "Blimey.",
+    "start": 1.68,
+    "end": 2.16
+   },
+   {
+    "w": "That's",
+    "start": 2.46,
+    "end": 2.7
+   },
+   {
+    "w": "my",
+    "start": 2.7,
+    "end": 2.86
+   },
+   {
+    "w": "fault,",
+    "start": 2.86,
+    "end": 3.14
+   },
+   {
+    "w": "that",
+    "start": 3.22,
+    "end": 3.32
+   },
+   {
+    "w": "is.",
+    "start": 3.32,
+    "end": 3.56
+   }
+  ]
+ },
+ {
+  "slug": "eric-cartman",
+  "phrase_id": "arrived",
+  "text": "We're here! Screw you guys, I'm going home.",
+  "transcript": "We're here! Screw you guys, I'm going home.",
+  "duration": 1.85,
+  "format": "44100,1,128000",
+  "lufs": -15.3,
+  "true_peak": -1.6,
+  "words": [
+   {
+    "w": "We're",
+    "start": 0.0,
+    "end": 0.22
+   },
+   {
+    "w": "here!",
+    "start": 0.22,
+    "end": 0.46
+   },
+   {
+    "w": "Screw",
+    "start": 0.74,
+    "end": 0.82
+   },
+   {
+    "w": "you",
+    "start": 0.82,
+    "end": 0.96
+   },
+   {
+    "w": "guys,",
+    "start": 0.96,
+    "end": 1.16
+   },
+   {
+    "w": "I'm",
+    "start": 1.28,
+    "end": 1.34
+   },
+   {
+    "w": "going",
+    "start": 1.34,
+    "end": 1.46
+   },
+   {
+    "w": "home.",
+    "start": 1.46,
+    "end": 1.7
+   }
+  ]
+ },
+ {
+  "slug": "elmo",
+  "phrase_id": "arrived",
+  "text": "We arrived! Elmo is so proud of you!",
+  "transcript": "We arrived! Elmo is so proud of you!",
+  "duration": 3.57,
+  "format": "44100,1,128000",
+  "lufs": -15.8,
+  "true_peak": -3.2,
+  "words": [
+   {
+    "w": "We",
+    "start": 0.0,
+    "end": 0.34
+   },
+   {
+    "w": "arrived!",
+    "start": 0.34,
+    "end": 0.94
+   },
+   {
+    "w": "Elmo",
+    "start": 1.5,
+    "end": 1.78
+   },
+   {
+    "w": "is",
+    "start": 1.78,
+    "end": 1.96
+   },
+   {
+    "w": "so",
+    "start": 1.96,
+    "end": 2.28
+   },
+   {
+    "w": "proud",
+    "start": 2.28,
+    "end": 2.66
+   },
+   {
+    "w": "of",
+    "start": 2.66,
+    "end": 2.92
+   },
+   {
+    "w": "you!",
+    "start": 2.92,
+    "end": 3.28
+   }
+  ]
+ }
+]

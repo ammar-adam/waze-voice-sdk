@@ -1,0 +1,507 @@
+{
+  "film": "Tough Crowd",
+  "fps": 24,
+  "master": "1920x1080",
+  "vertical": "1080x1920",
+  "runtime_s": 42.0,
+  "model_choice": {
+    "picked": "veo3.1_fast, ratio 1920:1080, duration 8, audio false = 80 credits per clip (10 per second)",
+    "why": "The only 1080p image-to-video at a sane price, so the 9:16 crop (608 px of source width) stays sharp. Tested twice on this cast: faces hold, real micro-acting, clean hands. gen4_turbo (5/s) and gen4.5 (12/s) are 720p only; a 9:16 crop of 720p is 405 px wide and goes mushy on phones.",
+    "prompt_lessons": [
+      "Never write 'he listens' near a phone: Veo made him take a phone call (T1). Say the phone stays low and never rises.",
+      "Timestamp the actions ('at five seconds...'): Veo follows them (T2's head turn landed at 2.7s for 'after two seconds').",
+      "A static hood camera plus 'the truck does not move' keeps backgrounds and plates stable.",
+      "Always pass the negativePrompt; always audio:false (with audio it costs 15/s and invents voices)."
+    ],
+    "api_notes": [
+      "POST https://api.dev.runwayml.com/v1/image_to_video with headers Authorization: Bearer $RUNWAY_KEY and X-Runway-Version: 2024-11-06; poll GET /v1/tasks/{id}.",
+      "promptImage: base64 data URI of the PNG keyframe (all are under 5 MB).",
+      "Download outputs with curl --retry 5 --retry-all-errors. Python urllib hit connection resets from the CDN 3 times; the output URL can be re-fetched from GET /v1/tasks/{id}."
+    ]
+  },
+  "shots": [
+    {
+      "id": "S01",
+      "beats": [
+        "B1"
+      ],
+      "purpose": "HOOK. First frame of the film: the giant deadpan driver and his gleeful passenger holding his phone. Her tap installs Elmo.",
+      "keyframe": "keyframes/KF01b_hook_twoshot.png",
+      "model": "veo3.1_fast",
+      "endpoint": "/v1/image_to_video",
+      "ratio": "1920:1080",
+      "duration": 8,
+      "audio": false,
+      "credits": 80,
+      "priority": "must-have",
+      "promptText": "Static camera mounted on the hood of a parked vintage pickup truck, looking through the windshield at the two people inside; the engine idles with a faint vibration. On the left, the woman in the mustard corduroy jacket holds a smartphone up with its back to camera, grinning wickedly at the driver; at half a second she taps the screen once with her thumb, then turns to watch his face, delighted, shoulders bouncing with silent giggles. On the right, the huge bearded driver stares straight ahead, completely deadpan, both hands on the wheel, and slowly blinks once. At five seconds he sighs through his nose and turns the steering wheel to the left, hand over hand; the truck pulls away from the curb. Nobody speaks. Photoreal, 35mm film look, Kodak Portra colors, gentle grain, naturalistic acting.",
+      "negativePrompt": "talking, lip sync, mouthing words, phone held to ear, phone call, text, subtitles, captions, logos, watermark, readable signs, license plate text, extra fingers, deformed hands, face morphing, identity change, camera shake, cartoon",
+      "edit_window": {
+        "src_in": 0.25,
+        "src_out": 1.75,
+        "film_in": 0.0,
+        "film_out": 1.5,
+        "note": "Cut so her visible thumb tap lands on film 0.21s (frame 5); slide src_in to match the real tap frame."
+      },
+      "crop_9x16": {
+        "mode": "stacked split",
+        "top": "her half: crop x=40..1000, y=40..893 (960x853), scale x1.125 to 1080x960",
+        "bottom": "his half: crop x=920..1880, y=40..893 (960x853), scale x1.125 to 1080x960",
+        "note": "Native resolution, no mushy upscale. Re-centre each half on the face in the actual take.",
+        "seam": "The hook caption sticker straddles the seam at y=960."
+      },
+      "fallback": "Regenerate once with a new seed. If still weak, hold KF01b for 1.5s with a 4% push-in (the only place a still may appear, and only under the hook caption), then go to S02.",
+      "status": "to generate"
+    },
+    {
+      "id": "S02",
+      "beats": [
+        "B2"
+      ],
+      "purpose": "Elmo's greeting lands on the least Elmo man alive. Deadpan, then real wheel motion as he pulls out.",
+      "keyframe": "keyframes/KF02b_driver_cu_start.png",
+      "model": "veo3.1_fast",
+      "endpoint": "/v1/image_to_video",
+      "ratio": "1920:1080",
+      "duration": 8,
+      "audio": false,
+      "credits": 80,
+      "priority": "must-have",
+      "promptText": "Static camera in the passenger seat: close-up of the big bearded driver in a navy cap and red flannel, three-quarter profile, looking frame right out of the windshield, low golden morning sun flaring behind him. For the first four seconds he is a statue: flat, utterly unimpressed stare, mouth closed, one slow blink at two seconds. At five seconds he exhales through his nose, his chest falls, and he turns the steering wheel to the left hand over hand, pulling the parked truck away from the curb; the golden street starts sliding past the windows. He never speaks. Photoreal, 35mm film look, Kodak Portra colors, gentle grain, naturalistic acting.",
+      "negativePrompt": "talking, lip sync, mouthing words, phone held to ear, phone call, text, subtitles, captions, logos, watermark, readable signs, license plate text, extra fingers, deformed hands, face morphing, identity change, camera shake, cartoon",
+      "edit_window": {
+        "src_in": 0.9,
+        "src_out": 5.4,
+        "film_in": 1.5,
+        "film_out": 6.0,
+        "note": "The wheel turn must be visible in the last 0.4s before the cut; slide src_in so it is."
+      },
+      "crop_9x16": {
+        "mode": "crop",
+        "x_center": 620,
+        "size": "608x1080 scaled x1.776",
+        "note": "Face at x~620 in KF02b; re-centre per take."
+      },
+      "fallback": "New seed. Fallback: stay on the S01 two-shot for the whole Elmo line (S01 contains the same pull-out).",
+      "status": "to generate"
+    },
+    {
+      "id": "S03",
+      "beats": [
+        "B3"
+      ],
+      "purpose": "Geography: now they are stuck in traffic. Resets the scene for the montage.",
+      "keyframe": "keyframes/KF03c_ext_jam_rear.png",
+      "model": "veo3.1_fast",
+      "endpoint": "/v1/image_to_video",
+      "ratio": "1920:1080",
+      "duration": 8,
+      "audio": false,
+      "credits": 80,
+      "priority": "must-have",
+      "promptText": "Locked-off long telephoto shot from behind a dead-stopped traffic jam on a hot afternoon. The faded powder-blue vintage pickup truck with white roof sits completely still in the center of frame among rows of stopped cars with glowing red brake lights stretching to the horizon. Heat haze shimmers above the asphalt. Far ahead a single car creeps forward a few feet and stops. The pickup never moves. The camera never moves. Photoreal, 35mm film look, Kodak Portra colors, gentle grain, naturalistic acting.",
+      "negativePrompt": "talking, lip sync, mouthing words, phone held to ear, phone call, text, subtitles, captions, logos, watermark, readable signs, license plate text, extra fingers, deformed hands, face morphing, identity change, camera shake, cartoon",
+      "edit_window": {
+        "src_in": 2.0,
+        "src_out": 3.25,
+        "film_in": 6.0,
+        "film_out": 7.25,
+        "note": "The plate is AI-garbled text: cover it with a static gaussian-blur patch (the truck must not move; check every frame) or scale 120% anchored top so it leaves frame."
+      },
+      "crop_9x16": {
+        "mode": "crop",
+        "x_center": 870,
+        "size": "608x1080 scaled x1.776",
+        "note": "Plate fix applies to the 9:16 crop too."
+      },
+      "fallback": "gen4_turbo 1280:720, 3s (15 credits) from the same keyframe and prompt.",
+      "status": "to generate"
+    },
+    {
+      "id": "S04",
+      "beats": [
+        "B4"
+      ],
+      "purpose": "Montage 1 of 4 (Gordon Ramsay). The game is set: she keeps switching voices, he refuses to crack.",
+      "keyframe": "keyframes/KF04c_twoshot_traffic.png",
+      "model": "veo3.1_fast",
+      "endpoint": "/v1/image_to_video",
+      "ratio": "1920:1080",
+      "duration": 8,
+      "audio": false,
+      "credits": 80,
+      "priority": "must-have",
+      "promptText": "Static camera mounted on the hood of a vintage pickup truck standing still in a traffic jam, looking through the windshield at the two people inside. On the left, the woman in the mustard corduroy jacket taps her phone with her thumb at one second, then presses her lips together and covers her mouth with her hand, shoulders shaking with a silent snort of laughter, eyes darting sideways at him. On the right, the bearded driver sits perfectly still, stone-faced, eyes straight ahead, one hand draped on top of the wheel; he does not react at all. The truck does not move. Neither of them speaks. Photoreal, 35mm film look, Kodak Portra colors, gentle grain, naturalistic acting.",
+      "negativePrompt": "talking, lip sync, mouthing words, phone held to ear, phone call, text, subtitles, captions, logos, watermark, readable signs, license plate text, extra fingers, deformed hands, face morphing, identity change, camera shake, cartoon",
+      "edit_window": {
+        "src_in": 0.9,
+        "src_out": 5.15,
+        "film_in": 7.25,
+        "film_out": 11.5,
+        "note": "Her tap on film 7.35s."
+      },
+      "crop_9x16": {
+        "mode": "stacked split",
+        "top": "her half: crop x=40..1000, y=40..893 (960x853), scale x1.125 to 1080x960",
+        "bottom": "his half: crop x=920..1880, y=40..893 (960x853), scale x1.125 to 1080x960",
+        "note": "Native resolution, no mushy upscale. Re-centre each half on the face in the actual take."
+      },
+      "fallback": "New seed. Fallback keyframe KF04_twoshot_traffic.png (older, has a small chin smudge: check it in motion).",
+      "status": "to generate"
+    },
+    {
+      "id": "S05",
+      "beats": [
+        "B5"
+      ],
+      "purpose": "Montage 2 of 4 (Winnie the Pooh). Her look to the lens pulls the viewer into the game (comment bait: what would crack him?).",
+      "keyframe": "keyframes/KF05_passenger_cu_traffic.png",
+      "model": "veo3.1_fast",
+      "endpoint": "/v1/image_to_video",
+      "ratio": "1920:1080",
+      "duration": 8,
+      "audio": false,
+      "credits": 80,
+      "priority": "must-have",
+      "promptText": "Static camera from the driver's seat: close-up of the woman with curly dark hair and a mustard corduroy jacket in the passenger seat, stopped traffic softly out of focus behind her. She looks down and taps her phone twice with her thumb, then looks up toward the driver with bright hopeful eyes and raised eyebrows, waiting for any reaction; getting none, her eyes slide to the camera lens with a small knowing smirk. She does not speak. Photoreal, 35mm film look, Kodak Portra colors, gentle grain, naturalistic acting.",
+      "negativePrompt": "talking, lip sync, mouthing words, phone held to ear, phone call, text, subtitles, captions, logos, watermark, readable signs, license plate text, extra fingers, deformed hands, face morphing, identity change, camera shake, cartoon",
+      "edit_window": {
+        "src_in": 0.5,
+        "src_out": 3.4,
+        "film_in": 11.5,
+        "film_out": 14.4,
+        "note": "The look to lens lands after 'Oh, bother.' (line ends film 14.28)."
+      },
+      "crop_9x16": {
+        "mode": "crop",
+        "x_center": 870,
+        "size": "608x1080 scaled x1.776"
+      },
+      "fallback": "New seed. If her face drifts, play the Pooh line over S04 (src 5.15 onward) instead.",
+      "status": "to generate"
+    },
+    {
+      "id": "S06",
+      "beats": [
+        "B6",
+        "B7"
+      ],
+      "purpose": "Montage 3 and 4 (Eric Cartman, then Darth Vader). One take, two beats: nothing for Cartman; the first crack for Vader.",
+      "keyframe": "keyframes/KF06b_driver_cu_traffic.png",
+      "model": "veo3.1_fast",
+      "endpoint": "/v1/image_to_video",
+      "ratio": "1920:1080",
+      "duration": 8,
+      "audio": false,
+      "credits": 80,
+      "priority": "must-have",
+      "promptText": "Static camera in the passenger seat: close-up of the big bearded driver in a navy cap, three-quarter profile, stuck in traffic, red brake lights through the windshield ahead. For the first five seconds he is a statue: jaw set, eyes forward, one slow blink at two seconds. At five and a half seconds the corner of his mouth twitches upward for an instant; he catches it, presses his lips together hard and swallows, eyes still fixed forward, fighting a smile. He never speaks. Photoreal, 35mm film look, Kodak Portra colors, gentle grain, naturalistic acting.",
+      "negativePrompt": "talking, lip sync, mouthing words, phone held to ear, phone call, text, subtitles, captions, logos, watermark, readable signs, license plate text, extra fingers, deformed hands, face morphing, identity change, camera shake, cartoon",
+      "edit_window": {
+        "windows": [
+          {
+            "src_in": 0.0,
+            "src_out": 2.1,
+            "film_in": 14.4,
+            "film_out": 16.5,
+            "note": "Cartman. Full frame."
+          },
+          {
+            "src_in": 2.1,
+            "src_out": 6.35,
+            "film_in": 16.5,
+            "film_out": 20.75,
+            "note": "Vader. Continuous time, punched in to 112% so the cut reads. The mouth twitch must land 0.2 to 0.5s AFTER 'disturbing' ends (film 20.27): slide both windows together to achieve it."
+          }
+        ]
+      },
+      "crop_9x16": {
+        "mode": "crop",
+        "x_center": 700,
+        "size": "608x1080 scaled x1.776 (second window x1.99)"
+      },
+      "fallback": "New seed; the hardest micro-performance, so it gets first call on the retake reserve. Fallback: S02 src 0-4 (still section) for Cartman, and Vader over S04 with her reaction.",
+      "status": "to generate"
+    },
+    {
+      "id": "S08",
+      "beats": [
+        "B8"
+      ],
+      "purpose": "The missed turn, told in one wide image. The Ramsay line pre-laps over it.",
+      "keyframe": "keyframes/KF07b_ext_missed_exit.png",
+      "model": "veo3.1_fast",
+      "endpoint": "/v1/image_to_video",
+      "ratio": "1920:1080",
+      "duration": 8,
+      "audio": false,
+      "credits": 80,
+      "priority": "must-have",
+      "promptText": "Aerial drone shot gliding backward and slightly down in front of the faded powder-blue vintage pickup truck as it cruises in the left lane of a sunny four-lane highway through green countryside, sailing straight past the empty exit ramp that curves away to the right. Light traffic. Smooth, stable, cinematic drone motion. No signs, no text. Photoreal, 35mm film look, Kodak Portra colors, gentle grain, naturalistic acting.",
+      "negativePrompt": "talking, lip sync, mouthing words, phone held to ear, phone call, text, subtitles, captions, logos, watermark, readable signs, license plate text, extra fingers, deformed hands, face morphing, identity change, camera shake, cartoon",
+      "edit_window": {
+        "src_in": 1.0,
+        "src_out": 2.25,
+        "film_in": 20.75,
+        "film_out": 22.0,
+        "note": "Pick the 1.25s where the truck is level with the mouth of the ramp."
+      },
+      "crop_9x16": {
+        "mode": "crop",
+        "x_center": "track the truck (starts x~680)",
+        "size": "608x1080 scaled x1.776"
+      },
+      "fallback": "gen4_turbo 1280:720, 3s (15 credits) from KF07b.",
+      "status": "to generate"
+    },
+    {
+      "id": "S09",
+      "beats": [
+        "B9"
+      ],
+      "purpose": "THE shareable beat: 'You missed it, you donkey!' She is destroyed; he slowly turns his head for a long flat stare.",
+      "keyframe": "keyframes/KF08_twoshot_highway.png",
+      "model": "veo3.1_fast",
+      "ratio": "1920:1080",
+      "duration": 8,
+      "audio": false,
+      "credits": 0,
+      "priority": "must-have (DONE in pre-production)",
+      "status": "generated: tests/T2_S09_donkey_veo8.mp4, task 0691f565-aa99-47f5-985e-7ec1481b8042. Checked frame by frame: approved.",
+      "promptText": "Static camera mounted on the hood of a vintage pickup truck cruising down a sunny highway, looking through the windshield at the two people inside. On the left, the woman in the mustard corduroy jacket is helpless with laughter, doubled over, shoulders shaking, wiping a tear, phone in hand. On the right, the big bearded driver keeps both hands on the wheel and his eyes on the road. After two seconds he slowly turns his head toward her and gives her a long, flat, unimpressed stare, face completely deadpan, holding it for three seconds, then slowly turns back to the road. Neither of them says a word. Gentle road vibration, fields sliding past the side windows. Photoreal, 35mm film look, bright afternoon sun.",
+      "edit_window": {
+        "src_in": 0.1,
+        "src_out": 5.1,
+        "film_in": 22.0,
+        "film_out": 27.0,
+        "note": "Head turn starts src 2.67 (film 24.57, 0.85s after the line ends), fully turned by src 3.3, held to ~5.0. Her face drifts after src 5.2: never use past 5.1."
+      },
+      "crop_9x16": {
+        "mode": "stacked split",
+        "top": "her half: crop x=40..1000, y=40..893 (960x853), scale x1.125 to 1080x960",
+        "bottom": "his half: crop x=920..1880, y=40..893 (960x853), scale x1.125 to 1080x960",
+        "note": "Native resolution, no mushy upscale. Re-centre each half on the face in the actual take."
+      },
+      "fallback": "Only if final QA rejects it: regenerate from KF08 with the same prompt and a new seed (80, from the reserve)."
+    },
+    {
+      "id": "S10",
+      "beats": [
+        "B10"
+      ],
+      "purpose": "Arrival and the fake-out: Bugs Bunny's 'That's all, folks!' as she leaves. It sounds like the end of the film.",
+      "keyframe": "keyframes/KF09_twoshot_arrival.png",
+      "model": "veo3.1_fast",
+      "endpoint": "/v1/image_to_video",
+      "ratio": "1920:1080",
+      "duration": 8,
+      "audio": false,
+      "credits": 80,
+      "priority": "must-have",
+      "promptText": "Static camera mounted on the hood of a vintage pickup truck that rolls to a gentle stop at the curb of a sunny small-town main street and stays parked. On the left, the woman in the mustard corduroy jacket, still laughing, gives the driver a playful two-finger salute, pushes her door open and slides out of the cab with her tote bag; the door swings shut and the left half of the bench seat is left empty. On the right, the bearded driver keeps looking straight ahead, deadpan, both hands on the wheel. Nobody speaks. Photoreal, 35mm film look, Kodak Portra colors, gentle grain, naturalistic acting.",
+      "negativePrompt": "talking, lip sync, mouthing words, phone held to ear, phone call, text, subtitles, captions, logos, watermark, readable signs, license plate text, extra fingers, deformed hands, face morphing, identity change, camera shake, cartoon",
+      "edit_window": {
+        "src_in": 0.5,
+        "src_out": 4.0,
+        "film_in": 27.0,
+        "film_out": 30.5,
+        "note": "The door must shut before the cut (door thunk SFX on that frame)."
+      },
+      "crop_9x16": {
+        "mode": "stacked split",
+        "top": "her half (becomes the empty seat)",
+        "bottom": "his half: crop x=920..1880, y=40..893 (960x853), scale x1.125 to 1080x960",
+        "note": "Native resolution, no mushy upscale. Re-centre each half on the face in the actual take."
+      },
+      "fallback": "New seed. Fallback: play the Bugs line over the tail of S09 and cut straight to S11; the empty seat tells the audience she has gone.",
+      "status": "to generate"
+    },
+    {
+      "id": "S11",
+      "beats": [
+        "B11"
+      ],
+      "purpose": "Alone. He checks nobody is watching, then looks down at his phone. Silence.",
+      "keyframe": "keyframes/KF10b_alone_twoshot.png",
+      "model": "veo3.1_fast",
+      "ratio": "1920:1080",
+      "duration": 8,
+      "audio": false,
+      "credits": 0,
+      "priority": "must-have (DONE in pre-production)",
+      "status": "generated: tests/T1_S13_payoff_veo8.mp4, task 3dd726b6-71ef-4907-8125-f26da93d2aac. src 0.00-2.50 approved.",
+      "promptText": "Static camera mounted on the hood, looking through the windshield at a big bearded man in a red flannel shirt and navy cap, alone in the cab of a parked vintage pickup truck. The passenger half of the bench seat is empty. The truck is parked and does not move. He glances left, then right, out of the side windows, checking that nobody is watching. Then he looks down at the smartphone in his hand and taps the screen once with his thumb. He listens. Slowly the corners of his mouth rise and he breaks into a huge, warm, sheepish grin, his eyes crinkle, and his shoulders do a tiny happy wiggle, completely charmed. He does not speak. Subtle, realistic, naturalistic acting. Photoreal, 35mm film look, warm afternoon light.",
+      "edit_window": {
+        "src_in": 0.0,
+        "src_out": 2.5,
+        "film_in": 30.5,
+        "film_out": 33.0,
+        "note": "The phone starts rising to his ear at frame 64 (2.67s): never use past frame 60. Frames 64-140 (phone call) are unusable."
+      },
+      "crop_9x16": {
+        "mode": "stacked split",
+        "top": "the empty seat (the absence is the point)",
+        "bottom": "his half: crop x=920..1880, y=40..893 (960x853), scale x1.125 to 1080x960",
+        "note": "Native resolution, no mushy upscale. Re-centre each half on the face in the actual take."
+      },
+      "fallback": "Use src 0-2.5 of the new S13 take."
+    },
+    {
+      "id": "S13",
+      "beats": [
+        "B13"
+      ],
+      "purpose": "PAYOFF. 'Elmo loves you!' and the man who would not crack gives the film's first real smile.",
+      "keyframe": "keyframes/KF10b_alone_twoshot.png",
+      "model": "veo3.1_fast",
+      "endpoint": "/v1/image_to_video",
+      "ratio": "1920:1080",
+      "duration": 8,
+      "audio": false,
+      "credits": 80,
+      "priority": "must-have",
+      "promptText": "Static camera mounted on the hood looking through the windshield at a big bearded man in a red flannel shirt and navy cap, alone in the cab of a parked vintage pickup truck; the passenger half of the bench seat is empty. The truck does not move. He finishes glancing out of the side window, then looks down at the smartphone held low in his lap and reads it. The phone stays low in his lap the whole time; he never raises it. At three seconds the corners of his mouth slowly rise and he breaks into a huge, warm, bashful grin, eyes crinkling; he shakes his head at himself, bites his lip, and his shoulders do a tiny happy wiggle. He does not speak. Photoreal, 35mm film look, Kodak Portra colors, gentle grain, naturalistic acting.",
+      "negativePrompt": "talking, lip sync, mouthing words, phone held to ear, phone call, text, subtitles, captions, logos, watermark, readable signs, license plate text, extra fingers, deformed hands, face morphing, identity change, camera shake, cartoon",
+      "edit_window": {
+        "src_in": 2.4,
+        "src_out": 5.0,
+        "film_in": 35.0,
+        "film_out": 37.6,
+        "note": "The grin must start to bloom at film ~35.6 so it is full on 'Elmo loves you!' (film ~35.9 to 37.4). Slide src_in to achieve it."
+      },
+      "crop_9x16": {
+        "mode": "stacked split",
+        "top": "empty seat",
+        "bottom": "his half: crop x=920..1880, y=40..893 (960x853), scale x1.125 to 1080x960",
+        "note": "Native resolution, no mushy upscale. Re-centre each half on the face in the actual take.",
+        "alt": "for the last 1.2s a single crop on him (x_center~1370) is more intimate"
+      },
+      "fallback": "Retake once from the reserve. Final fallback, already in hand: T1 src 6.00-8.00 (frames 144-191), a genuine big grin with the phone lowered; then B13 runs 2.0s and the end card starts at film 37.0.",
+      "status": "to generate"
+    }
+  ],
+  "nice_to_have": [
+    {
+      "id": "N1",
+      "purpose": "Second take of S01 (the hook frame is the most valuable 1.5s of the film).",
+      "keyframe": "keyframes/KF01b_hook_twoshot.png",
+      "model": "veo3.1_fast",
+      "ratio": "1920:1080",
+      "duration": 8,
+      "audio": false,
+      "credits": 80,
+      "priority": "nice-to-have",
+      "promptText": "Same as S01, new seed.",
+      "fallback": "n/a"
+    },
+    {
+      "id": "N2",
+      "purpose": "Second take of S06 (the crack) so the editor can choose the best micro-performance.",
+      "keyframe": "keyframes/KF06b_driver_cu_traffic.png",
+      "model": "veo3.1_fast",
+      "ratio": "1920:1080",
+      "duration": 8,
+      "audio": false,
+      "credits": 80,
+      "priority": "nice-to-have",
+      "promptText": "Same as S06, new seed.",
+      "fallback": "n/a"
+    }
+  ],
+  "sfx": {
+    "id": "SFX",
+    "purpose": "Foley the archive lacks. POST /v1/sound_effect, model eleven_text_to_sound_v2, 1 credit per second when a duration is given.",
+    "model": "eleven_text_to_sound_v2",
+    "items": [
+      {
+        "name": "cab_idle",
+        "prompt": "interior of an old pickup truck idling in stopped traffic, low engine rumble, distant car horns, no music",
+        "seconds": 8,
+        "credits": 8
+      },
+      {
+        "name": "door_thunk",
+        "prompt": "heavy old pickup truck passenger door slammed shut, metallic thunk",
+        "seconds": 2,
+        "credits": 2
+      },
+      {
+        "name": "highway_pass",
+        "prompt": "old pickup truck passing at highway speed, whoosh, tires on asphalt",
+        "seconds": 3,
+        "credits": 3
+      },
+      {
+        "name": "phone_tap",
+        "prompt": "single soft smartphone screen tap, close, dry",
+        "seconds": 1,
+        "credits": 1
+      }
+    ],
+    "credits": 14,
+    "priority": "must-have: cab_idle, door_thunk. nice-to-have: the others.",
+    "fallback": "film/runway/sfx_truck.wav (cab), sfx_dusk.wav (outdoor air); skip the whoosh."
+  },
+  "budget": {
+    "total_allowance": 1500,
+    "spent_in_preproduction": 214,
+    "balance_at_handoff": 1286,
+    "preproduction_breakdown": {
+      "keyframe stills, 22 calls (2 x gen4_image 1080p at 8, 20 x gen4_image_turbo at 2; one turbo download lost to a connection reset and regenerated)": 54,
+      "test T1 veo3.1_fast 8s (becomes S11 and the S13 fallback)": 80,
+      "test T2 veo3.1_fast 8s (becomes S09)": 80
+    },
+    "production_must_have": {
+      "S01": 80,
+      "S02": 80,
+      "S03": 80,
+      "S04": 80,
+      "S05": 80,
+      "S06": 80,
+      "S08": 80,
+      "S10": 80,
+      "S13": 80,
+      "SFX": 14,
+      "total": 734
+    },
+    "retake_reserve": {
+      "credits": 200,
+      "share_of_balance": 0.156,
+      "covers": "2 full retakes plus SFX redos"
+    },
+    "nice_to_have": {
+      "N1": 80,
+      "N2": 80,
+      "total": 160
+    },
+    "planned_total": 1094,
+    "unallocated_after_everything": 192,
+    "rules": [
+      "Generate must-haves in order of risk: S06, S13, S01, S04, S05, S10, S02, S08, S03. Review each against the QA list before generating the next.",
+      "A retake is allowed only for a QA failure (hands, faces, identity drift, wrong action, text artifacts); max 2 takes per shot, then use its fallback.",
+      "Nice-to-haves only once every must-have has passed QA and at least 120 credits of reserve are untouched.",
+      "Veo 3.1 Fast at 1920:1080 ONLY accepts duration 8 (the API rejects 4 and 6 at 1080p). 720p allows 4/6/8 but is too soft for the 9:16 crop.",
+      "Check the balance before and after every call and append every call to film/runway2/ledger.json (task id, model, seconds, credits, purpose). Never write the key anywhere."
+    ]
+  },
+  "remotion_only": [
+    {
+      "id": "S12",
+      "beats": [
+        "B12"
+      ],
+      "film_in": 33.0,
+      "film_out": 35.0,
+      "what": "Phone insert built from site assets, no generation. See plan.md, B12."
+    },
+    {
+      "id": "END",
+      "beats": [
+        "B14"
+      ],
+      "film_in": 37.6,
+      "film_out": 42.0,
+      "what": "End card. See plan.md."
+    }
+  ]
+}
