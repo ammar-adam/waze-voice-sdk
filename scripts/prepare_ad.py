@@ -27,7 +27,7 @@ OUT = FILM / "public" / "ad"
 CLIPS = ["1A", "1B", "2A", "2B", "3A", "3B", "4A"]
 STILLS = {"4B": "4B_still.webp"}
 AUDIO = ["score", "sfx_rain", "sfx_dusk", "sfx_truck", "sfx_surge", "sfx_signal"]
-VOICE_LINES = ["pooh", "batman", "elmo", "cookie"]
+VOICE_LINES = ["pooh", "ramsay", "elmo", "vader"]
 
 
 def seconds(path: Path) -> float:

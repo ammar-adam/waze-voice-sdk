@@ -21,12 +21,11 @@ import {
   END_CARD,
   FPS,
   GRADE,
-  LOWER_THIRD,
+  CHIP,
   MIX,
   SILENCE,
   TOTAL_SECONDS,
   VIGNETTES,
-  type Interior,
   type Shot,
 } from './config';
 
@@ -52,8 +51,8 @@ const gain = (db: number) => Math.pow(10, db / 20);
 
 export type Placed = {
   id: string;
-  navigator: string;
   extStart: number;
+  /** Equal to `end` when the vignette has no interior. */
   intStart: number;
   end: number;
   voiceStart: number;
@@ -65,20 +64,25 @@ export const buildTimeline = () => {
   let t = 0;
   const placed: Placed[] = VIGNETTES.map((v) => {
     const extStart = t;
-    const intStart = t + v.exterior.dur;
-    const reactionInShot =
-      v.interior.reactionFrame !== undefined
-        ? v.interior.reactionFrame / FPS - v.interior.in
-        : (v.interior.reactionAt ?? 0);
-    const reaction = intStart + reactionInShot;
+    let intStart: number;
+    let reaction: number;
+    let end: number;
+    if (v.interior) {
+      intStart = t + v.exterior.dur;
+      reaction = intStart + v.interior.reactionFrame / FPS - v.interior.in;
+      end = intStart + v.interior.dur;
+    } else {
+      reaction = t + (v.exterior.reactionAt ?? v.exterior.dur);
+      end = reaction;
+      intStart = end;
+    }
     const voiceEnd = reaction - SILENCE;
     const voiceStart = voiceEnd - MEDIA[v.voice].seconds;
-    const end = intStart + v.interior.dur;
     if (voiceStart < extStart + 0.2) {
       throw new Error(`${v.id}: voice would start before its exterior; lengthen the exterior`);
     }
     t = end;
-    return {id: v.id, navigator: v.navigator, extStart, intStart, end, voiceStart, voiceEnd, reaction};
+    return {id: v.id, extStart, intStart, end, voiceStart, voiceEnd, reaction};
   });
   const endStart = t;
   if (TOTAL_SECONDS - endStart < 3.5) {
@@ -105,65 +109,75 @@ const Grade: React.FC = () => (
   </>
 );
 
-const Clip: React.FC<{shot: Shot | Interior}> = ({shot}) => {
-  const frame = useCurrentFrame();
-  const m = MEDIA[shot.src];
-  const interior = shot as Interior;
-  if (m.file.endsWith('.webp')) {
-    const scale = interpolate(frame, [0, f(shot.dur)], [1, interior.pushTo ?? 1.05]);
-    return (
-      <AbsoluteFill style={{overflow: 'hidden', background: '#000'}}>
-        <Img
-          src={staticFile(m.file)}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            transform: `scale(${scale})`,
-            transformOrigin: interior.pushOrigin ?? 'center',
-            filter: filterFor(shot.match),
-          }}
-        />
-        <Grade />
-      </AbsoluteFill>
-    );
-  }
-  return (
-    <AbsoluteFill style={{background: '#000'}}>
-      <OffthreadVideo
-        src={staticFile(m.file)}
-        trimBefore={f(shot.in)}
-        muted
-        style={{width: '100%', height: '100%', objectFit: 'cover', filter: filterFor(shot.match)}}
-      />
-      <Grade />
-    </AbsoluteFill>
-  );
-};
+const Clip: React.FC<{shot: Shot}> = ({shot}) => (
+  <AbsoluteFill style={{background: '#000'}}>
+    <OffthreadVideo
+      src={staticFile(MEDIA[shot.src].file)}
+      trimBefore={f(shot.in)}
+      muted
+      style={{width: '100%', height: '100%', objectFit: 'cover', filter: filterFor(shot.match)}}
+    />
+    <Grade />
+  </AbsoluteFill>
+);
 
-const LowerThird: React.FC<{name: string; frames: number}> = ({name, frames}) => {
+const CAST_BG: Record<string, string> = Object.fromEntries(cuts.cast.map((c) => [c.slug, c.bg]));
+
+/** Who's talking: the site's sticker, popping in as the voice starts. */
+const NavigatorChip: React.FC<{name: string; slug: string}> = ({name, slug}) => {
   const frame = useCurrentFrame();
-  const k = LOWER_THIRD.fadeFrames;
-  const opacity = interpolate(frame, [0, k, frames - k, frames], [0, 1, 1, 0], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
+  const {fps} = useVideoConfig();
+  const pop = spring({frame, fps, config: {damping: 12, stiffness: 190}});
+  const ink = BRAND.ink;
   return (
     <div
       style={{
         position: 'absolute',
-        left: LOWER_THIRD.left,
-        bottom: LOWER_THIRD.bottom,
-        opacity,
-        color: '#fff',
-        fontFamily: "'Bricolage Grotesque', sans-serif",
-        fontSize: LOWER_THIRD.fontSize,
-        letterSpacing: 0.4,
-        textShadow: '0 2px 14px rgba(0,0,0,0.65), 0 1px 3px rgba(0,0,0,0.5)',
+        left: CHIP.left,
+        bottom: CHIP.bottom,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 18,
+        padding: '10px 30px 10px 10px',
+        background: BRAND.white,
+        border: `5px solid ${ink}`,
+        borderRadius: 999,
+        boxShadow: `8px 8px 0 ${ink}`,
+        opacity: pop,
+        transform: `scale(${0.7 + 0.3 * pop}) rotate(${(1 - pop) * -4}deg)`,
+        transformOrigin: 'left center',
       }}
     >
-      <span style={{fontWeight: 400, opacity: 0.82}}>{LOWER_THIRD.label}</span>{' '}
-      <span style={{fontWeight: 600}}>{name}</span>
+      <div
+        style={{
+          width: CHIP.faceSize,
+          height: CHIP.faceSize,
+          borderRadius: '50%',
+          background: CAST_BG[slug] ?? BRAND.sun,
+          border: `4px solid ${ink}`,
+          display: 'grid',
+          placeItems: 'center',
+          overflow: 'hidden',
+        }}
+      >
+        <Img src={staticFile(`faces/${slug}.svg`)} style={{width: CHIP.faceSize - 8, height: CHIP.faceSize - 8}} />
+      </div>
+      <div style={{display: 'flex', flexDirection: 'column', lineHeight: 1}}>
+        <span
+          style={{
+            fontFamily: "'JetBrains Mono', monospace",
+            fontWeight: 700,
+            fontSize: 16,
+            letterSpacing: 3,
+            color: ink,
+            opacity: 0.6,
+            marginBottom: 6,
+          }}
+        >
+          {CHIP.label}
+        </span>
+        <span style={{fontFamily: "'Bagel Fat One', sans-serif", fontSize: CHIP.nameSize, color: ink}}>{name}</span>
+      </div>
     </div>
   );
 };
@@ -285,17 +299,18 @@ export const Ad: React.FC = () => {
     <AbsoluteFill style={{background: '#000'}}>
       {VIGNETTES.map((v, i) => {
         const p = placed[i];
-        const ltStart = Math.max(p.voiceStart, p.intStart);
         return (
           <React.Fragment key={v.id}>
             <Sequence from={f(p.extStart)} durationInFrames={f(p.intStart) - f(p.extStart)}>
               <Clip shot={v.exterior} />
             </Sequence>
-            <Sequence from={f(p.intStart)} durationInFrames={f(p.end) - f(p.intStart)}>
-              <Clip shot={v.interior} />
-            </Sequence>
-            <Sequence from={f(ltStart)} durationInFrames={f(p.end) - f(ltStart)}>
-              <LowerThird name={v.navigator} frames={f(p.end) - f(ltStart)} />
+            {v.interior && (
+              <Sequence from={f(p.intStart)} durationInFrames={f(p.end) - f(p.intStart)}>
+                <Clip shot={v.interior} />
+              </Sequence>
+            )}
+            <Sequence from={f(p.voiceStart)} durationInFrames={f(p.end) - f(p.voiceStart)}>
+              <NavigatorChip name={v.navigator.name} slug={v.navigator.slug} />
             </Sequence>
             <Sequence from={f(p.extStart)} durationInFrames={f(p.end) - f(p.extStart)}>
               <Audio src={staticFile(MEDIA[v.ambience.src].file)} loop volume={gain(v.ambience.db)} />

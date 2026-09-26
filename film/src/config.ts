@@ -16,7 +16,7 @@ export const TOTAL_SECONDS = 30;
 export const SILENCE = 0.65;
 
 export type Shot = {
-  /** Key in ad-media.json: a clip, or a still for an animated push-in. */
+  /** Key in ad-media.json. */
   src: string;
   /** Where in the source clip this shot starts. */
   in: number;
@@ -26,69 +26,67 @@ export type Shot = {
   match?: {brightness?: number; contrast?: number; saturate?: number};
 };
 
+export type Exterior = Shot & {
+  /** For a vignette with no interior: seconds into this shot where the
+   * reaction beat lands (the grandma's rev), and the cut happens there. */
+  reactionAt?: number;
+};
+
 export type Interior = Shot & {
   /** First frame of the reaction, counted in the source clip's own frames. */
-  reactionFrame?: number;
-  /** For a still: seconds into the shot where the reaction beat lands. */
-  reactionAt?: number;
-  /** For a still: push-in scale from 1 to this, and where it pushes toward. */
-  pushTo?: number;
-  pushOrigin?: string;
+  reactionFrame: number;
 };
 
 export type Vignette = {
   id: string;
-  exterior: Shot;
-  interior: Interior;
+  exterior: Exterior;
+  /** Omit to play the whole vignette on the exterior. */
+  interior?: Interior;
   voice: string; // key in ad-media.json
-  navigator: string; // lower-third name
+  navigator: {name: string; slug: string}; // slug = site/faces/<slug>.svg
   ambience: {src: string; db: number};
-  /** Plays at the reaction (the grandma's floor-it). */
+  /** A sound that lands on the reaction beat; `offset` is where its hit sits in the file. */
   hit?: {src: string; db: number; offset: number};
 };
 
 export const VIGNETTES: Vignette[] = [
   {
     id: 'ceo',
-    exterior: {src: '1A', in: 1.0, dur: 1.4, match: {saturate: 0.82, brightness: 1.0}},
-    interior: {src: '1B', in: 0, dur: 4.6, reactionFrame: 63},
+    // The voice starts over the car and carries across the cut: her reaction
+    // is at 2.62s into 1B, too soon to fit the line inside the interior.
+    exterior: {src: '1A', in: 0.8, dur: 1.5, match: {saturate: 0.82, brightness: 1.06}},
+    interior: {src: '1B', in: 0, dur: 4.4, reactionFrame: 63, match: {brightness: 1.18, contrast: 0.98}},
     voice: 'voice_pooh',
-    navigator: 'Winnie the Pooh',
+    navigator: {name: 'Winnie the Pooh', slug: 'pooh'},
     ambience: {src: 'sfx_rain', db: -15},
   },
   {
-    id: 'teen',
-    // Long exterior on purpose: the teen's reaction starts 0.5s into 2B, so
-    // Batman plays over the wide shot of the car creeping down the street.
-    exterior: {src: '2A', in: 0.4, dur: 4.0},
-    interior: {src: '2B', in: 0, dur: 2.0, reactionFrame: 12},
-    voice: 'voice_batman',
-    navigator: 'Batman',
+    id: 'learner',
+    // The learner sets his jaw 0.5s into 2B, so Ramsay plays over the wide
+    // shot of the L-plate car creeping down the street.
+    exterior: {src: '2A', in: 0.3, dur: 4.3},
+    interior: {src: '2B', in: 0, dur: 1.8, reactionFrame: 12},
+    voice: 'voice_ramsay',
+    navigator: {name: 'Gordon Ramsay', slug: 'gordon-ramsay'},
     ambience: {src: 'sfx_dusk', db: -16},
   },
   {
     id: 'trucker',
-    exterior: {src: '3A', in: 2.4, dur: 1.4, match: {brightness: 0.92, contrast: 1.04}},
-    interior: {src: '3B', in: 0, dur: 4.4, reactionFrame: 68, match: {brightness: 0.95}},
+    // "La la la la" and he taps along.
+    exterior: {src: '3A', in: 1.4, dur: 3.2, match: {brightness: 0.92, contrast: 1.04}},
+    interior: {src: '3B', in: 0, dur: 4.3, reactionFrame: 68, match: {brightness: 0.95}},
     voice: 'voice_elmo',
-    navigator: 'Elmo',
+    navigator: {name: 'Elmo', slug: 'elmo'},
     ambience: {src: 'sfx_truck', db: -16},
   },
   {
     id: 'grandma',
-    exterior: {src: '4A', in: 1.5, dur: 1.4},
-    // No 4B clip was generated: the still gets a slow push-in, and the
-    // floor-it is carried by sound, the surge landing as we cut to the card.
-    interior: {
-      src: '4B',
-      in: 0,
-      dur: 4.6,
-      reactionAt: 4.0,
-      pushTo: 1.07,
-      pushOrigin: '70% 38%',
-    },
-    voice: 'voice_cookie',
-    navigator: 'Cookie Monster',
+    // No interior was generated, and a zoomed still looked fake. The whole
+    // vignette plays on the tiny car creeping along; after the silence the
+    // engine revs and we smash-cut to the end card on it. The cut is the floor-it.
+    exterior: {src: '4A', in: 0, dur: 5.0, reactionAt: 4.92},
+    voice: 'voice_vader',
+    navigator: {name: 'Darth Vader', slug: 'darth-vader'},
     ambience: {src: 'sfx_dusk', db: -18},
     hit: {src: 'sfx_surge', db: -1, offset: 0.1},
   },
@@ -118,12 +116,13 @@ export const GRADE = {
   vignette: 0.28,
 };
 
-export const LOWER_THIRD = {
-  label: 'Navigator:',
-  fontSize: 34,
-  left: 96,
-  bottom: 84,
-  fadeFrames: 8,
+/** The navigator chip: the site's sticker style, face and name, bottom left. */
+export const CHIP = {
+  label: 'NAVIGATOR',
+  left: 64,
+  bottom: 64,
+  faceSize: 92,
+  nameSize: 44,
 };
 
 // Colours and type are the site's (site/style.css).
