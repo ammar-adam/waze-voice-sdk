@@ -44,6 +44,11 @@ CHARACTERS: dict[str, str] = {
     # they were uploaded under.
     "bugs-bunny": "Bugs Bunny FINAL",
     "daffy-duck": "Daffy Duck",
+    "vito-corleone": "Vito Corleone",
+    "darth-vader": "Darth Vader",
+    "batman": "Batman",
+    "terminator": "The Terminator",
+    "patrick-bateman": "Patrick Bateman",
 }
 
 # Community models for the two presets whose own voice is a catalogue one.
