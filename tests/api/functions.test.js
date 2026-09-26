@@ -1,4 +1,4 @@
-// api/track.js and api/stats.js against an in-memory Upstash pipeline.
+// api/tally.js and api/stats.js against an in-memory Upstash pipeline.
 // Run with: node --test tests/api   (tests/test_api.py runs it too)
 
 const test = require('node:test');
@@ -75,18 +75,18 @@ async function call(handler, {method = 'POST', body, ip = '203.0.113.7', ua = BR
   return res;
 }
 
-// ---- api/track.js ----
+// ---- api/tally.js ----
 
 test('track answers 503 when no store is connected', async () => {
   disconnect();
-  const res = await call(load('track.js'), {body: {event: 'pageview', page: '/index'}});
+  const res = await call(load('tally.js'), {body: {event: 'pageview', page: '/index'}});
   assert.equal(res.code, 503);
 });
 
 test('track counts each event into all-time and per-day hashes', async () => {
   const redis = fakeRedis();
   connect(redis);
-  const track = load('track.js');
+  const track = load('tally.js');
   const events = [
     {event: 'pageview', page: '/index'},
     {event: 'character_click', character: 'batman'},
@@ -124,7 +124,7 @@ test('track counts each event into all-time and per-day hashes', async () => {
 test('track never stores a raw IP or user agent', async () => {
   const redis = fakeRedis();
   connect(redis);
-  await call(load('track.js'), {body: {event: 'pageview', page: '/index'}, ip: '198.51.100.23'});
+  await call(load('tally.js'), {body: {event: 'pageview', page: '/index'}, ip: '198.51.100.23'});
   const everything = JSON.stringify(redis.calls);
   assert.ok(!everything.includes('198.51.100.23'));
   assert.ok(!everything.includes('iPhone'));
@@ -133,7 +133,7 @@ test('track never stores a raw IP or user agent', async () => {
 test('track counts two people as two visitors, one person once', async () => {
   const redis = fakeRedis();
   connect(redis);
-  const track = load('track.js');
+  const track = load('tally.js');
   await call(track, {body: {event: 'pageview', page: '/index'}, ip: '203.0.113.1'});
   await call(track, {body: {event: 'pageview', page: '/install'}, ip: '203.0.113.1'});
   await call(track, {body: {event: 'pageview', page: '/index'}, ip: '203.0.113.2'});
@@ -143,7 +143,7 @@ test('track counts two people as two visitors, one person once', async () => {
 test('track refuses anything off the list', async () => {
   const redis = fakeRedis();
   connect(redis);
-  const track = load('track.js');
+  const track = load('tally.js');
   const bad = [
     {event: 'pageview', page: '/admin'},
     {event: 'pageview'},
@@ -166,7 +166,7 @@ test('track refuses anything off the list', async () => {
 test('track accepts every character on the site', async () => {
   const redis = fakeRedis();
   connect(redis);
-  const track = load('track.js');
+  const track = load('tally.js');
   assert.equal(SLUGS.length, 12);
   for (const character of SLUGS) {
     assert.equal((await call(track, {body: {event: 'character_click', character}})).code, 204);
@@ -176,7 +176,7 @@ test('track accepts every character on the site', async () => {
 test('track ignores bots and preview deployments', async () => {
   const redis = fakeRedis();
   connect(redis);
-  const track = load('track.js');
+  const track = load('tally.js');
   const body = {event: 'pageview', page: '/index'};
   assert.equal((await call(track, {body, ua: 'Mozilla/5.0 (compatible; Googlebot/2.1)'})).code, 204);
   assert.equal((await call(track, {body, ua: ''})).code, 204);
@@ -189,7 +189,7 @@ test('track ignores bots and preview deployments', async () => {
 test('track rate-limits one visitor per day', async () => {
   const redis = fakeRedis();
   connect(redis);
-  const track = load('track.js');
+  const track = load('tally.js');
   const body = {event: 'character_click', character: 'elmo'};
   let last;
   for (let i = 0; i < 401; i++) last = await call(track, {body});
@@ -202,7 +202,7 @@ test('track rate-limits one visitor per day', async () => {
 test('track answers 502, not a crash, when Redis fails', async () => {
   connect(fakeRedis());
   global.fetch = async () => ({ok: false, status: 500, json: async () => ({})});
-  assert.equal((await call(load('track.js'), {body: {event: 'suggest'}})).code, 502);
+  assert.equal((await call(load('tally.js'), {body: {event: 'suggest'}})).code, 502);
 });
 
 // ---- api/stats.js ----
@@ -228,7 +228,7 @@ test('stats starts at zero with every character listed', async () => {
 test('stats adds up what track counted', async () => {
   const redis = fakeRedis();
   connect(redis);
-  const track = load('track.js');
+  const track = load('tally.js');
   const stats = load('stats.js');
   const send = (body, ip) => call(track, {body, ip});
   await send({event: 'pageview', page: '/index'}, '203.0.113.1');

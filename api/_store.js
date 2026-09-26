@@ -1,4 +1,4 @@
-// Shared by api/track.js and api/stats.js. The leading underscore keeps
+// Shared by api/tally.js and api/stats.js. The leading underscore keeps
 // Vercel from turning this file into a function of its own.
 //
 // Storage is Redis over Upstash's REST API, the same store as
