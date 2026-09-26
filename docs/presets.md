@@ -45,9 +45,9 @@ rights holder or the performer.
 | `daffy-duck` | Looney Tunes (1937) | `fish/5ded4503...` | Loud, theatrical, personally offended |
 | `vito-corleone` | The Godfather (Puzo, 1969) | `fish/ea3ef168...` | Quiet, unhurried, every turn a favour |
 | `darth-vader` | Star Wars (1977) | `fish/3446a5f0...` | Imperious and disappointed in you |
-| `batman` | Batman (DC, 1939); the Bale register | `fish/c324b5bc...` | Gravel-voiced, clipped, on a mission |
-| `terminator` | The Terminator (1984) | `fish/59744e40...` | Flat, literal, mission-focused |
-| `patrick-bateman` | American Psycho (Ellis, 1991) | `fish/9b046b6e...` | Smooth, precise, faintly unhinged |
+| `batman` | Batman (DC, 1939); the Bale register | `fish/44c769c2...` | Gravel-voiced, clipped, on a mission |
+| `terminator` | The Terminator (1984) | `fish/ca16ac1b...` | Flat, literal, mission-focused |
+| `eric-cartman` | South Park (1997) | `fish/b4f55643...` | Bossy, whiny, in charge of the car |
 
 Pooh and Tigger have community models too, and `scripts/build_all.py` uses
 them by default so one key covers every character. `--catalogue` builds those

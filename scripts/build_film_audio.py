@@ -1,20 +1,24 @@
-"""Cut the film's three beats from every pack, and write the line sheet.
+"""Cut the film's beats from every pack, and write the line sheet.
 
 The film's Product Rule is that every spoken line corresponds to a real Waze
 prompt. The only way to keep that true is to take the lines from the packs that
 are actually live rather than from a script document, so this reads the presets
 and the exported audio and reports what they really say.
 
-Three beats, the same slots in every loop:
+Four beats, the same slots for every character:
 
     1. in_quarter_mile + turn_right   two files Waze plays back to back
-    2. reroute_chime                  TickerPoints.mp3
-    3. arrived                        Arrive.mp3
+    2. reroute_chime                  TickerPoints.mp3, the film's hero beat
+    3. police_ahead                   Police.mp3
+    4. arrived                        Arrive.mp3
+
+The film is built on beat 2: you missed the turn, and twelve characters react.
+See docs/launch-film.md for the cut.
 
 Imperial, because the film is for a North American audience and the end card
 has to match what a viewer hears on their own phone.
 
-The Default track is not a pack. It is three lines generated flat for the film,
+The Default track is not a pack. It is four lines generated flat for the film,
 since the first loop has to sound like stock navigation before the joke lands.
 """
 
@@ -32,17 +36,32 @@ from waze_voice import media, phrases, presets, providers  # noqa: E402
 
 OUT = REPO / "film-audio"
 
-# The three beats, as (label, [phrase ids]). The first is two files because
+# The beats, as (label, [phrase ids]). The first is two files because
 # that is how Waze says it: distance, then maneuver.
 BEATS = [
     ("1-quarter-mile-turn-right", ["in_quarter_mile", "turn_right"]),
     ("2-reroute", ["reroute_chime"]),
-    ("3-arrive", ["arrived"]),
+    ("3-police", ["police_ahead"]),
+    ("4-arrive", ["arrived"]),
 ]
 
-# Loop order in the edit, then the rest for the end card.
-FILM = ["paddington", "cookie-monster"]
-END_CARD = ["bugs-bunny", "daffy-duck", "elmo", "tigger", "pooh"]
+# The reroute supercut, in cut order: sweet to menacing, so every cut is a
+# harder turn than the last and Vader closes it. docs/launch-film.md has why.
+FILM = [
+    "paddington",
+    "elmo",
+    "pooh",
+    "cookie-monster",
+    "bugs-bunny",
+    "daffy-duck",
+    "terminator",
+    "batman",
+    "eric-cartman",
+    "vito-corleone",
+    "darth-vader",
+]
+# In the end card and the follow-up posts, not the supercut.
+END_CARD = ["tigger"]
 
 # Flat, stock-sounding. Not Waze's own voice and not Google's - the film is
 # unaffiliated, so the "before" state has to be ours too.
@@ -51,7 +70,8 @@ DEFAULT_ALT = "63d5460e91e2411fa2e6bf95e7456f03"  # Anchor News, if the first is
 DEFAULT_LINES = {
     "1-quarter-mile-turn-right": "In a quarter mile, turn right.",
     "2-reroute": "Recalculating.",
-    "3-arrive": "You have arrived.",
+    "3-police": "Police reported ahead.",
+    "4-arrive": "You have arrived.",
 }
 
 
@@ -191,13 +211,15 @@ def write_sheet(sheet: dict[str, list[dict]]) -> None:
         "film, change the preset and rebuild the pack, so the film and the",
         "product never disagree.",
         "",
-        "Three beats, the same slots in every loop:",
+        "Four beats, the same slots for every character. The film is cut from",
+        "beat 2; see [launch-film.md](launch-film.md).",
         "",
         "| Beat | Slots | Waze files |",
         "| --- | --- | --- |",
         "| 1 | `in_quarter_mile` + `turn_right` | `400.mp3` then `TurnRight.mp3` |",
         "| 2 | `reroute_chime` | `TickerPoints.mp3` |",
-        "| 3 | `arrived` | `Arrive.mp3` |",
+        "| 3 | `police_ahead` | `Police.mp3` |",
+        "| 4 | `arrived` | `Arrive.mp3` |",
         "",
         "Beat 1 is two files because that is how Waze says it: the distance clip,",
         "then the maneuver clip, back to back. The cut audio here is joined the",
@@ -214,12 +236,13 @@ def write_sheet(sheet: dict[str, list[dict]]) -> None:
     order = [
         (
             "default",
-            "Loop 1: Default",
-            "Generated for the film, not a pack. Flat, stock-GPS delivery.",
+            "Cold open: Default",
+            "Generated for the film, not a pack. Flat, stock-GPS delivery. The cold open.",
         ),
-        ("default-alt", "Loop 1 alternate", "Second option if the first reads too warm."),
-        ("paddington", "Loop 2: Paddington", "Polite, a little nervous."),
-        ("cookie-monster", "Loop 3: Cookie Monster", "Shouting, urgent, chaotic."),
+        ("default-alt", "Cold open alternate", "Second option if the first reads too warm."),
+    ] + [
+        (key, f"{i}. {presets.load(key).label}", presets.load(key).description)
+        for i, key in enumerate(FILM, 1)
     ]
     for key, title, note in order:
         rows = sheet.get(key)
@@ -242,9 +265,9 @@ def write_sheet(sheet: dict[str, list[dict]]) -> None:
     lines += [
         "---",
         "",
-        "## End card and follow-up posts",
+        "## Not in the supercut",
         "",
-        "The same three beats for the other characters.",
+        "In the end card and the follow-up posts.",
         "",
     ]
     for key in END_CARD:

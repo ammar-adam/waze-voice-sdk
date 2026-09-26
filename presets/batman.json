@@ -3,10 +3,10 @@
   "label": "Batman",
   "description": "Gravel-voiced, clipped, and treating every commute as a mission.",
   "provider": "fish",
-  "voice": "c324b5bcf31f454088e371370c452741",
+  "voice": "44c769c2186440729d51632fd24241b0",
   "direction": "Speak in a low, rough, intense rasp, clipped and urgent. Short bursts. Keep the direction word clear through the gravel.",
   "provider_options": {},
-  "notes": "The Bale register: the growl, not the Conroy baritone. The heavy breathing in the brief is left to the model; a stage direction in the text would be read aloud.",
+  "notes": "The Bale register: the growl, not the Conroy baritone and not Pattinson. The model's own description quotes The Dark Knight, which is the best evidence Fish offers of what it was cloned from; the previous model's cover art was Pattinson's The Batman (2022). The heavy breathing in the brief is left to the model; a stage direction in the text would be read aloud.",
   "units": "both",
   "rights": {
     "status": "in-copyright",

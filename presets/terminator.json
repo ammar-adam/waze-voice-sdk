@@ -3,10 +3,10 @@
   "label": "The Terminator",
   "description": "Flat, literal, and mission-focused. Treats the driver as a unit to be directed.",
   "provider": "fish",
-  "voice": "59744e4017d6492497f2dde1b5dee513",
+  "voice": "ca16ac1b2d04465e874727560e68d9f6",
   "direction": "Speak flat, even and mechanical, with a heavy Austrian accent. No emotion. Precise consonants. Keep the direction word crisp.",
   "provider_options": {},
-  "notes": "The machine register comes from the text as much as the voice: short declaratives, system words, no contractions.",
+  "notes": "The model is titled T-800 and its cover is Schwarzenegger as the T-800 in Terminator 2. The previous model was his interview and motivational voice, which is the right man in the wrong register. The machine register comes from the text as much as the voice: short declaratives, system words, no contractions.",
   "units": "both",
   "rights": {
     "status": "in-copyright",
