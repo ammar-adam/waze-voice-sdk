@@ -1,0 +1,74 @@
+{
+  "1A": {
+    "file": "ad/1A.mp4",
+    "seconds": 5.041667
+  },
+  "1B": {
+    "file": "ad/1B.mp4",
+    "seconds": 5.041667
+  },
+  "2A": {
+    "file": "ad/2A.mp4",
+    "seconds": 5.041667
+  },
+  "2B": {
+    "file": "ad/2B.mp4",
+    "seconds": 5.041667
+  },
+  "3A": {
+    "file": "ad/3A.mp4",
+    "seconds": 5.041667
+  },
+  "3B": {
+    "file": "ad/3B.mp4",
+    "seconds": 5.041667
+  },
+  "4A": {
+    "file": "ad/4A.mp4",
+    "seconds": 5.041667
+  },
+  "4B": {
+    "file": "ad/4B_still.webp",
+    "seconds": 0
+  },
+  "score": {
+    "file": "ad/score.wav",
+    "seconds": 23.19675
+  },
+  "sfx_rain": {
+    "file": "ad/sfx_rain.wav",
+    "seconds": 6.034292
+  },
+  "sfx_dusk": {
+    "file": "ad/sfx_dusk.wav",
+    "seconds": 6.034292
+  },
+  "sfx_truck": {
+    "file": "ad/sfx_truck.wav",
+    "seconds": 6.034292
+  },
+  "sfx_surge": {
+    "file": "ad/sfx_surge.wav",
+    "seconds": 2.037563
+  },
+  "sfx_signal": {
+    "file": "ad/sfx_signal.wav",
+    "seconds": 6.034292
+  },
+  "voice_pooh": {
+    "file": "ad/voice_pooh.wav",
+    "seconds": 2.791896
+  },
+  "voice_batman": {
+    "file": "ad/voice_batman.wav",
+    "seconds": 3.424771
+  },
+  "voice_elmo": {
+    "file": "ad/voice_elmo.wav",
+    "seconds": 2.79025
+  },
+  "voice_cookie": {
+    "file": "ad/voice_cookie.wav",
+    "seconds": 2.959563
+  }
+}

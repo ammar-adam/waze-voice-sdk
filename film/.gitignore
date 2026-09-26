@@ -2,3 +2,7 @@ node_modules/
 out/
 # Copied in by scripts/prepare_film.py from film-audio/, site/faces/ and the fonts.
 public/
+
+# Runway footage and exported voices: large media, never committed.
+runway/
+voices/
