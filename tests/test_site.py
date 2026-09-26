@@ -20,6 +20,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
 sys.path.insert(0, str(ROOT / "scripts"))
 
+import build_site  # noqa: E402
 import check_links  # noqa: E402
 
 UUID = re.compile(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")
@@ -88,6 +89,28 @@ class CompletenessTests(unittest.TestCase):
         for voice in voices():
             with self.subTest(voice=voice["slug"]):
                 self.assertRegex(self.colours, rf"#{voice['slug']}\s*{{[^}}]*--tone:")
+
+
+class QrTests(unittest.TestCase):
+    """QR codes are committed so a static host can serve site/ untouched. A
+    stale one would install the wrong pack, and nothing on screen shows it."""
+
+    def test_each_qr_code_encodes_its_current_link(self) -> None:
+        for voice in voices():
+            with self.subTest(voice=voice["slug"]):
+                path = SITE / "qr" / f"{voice['slug']}.svg"
+                self.assertTrue(path.is_file(), f"{path.name}: run scripts/build_site.py")
+                self.assertEqual(
+                    path.read_bytes(),
+                    build_site.qr_svg(voice["uuid"]),
+                    f"{path.name} is stale: run scripts/build_site.py",
+                )
+
+    def test_no_qr_code_for_a_voice_that_is_gone(self) -> None:
+        slugs = {v["slug"] for v in voices()}
+        for path in (SITE / "qr").glob("*.svg"):
+            with self.subTest(file=path.name):
+                self.assertIn(path.stem, slugs)
 
 
 class DomainTests(unittest.TestCase):
