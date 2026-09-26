@@ -6,7 +6,9 @@
   "voice": "fable",
   "direction": "Speak gently and slowly, warm and a little dreamy, as though thinking aloud and in no hurry at all. Let the asides wander; land the direction itself plainly and clearly. Kind, faintly bemused, never brisk or sharp.",
   "provider_options": {
-    "speed": 0.95
+    "speed": 0.95,
+    "temperature": 0.5,
+    "top_p": 0.6
   },
   "notes": "The muddle has to live in the asides, because the instruction cannot afford any. So the pattern throughout is: say the direction, then wander. Never the other way round, or the driver is still waiting for the useful part at the junction.",
   "rights": {
@@ -40,8 +42,8 @@
     "in_1000_meters": "In one kilometer. Oh, bother.",
     "in_1500_meters": "In one point five kilometers. Time for a think.",
     "in_one_mile": "In one mile. Time for a little something.",
-    "start_drive_1": "Oh, bother. No, it's quite all right. Off we go.",
-    "start_drive_2": "Hello. Time for a little something? No? Off we go, then.",
+    "start_drive_1": "Hello. Time for a little something? No? Off we go, then.",
+    "start_drive_2": "Oh, there you are. Shall we be off?",
     "start_drive_3": "I'm a Bear of Very Little Brain, but I know this way.",
     "start_drive_4": "Hello. I was thinking, and now I shall think while we drive.",
     "start_drive_5": "An Expotition! How exciting. Let's go.",

@@ -45,9 +45,9 @@ CHARACTERS: dict[str, str] = {
     "bugs-bunny": "Bugs Bunny FINAL",
     "daffy-duck": "Daffy Duck",
     "darth-vader": "Darth Vader",
-    # Renamed so it stands apart from the first upload, which was the wrong
-    # performance (Pattinson) and is still listed on any phone that added it.
-    "batman": "Batman (Dark Knight)",
+    # Kevin Conroy's classic Batman, named so it stands apart from two earlier
+    # uploads (Pattinson, then a Dark Knight model) still on phones that added them.
+    "batman": "Batman (Classic)",
     "eric-cartman": "Eric Cartman",
     "hagrid": "Hagrid",
     "gordon-ramsay": "Gordon Ramsay",

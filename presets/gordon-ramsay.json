@@ -5,7 +5,10 @@
   "provider": "fish",
   "voice": "d4596df3ebf64a7a8db3c0dbd934237d",
   "direction": "Speak like a furious head chef mid-service: loud, sharp, exasperated, British. Short bursts, big emphasis. Keep the direction word crisp through the shouting.",
-  "provider_options": {},
+  "provider_options": {
+    "temperature": 0.5,
+    "top_p": 0.6
+  },
   "notes": "The Hell's Kitchen register: the model's cover is Ramsay in chef's whites and its tags are angry and shouting. The more-liked model e605a2a42b0a44ccb7af2e42e1676c92 is his calmer on-camera voice. Kept clean on purpose; a bleep would be a gap in a navigation prompt.",
   "units": "both",
   "rights": {
@@ -69,6 +72,6 @@
     "speed_camera_ahead": "Speed camera ahead. Where's the lamb sauce? Slow down!",
     "red_light_camera_ahead": "Red light camera ahead. Stop! Stop!",
     "police_ahead": "Police ahead. Idiot sandwich? Not today. Slow down.",
-    "reroute_chime": "You missed it, you donkey! Recalculating."
+    "reroute_chime": "You missed it, you donkey!"
   }
 }

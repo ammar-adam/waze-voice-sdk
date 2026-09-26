@@ -118,7 +118,12 @@ class DomainTests(unittest.TestCase):
         self.assertEqual((SITE / "CNAME").read_text(encoding="utf-8").strip(), "backseatnav.com")
 
     def test_canonical_and_share_urls_use_the_domain(self) -> None:
-        for name in ("index.html", "install.html"):
+        for name in (
+            "index.html",
+            "install.html",
+            "how-it-works.html",
+            "make-your-own.html",
+        ):
             html = (SITE / name).read_text(encoding="utf-8")
             with self.subTest(page=name):
                 for url in re.findall(
@@ -127,7 +132,12 @@ class DomainTests(unittest.TestCase):
                     self.assertTrue(url.startswith("https://backseatnav.com/"), url)
 
     def test_every_page_carries_the_disclaimer(self) -> None:
-        for name in ("index.html", "install.html"):
+        for name in (
+            "index.html",
+            "install.html",
+            "how-it-works.html",
+            "make-your-own.html",
+        ):
             with self.subTest(page=name):
                 self.assertIn(
                     "Not affiliated with Waze or Google", (SITE / name).read_text(encoding="utf-8")

@@ -3,10 +3,13 @@
   "label": "Batman",
   "description": "Gravel-voiced, clipped, and treating every commute as a mission.",
   "provider": "fish",
-  "voice": "44c769c2186440729d51632fd24241b0",
+  "voice": "31c2eca89c174c5f8dca29efa49ae922",
   "direction": "Speak in a low, rough, intense rasp, clipped and urgent. Short bursts. Keep the direction word clear through the gravel.",
-  "provider_options": {},
-  "notes": "The Bale register: the growl, not the Conroy baritone and not Pattinson. The model's own description quotes The Dark Knight, which is the best evidence Fish offers of what it was cloned from; the previous model's cover art was Pattinson's The Batman (2022). The heavy breathing in the brief is left to the model; a stage direction in the text would be read aloud.",
+  "provider_options": {
+    "temperature": 0.5,
+    "top_p": 0.6
+  },
+  "notes": "The classic Batman: Kevin Conroy, on a model whose cover is Batman: The Animated Series. Measured about 104 Hz. Calm and low, so no exclamation marks anywhere: they make the model shout, and this Batman does not shout.",
   "units": "both",
   "rights": {
     "status": "in-copyright",
@@ -36,9 +39,9 @@
     "in_1000_meters": "In one kilometer. Stay sharp.",
     "in_1500_meters": "In one point five kilometers. Swear to me you'll stay sharp.",
     "in_one_mile": "In one mile. Stay in the shadows.",
-    "start_drive_1": "The city needs us. Let's move!",
+    "start_drive_1": "The Batmobile is ready. The city needs us. Let's move.",
     "start_drive_2": "I'm Batman. Let's move.",
-    "start_drive_3": "Swear to me you'll follow the route! Go.",
+    "start_drive_3": "Swear to me you'll follow the route. Go.",
     "start_drive_4": "It's not who I am underneath. It's where we're going.",
     "start_drive_5": "I'm whatever Gotham needs me to be. Tonight, a navigator.",
     "start_drive_6": "Gotham won't wait. Let's go.",
@@ -52,7 +55,7 @@
     "exit_left": "Take the exit on the left.",
     "exit_right": "Take the exit on the right.",
     "go_straight": "Straight ahead.",
-    "u_turn": "Make a U turn! Swear to me!",
+    "u_turn": "Make a U turn. Swear to me.",
     "and_then": "and then,",
     "arrived": "We're here. This is your destination.",
     "roundabout": "At the roundabout.",
@@ -62,13 +65,13 @@
     "exit_fourth": "take the fourth exit.",
     "exit_fifth": "take the fifth exit.",
     "exit_sixth": "take the sixth exit. I'm Batman.",
-    "exit_seventh": "take the seventh exit. Swear to me!",
-    "traffic_ahead": "Gridlock! Traffic has the streets completely paralyzed.",
+    "exit_seventh": "take the seventh exit. Swear to me.",
+    "traffic_ahead": "Gridlock. Traffic has the streets completely paralyzed.",
     "accident_ahead": "Accident ahead. Slow down.",
     "hazard_ahead": "Hazard ahead. Watch it.",
     "speed_camera_ahead": "Speed camera ahead. Don't give them a reason.",
-    "red_light_camera_ahead": "Red light camera ahead. Stop!",
-    "police_ahead": "Police ahead. GCPD. Drop your speed. Now!",
-    "reroute_chime": "Wrong turn. Why do we fall? Recalculating."
+    "red_light_camera_ahead": "Red light camera ahead. Stop.",
+    "police_ahead": "Police ahead. GCPD. Drop your speed. Now.",
+    "reroute_chime": "Wrong turn. Why do we fall?"
   }
 }

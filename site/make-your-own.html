@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Make your own voice</title>
+  <meta name="description" content="Documentation for the open-source Waze voice SDK behind Backseat: build a character voice pack from an idea or your own recordings.">
+  <link rel="canonical" href="https://backseatnav.com/make-your-own.html">
+  <meta name="theme-color" content="#ffd23f">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://backseatnav.com/make-your-own.html">
+  <meta property="og:title" content="Make your own Waze voice">
+  <meta property="og:description" content="The open-source toolkit behind Backseat. Build a character voice pack for Waze.">
+  <meta property="og:image" content="https://backseatnav.com/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=JetBrains+Mono:wght@500&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script defer data-domain="backseatnav.com" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+  <header class="bar">
+    <div class="wrap">
+      <a class="logo sticker" href="./"><span class="lamp" aria-hidden="true"></span>Backseat</a>
+      <nav>
+        <a href="./#voices">Voices</a>
+        <a href="how-it-works.html">How it works</a>
+        <a href="https://github.com/ammar-adam/waze-voice-sdk">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap doc">
+    <p class="kicker">Documentation</p>
+    <h1>Make your own voice</h1>
+    <p class="standfirst">Backseat is built on an open-source toolkit. Give it a character idea
+    and a voice, or your own recordings, and it produces a finished Waze voice pack: all 43
+    prompts, checked and sized to fit. For why it works the way it does, read
+    <a href="how-it-works.html">How Backseat works</a>.</p>
+
+    <nav class="toc sticker" aria-label="On this page">
+      <b>On this page</b>
+      <ol>
+        <li><a href="#need">What you need</a></li>
+        <li><a href="#install">Install</a></li>
+        <li><a href="#first">Your first pack</a></li>
+        <li><a href="#character">Write a character</a></li>
+        <li><a href="#check">Check it</a></li>
+        <li><a href="#upload">Put it in Waze</a></li>
+        <li><a href="#rights">Rights</a></li>
+        <li><a href="#more">Reference</a></li>
+      </ol>
+    </nav>
+
+    <h2 id="need">What you need</h2>
+    <ul>
+      <li>Python 3.10 or newer, and <a href="https://ffmpeg.org">ffmpeg</a>.</li>
+      <li>Either a text-to-speech API key (OpenAI, ElevenLabs, Hume or Fish Audio), or recordings
+      of your own voice.</li>
+      <li>Waze on your phone, to test the result.</li>
+    </ul>
+
+    <h2 id="install">Install</h2>
+<pre><code>git clone https://github.com/ammar-adam/waze-voice-sdk
+cd waze-voice-sdk
+python scripts/wvs.py doctor</code></pre>
+    <p><code>doctor</code> checks Python, ffmpeg and any API keys it can see, and tells you what's
+    missing. Set a key as an environment variable, for example:</p>
+<pre><code>export OPENAI_API_KEY=...          # macOS / Linux
+$env:OPENAI_API_KEY = "..."        # Windows PowerShell</code></pre>
+
+    <h2 id="first">Your first pack</h2>
+    <p>The quickest start is a <b>preset</b>: a character that's already written. This builds
+    Eeyore, all 43 prompts in both metric and imperial, in about a minute:</p>
+<pre><code>python scripts/wvs.py preflight          # free: checks everything except the audio
+python scripts/wvs.py quickstart --preset eeyore --accept-voice-terms</code></pre>
+    <p>The finished pack lands in <code>packs/eeyore/audio/export/pack/</code>. See every preset
+    with <code>python scripts/wvs.py presets list</code>.</p>
+
+    <h2 id="character">Write a character</h2>
+    <p>A character is one JSON file in <code>presets/</code>. It names a voice, describes how to
+    speak, and gives all 43 lines. The shortest route is to copy an existing preset and
+    rewrite it:</p>
+<pre><code>{
+  "label": "Captain Calm",
+  "description": "Unflappable airline captain. Everything is fine.",
+  "provider": "fish",
+  "voice": "&lt;model id from fish.audio&gt;",
+  "direction": "Speak slowly and warmly, like a captain over the intercom.",
+  "provider_options": { "temperature": 0.5, "top_p": 0.6 },
+  "units": "both",
+  "lines": {
+    "start_drive_1": "Good evening, folks. Sit back and relax.",
+    "turn_left": "Turn left.",
+    "in_quarter_mile": "In a quarter of a mile.",
+    "police_ahead": "Police ahead. Nice and smooth, now.",
+    "arrived": "We have arrived. Thank you for flying with us.",
+    "...": "all 43 lines"
+  }
+}</code></pre>
+    <h3>The rules the build enforces</h3>
+    <ul>
+      <li><b>Direction words survive.</b> <code>turn_left</code> must say "left", and never "right".
+      Distances must name exactly one distance.</li>
+      <li><b>Repeating prompts stay plain.</b> Turns and short distances play at every junction,
+      so a catchphrase there is maddening. Put personality in the greetings, alerts, reroute and
+      arrival instead. <a href="how-it-works.html#where">Why</a>.</li>
+      <li><b>Greetings vary.</b> Waze picks one of nine at random. No more than three may share
+      an opening.</li>
+      <li><b>Frequent prompts stay short</b>, 70 characters at most.</li>
+    </ul>
+    <p>Then check and build it:</p>
+<pre><code>python scripts/wvs.py presets check captain-calm
+python scripts/wvs.py quickstart --preset captain-calm --accept-voice-terms</code></pre>
+
+    <h2 id="check">Check it</h2>
+    <p>Listen to it as a route before you ship it. <code>qa</code> stitches clips together the way
+    Waze does, so you hear real sequences like "in a quarter of a mile, turn left":</p>
+<pre><code>python scripts/wvs.py qa --pack captain-calm</code></pre>
+    <p>With a community voice model, check that every prompt sounds like the same person. This
+    fingerprints each clip, flags the odd ones out, and re-takes them:</p>
+<pre><code>python scripts/voice_consistency.py captain-calm --fix --takes 3</code></pre>
+
+    <h2 id="upload">Put it in Waze</h2>
+    <p>Waze has no official way to add a custom voice, so packs go up through the community
+    <a href="https://github.com/pipeeeeees/waze-voicepack-links">waze-voicepack-links</a> uploader.
+    Stage your pack into it (the name you give is the name drivers see in Waze), run the
+    uploader, and it prints a link:</p>
+<pre><code>python scripts/stage_for_upload.py --preset captain-calm --name "Captain Calm"
+# then, in waze-voicepack-links:
+python mp3_upload/main.py</code></pre>
+    <p>Open that link on your phone and Waze offers the voice. Then confirm what's live matches what
+    you built:</p>
+<pre><code>python scripts/wvs.py verify-upload &lt;UUID&gt; --pack-dir packs/captain-calm/audio/export/pack</code></pre>
+    <div class="callout sticker">
+      <b>Keep the link safe.</b> Anyone with a pack's link can download all of its audio, and
+      Waze can't update a pack in place: fixing a line means uploading again and getting a new
+      link.
+    </div>
+
+    <h2 id="rights">Rights</h2>
+    <p>Your own voice, or a voice you have permission to use, is yours to publish. Characters and
+    real people belong to someone else. Every preset records its rights position in a required
+    <code>rights</code> block, so a pack can't quietly skip the question. The
+    <a href="https://github.com/ammar-adam/waze-voice-sdk/blob/main/docs/presets.md">presets guide</a>
+    explains what each field means.</p>
+
+    <h2 id="more">Reference</h2>
+    <ul>
+      <li><a href="https://github.com/ammar-adam/waze-voice-sdk#readme">README</a>: the full pipeline, including building from your own recordings</li>
+      <li><a href="https://github.com/ammar-adam/waze-voice-sdk/blob/main/docs/presets.md">Presets</a>: writing characters, and what the build enforces</li>
+      <li><a href="https://github.com/ammar-adam/waze-voice-sdk/blob/main/docs/tts.md">Text-to-speech providers</a>: trade-offs between them</li>
+      <li><a href="https://github.com/ammar-adam/waze-voice-sdk/blob/main/docs/upload-runbook.md">Upload runbook</a>: getting a pack into Waze, step by step</li>
+    </ul>
+
+    <div class="next">
+      <a class="builders sticker" href="https://github.com/ammar-adam/waze-voice-sdk">
+        <div><b>Open it on GitHub</b><span>Star it, fork it, send a pull request.</span></div>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13"/><path d="m12 6 6 6-6 6"/></svg>
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>Independent project. Not affiliated with Waze or Google.</span>
+      <nav class="foot-links">
+        <a href="./">Voices</a>
+        <a href="how-it-works.html">How it works</a>
+        <a href="https://github.com/ammar-adam/waze-voice-sdk">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

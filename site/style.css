@@ -62,14 +62,27 @@ a { color: inherit; }
   border: 2px solid var(--line); animation: blink 1.2s steps(1) infinite;
 }
 @keyframes blink { 50% { background: var(--sun); } }
+.bar nav { display: flex; gap: 1.1rem; flex-wrap: wrap; justify-content: flex-end; }
 .bar nav a { font-weight: 600; text-decoration: none; padding: .4rem .2rem; }
+@media (max-width: 560px) { .bar nav a:not(:first-child) { display: none; } }
 .bar nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
 
 /* ---- hero: all seven papers at once ---- */
 .hero {
   background: var(--sun); border-block: 2.5px solid var(--line);
-  padding: clamp(1.6rem, 6vw, 4.5rem) 0;
+  padding: clamp(1.6rem, 6vw, 4.5rem) 0 4.5rem;
+  /* The whole first screen: the bar above is about 4.6rem tall. */
+  min-height: calc(100svh - 4.6rem); position: relative;
+  display: grid; align-items: center;
 }
+.scroll-cue {
+  position: absolute; left: 50%; bottom: 1.1rem; translate: -50% 0;
+  width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center;
+  background: var(--label); border: 2.5px solid var(--line); box-shadow: 3px 3px 0 var(--line);
+  animation: cue 2.4s ease-in-out infinite;
+}
+.scroll-cue svg { width: 1.2rem; fill: none; stroke: var(--ink); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+@keyframes cue { 0%, 70%, 100% { transform: translateY(0); } 80% { transform: translateY(5px); } 90% { transform: translateY(0); } }
 .hero .wrap {
   display: grid; gap: 1.4rem; align-items: center;
   grid-template-columns: minmax(0, 1fr);
@@ -139,14 +152,31 @@ h2 { margin: 0 0 .4rem; font: 400 clamp(2rem, 6vw, 3.2rem)/1 var(--display); tex
   display: grid; place-items: center; padding-top: .6rem;
 }
 .stage .face { width: 10rem; height: 10rem; transform-origin: 50% 90%; }
-/* Playing: the face talks. */
-.voice.playing .face { animation: talk .34s ease-in-out infinite alternate; }
+/* Playing: the face talks, in one of five ways, picked at random per play. */
+.voice.playing .face { animation: talk-rock .34s ease-in-out infinite alternate; }
+.voice.playing .face[data-move="nod"] { animation-name: talk-nod; animation-duration: .3s; }
+.voice.playing .face[data-move="turn"] { animation-name: talk-turn; animation-duration: .5s; }
+.voice.playing .face[data-move="bob"] { animation-name: talk-bob; animation-duration: .28s; }
+.voice.playing .face[data-move="tilt"] { animation-name: talk-tilt; animation-duration: .42s; }
 /* Picked from the lineup or a #slug link: lifted and ringed in its colour. */
 .voice.picked { outline: 4px solid var(--tone); outline-offset: 5px; }
-@keyframes talk {
-  from { transform: rotate(-2.5deg) scale(1, 1); }
-  to { transform: rotate(2.5deg) scale(1.03, .97); }
-}
+@keyframes talk-rock { from { transform: rotate(-2.5deg); } to { transform: rotate(2.5deg) scale(1.03, .97); } }
+@keyframes talk-nod { from { transform: translateY(0) scaleY(1); } to { transform: translateY(5px) scaleY(.96); } }
+@keyframes talk-turn { from { transform: perspective(400px) rotateY(-14deg); } to { transform: perspective(400px) rotateY(14deg); } }
+@keyframes talk-bob { from { transform: translateY(0); } to { transform: translateY(-7px) scale(1.02); } }
+@keyframes talk-tilt { from { transform: rotate(0) translateX(0); } to { transform: rotate(-7deg) translateX(-4px); } }
+
+/* Every now and then a face fidgets (app.js picks who and what). */
+.move-spin { animation: move-spin .9s cubic-bezier(.5, 0, .3, 1.3); }
+.move-hop { animation: move-hop .7s ease-out; }
+.move-nod { animation: move-nod .8s ease-in-out; }
+.move-turn { animation: move-turn 1s ease-in-out; }
+.move-wiggle { animation: move-wiggle .8s ease-in-out; }
+@keyframes move-spin { to { transform: rotate(360deg); } }
+@keyframes move-hop { 30% { transform: translateY(-14%) scale(1.04, .96); } 55% { transform: translateY(0) scale(.96, 1.04); } 75% { transform: translateY(-4%); } }
+@keyframes move-nod { 25%, 75% { transform: translateY(6%) rotate(2deg); } 50% { transform: translateY(0); } }
+@keyframes move-turn { 30% { transform: perspective(500px) rotateY(55deg); } 70% { transform: perspective(500px) rotateY(-35deg); } }
+@keyframes move-wiggle { 20% { transform: rotate(-9deg); } 40% { transform: rotate(8deg); } 60% { transform: rotate(-5deg); } 80% { transform: rotate(3deg); } }
 
 .tag {
   position: absolute; left: .9rem; bottom: -1.05rem; z-index: 1;
@@ -225,23 +255,37 @@ h2 { margin: 0 0 .4rem; font: 400 clamp(2rem, 6vw, 3.2rem)/1 var(--display); tex
 .steps span { color: var(--ink-soft); }
 .textlink { font-weight: 600; text-underline-offset: 4px; }
 
-/* ---- signup ---- */
-.signup {
-  padding: clamp(1.3rem, 4vw, 2rem); display: grid; gap: .9rem;
-  background-color: var(--sun);
+/* ---- who should ride next? ---- */
+.suggest { padding: clamp(1.3rem, 4vw, 2rem); display: grid; gap: 1rem; background: var(--sun); }
+.suggest-head h2 { margin: 0 0 .3rem; }
+.suggest-head p { margin: 0; color: var(--ink); max-width: 46ch; }
+#suggest-form { display: flex; gap: .6rem; flex-wrap: wrap; }
+#suggest-form input {
+  flex: 1 1 14rem; min-width: 0; padding: .8rem 1rem; font: inherit;
+  border: 2.5px solid var(--line); border-radius: 999px; background: var(--label);
 }
-.signup h2 { margin: 0; }
-.signup p { margin: 0; color: var(--ink-soft); max-width: 44ch; }
-.signup form { display: flex; gap: .6rem; flex-wrap: wrap; }
-.signup input[type="email"] {
-  flex: 1 1 15rem; min-width: 0; padding: .85rem 1rem;
-  background: #fff; color: var(--ink); border: 2.5px solid var(--line);
-  border-radius: 999px; font: inherit;
+#suggest-form .btn { background: var(--ink); color: #fff; }
+.suggest-note { margin: 0; min-height: 1.4em; font-weight: 600; }
+.suggest-note:empty { display: none; }
+.board { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
+.board li {
+  display: flex; align-items: center; justify-content: space-between; gap: .6rem;
+  padding: .45rem .5rem .45rem .95rem; background: var(--label);
+  border: 2px solid var(--line); border-radius: 999px;
 }
-.signup .btn { background: var(--ink); color: #fff; }
-.signup .done { color: var(--good); font-weight: 700; }
+.board .who { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vote {
+  display: inline-flex; align-items: center; gap: .25rem; padding: .3rem .7rem .3rem .45rem;
+  border: 2px solid var(--line); border-radius: 999px; background: var(--ground);
+  font: 500 .85rem/1 var(--data); cursor: pointer;
+}
+.vote svg { width: 1rem; fill: none; stroke: currentColor; stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
+.vote:hover { background: var(--sun); }
+.vote.done { background: var(--ink); color: #fff; cursor: default; }
 
-/* ---- how it works ---- */
+.links { display: grid; gap: .9rem; }
+@media (min-width: 900px) { .links { grid-template-columns: repeat(3, 1fr); } }
+
 .pipe { list-style: none; margin: 0; padding: 0; display: grid; gap: .7rem; }
 .pipe li { padding: .95rem 1rem; display: grid; gap: .2rem; }
 .pipe b { font: 400 1.2rem/1.1 var(--display); }
@@ -263,6 +307,9 @@ h2 { margin: 0 0 .4rem; font: 400 clamp(2rem, 6vw, 3.2rem)/1 var(--display); tex
 
 footer { margin-top: 4rem; padding: 1.5rem 0 2.5rem; border-top: 2.5px solid var(--line); font-size: .9rem; }
 footer .wrap { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; justify-content: space-between; color: var(--ink-soft); }
+.foot-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+.foot-links a { color: var(--ink); font-weight: 600; text-decoration: none; }
+.foot-links a:hover { text-decoration: underline; }
 
 /* ---- did it work? ---- */
 .ask {
@@ -298,3 +345,29 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
+
+/* ---- documentation and blog pages ---- */
+.doc { max-width: 46rem; padding-top: clamp(1.5rem, 5vw, 3rem); }
+.doc .kicker { margin-bottom: 1rem; display: inline-block; }
+.doc h1 { font-size: clamp(2.6rem, 8vw, 4.2rem); margin-bottom: 1rem; }
+.doc .standfirst { font-size: 1.2rem; color: var(--ink-soft); margin: 0 0 2rem; }
+.doc h2 { font-size: clamp(1.6rem, 4.5vw, 2.2rem); margin: 2.6rem 0 .7rem; }
+.doc h3 { font: 700 1.1rem/1.3 var(--body); margin: 1.6rem 0 .4rem; }
+.doc p, .doc li { line-height: 1.65; }
+.doc ul, .doc ol { padding-left: 1.3rem; display: grid; gap: .35rem; }
+.doc code { font: 500 .88em var(--data); background: var(--label); border: 1.5px solid #cfd6ea; padding: .05em .35em; border-radius: 6px; }
+.doc pre {
+  background: var(--ink); color: #e9ecff; padding: 1rem 1.1rem; border-radius: 14px;
+  overflow-x: auto; font: 500 .86rem/1.55 var(--data); box-shadow: var(--shadow);
+}
+.doc pre code { background: none; border: 0; padding: 0; color: inherit; }
+.doc table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .95rem; }
+.doc th, .doc td { text-align: left; padding: .45rem .6rem; border-bottom: 1.5px solid #cfd6ea; vertical-align: top; }
+.doc th { font-weight: 700; }
+.doc .callout { padding: 1rem 1.2rem; margin: 1.4rem 0; }
+.doc .toc { padding: 1rem 1.2rem; margin: 0 0 2rem; }
+.doc .toc ol { margin: .4rem 0 0; }
+.doc .next { display: grid; gap: .9rem; margin-top: 3rem; }
+.table-scroll { overflow-x: auto; }
+.film-frame { border: 2.5px solid var(--line); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow-lg); background: #000; }
+.film-frame video { display: block; width: 100%; height: auto; }

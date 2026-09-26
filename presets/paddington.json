@@ -5,7 +5,10 @@
   "provider": "fish",
   "voice": "51d1503aca8b481dad9d2f85ea15dfba",
   "direction": "Speak politely and earnestly, softly and a little formally, as a young bear raised on good manners. Warm and sincere, never sarcastic. Small apologies and thank-yous around the edges; the instruction itself plain and clear.",
-  "provider_options": {},
+  "provider_options": {
+    "temperature": 0.5,
+    "top_p": 0.6
+  },
   "notes": "The politeness is the character, so it goes around the instruction, never inside it. 'Left, if you wouldn't mind' is in character; 'perhaps left' is a driver missing a junction.",
   "units": "both",
   "rights": {
@@ -55,7 +58,7 @@
     "go_straight": "Straight ahead.",
     "u_turn": "Make a U turn. Oh dear. I do apologise.",
     "and_then": "and then,",
-    "arrived": "We've arrived. Please look after this bear. Thank you.",
+    "arrived": "We've arrived. I think that calls for a marmalade sandwich.",
     "roundabout": "At the roundabout.",
     "exit_first": "take the first exit.",
     "exit_second": "take the second exit.",
@@ -70,6 +73,6 @@
     "speed_camera_ahead": "Speed camera ahead. Best to be polite.",
     "red_light_camera_ahead": "Red light camera ahead. A proper stop, please.",
     "police_ahead": "Police ahead. I shall give them a hard stare.",
-    "reroute_chime": "Oh dear. Things are always happening to me. Recalculating."
+    "reroute_chime": "Oh dear. Things are always happening to me."
   }
 }

@@ -1,12 +1,12 @@
 {
   "bugs-bunny": {
-    "start": "Eh, what's up, doc? Looks like we're in for a good one.",
-    "reroute": "I knew I shoulda taken that turn at Albuquerque! Recalculating.",
+    "start": "What's up, doc? Looks like we're in for a good one.",
+    "reroute": "I knew I shoulda taken that turn at Albuquerque!",
     "arrive": "We've arrived. That's all, folks!"
   },
   "cookie-monster": {
     "start": "Om nom nom! Okay. Me drive now!",
-    "reroute": "Oops. Me find new way. Om nom nom.",
+    "reroute": "Oops. Me find new way.",
     "arrive": "We arrived! Now me get cookie! Om nom nom!"
   },
   "daffy-duck": {
@@ -15,48 +15,48 @@
     "arrive": "We've arrived! You're welcome, obviously. Woo hoo!"
   },
   "elmo": {
-    "start": "Hi! Elmo loves you! Let's go!",
+    "start": "Hi! Elmo is so happy to see you! Let's go!",
     "reroute": "Uh oh! Elmo will find a new way! Ha ha!",
-    "arrive": "We arrived! Elmo loves you!"
+    "arrive": "We arrived! Elmo is so proud of you!"
   },
   "tigger": {
-    "start": "Worra worra worra! Right, let's go, let's go, let's go!",
+    "start": "Hallo! I'm Tigger! Right, let's go, let's go, let's go!",
     "reroute": "Never mind! Tiggers always find another way!",
-    "arrive": "We've arrived! That was tremendous! Worra worra!"
+    "arrive": "We've arrived! That was tremendous! Tiggers love arriving!"
   },
   "pooh": {
-    "start": "Oh, bother. No, it's quite all right. Off we go.",
+    "start": "Hello. Time for a little something? No? Off we go, then.",
     "reroute": "Oh, bother. I'll find another way.",
     "arrive": "We've arrived. Time for a little something, I think."
   },
   "paddington": {
     "start": "Please look after this bear. Thank you. Off we go.",
-    "reroute": "Oh dear. Things are always happening to me. Recalculating.",
-    "arrive": "We've arrived. Please look after this bear. Thank you."
+    "reroute": "Oh dear. Things are always happening to me.",
+    "arrive": "We've arrived. I think that calls for a marmalade sandwich."
   },
   "hagrid": {
-    "start": "You're a driver, Harry! Off we go.",
-    "reroute": "Missed it! Blimey. That's my fault, that is. Recalculating.",
+    "start": "Harry! You're a driver now! Blimey, look at you. Off we go!",
+    "reroute": "Missed it! Blimey. That's my fault, that is.",
     "arrive": "We're here! Brilliant. I'll put the kettle on."
   },
   "darth-vader": {
     "start": "The coordinates are set. Your journey to the Dark Side begins.",
-    "reroute": "You have failed me for the last time with that turn. Recalculating.",
+    "reroute": "You have failed me for the last time with that turn.",
     "arrive": "You have arrived. Your journey is complete. The Force is with you."
   },
   "batman": {
-    "start": "The city needs us. Let's move!",
-    "reroute": "Wrong turn. Why do we fall? Recalculating.",
+    "start": "The Batmobile is ready. The city needs us. Let's move.",
+    "reroute": "Wrong turn. Why do we fall?",
     "arrive": "We're here. This is your destination."
   },
   "gordon-ramsay": {
     "start": "Right, let's go! Service is open!",
-    "reroute": "You missed it, you donkey! Recalculating.",
+    "reroute": "You missed it, you donkey!",
     "arrive": "We're here. Finally! Beautiful. Well done."
   },
   "eric-cartman": {
     "start": "Respect my authoritah! Now drive.",
-    "reroute": "You missed it! Oh my God, you guys. Recalculating.",
+    "reroute": "You missed it! Oh my God, you guys.",
     "arrive": "We're here! Screw you guys, I'm going home."
   }
 }

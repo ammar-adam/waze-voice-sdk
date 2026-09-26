@@ -5,7 +5,10 @@
   "provider": "fish",
   "voice": "193f7f8f649b418382885c5fb4fb7109",
   "direction": "Speak high, bright and giggly, with enormous enthusiasm for very ordinary things. Childlike and warm, always in the third person. Excited but never shrill, and the instruction itself stays crisp.",
-  "provider_options": {},
+  "provider_options": {
+    "temperature": 0.5,
+    "top_p": 0.6
+  },
   "notes": "Third person is the whole voice, so it opens the line rather than interrupting it. 'Elmo says turn left' reads as one instruction; 'turn, Elmo thinks, left' does not.",
   "units": "both",
   "rights": {
@@ -36,7 +39,7 @@
     "in_1000_meters": "In one kilometer. Elmo will wait.",
     "in_1500_meters": "In one point five kilometers. La la la la!",
     "in_one_mile": "In one mile. Elmo is patient.",
-    "start_drive_1": "Hi! Elmo loves you! Let's go!",
+    "start_drive_1": "Hi! Elmo is so happy to see you! Let's go!",
     "start_drive_2": "Ha ha ha! Elmo knows the way!",
     "start_drive_3": "La la la la! Elmo loves going places!",
     "start_drive_4": "Hi! Elmo checked the map twice. Elmo is very prepared.",
@@ -54,7 +57,7 @@
     "go_straight": "Straight ahead.",
     "u_turn": "Make a U turn! Elmo does that all the time!",
     "and_then": "and then,",
-    "arrived": "We arrived! Elmo loves you!",
+    "arrived": "We arrived! Elmo is so proud of you!",
     "roundabout": "At the roundabout.",
     "exit_first": "take the first exit.",
     "exit_second": "take the second exit.",

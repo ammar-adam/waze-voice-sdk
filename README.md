@@ -321,11 +321,12 @@ drivers on the other system hear Waze's own voice for distances, mid-drive.
 Presets default to `units: both`.
 
 **Waze replays the maneuver clip at every distance callout.** Approaching one
-turn you hear it three or four times — 800 m, 400 m, 200 m, junction — while
-the distance clip changes each time. That inverts where character can go: a
-catchphrase on `turn_left` is a catchphrase four times a minute, and the same
-line spread across the nine distance files is heard once each. Tests enforce
-the split.
+turn you hear it three or four times — 800 m, 400 m, 200 m, junction. A pack
+has one recording per prompt and Waze rotates only the greetings, so a
+catchphrase on any prompt heard at every junction is a catchphrase four times
+a minute. Character goes on the greetings and on prompts that fire when the
+road decides (alerts, reroutes, U-turns, long-range callouts). Tests enforce
+the split; [docs/presets.md](docs/presets.md) has the table.
 
 **There is an undocumented size cap around 0.8 MB**, and exceeding it fails
 silently. The exporter allocates bitrate per clip against a byte budget rather

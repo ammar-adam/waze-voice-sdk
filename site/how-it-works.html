@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>How Backseat works</title>
+  <meta name="description" content="How a character voice ends up in Waze: the 43-file pack format, where a catchphrase can go, finding the right voice, and checking every line.">
+  <link rel="canonical" href="https://backseatnav.com/how-it-works.html">
+  <meta name="theme-color" content="#ffd23f">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://backseatnav.com/how-it-works.html">
+  <meta property="og:title" content="How Backseat works">
+  <meta property="og:description" content="Waze has no API for custom voices. Here's how twelve characters end up in your car anyway.">
+  <meta property="og:image" content="https://backseatnav.com/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=JetBrains+Mono:wght@500&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script defer data-domain="backseatnav.com" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+  <header class="bar">
+    <div class="wrap">
+      <a class="logo sticker" href="./"><span class="lamp" aria-hidden="true"></span>Backseat</a>
+      <nav>
+        <a href="./#voices">Voices</a>
+        <a href="make-your-own.html">Make your own</a>
+        <a href="https://github.com/ammar-adam/waze-voice-sdk">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap doc">
+    <p class="kicker">Under the hood</p>
+    <h1>How Backseat works</h1>
+    <p class="standfirst">Waze has no API for custom voices and publishes nothing about the
+    format. Everything here was worked out by taking real voice packs apart. This is how a
+    character ends up in your car, and how we make sure it says the right thing at the right
+    junction.</p>
+
+    <nav class="toc sticker" aria-label="On this page">
+      <b>On this page</b>
+      <ol>
+        <li><a href="#pack">A voice is 43 audio files</a></li>
+        <li><a href="#names">The filenames lie</a></li>
+        <li><a href="#where">Where a character can talk</a></li>
+        <li><a href="#voice">Finding the right voice</a></li>
+        <li><a href="#same">The same person, every prompt</a></li>
+        <li><a href="#check">Every line is checked</a></li>
+        <li><a href="#size">Fitting under the size cap</a></li>
+        <li><a href="#ship">Shipping, and staying shipped</a></li>
+      </ol>
+    </nav>
+
+    <h2 id="pack">A voice is 43 audio files</h2>
+    <p>Waze doesn't speak on the fly. A voice pack is a fixed set of 43 short MP3s, and Waze
+    stitches them together as you drive: a distance clip, then a maneuver clip, and so on.
+    Each file has an exact name, and a file Waze doesn't recognise is ignored without a word.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Group</th><th>Files</th><th>What they say</th></tr></thead>
+        <tbody>
+          <tr><td>Greetings</td><td>9</td><td>One plays at random when you start a route</td></tr>
+          <tr><td>Distances</td><td>9</td><td>Four imperial (a tenth, a quarter, half a mile, one mile), five metric</td></tr>
+          <tr><td>Maneuvers</td><td>9</td><td>Turn, keep left or right, exits, straight on, U-turn, "and then"</td></tr>
+          <tr><td>Roundabouts</td><td>8</td><td>"At the roundabout", then first to seventh exit</td></tr>
+          <tr><td>Alerts</td><td>6</td><td>Traffic, accident, hazard, police, speed and red-light cameras</td></tr>
+          <tr><td>Reroute, arrival</td><td>2</td><td>When you miss a turn, and when you get there</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="names">The filenames lie</h2>
+    <p>The imperial distance files are named in rough metres, not miles: <code>400.mp3</code> is
+    "in a quarter mile" and <code>1500.mp3</code> is "in one mile". The metric set is separate
+    (<code>1500meters.mp3</code> is 1.5 km). We confirmed the mapping by downloading real packs and
+    transcribing every clip, because getting it wrong means a voice confidently announcing the
+    wrong distance. Metric and imperial ship together in every Backseat pack, so it works
+    whichever units your phone uses.</p>
+
+    <h2 id="where">Where a character can talk</h2>
+    <p>This was the biggest lesson from driving with the packs. A pack has <b>one recording
+    per prompt</b>, and Waze plays that same file every single time. Approaching one turn you
+    hear the maneuver clip at each distance callout: 800 m, 400 m, then at the junction. A
+    catchphrase there is a catchphrase three times a minute, and it gets old fast.</p>
+    <p>The only thing Waze randomises is the greeting. So the writing follows how often each
+    prompt comes round:</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Heard</th><th>Prompts</th><th>Written as</th></tr></thead>
+        <tbody>
+          <tr><td>Every junction</td><td>Turns, short distances, roundabouts</td><td>Plain words, in the character's voice</td></tr>
+          <tr><td>At random, once a drive</td><td>Nine greetings</td><td>A catchphrase each, all different</td></tr>
+          <tr><td>Whenever the road decides</td><td>Alerts, reroutes, U-turns, long-range callouts, far exits</td><td>Catchphrases</td></tr>
+          <tr><td>Once, at the end</td><td>Arrival</td><td>A catchphrase</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The third row is what keeps a long drive fresh. Traffic, police and a missed turn
+    happen at moments nobody can predict, so the character turns up when you don't expect it
+    and never twice in a row at the same junction. A test fails the build if a catchphrase
+    ever creeps onto a prompt that repeats.</p>
+
+    <h2 id="voice">Finding the right voice</h2>
+    <p>The voices are community models on <a href="https://fish.audio">Fish Audio</a>. A model's
+    title is whatever its uploader typed, and it's often wrong. So every candidate is checked
+    three ways before it's used:</p>
+    <ul>
+      <li><b>Its cover art and description.</b> A model called "Batman" turned out to have
+      Robert Pattinson's Batman on the cover, not the one we wanted.</li>
+      <li><b>Its pitch.</b> Every model titled "Darth Vader" measured between 230 and 280 Hz:
+      far too high for Vader. James Earl Jones, the actual voice, measures around 100 Hz. That's
+      the one we use.</li>
+      <li><b>Whether it can say the lines.</b> Each finalist reads the same test lines, and a
+      speech recogniser checks every word came out right.</li>
+    </ul>
+
+    <h2 id="same">The same person, every prompt</h2>
+    <p>A voice model never gives the same performance twice. One take is warm, the next is flat,
+    a third sounds like someone else. On a drive that reads as three characters sharing one
+    voice. Two things fix it. Every voice runs at a lower sampling temperature, so takes vary
+    less. Then every clip gets a fingerprint (its timbre, pitch, pitch range and brightness)
+    and is compared against a take that's been judged right. Anything that drifts is
+    regenerated several times, and the closest take is kept.</p>
+
+    <h2 id="check">Every line is checked</h2>
+    <p>Voice models sometimes mumble, skip a word or loop. Before any pack ships, every one of
+    its 43 clips is transcribed by a speech recogniser and compared with its script. Fumbled
+    takes are regenerated until they come back clean. It has caught a "Turn right" that came
+    out as "Can I?", and a Godfather voice that mumbled 26 of its 43 lines, which is why
+    that character never shipped.</p>
+
+    <h2 id="size">Fitting under the size cap</h2>
+    <p>Waze silently rejects packs over about 0.8 MB, and it tells you nothing about it. Rather
+    than squeeze every clip the same way, the exporter shares the byte budget by how often
+    each prompt is heard: the turns you hear constantly stay crisp, and long lines you hear
+    once a drive absorb the compression. Every clip is also levelled to the same loudness,
+    so nothing jumps out at you mid-drive.</p>
+
+    <h2 id="ship">Shipping, and staying shipped</h2>
+    <p>A finished pack is uploaded to Waze, which serves it from its own servers under a unique
+    link. We then download it back and compare it byte for byte with what we built. Waze has no
+    way to update a pack in place, so every fix means a new link. Every link on this site comes
+    from one file, and a scheduled check confirms each one still works every six hours.</p>
+
+    <div class="next">
+      <a class="builders sticker" href="make-your-own.html">
+        <div><b>Make your own voice</b><span>The docs: build a character pack yourself.</span></div>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13"/><path d="m12 6 6 6-6 6"/></svg>
+      </a>
+      <a class="builders sticker" href="https://github.com/ammar-adam/waze-voice-sdk">
+        <div><b>Read the code</b><span>Everything above is open source on GitHub.</span></div>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13"/><path d="m12 6 6 6-6 6"/></svg>
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>Independent project. Not affiliated with Waze or Google.</span>
+      <nav class="foot-links">
+        <a href="./">Voices</a>
+        <a href="make-your-own.html">Make your own</a>
+        <a href="https://github.com/ammar-adam/waze-voice-sdk">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

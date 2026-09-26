@@ -5,7 +5,10 @@
   "provider": "fish",
   "voice": "a3ec9a0795714621a0727687c451e212",
   "direction": "Speak in a deep, gravelly, excitable growl. Blunt bursts rather than sentences. Greedy and childlike, delighted by everything, no self-control at all. Keep the direction word loud and clear.",
-  "provider_options": {},
+  "provider_options": {
+    "temperature": 0.5,
+    "top_p": 0.6
+  },
   "notes": "The grammar is the joke, so it lives in the framing: 'Me say turn left' keeps the instruction intact while still being wrong in the right way. The direction word itself is never mangled.",
   "units": "both",
   "rights": {
@@ -69,6 +72,6 @@
     "speed_camera_ahead": "Speed camera ahead. Me smile with cookie.",
     "red_light_camera_ahead": "Red light camera ahead. Stop! Me stop. Cookie stop.",
     "police_ahead": "Police ahead! Me behave! Me hide cookies!",
-    "reroute_chime": "Oops. Me find new way. Om nom nom."
+    "reroute_chime": "Oops. Me find new way."
   }
 }

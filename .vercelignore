@@ -2,4 +2,5 @@
 # CLI uploads; Git deploys clone the repo but only serve outputDirectory.
 /*
 !/site
+!/api
 !/vercel.json
