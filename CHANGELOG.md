@@ -19,7 +19,7 @@ Notable changes. Dates are when the work landed on `main`.
   on models whose metadata points at the right source, and re-uploaded.
 - **The launch film is rebuilt around the missed turn**: one reroute moment,
   eleven characters in escalating order. See `docs/launch-film.md`.
-- **backseat.fm**, the consumer site, in `site/` and deployed to GitHub
+- **backseatnav.com**, the consumer site, in `site/` and deployed to GitHub
   Pages. Each voice is a sticker face on its own colour with three real clips from its pack,
   the words it actually says, and one-tap install; desktop visitors get a QR
   code. Funnel events go to Plausible through one `track()` function, and a

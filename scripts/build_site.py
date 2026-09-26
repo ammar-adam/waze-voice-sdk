@@ -4,7 +4,7 @@ Run locally and in the Pages workflow. voices.json is the single source for
 every UUID, so anything that embeds one is generated from it rather than
 committed: today that is the desktop QR codes.
 
-The QR codes encode the Waze link itself, not a backseat.fm redirect. iOS only
+The QR codes encode the Waze link itself, not a backseatnav.com redirect. iOS only
 hands a link to an app when the navigation starts from a user action; a camera
 tap counts, a JavaScript redirect often does not, and the failure is silent - a
 web page loads where the app should have opened.

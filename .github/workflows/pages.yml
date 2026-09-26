@@ -1,6 +1,6 @@
 name: Deploy site
 
-# backseat.fm is served from site/ on GitHub Pages. The QR codes are generated
+# backseatnav.com is served from site/ on GitHub Pages. The QR codes are generated
 # here from site/voices.json rather than committed, so the UUIDs have exactly
 # one home and a stale link is a one-line fix.
 
