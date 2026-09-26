@@ -92,7 +92,7 @@ class CompletenessTests(unittest.TestCase):
 
 class DomainTests(unittest.TestCase):
     def test_cname_is_the_launch_domain(self) -> None:
-        self.assertEqual((SITE / "CNAME").read_text(encoding="utf-8").strip(), "backseat.fm")
+        self.assertEqual((SITE / "CNAME").read_text(encoding="utf-8").strip(), "backseatnav.com")
 
     def test_canonical_and_share_urls_use_the_domain(self) -> None:
         for name in ("index.html", "install.html"):
@@ -101,7 +101,7 @@ class DomainTests(unittest.TestCase):
                 for url in re.findall(
                     r'(?:canonical" href|og:url" content|og:image" content)="([^"]+)"', html
                 ):
-                    self.assertTrue(url.startswith("https://backseat.fm/"), url)
+                    self.assertTrue(url.startswith("https://backseatnav.com/"), url)
 
     def test_every_page_carries_the_disclaimer(self) -> None:
         for name in ("index.html", "install.html"):

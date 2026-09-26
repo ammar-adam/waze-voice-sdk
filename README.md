@@ -3,7 +3,7 @@
 **Make your GPS iconic.** Character voice packs for Waze: hear one, tap once, and
 it's giving you directions.
 
-### → [backseat.fm](https://backseat.fm)
+### → [backseatnav.com](https://backseatnav.com)
 
 Open it on your phone. Tap a voice to hear the real lines, then **Install in
 Waze**. No account, nothing to download from us. On a computer, each voice has a
@@ -29,7 +29,7 @@ publishes nothing about the format, so everything here was worked out by pulling
 apart real packs. It turns a character idea into a finished, verified,
 uploadable Waze voice pack.
 
-If you just want a voice, you want [backseat.fm](https://backseat.fm). If you
+If you just want a voice, you want [backseatnav.com](https://backseatnav.com). If you
 want to make one, read on.
 
 **The rights, plainly.** Pooh and Tigger rest on A. A. Milne's 1926 and 1928

@@ -43,7 +43,7 @@ close it. The silence after Vader is the laugh. Cartman's "I'm going home" is
 the button because it undercuts all the menace that came before.
 
 **End card, 3s.** The twelve faces pop in one at a time, the same layout as
-`site/og.png`. **Make your GPS iconic.** Under it: **backseat.fm**, and "Free.
+`site/og.png`. **Make your GPS iconic.** Under it: **backseatnav.com**, and "Free.
 One tap into Waze." The old card said "WEIRD", so it needs remaking.
 
 ## Cut B: "Vader cold open" (about 21s)
@@ -106,10 +106,10 @@ I'll quote the credit cost from the Runway API before generating anything.
 - **Colour per character.** On each cut, wash the frame in that character's
   `--bg` from `site/characters.css` for four frames. It reads as a hard cut
   even with the sound off.
-- **Link:** `backseat.fm/?utm_source=tiktok&utm_campaign=missed-turn`, one
+- **Link:** `backseatnav.com/?utm_source=tiktok&utm_campaign=missed-turn`, one
   `utm_campaign` per post, so Plausible shows which post drove installs rather
   than just views.
-- **Pinned comment:** "Free. Tap a voice on backseat.fm and it's in your Waze."
+- **Pinned comment:** "Free. Tap a voice on backseatnav.com and it's in your Waze."
 - **Takedown risk.** Vader (Disney) and Batman (Warner Bros.) are the likeliest
   to be muted or claimed. Cut A still lands without them, ending on Vito, so
   keep that export ready.

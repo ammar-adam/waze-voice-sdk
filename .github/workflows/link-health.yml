@@ -1,6 +1,6 @@
 name: Link health
 
-# Every six hours, confirm each voice on backseat.fm still resolves on Waze.
+# Every six hours, confirm each voice on backseatnav.com still resolves on Waze.
 # A dead pack means the site's main button silently stops working, and during a
 # launch nobody files a bug about that - they just leave. So a failure opens an
 # issue instead of waiting for someone to look at a red badge.
@@ -47,5 +47,5 @@ jobs:
             gh issue comment "$existing" --body "$body"
           else
             gh label create link-health --color d93f0b --description "Voice links failing on Waze" 2>/dev/null || true
-            gh issue create --title "A voice on backseat.fm no longer resolves" --label link-health --body "$body"
+            gh issue create --title "A voice on backseatnav.com no longer resolves" --label link-health --body "$body"
           fi
