@@ -43,10 +43,10 @@ rights holder or the performer.
 | `elmo` | Sesame Street (1980) | `fish/193f7f8f...` | Bright, giggly, third person |
 | `bugs-bunny` | Looney Tunes (1940) | `fish/9a1c3a3b...` | Laid-back, amused, never in a hurry |
 | `daffy-duck` | Looney Tunes (1937) | `fish/5ded4503...` | Loud, theatrical, personally offended |
-| `vito-corleone` | The Godfather (Puzo, 1969) | `fish/ea3ef168...` | Quiet, unhurried, every turn a favour |
+| `hagrid` | Harry Potter (Rowling, 1997) | `fish/f6fd5117...` | Huge, warm, a bit disorganised |
 | `darth-vader` | Star Wars (1977) | `fish/3446a5f0...` | Imperious and disappointed in you |
 | `batman` | Batman (DC, 1939); the Bale register | `fish/44c769c2...` | Gravel-voiced, clipped, on a mission |
-| `terminator` | The Terminator (1984) | `fish/ca16ac1b...` | Flat, literal, mission-focused |
+| `gordon-ramsay` | Hell's Kitchen (a real, living person) | `fish/d4596df3...` | Furious head chef mid-service |
 | `eric-cartman` | South Park (1997) | `fish/b4f55643...` | Bossy, whiny, in charge of the car |
 
 Pooh and Tigger have community models too, and `scripts/build_all.py` uses
@@ -71,6 +71,33 @@ each are original writing; the character, the name and the voice are not.
 ```powershell
 python scripts\wvs.py presets show eeyore --lines
 ```
+
+## Where the character goes, and where it must not
+
+A pack holds **one recording per prompt**, and Waze plays that same file every
+time. The nine greetings are the only prompts Waze rotates, picking one at
+random per drive. Nothing else can vary, so variety has to come from choosing
+which prompts carry the character.
+
+One turn is heard as a distance callout, often two, then the maneuver, and
+Waze replays the maneuver clip at each distance. A catchphrase on any of those
+lands two or three times per junction, every junction. "In a quarter of a
+mile, if you please" was fine on paper and unbearable on a real drive.
+
+| Heard | Prompts | Writing |
+| --- | --- | --- |
+| Every junction | maneuvers, `and_then`, first to fourth exits, roundabout, tenth / quarter / half mile, 200 / 400 / 800 m | Plain wording. The voice is the character. |
+| At random, once a drive | the nine greetings | A catchphrase in every one, a different one each |
+| Unpredictably, on the road | traffic, accident, hazard, police, speed and red-light cameras, reroute, U-turn, fifth to seventh exits, one mile / 1 km / 1.5 km | Catchphrases |
+| Once, at the end | arrival | A catchphrase |
+
+The middle rows are how a drive stays unpredictable without Waze randomising
+anything: those prompts fire when the road decides, so a forty-minute drive
+gets several catchphrases at moments nobody can predict, and never the same
+one twice in a row at a junction. Within the greetings no more than three of
+nine share an opening. Bugs Bunny is the deliberate exception: every greeting
+opens "Eh, what's up, doc?" `tests/test_repetition.py` enforces the plain rows
+and the greeting rule.
 
 ## Two speech rates, where a character needs them
 

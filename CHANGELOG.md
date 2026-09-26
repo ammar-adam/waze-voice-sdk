@@ -6,12 +6,21 @@ Notable changes. Dates are when the work landed on `main`.
 
 ### Added
 
-- **Five new voices**: Vito Corleone, Darth Vader, Batman (the Bale register),
-  the Terminator and Eric Cartman. Each is a full 43-line preset on a Fish
+- **Catchphrases where a drive can't predict them, never where it repeats.**
+  Waze plays one recording per prompt and only rotates the greetings, so a
+  catchphrase on the quarter mile or 400 m callout was heard at every junction
+  ("if you please"). Those prompts are now plain in every pack. Every greeting
+  carries a catchphrase, a different one each, and so do the prompts that fire
+  when the road decides: alerts, reroutes, U-turns, far roundabout exits and
+  long-range callouts. All twelve packs rebuilt. `tests/test_repetition.py`
+  enforces the plain prompts; `docs/presets.md` explains.
+- **Five new voices**: Hagrid, Gordon Ramsay, Darth Vader, Batman (the Bale
+  register) and Eric Cartman. Each is a full 43-line preset on a Fish
   community model, built to the v3 pattern (maneuvers plain, character on
   distances and alerts, nine rotating greetings), uploaded, and on the site
-  with its own face and colours. All five are in copyright and their presets
-  say so. Patrick Bateman shipped briefly and was replaced by Cartman.
+  with its own face and colours. None of the five is ours (Ramsay is a real
+  person, not a character), and their presets say so. Patrick Bateman shipped briefly and was replaced by Cartman; Vito
+  Corleone and the Terminator were replaced by Hagrid and Gordon Ramsay.
 - **Voice models are checked against their cover art and description, not
   just their title.** Two first picks were the wrong performance: "Batman" was
   Pattinson's (cover art from The Batman, 2022), and "Arnold Schwarzenegger" was
@@ -19,6 +28,12 @@ Notable changes. Dates are when the work landed on `main`.
   on models whose metadata points at the right source, and re-uploaded.
 - **The launch film is rebuilt around the missed turn**: one reroute moment,
   eleven characters in escalating order. See `docs/launch-film.md`.
+- **The film renders itself.** `film/` is a Remotion project that turns the
+  live packs' audio into four finished 9:16 videos with no hand edit;
+  `scripts/prepare_film.py` feeds it. See `docs/launch-film.md`.
+- **Vercel.** The site deploys from `site/` on every push, with no build step.
+  The desktop QR codes are committed for that, and a test regenerates each one
+  from voices.json and fails if it is stale.
 - **backseatnav.com**, the consumer site, in `site/` and deployed to GitHub
   Pages. Each voice is a sticker face on its own colour with three real clips from its pack,
   the words it actually says, and one-tap install; desktop visitors get a QR

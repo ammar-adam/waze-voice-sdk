@@ -65,7 +65,7 @@ class CompletenessTests(unittest.TestCase):
 
     def test_every_voice_has_three_previews(self) -> None:
         for voice in voices():
-            for clip in ("turn", "reroute", "arrive"):
+            for clip in ("start", "reroute", "arrive"):
                 with self.subTest(voice=voice["slug"], clip=clip):
                     path = SITE / "audio" / f"{voice['slug']}-{clip}.mp3"
                     self.assertTrue(path.is_file(), path.name)
@@ -74,7 +74,7 @@ class CompletenessTests(unittest.TestCase):
     def test_every_voice_has_its_words(self) -> None:
         for voice in voices():
             with self.subTest(voice=voice["slug"]):
-                self.assertEqual(set(self.lines[voice["slug"]]), {"turn", "reroute", "arrive"})
+                self.assertEqual(set(self.lines[voice["slug"]]), {"start", "reroute", "arrive"})
 
     def test_every_voice_has_a_face(self) -> None:
         for voice in voices():
