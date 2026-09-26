@@ -6,3 +6,14 @@ public/
 # Runway footage and exported voices: large media, never committed.
 runway/
 voices/
+
+# Runway footage for the Tough Crowd film: media is never committed.
+# plan.md, shots.json and the ledger/line JSON files stay committable.
+runway2/**/*.mp4
+runway2/**/*.mov
+runway2/**/*.png
+runway2/**/*.jpg
+runway2/**/*.jpeg
+runway2/**/*.webp
+runway2/**/*.wav
+runway2/**/*.mp3
