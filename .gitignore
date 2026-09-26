@@ -82,3 +82,7 @@ film-audio/
 
 # Generated from site/voices.json by scripts/build_site.py, locally and in CI.
 site/qr/
+
+# The site's preview clips are the one place audio belongs in the repo: Pages
+# serves them, and they are cut from packs that are not committed.
+!site/audio/*.mp3
