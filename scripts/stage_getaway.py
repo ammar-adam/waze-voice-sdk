@@ -77,6 +77,12 @@ ONE_SHOTS = {
 }
 
 
+MUSIC = {
+    "chase": R4 / "music" / "chase_c.mp3",
+    "stab": R4 / "music" / "stab_a.mp3",
+}
+
+
 def write_wav(path: Path, x: np.ndarray) -> None:
     x = np.clip(x, -1, 1)
     if x.ndim == 1:
@@ -267,6 +273,11 @@ def main() -> int:
         "2",
         str(PUB / "sfx" / "hit.wav"),
     )
+    # The score (film/runway4/music, generated): decoded untouched, levelled in
+    # the mix (getaway.config.ts SCORE), so the loop keeps its own dynamics.
+    (PUB / "music").mkdir(exist_ok=True)
+    for name, src in MUSIC.items():
+        ffmpeg("-i", str(src), "-ar", str(SR), "-ac", "2", str(PUB / "music" / f"{name}.wav"))
     make_grain(PUB / "grain.png")
     for src in sorted((REPO / "site" / "faces").glob("*.svg")):
         shutil.copy2(src, PUB / "faces" / src.name)

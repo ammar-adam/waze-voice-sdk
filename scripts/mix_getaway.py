@@ -21,6 +21,7 @@ import wave
 from pathlib import Path
 
 import numpy as np
+from scipy.signal import butter, sosfiltfilt
 
 REPO = Path(__file__).resolve().parent.parent
 FILM = REPO / "film"
@@ -46,7 +47,7 @@ def config() -> dict:
         check=True,
         shell=sys.platform == "win32",
     )
-    keys = "FPS,TOTAL_FRAMES,MIX,BEDS,HITS,TAPS,MUSIC_HIT,LINES"
+    keys = "FPS,TOTAL_FRAMES,MIX,BEDS,HITS,TAPS,MUSIC_HIT,LINES,SCORE"
     js = f"const c=require({json.dumps(str(tmp))});const o={{}};for(const k of '{keys}'.split(','))o[k]=c[k];console.log(JSON.stringify(o))"  # noqa: E501
     return json.loads(
         subprocess.run(["node", "-e", js], capture_output=True, text=True, check=True).stdout
@@ -64,6 +65,36 @@ def load(path: Path) -> np.ndarray:
 
 def gain(db: float) -> float:
     return 10 ** (db / 20)
+
+
+def score(c: dict, place, spf: int) -> None:
+    """The looped chase cue, segment by segment, each starting on its own downbeat.
+
+    Keys are [frame, dB, muffle]; muffle crossfades to a low-passed copy (the
+    score as heard from inside the car). Segments meet with a 2-frame crossfade.
+    """
+    sc = c["SCORE"]
+    if not sc["segs"]:
+        return
+    cue = load(PUB / "ga" / sc["src"]) * gain(c["MIX"].get("scoreDb", 0))
+    muffled = sosfiltfilt(butter(4, 420, fs=SR, output="sos"), cue, axis=0).astype(np.float32)
+    xf = 2 * spf
+    for s in sc["segs"]:
+        n = (s["to"] - s["from"]) * spf + xf
+        start = int(s["at"] * SR)
+        idx = (start + np.arange(n)) % len(cue)
+        t = s["from"] + np.arange(n) / spf
+        fx, db, mu = (np.array(k, np.float64) for k in zip(*s["keys"], strict=True))
+        g = 10 ** (np.interp(t, fx, db) / 20)
+        m = np.interp(t, fx, mu)
+        sig = cue[idx] * (1 - m)[:, None] + muffled[idx] * m[:, None]
+        edge = np.ones(n, np.float32)
+        k = min(xf, n // 2)
+        edge[:k] = np.linspace(0, 1, k) if s["from"] > 0 else 1
+        edge[-k:] = np.linspace(1, 0, k)
+        place((sig * (g * edge)[:, None]).astype(np.float32), s["from"])
+    st = sc["stab"]
+    place(load(PUB / "ga" / st["src"]), st["at"], gain(st["db"] + c["MIX"].get("scoreDb", 0)))
 
 
 def main() -> int:
@@ -96,6 +127,8 @@ def main() -> int:
         fi, fo = max(1, b.get("fadeIn", 1)), max(1, b.get("fadeOut", 1))
         env = envelope(dur, [(0, 0), (fi, 1), (dur - fo, 1), (dur, 0)]) * gain(b["db"])
         place(sig, b["from"], env)
+
+    score(c, place, spf)
 
     tap = load(PUB / "ga" / "sfx" / "tap.wav")
     for at in c["TAPS"]:

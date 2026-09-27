@@ -1,5 +1,5 @@
-// THE GETAWAY, action-chase revision: every tunable value of the film, 30.0 s
-// at 24 fps (720 frames), 1920x1080 full frame. Plan, shot list and prompts:
+// THE GETAWAY, action-chase revision: every tunable value of the film, ~31 s
+// at 24 fps (TOTAL_FRAMES), 1920x1080 full frame. Plan, shot list and prompts:
 // film/runway4/plan.md (the first cut is film/runway3/plan.md). Footage and
 // sound are staged into public/ga/ by scripts/stage_getaway.py; the voice
 // lines by scripts/build_getaway_voices.py. Every cut sits on a whole frame:
@@ -12,7 +12,7 @@
 // re-staging is all production needs, plus setting that shot's `srcIn`.
 
 export const FPS = 24;
-export const TOTAL_FRAMES = 772;
+export const TOTAL_FRAMES = 753;
 export const TOTAL = TOTAL_FRAMES / FPS;
 
 // Colours and type are the site's (site/style.css, site/characters.css).
@@ -87,13 +87,9 @@ const CUT: ShotSpec[] = [
   // 3.750 Elmo: the driver's eyes go wide; a snap focus pull (3x) to the passenger's flat look.
   {id: 'RACK_A', beat: 'Elmo: driver eyes', clip: 'V03', srcIn: 0.72, frames: 55},
   {id: 'RACK_B', beat: 'Elmo: focus pull', clip: 'V03', srcIn: 3.0, frames: 18, rate: 3},
-  {id: 'RACK_C', beat: 'Elmo: passenger', clip: 'V03', srcIn: 5.25, frames: 33},
-  // 8.167 the head-turn chain, three cuts, each tighter. Silence.
-  {id: 'CHAIN1', beat: 'driver turns to passenger', clip: 'V02A', srcIn: 1.55, frames: 15,
-    f16: {scale: 1.0, cx: 960, cy: 540}, band: 150},
-  {id: 'CHAIN2', beat: 'passenger turns to the back', clip: 'V02A', srcIn: 4.55, frames: 15,
-    f16: {scale: 1.18, cx: 760, cy: 500}, band: 150},
-  {id: 'CHAIN3', beat: 'backseat shrug', clip: 'V02A', srcIn: 6.45, frames: 17,
+  {id: 'RACK_C', beat: 'Elmo: passenger', clip: 'V03', srcIn: 5.25, frames: 36},
+  // 7.792 straight off Elmo's "Let's go!": the backseat shrug (hands up at src 6.6).
+  {id: 'SHRUG', beat: 'backseat shrug', clip: 'V02A', srcIn: 6.3, frames: 22,
     f16: {scale: 1.36, cx: 960, cy: 470}, band: 150},
   // 10.125 tyres spin, smoke and spray; sirens erupt.
   {id: 'TYRE', beat: 'tyres spin', clip: 'V05', srcIn: 1.15, frames: 12, rate: 1.3},
@@ -131,7 +127,8 @@ const CUT: ShotSpec[] = [
   // the escape: headlights off, they slip away as the patrol cars recede down the main road.
   {id: 'ESCAPE', beat: 'slip away from the lights', clip: 'E1', srcIn: 0.3, frames: 40},
   // the coast is clear: into the garage, and the door rolls down on an empty street.
-  {id: 'DOOR', beat: 'garage door shuts, all clear', clip: 'E2', srcIn: 2.3, frames: 78},
+  // (the door touches down at src 5.85: DOOR_SHUT frames in at 1.3x; a beat of stillness after)
+  {id: 'DOOR', beat: 'garage door shuts, all clear', clip: 'E2', srcIn: 2.3, frames: 76, rate: 1.3},
   // 26.083 the garage: engine off, everyone exhales. Smash to the card on "That's".
   // (the passenger's face drifts after src 4.0: never used)
   {id: 'GARAGE', beat: 'Bugs: garage, exhale', clip: 'V13', srcIn: 2.35, frames: 33,
@@ -183,7 +180,7 @@ const AT = {
   bugs: fin('GARAGE'),
 };
 export const LINES: Line[] = [
-  {key: 'elmo_hello', slug: 'elmo', name: 'Elmo', at: AT.elmo, out: fin('CHAIN1')},
+  {key: 'elmo_hello', slug: 'elmo', name: 'Elmo', at: AT.elmo, out: fin('SHRUG', 2)},
   {key: 'cookie_police', slug: 'cookie-monster', name: 'Cookie Monster', at: AT.cookie, out: AT.gordon - TAP_LEAD},
   {key: 'gordon_missed', slug: 'gordon-ramsay', name: 'Gordon Ramsay', at: AT.gordon, out: AT.daffy - TAP_LEAD},
   {key: 'daffy_police', slug: 'daffy-duck', name: 'Daffy Duck', at: AT.daffy, out: fin('OFFICER', 6)},
@@ -196,14 +193,13 @@ export type Bed = {src: string; from: number; to: number; db: number; offset?: n
 /** A one-shot; `offset` is seconds into its file. */
 export type Hit = {src: string; at: number; db: number; offset?: number};
 
-export const MIX = {voiceDb: 0, tapDb: -12};
+export const MIX = {voiceDb: 0, tapDb: -12, scoreDb: -6.5};
 
 // Beds are staged at -20 LUFS (scripts/stage_getaway.py). Frames, not seconds.
 // Preview sound: the first cut's SFX stand in for the chase SFX listed in
 // film/runway4/plan.md (screech, handbrake, truck horn, scrape, splashes).
 export const BEDS: Bed[] = [
-  {src: 'sfx/drone.wav', from: 0, to: AT.elmo, db: -6, fadeIn: 6},
-  {src: 'sfx/alarm_rain.wav', from: 0, to: T.PHONE_UP.fin, db: -6, fadeOut: 2},
+  {src: 'sfx/alarm_rain.wav', from: 0, to: T.PHONE_UP.fin, db: -9, fadeOut: 2},
   {src: 'sfx/rain_roof.wav', from: T.PHONE_UP.fin, to: T.TYRE.fin, db: -9},
   {src: 'sfx/road.wav', from: T.TYRE.fin, to: T.RED1.fin, db: -11, fadeOut: 12},
   {src: 'sfx/sirens.wav', from: T.TYRE.fin + 4, to: T.RED1.fin, db: -13, fadeIn: 8, fadeOut: 24},
@@ -230,6 +226,39 @@ export const HITS: Hit[] = [
   // in the gap between "We've arrived." and "That's", on the visible exhale
   {src: 'sfx/exhale.wav', at: T.GARAGE.fin + 21, db: -14},
 ];
+
+/** The frame the garage door touches down (E2 src 5.85 at 1.3x). */
+export const DOOR_SHUT = T.DOOR.fin + Math.round(((5.85 - 2.3) / 1.3) * FPS);
+
+// The chase score: one looped cue (film/runway4/music/chase_c.mp3, 152 bpm, a
+// bar every 1.5956 s from 1.277 s), cut on downbeats at the two hard edits the
+// sound effects cover (the tyre spin, the escape). Keys are [frame, dB, muffle]:
+// muffle 1 is the score heard from inside the closed car (a low-pass), which is
+// where it sits under Elmo and while they act natural. It ends on the stab as
+// the garage door touches down; the garage is rain and breath.
+export type ScoreSeg = {from: number; to: number; at: number; keys: [number, number, number][]};
+const BAR = 1.5956;
+const DOWN = (n: number) => 1.277 + n * BAR;
+const duck = -7;
+export const SCORE: {src: string; stab: Hit; segs: ScoreSeg[]} = {
+  src: 'music/chase.wav',
+  stab: {src: 'music/stab.wav', at: DOOR_SHUT, db: -2},
+  segs: [
+    // the sprint: full; the doors slam and we are inside the car
+    {from: 0, to: T.TYRE.fin, at: DOWN(0), keys: [
+      [0, 0, 0], [T.SPRINT_B.fin + 17, 0, 0], [T.SPRINT_B.fin + 19, -9, 1], [T.SHRUG.fin, -9, 1],
+      [T.TYRE.fin - 1, -4, 0.6]]},
+    // the tyres spin: back to the top of a bar, full out, ducked under each line
+    {from: T.TYRE.fin, to: T.ESCAPE.fin, at: DOWN(6), keys: [
+      [T.TYRE.fin, 0, 0], [AT.cookie - 3, 0, 0], [AT.cookie + 2, duck, 0], [AT.cookie + 101, duck, 0],
+      [AT.gordon + 2, duck, 0], [AT.gordon + 56, duck, 0], [AT.gordon + 60, 0, 0], [AT.daffy - 3, 0, 0],
+      [AT.daffy + 1, duck, 0], [T.RED1.fin - 1, duck, 0], [T.RED1.fin, -12, 1], [T.GLIDE.fin, -12, 1],
+      [T.ESCAPE.fin - 1, -8, 0.7]]},
+    // the escape: the lights shrink behind them, the score comes back, and ends on the door
+    {from: T.ESCAPE.fin, to: DOOR_SHUT, at: DOWN(14), keys: [
+      [T.ESCAPE.fin, -3, 0], [T.DOOR.fin, 0, 0], [DOOR_SHUT, 0, 0]]},
+  ],
+};
 
 /** Film frames of the soft screen tap (only Elmo is tapped in; the rest arrive with the turns). */
 export const TAPS: number[] = [AT.elmo - TAP_LEAD];
