@@ -20,7 +20,12 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
 sys.path.insert(0, str(ROOT / "scripts"))
 
-import build_site  # noqa: E402
+# QR generation needs segno, a dev dependency. The core test job installs
+# nothing on purpose, so the QR check skips there and runs in the lint job.
+try:
+    import build_site  # noqa: E402
+except ModuleNotFoundError:
+    build_site = None
 import check_links  # noqa: E402
 
 UUID = re.compile(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")
@@ -91,6 +96,7 @@ class CompletenessTests(unittest.TestCase):
                 self.assertRegex(self.colours, rf"#{voice['slug']}\s*{{[^}}]*--tone:")
 
 
+@unittest.skipIf(build_site is None, "segno is not installed (requirements-dev.txt)")
 class QrTests(unittest.TestCase):
     """QR codes are committed so a static host can serve site/ untouched. A
     stale one would install the wrong pack, and nothing on screen shows it."""
