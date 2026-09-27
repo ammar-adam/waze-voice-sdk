@@ -193,38 +193,38 @@ export type Bed = {src: string; from: number; to: number; db: number; offset?: n
 /** A one-shot; `offset` is seconds into its file. */
 export type Hit = {src: string; at: number; db: number; offset?: number};
 
-export const MIX = {voiceDb: 0, tapDb: -12, scoreDb: -6.5};
+export const MIX = {voiceDb: 0, tapDb: -12, scoreDb: -12};
 
 // Beds are staged at -20 LUFS (scripts/stage_getaway.py). Frames, not seconds.
 // Preview sound: the first cut's SFX stand in for the chase SFX listed in
 // film/runway4/plan.md (screech, handbrake, truck horn, scrape, splashes).
 export const BEDS: Bed[] = [
-  {src: 'sfx/alarm_rain.wav', from: 0, to: T.PHONE_UP.fin, db: -9, fadeOut: 2},
-  {src: 'sfx/rain_roof.wav', from: T.PHONE_UP.fin, to: T.TYRE.fin, db: -9},
-  {src: 'sfx/road.wav', from: T.TYRE.fin, to: T.RED1.fin, db: -11, fadeOut: 12},
-  {src: 'sfx/sirens.wav', from: T.TYRE.fin + 4, to: T.RED1.fin, db: -13, fadeIn: 8, fadeOut: 24},
-  {src: 'sfx/rain_roof.wav', from: T.RED1.fin, to: T.GLIDE.fin, db: -10, offset: 2},
-  {src: 'sfx/road.wav', from: T.GLIDE.fin, to: T.GARAGE.fin, db: -15, fadeIn: 8, offset: 1},
-  {src: 'sfx/rain_roof.wav', from: T.GARAGE.fin, to: T.END.fin, db: -18, offset: 1},
+  {src: 'sfx/alarm_rain.wav', from: 0, to: T.PHONE_UP.fin, db: -12, fadeOut: 2},
+  {src: 'sfx/rain_roof.wav', from: T.PHONE_UP.fin, to: T.TYRE.fin, db: -12},
+  {src: 'sfx/road.wav', from: T.TYRE.fin, to: T.RED1.fin, db: -14, fadeOut: 12},
+  {src: 'sfx/sirens.wav', from: T.TYRE.fin + 4, to: T.RED1.fin, db: -16, fadeIn: 8, fadeOut: 24},
+  {src: 'sfx/rain_roof.wav', from: T.RED1.fin, to: T.GLIDE.fin, db: -13, offset: 2},
+  {src: 'sfx/road.wav', from: T.GLIDE.fin, to: T.GARAGE.fin, db: -18, fadeIn: 8, offset: 1},
+  {src: 'sfx/rain_roof.wav', from: T.GARAGE.fin, to: T.END.fin, db: -21, offset: 1},
 ];
 
 export const HITS: Hit[] = [
   // three doors slam as they dive in
-  {src: 'sfx/door_thunk.wav', at: T.SPRINT_B.fin + 7, db: -4},
-  {src: 'sfx/door_thunk.wav', at: T.SPRINT_B.fin + 12, db: -6},
-  {src: 'sfx/door_thunk.wav', at: T.SPRINT_B.fin + 17, db: -5},
+  {src: 'sfx/door_thunk.wav', at: T.SPRINT_B.fin + 7, db: -6},
+  {src: 'sfx/door_thunk.wav', at: T.SPRINT_B.fin + 12, db: -8},
+  {src: 'sfx/door_thunk.wav', at: T.SPRINT_B.fin + 17, db: -7},
   // the rev builds under the shrug's last frames; the screech lands on the spin
-  {src: 'sfx/peel_out.wav', at: T.TYRE.fin - 4, db: 0, offset: 1.2},
-  {src: 'sfx/whoosh.wav', at: T.DRIFT.fin - 3, db: -8},
-  {src: 'sfx/whoosh.wav', at: T.LOWTRACK.fin - 2, db: -10},
-  {src: 'sfx/whoosh.wav', at: T.NEARMISS.fin + 8, db: -6},
+  {src: 'sfx/peel_out.wav', at: T.TYRE.fin - 4, db: -2, offset: 1.2},
+  {src: 'sfx/whoosh.wav', at: T.DRIFT.fin - 3, db: -10},
+  {src: 'sfx/whoosh.wav', at: T.LOWTRACK.fin - 2, db: -12},
+  {src: 'sfx/whoosh.wav', at: T.NEARMISS.fin + 8, db: -8},
   // the handbrake 180
-  {src: 'sfx/peel_out.wav', at: T.OVERSHOOT.fin + 10, db: -4, offset: 1.2},
-  {src: 'sfx/whoosh.wav', at: T.ALLEY.fin - 2, db: -8},
-  {src: 'sfx/pull_up.wav', at: T.GLIDE.fin - 6, db: -10},
-  {src: 'sfx/garage_stop.wav', at: T.GARAGE.fin - 4, db: -8},
+  {src: 'sfx/peel_out.wav', at: T.OVERSHOOT.fin + 10, db: -6, offset: 1.2},
+  {src: 'sfx/whoosh.wav', at: T.ALLEY.fin - 2, db: -10},
+  {src: 'sfx/pull_up.wav', at: T.GLIDE.fin - 6, db: -12},
+  {src: 'sfx/garage_stop.wav', at: T.GARAGE.fin - 4, db: -10},
   // in the gap between "We've arrived." and "That's", on the visible exhale
-  {src: 'sfx/exhale.wav', at: T.GARAGE.fin + 21, db: -14},
+  {src: 'sfx/exhale.wav', at: T.GARAGE.fin + 21, db: -16},
 ];
 
 /** The frame the garage door touches down (E2 src 5.85 at 1.3x). */
@@ -239,7 +239,7 @@ export const DOOR_SHUT = T.DOOR.fin + Math.round(((5.85 - 2.3) / 1.3) * FPS);
 export type ScoreSeg = {from: number; to: number; at: number; keys: [number, number, number][]};
 const BAR = 1.5956;
 const DOWN = (n: number) => 1.277 + n * BAR;
-const duck = -7;
+const duck = -10;
 export const SCORE: {src: string; stab: Hit; segs: ScoreSeg[]} = {
   src: 'music/chase.wav',
   stab: {src: 'music/stab.wav', at: DOOR_SHUT, db: -2},
