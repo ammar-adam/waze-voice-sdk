@@ -6,6 +6,15 @@ Notable changes. Dates are when the work landed on `main`.
 
 ### Added
 
+- **Mickey Mouse replaces Hagrid.** A full pack on the most-used Mickey model,
+  run through the consistency pass and transcription, uploaded and verified.
+  Hagrid's preset stays in the repo but is off the site and the build list.
+- **Faces, motion and a map.** Tigger, Bugs, Paddington (blue duffle coat,
+  fur texture), Pooh and Elmo redrawn, and Mickey drawn. Every character has
+  its own four moves, played at random on hover and in the occasional fidget,
+  never the same twice in a row. The page background is a faint street map
+  that drifts slowly, and a dashed route draws itself to a pin across the hero.
+  Reduced-motion users get none of it.
 - **Drive-test voice pass.** New voices for Darth Vader (James Earl Jones: every
   "Darth Vader" model measured 230 to 280 Hz, far too high) and Batman (Kevin
   Conroy, the classic). "Recalculating" is gone from every reroute. Greetings
@@ -143,6 +152,15 @@ Notable changes. Dates are when the work landed on `main`.
 
 ### Added
 
+- **Mickey Mouse replaces Hagrid.** A full pack on the most-used Mickey model,
+  run through the consistency pass and transcription, uploaded and verified.
+  Hagrid's preset stays in the repo but is off the site and the build list.
+- **Faces, motion and a map.** Tigger, Bugs, Paddington (blue duffle coat,
+  fur texture), Pooh and Elmo redrawn, and Mickey drawn. Every character has
+  its own four moves, played at random on hover and in the occasional fidget,
+  never the same twice in a row. The page background is a faint street map
+  that drifts slowly, and a dashed route draws itself to a pin across the hero.
+  Reduced-motion users get none of it.
 - **Drive-test voice pass.** New voices for Darth Vader (James Earl Jones: every
   "Darth Vader" model measured 230 to 280 Hz, far too high) and Batman (Kevin
   Conroy, the classic). "Recalculating" is gone from every reroute. Greetings

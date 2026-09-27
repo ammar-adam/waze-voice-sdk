@@ -66,12 +66,12 @@
       "rights": "in-copyright"
     },
     {
-      "slug": "hagrid",
-      "preset": "hagrid",
-      "name": "Hagrid",
-      "waze_name": "Hagrid",
-      "blurb": "Huge, warm, and definitely should not have said that.",
-      "uuid": "5e1009a8-03cd-400b-a7d0-9901aad936ca",
+      "slug": "mickey-mouse",
+      "preset": "mickey-mouse",
+      "name": "Mickey Mouse",
+      "waze_name": "Mickey Mouse",
+      "blurb": "Cheerful, plucky, and delighted by every single turn.",
+      "uuid": "1beccd0b-0553-4e57-a2fd-2727a7dcde7e",
       "rights": "in-copyright"
     },
     {

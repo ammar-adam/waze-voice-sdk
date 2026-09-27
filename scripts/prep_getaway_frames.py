@@ -37,7 +37,12 @@ def main() -> int:
         rng = np.random.default_rng(1)
         for x, y, w, h, px, bright in s["fix"]:
             pad = px * 3 + 4
-            x0, y0b, x1, y1 = max(0, x - pad), max(0, y - pad), min(1920, x + w + pad), min(1080, y + h + pad)
+            x0, y0b, x1, y1 = (
+                max(0, x - pad),
+                max(0, y - pad),
+                min(1920, x + w + pad),
+                min(1080, y + h + pad),
+            )  # noqa: E501
             crop = out[y0b:y1, x0:x1].copy()
             inside = np.zeros(crop.shape[:2], bool)
             inside[y - y0b : y - y0b + h, x - x0 : x - x0 + w] = True

@@ -23,7 +23,7 @@ const PER_DAY = 25;
 const LIVE = {
   bugsbunny: 'Bugs Bunny', cookiemonster: 'Cookie Monster', daffyduck: 'Daffy Duck',
   elmo: 'Elmo', tigger: 'Tigger', winniethepooh: 'Winnie the Pooh', pooh: 'Winnie the Pooh',
-  paddington: 'Paddington', hagrid: 'Hagrid', darthvader: 'Darth Vader', vader: 'Darth Vader',
+  paddington: 'Paddington', mickeymouse: 'Mickey Mouse', mickey: 'Mickey Mouse', darthvader: 'Darth Vader', vader: 'Darth Vader',
   batman: 'Batman', gordonramsay: 'Gordon Ramsay', ericcartman: 'Eric Cartman', cartman: 'Eric Cartman',
 };
 
