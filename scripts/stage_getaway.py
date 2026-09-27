@@ -210,8 +210,8 @@ def main() -> int:
         if not still.is_file():
             print(f"missing NEW shot {name}: no take ({p.name}) and no still ({still.name})")
             return 1
-        ffmpeg("-loop", "1", "-framerate", "24", "-i", str(still), "-t", "8", "-vf", "format=yuv420p",
-               "-c:v", "libx264", "-crf", "14", "-r", "24", str(PUB / "clips" / f"{name}.mp4"))  # fmt: skip
+        ffmpeg("-loop", "1", "-framerate", "24", "-i", str(still), "-t", "8", "-vf", "format=yuv420p",  # noqa: E501
+               "-c:v", "libx264", "-crf", "14", "-r", "24", str(PUB / "clips" / f"{name}.mp4"))  # fmt: skip  # noqa: E501
         media[name] = "placeholder"
     (REPO / "film" / "src" / "getaway-media.json").write_text(
         json.dumps(media, indent=1) + "\n", encoding="utf-8"

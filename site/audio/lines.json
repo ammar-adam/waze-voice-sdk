@@ -34,10 +34,10 @@
     "reroute": "Oh dear. Things are always happening to me.",
     "arrive": "We've arrived. I think that calls for a marmalade sandwich."
   },
-  "hagrid": {
-    "start": "Harry! You're a driver now! Blimey, look at you. Off we go!",
-    "reroute": "Missed it! Blimey. That's my fault, that is.",
-    "arrive": "We're here! Brilliant. I'll put the kettle on."
+  "mickey-mouse": {
+    "start": "Hiya, pal! Oh boy, let's go!",
+    "reroute": "Oops! Missed it. Aw, gosh, no problem!",
+    "arrive": "We're here! Hot dog! See ya real soon!"
   },
   "darth-vader": {
     "start": "The coordinates are set. Your journey to the Dark Side begins.",

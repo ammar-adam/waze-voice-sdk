@@ -355,26 +355,65 @@
   // Faces idle, and once in a while one of them spins, hops, nods, turns or
   // wiggles. Random face, random move, random gap, so it never loops.
 
-  var MOVES = ["spin", "hop", "nod", "turn", "wiggle"];
+  // Four moves per character, chosen to suit them. Every move is picked at
+  // random from the character's set, never the same one twice in a row, so
+  // nobody is stuck with one trick.
+  var SETS = {
+    "bugs-bunny": ["lean", "hop", "wiggle", "tilt"],
+    "cookie-monster": ["chomp", "bounce", "wiggle", "shake"],
+    "daffy-duck": ["shake", "hop", "spin", "squash"],
+    "elmo": ["bounce", "wiggle", "spin", "nod"],
+    "tigger": ["bounce", "pounce", "spin", "hop"],
+    "pooh": ["sway", "nod", "tilt", "squash"],
+    "paddington": ["tilt", "nod", "hop", "sway"],
+    "mickey-mouse": ["hop", "spin", "wiggle", "tilt"],
+    "darth-vader": ["pulse", "turn", "nod", "lean"],
+    "batman": ["turn", "lean", "nod", "pulse"],
+    "gordon-ramsay": ["shake", "squash", "nod", "turn"],
+    "eric-cartman": ["squash", "shake", "spin", "wiggle"]
+  };
+  var DEFAULT_SET = ["spin", "hop", "nod", "wiggle"];
   var still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function slugOf(node) {
+    var holder = node.closest("[id]");
+    return holder ? holder.id.replace(/^cast-/, "") : "";
+  }
+
+  function move(face) {
+    if (!face || face.dataset.moving) return;
+    var set = SETS[slugOf(face)] || DEFAULT_SET;
+    var choices = set.filter(function (m) { return m !== face.dataset.lastMove; });
+    var name = choices[Math.floor(Math.random() * choices.length)];
+    face.dataset.moving = "1";
+    face.dataset.lastMove = name;
+    face.classList.add("move-" + name);
+    face.addEventListener("animationend", function done() {
+      face.classList.remove("move-" + name);
+      delete face.dataset.moving;
+      face.removeEventListener("animationend", done);
+    });
+  }
+
+  // Hover: whoever you point at does one of their moves.
+  document.addEventListener("mouseover", function (e) {
+    if (still) return;
+    var target = e.target.closest(".cast a, .voice .stage");
+    if (!target || target.contains(e.relatedTarget)) return;
+    var face = target.querySelector("img");
+    if (face && !face.closest(".voice.playing")) move(face);
+  });
 
   function onScreen(node) {
     var r = node.getBoundingClientRect();
     return r.bottom > 0 && r.top < window.innerHeight;
   }
 
+  // And every now and then, somebody fidgets on their own.
   function fidget() {
     var faces = Array.prototype.slice.call(document.querySelectorAll(".cast img, .voice:not(.playing) .face"))
       .filter(onScreen);
-    if (faces.length && !document.hidden) {
-      var face = faces[Math.floor(Math.random() * faces.length)];
-      var move = MOVES[Math.floor(Math.random() * MOVES.length)];
-      face.classList.add("move-" + move);
-      face.addEventListener("animationend", function done() {
-        face.classList.remove("move-" + move);
-        face.removeEventListener("animationend", done);
-      });
-    }
+    if (faces.length && !document.hidden) move(faces[Math.floor(Math.random() * faces.length)]);
     setTimeout(fidget, 1800 + Math.random() * 3200);
   }
   if (!still) setTimeout(fidget, 1500);

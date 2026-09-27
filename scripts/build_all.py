@@ -49,7 +49,7 @@ CHARACTERS: dict[str, str] = {
     # uploads (Pattinson, then a Dark Knight model) still on phones that added them.
     "batman": "Batman (Classic)",
     "eric-cartman": "Eric Cartman",
-    "hagrid": "Hagrid",
+    "mickey-mouse": "Mickey Mouse",
     "gordon-ramsay": "Gordon Ramsay",
 }
 

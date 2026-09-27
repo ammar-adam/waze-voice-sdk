@@ -43,7 +43,7 @@ rights holder or the performer.
 | `elmo` | Sesame Street (1980) | `fish/193f7f8f...` | Bright, giggly, third person |
 | `bugs-bunny` | Looney Tunes (1940) | `fish/9a1c3a3b...` | Laid-back, amused, never in a hurry |
 | `daffy-duck` | Looney Tunes (1937) | `fish/5ded4503...` | Loud, theatrical, personally offended |
-| `hagrid` | Harry Potter (Rowling, 1997) | `fish/f6fd5117...` | Huge, warm, a bit disorganised |
+| `mickey-mouse` | Steamboat Willie and later Disney cartoons (1928) | `fish/5eeab11c...` | Cheerful, plucky, delighted by every turn |
 | `darth-vader` | Star Wars (1977) | `fish/3446a5f0...` | Imperious and disappointed in you |
 | `batman` | Batman (DC, 1939); the Bale register | `fish/44c769c2...` | Gravel-voiced, clipped, on a mission |
 | `gordon-ramsay` | Hell's Kitchen (a real, living person) | `fish/d4596df3...` | Furious head chef mid-service |

@@ -40,7 +40,12 @@ NEGATIVE = (
     "logos, watermark, readable signs, license plate text, extra fingers, deformed hands, face morphing, "  # noqa: E501
     "identity change, extra people, cartoon, shaky handheld camera"
 )
-IMAGE_COST = {"gen4_image": 8, "gen4_image_turbo": 2, "gemini_image3_pro": 20, "gemini_2.5_flash": 5}
+IMAGE_COST = {
+    "gen4_image": 8,
+    "gen4_image_turbo": 2,
+    "gemini_image3_pro": 20,
+    "gemini_2.5_flash": 5,
+}  # noqa: E501
 
 
 def call(method: str, path: str, body: dict | None = None) -> dict:
@@ -121,7 +126,9 @@ def log(entry: dict) -> None:
     else:
         raise SystemExit(f"ledger lock stuck: {lock}")
     try:
-        ledger = json.loads(LEDGER.read_text(encoding="utf-8")) if LEDGER.exists() else {"calls": []}
+        ledger = (
+            json.loads(LEDGER.read_text(encoding="utf-8")) if LEDGER.exists() else {"calls": []}
+        )  # noqa: E501
         ledger["calls"].append(entry)
         ledger["total_credits"] = sum(c.get("credits") or 0 for c in ledger["calls"])
         LEDGER.write_text(json.dumps(ledger, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
