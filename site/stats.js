@@ -175,6 +175,46 @@
     });
   }
 
+  /* ---------------- who should ride next ---------------- */
+  // Every suggestion from /api/suggestions, most wanted first, so it's easy
+  // to see which character to build next.
+
+  function wanted(res) {
+    var list = document.getElementById("wanted-list");
+    var sub = document.getElementById("wanted-sub");
+    list.innerHTML = "";
+    var items = (res.ok && res.body && res.body.items) || [];
+    if (!res.ok) {
+      sub.textContent = res.status === 503
+        ? "Suggestions aren't switched on yet. They show up here as soon as they are."
+        : "The suggestions didn't load. Refresh in a minute.";
+      return;
+    }
+    if (!items.length) { sub.textContent = "No suggestions yet."; return; }
+    var total = res.body.total || items.length;
+    var votes = items.reduce(function (sum, item) { return sum + (item.votes || 0); }, 0);
+    sub.textContent = fmt(total) + (total === 1 ? " character" : " characters") + " suggested, " +
+      fmt(votes) + (votes === 1 ? " vote" : " votes") + (total > items.length ? " across the top " + fmt(items.length) : "") +
+      ". Different spellings of one name count together.";
+    var top = items[0].votes || 1;
+    items.forEach(function (item, i) {
+      var row = node("li", "sticker");
+      row.appendChild(node("span", "rank", String(i + 1)));
+      var who = node("div", "who");
+      who.appendChild(node("span", "name", item.name));
+      var meter = node("span", "meter");
+      var fill = node("i");
+      fill.style.width = Math.max((item.votes / top) * 100, 4) + "%";
+      meter.appendChild(fill);
+      who.appendChild(meter);
+      row.appendChild(who);
+      var count = node("span", "votes", fmt(item.votes));
+      count.appendChild(node("small", "", item.votes === 1 ? "vote" : "votes"));
+      row.appendChild(count);
+      list.appendChild(row);
+    });
+  }
+
   /* ---------------- load ---------------- */
 
   function json(url) {
@@ -184,6 +224,10 @@
       });
     });
   }
+
+  json("api/suggestions?limit=200")
+    .catch(function () { return { ok: false, status: 0, body: {} }; })
+    .then(wanted);
 
   var voices = json("voices.json").then(function (r) { return r.body.voices || []; }).catch(function () { return []; });
 

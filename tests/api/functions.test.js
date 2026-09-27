@@ -1,4 +1,4 @@
-// api/tally.js and api/stats.js against an in-memory Upstash pipeline.
+// api/tally.js, api/stats.js and api/suggestions.js against an in-memory Upstash pipeline.
 // Run with: node --test tests/api   (tests/test_api.py runs it too)
 
 const test = require('node:test');
@@ -26,6 +26,16 @@ function fakeRedis() {
       case 'PFCOUNT': return data.has(key) ? data.get(key).size : 0;
       case 'SET': if (args[1] === 'NX' && data.has(key)) return null; data.set(key, args[0]); return 'OK';
       case 'GET': return data.has(key) ? data.get(key) : null;
+      case 'HSETNX': { const h = hash(key); if (h.has(args[0])) return 0; h.set(args[0], args[1]); return 1; }
+      case 'HGET': return data.has(key) && data.get(key).has(args[0]) ? String(data.get(key).get(args[0])) : null;
+      case 'HKEYS': return data.has(key) ? [...data.get(key).keys()] : [];
+      case 'ZADD': { const z = hash(key); const [flag, score, member] = args; if (flag === 'NX' && z.has(member)) return 0; z.set(member, Number(score)); return 1; }
+      case 'ZINCRBY': { const z = hash(key); z.set(args[1], (z.get(args[1]) || 0) + Number(args[0])); return String(z.get(args[1])); }
+      case 'ZCARD': return data.has(key) ? data.get(key).size : 0;
+      case 'ZREVRANGE': {
+        const ranked = data.has(key) ? [...data.get(key)].sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? 1 : -1)) : [];
+        return ranked.slice(Number(args[0]), Number(args[1]) + 1).flatMap(([m, s]) => [m, String(s)]);
+      }
       default: throw new Error(`fake redis: ${cmd}`);
     }
   };
@@ -270,4 +280,95 @@ test('stats adds up what track counted', async () => {
 test('stats is GET only', async () => {
   connect(fakeRedis());
   assert.equal((await call(load('stats.js'), {method: 'POST'})).code, 405);
+});
+
+// ---- api/suggestions.js ----
+
+const suggest = (handler, name, ip) => call(handler, {body: {name}, ip});
+
+test('suggestions answers 503 when no store is connected', async () => {
+  disconnect();
+  assert.equal((await call(load('suggestions.js'), {method: 'GET'})).code, 503);
+});
+
+test('suggestions seeds the board and honours a limit', async () => {
+  connect(fakeRedis());
+  const handler = load('suggestions.js');
+  const all = await call(handler, {method: 'GET'});
+  assert.equal(all.code, 200);
+  assert.equal(all.body.items.length, 8);
+  assert.equal(all.body.total, 8);
+  const handlerReq = {method: 'GET', headers: {}, query: {limit: '4'}};
+  const res = {code: 0, setHeader() {}, status(c) { this.code = c; return this; }, json(b) { this.body = b; return this; }};
+  await handler(handlerReq, res);
+  assert.equal(res.body.items.length, 4);
+  assert.equal(res.body.total, 8);
+});
+
+test('suggestions keys ignore case, accents, punctuation and a leading "the"', () => {
+  const {keyOf, canonical} = load('suggestions.js');
+  assert.equal(keyOf('Mickéy-Mouse!'), 'mickeymouse');
+  assert.equal(keyOf('  the Grinch '), 'grinch');
+  assert.equal(keyOf('Tom & Jerry'), keyOf('tom and jerry'));
+  assert.equal(canonical('SpongeBob SquarePants'), 'spongebob');
+  assert.equal(canonical('Homer'), 'homersimpson');
+});
+
+test('suggestions measures typos, swaps included', () => {
+  const {distance, closest} = load('suggestions.js');
+  assert.equal(distance('shrek', 'shrke', 2), 1);
+  assert.equal(distance('shrek', 'shrk', 2), 1);
+  assert.equal(distance('yoda', 'darthvader', 2), 3);
+  assert.equal(closest('bert', ['bart']), null);
+  assert.equal(closest('shrke', ['shrek', 'yoda']), 'shrek');
+  assert.equal(closest('homersimsn', ['homersimpson']), 'homersimpson');
+  assert.equal(closest('rocky2', ['rocky3']), null);
+});
+
+test('suggestions merges spellings into one entry', async () => {
+  const redis = fakeRedis();
+  connect(redis);
+  const handler = load('suggestions.js');
+  await call(handler, {method: 'GET'}); // seeds the board
+  const first = await suggest(handler, 'Kermit the Frog', '203.0.113.1');
+  assert.equal(first.code, 200);
+  assert.equal(first.body.added.key, 'kermitthefrog');
+  assert.equal(first.body.merged, false);
+  const typo = await suggest(handler, 'kermit teh frog', '203.0.113.2');
+  assert.equal(typo.body.added.key, 'kermitthefrog');
+  assert.equal(typo.body.added.name, 'Kermit the Frog');
+  assert.equal(typo.body.added.votes, 2);
+  assert.equal(typo.body.merged, true);
+  const shouty = await suggest(handler, 'KERMIT-THE-FROG!', '203.0.113.3');
+  assert.equal(shouty.body.added.votes, 3);
+  const seeded = await suggest(handler, 'Sponge Bob Square Pants', '203.0.113.4');
+  assert.equal(seeded.body.added.key, 'spongebob');
+  assert.equal(seeded.body.added.name, 'SpongeBob');
+  assert.equal(seeded.body.added.votes, 2);
+  const names = redis.data.get('suggest:names');
+  assert.equal([...names.keys()].filter((k) => k.startsWith('kermit')).length, 1);
+});
+
+test('suggestions points at a character already riding, typos and all', async () => {
+  const redis = fakeRedis();
+  connect(redis);
+  const handler = load('suggestions.js');
+  for (const [typed, name] of [['Mickey Mous', 'Mickey Mouse'], ['darth vadr', 'Darth Vader'], ['pooh', 'Winnie the Pooh'], ['ELMO', 'Elmo']]) {
+    const res = await suggest(handler, typed);
+    assert.equal(res.code, 200, typed);
+    assert.equal(res.body.live, name, typed);
+    assert.equal(res.body.added, undefined, typed);
+  }
+  assert.equal(redis.data.has('suggest:names') && redis.data.get('suggest:names').has('mickeymous'), false);
+});
+
+test('suggestions still validates and rate-limits', async () => {
+  connect(fakeRedis());
+  const handler = load('suggestions.js');
+  assert.equal((await suggest(handler, 'x')).code, 400);
+  assert.equal((await suggest(handler, 'see www.example.com')).code, 400);
+  assert.equal((await suggest(handler, '<b>hi</b>')).code, 400);
+  for (let i = 0; i < 25; i++) assert.equal((await suggest(handler, `Robot ${i}`, '203.0.113.9')).code, 200);
+  assert.equal((await suggest(handler, 'One Too Many', '203.0.113.9')).code, 429);
+  assert.equal((await call(handler, {method: 'DELETE'})).code, 405);
 });
