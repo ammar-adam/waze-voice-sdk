@@ -89,3 +89,9 @@ film-audio/
 # Vercel CLI project link
 .vercel/
 
+
+# Retired Tough Crowd film tooling, kept locally only.
+scripts/*toughcrowd*.py
+scripts/runway_gen.py
+film/src/ToughCrowd.tsx
+film/src/toughcrowd*.*
