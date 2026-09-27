@@ -12,7 +12,7 @@
 // re-staging is all production needs, plus setting that shot's `srcIn`.
 
 export const FPS = 24;
-export const TOTAL_FRAMES = 720;
+export const TOTAL_FRAMES = 772;
 export const TOTAL = TOTAL_FRAMES / FPS;
 
 // Colours and type are the site's (site/style.css, site/characters.css).
@@ -37,7 +37,7 @@ export const CAST: Cast[] = [
   {slug: 'tigger', name: 'Tigger', bg: '#ffd9b0'},
   {slug: 'pooh', name: 'Winnie the Pooh', bg: '#ffe9a8'},
   {slug: 'paddington', name: 'Paddington', bg: '#c9dcf5'},
-  {slug: 'hagrid', name: 'Hagrid', bg: '#e8dcc8'},
+  {slug: 'mickey-mouse', name: 'Mickey Mouse', bg: '#fff1c2'},
   {slug: 'darth-vader', name: 'Darth Vader', bg: '#ffc9c9'},
   {slug: 'batman', name: 'Batman', bg: '#fff0a8'},
   {slug: 'gordon-ramsay', name: 'Gordon Ramsay', bg: '#ffe3d3'},
@@ -78,9 +78,9 @@ export const PLACEHOLDER_PUSH = 0.06;
 
 const CUT: ShotSpec[] = [
   // 0.000 cold open: alarm, rain, neon. The three SPRINT out of the doorway and dive into the car.
-  {id: 'SPRINT_A', beat: 'sprint to the car', clip: 'N1', srcIn: 0.5, frames: 48},
+  {id: 'SPRINT_A', beat: 'sprint to the car', clip: 'N1', srcIn: 0.5, frames: 40},
   // 2.000 same angle, later: the dive in, three doors slam.
-  {id: 'SPRINT_B', beat: 'dive in, doors slam', clip: 'N1', srcIn: 4.5, frames: 24},
+  {id: 'SPRINT_B', beat: 'dive in, doors slam', clip: 'N1', srcIn: 4.5, frames: 20},
   // 3.000 "I've got navigation": phone up, thumb to the screen (thumb lands at src 0.45).
   {id: 'PHONE_UP', beat: 'phone up + tap', clip: 'V02B', srcIn: 0.0, frames: 18,
     f16: {scale: 1.12, cx: 960, cy: 520}, band: 150},
@@ -98,7 +98,7 @@ const CUT: ShotSpec[] = [
   // 10.125 tyres spin, smoke and spray; sirens erupt.
   {id: 'TYRE', beat: 'tyres spin', clip: 'V05', srcIn: 1.15, frames: 12, rate: 1.3},
   // 10.625 launch: the sedan fishtails out; two patrol cars slide round the corner after it.
-  {id: 'LAUNCH', beat: 'launch, patrol cars pile in', clip: 'N2', srcIn: 2.6, frames: 36},
+  {id: 'LAUNCH', beat: 'launch, patrol cars pile in', clip: 'N2', srcIn: 2.6, frames: 28},
   // 12.125 hard drift through the first corner. Cookie's chip pops ON the turn.
   {id: 'DRIFT', beat: 'Cookie: corner drift', clip: 'N3', srcIn: 1.5, frames: 36},
   // 13.625 insane speed, a hand's width off the wet asphalt, patrol car closing.
@@ -108,9 +108,9 @@ const CUT: ShotSpec[] = [
   // 16.375 they blow past their turn; handbrake 180 (Gordon on the yank); reverse back.
   {id: 'OVERSHOOT', beat: 'Gordon: overshoot, handbrake 180', clip: 'N6', srcIn: 0.5, frames: 54},
   // 18.625 down the alley, the cops overshoot the turn; the car swings out at the far end (Daffy's chip).
-  {id: 'ALLEY', beat: 'alley escape', clip: 'N7', srcIn: 1.0, frames: 36},
+  {id: 'ALLEY', beat: 'alley escape', clip: 'N7', srcIn: 1.0, frames: 30},
   // 20.125 the red light, masked, the patrol car alongside.
-  {id: 'RED1', beat: 'red light, frozen', clip: 'V08', srcIn: 0.5, frames: 42,
+  {id: 'RED1', beat: 'red light, frozen', clip: 'V08', srcIn: 0.5, frames: 29,
     f16: {scale: 1.0, cx: 960, cy: 540}},
   // 21.875 the scramble, 2.4x, running straight into the hold (no jump).
   {id: 'RED2', beat: 'masks off, sunglasses on', clip: 'V08', srcIn: 2.25, frames: 30, rate: 2.4,
@@ -120,17 +120,18 @@ const CUT: ShotSpec[] = [
     f16: {scale: 1.0, to: 1.04, cx: 960, cy: 520},
     blur: [{keys: [[0, {x: 960, y: 655, w: 150, h: 45}], [17, {x: 960, y: 655, w: 150, h: 45}]], px: 6}]},
   // 23.792 the officer squints.
-  {id: 'OFFICER', beat: 'officer squints', clip: 'V09', srcIn: 2.0, frames: 18,
+  {id: 'OFFICER', beat: 'officer squints', clip: 'V09', srcIn: 2.0, frames: 12,
     f16: {scale: 1.0, cx: 960, cy: 540}},
   // 24.542 he glides on.
-  {id: 'GLIDE', beat: 'patrol car glides past', clip: 'V09', srcIn: 4.9, frames: 26,
+  {id: 'GLIDE', beat: 'patrol car glides past', clip: 'V09', srcIn: 4.9, frames: 16,
     f16: {scale: 1.0, cx: 960, cy: 540},
     // Generated lettering on the rear door: tracked blur.
     blur: [{px: 16, keys: [[7, {x: 1880, y: 640, w: 80, h: 90}], [10, {x: 1790, y: 638, w: 135, h: 92}], [14, {x: 1755, y: 628, w: 150, h: 104}],
       [19, {x: 1640, y: 628, w: 190, h: 112}], [24, {x: 1540, y: 638, w: 190, h: 118}], [26, {x: 1510, y: 642, w: 195, h: 122}]]}]},
-  // 25.625 the smirk.
-  {id: 'SMIRK', beat: 'phone-lit smirk', clip: 'V12', srcIn: 2.75, frames: 11,
-    f16: {scale: 1.0, cx: 960, cy: 540}},
+  // the escape: headlights off, they slip away as the patrol cars recede down the main road.
+  {id: 'ESCAPE', beat: 'slip away from the lights', clip: 'E1', srcIn: 0.3, frames: 40},
+  // the coast is clear: into the garage, and the door rolls down on an empty street.
+  {id: 'DOOR', beat: 'garage door shuts, all clear', clip: 'E2', srcIn: 2.3, frames: 78},
   // 26.083 the garage: engine off, everyone exhales. Smash to the card on "That's".
   // (the passenger's face drifts after src 4.0: never used)
   {id: 'GARAGE', beat: 'Bugs: garage, exhale', clip: 'V13', srcIn: 2.35, frames: 33,
