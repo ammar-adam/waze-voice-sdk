@@ -34,3 +34,4 @@ runway2/prompts/
 runway3/prompts/
 runway3/*.log
 runway3/*.sh
+runway2/
