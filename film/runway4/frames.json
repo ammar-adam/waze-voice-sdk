@@ -1,0 +1,32 @@
+{
+ "_doc": "First frames for the NEW shots (scripts/prep_getaway_frames.py). Each fix is [x, y, w, h, feather px, brightness] in 1920x1080 pixels: generated text, plates and emblems painted out before image-to-video.",
+ "N1": {"src": "stills/S1_sprint_1080.png", "fix": []},
+ "N2": {"src": "stills/S2_launch_b_1080.png", "fix": [
+  [1177, 468, 30, 32, 4, 1.0],
+  [36, 430, 60, 52, 10, 1.0],
+  [98, 452, 48, 50, 10, 1.0],
+  [0, 375, 26, 55, 10, 1.0],
+  [574, 490, 40, 45, 8, 1.0]]},
+ "N3": {"src": "stills/S3_drift.png", "crop_y": 4, "fix": [
+  [428, 268, 135, 40, 10, 1.0],
+  [428, 308, 205, 56, 10, 1.0],
+  [615, 0, 60, 290, 8, 1.0]]},
+ "N4": {"src": "stills/S4_lowtrack.png", "crop_y": 4, "fix": [
+  [410, 440, 122, 70, 10, 1.0],
+  [1498, 604, 118, 68, 10, 1.0],
+  [1530, 526, 60, 36, 8, 1.0],
+  [1138, 520, 36, 72, 8, 1.0]]},
+ "N5": {"src": "stills/S5_nearmiss_c_1080.png", "fix": [
+  [1192, 544, 34, 42, 8, 1.0],
+  [470, 266, 58, 50, 8, 1.0],
+  [1650, 232, 138, 112, 12, 1.0],
+  [744, 220, 72, 44, 8, 1.0]]},
+ "N6": {"src": "stills/S6_overshoot_c.png", "crop_y": 4, "fix": [
+  [990, 363, 38, 26, 6, 1.0],
+  [1325, 375, 42, 30, 6, 1.0],
+  [1185, 652, 60, 56, 8, 1.0],
+  [744, 24, 118, 50, 8, 1.0]]},
+ "N7": {"src": "stills/S7_alley.png", "crop_y": 4, "fix": [
+  [855, 698, 166, 66, 12, 1.0],
+  [905, 594, 62, 50, 8, 1.0]]}
+}

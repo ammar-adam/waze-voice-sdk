@@ -35,3 +35,18 @@ runway3/prompts/
 runway3/*.log
 runway3/*.sh
 runway2/
+
+# THE GETAWAY, action-chase revision: media is never committed.
+# plan.md, ledger.json and frames.json stay committable.
+runway4/**/*.mp4
+runway4/**/*.mov
+runway4/**/*.png
+runway4/**/*.jpg
+runway4/**/*.jpeg
+runway4/**/*.webp
+runway4/**/*.wav
+runway4/**/*.mp3
+runway4/**/*.part
+runway4/**/*.lock
+runway4/prompts/
+runway4/*.log

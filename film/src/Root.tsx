@@ -19,9 +19,8 @@ export const Root: React.FC = () => (
       height={AD.HEIGHT}
     />
     {/* TOUGH CROWD (film/runway2/plan.md): one timeline, two frames. */}
-    {/* THE GETAWAY (film/runway3/plan.md): one timeline, two frames. */}
-    <Composition id="Getaway" component={Getaway} defaultProps={{vertical: false}} durationInFrames={GETAWAY_FRAMES} fps={24} width={1920} height={1080} />
-    <Composition id="GetawayVertical" component={Getaway} defaultProps={{vertical: true}} durationInFrames={GETAWAY_FRAMES} fps={24} width={1080} height={1920} />
+    {/* THE GETAWAY, action-chase revision (film/runway4/plan.md): 16:9 full frame only. */}
+    <Composition id="Getaway" component={Getaway} durationInFrames={GETAWAY_FRAMES} fps={24} width={1920} height={1080} />
     {CUTS.map((id) => (
       <Composition
         key={id}

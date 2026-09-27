@@ -1,8 +1,9 @@
-"""Runway calls for THE GETAWAY, each one logged to film/runway3/ledger.json.
+"""Runway calls for THE GETAWAY, each one logged to film/<dir>/ledger.json.
 
 The key is read from the RUNWAY_KEY environment variable only and is never
 written anywhere. Every call (kept or not) is appended to the ledger with the
-balance observed before and after. Paths are relative to film/runway3/.
+balance observed before and after. Paths are relative to film/<dir>/, where
+<dir> is --dir (default runway3; the action-chase revision uses runway4).
 
     python scripts/runway_getaway.py balance
     python scripts/runway_getaway.py image stills/KF_walk_a.png --prompt-file prompts/KF_walk.txt \
@@ -30,7 +31,8 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent / "film" / "runway3"
+FILM = Path(__file__).resolve().parent.parent / "film"
+ROOT = FILM / "runway3"
 LEDGER = ROOT / "ledger.json"
 API = "https://api.dev.runwayml.com"
 NEGATIVE = (
@@ -38,7 +40,7 @@ NEGATIVE = (
     "logos, watermark, readable signs, license plate text, extra fingers, deformed hands, face morphing, "  # noqa: E501
     "identity change, extra people, cartoon, shaky handheld camera"
 )
-IMAGE_COST = {"gen4_image": 8, "gen4_image_turbo": 2, "gemini_image3_pro": 20}
+IMAGE_COST = {"gen4_image": 8, "gen4_image_turbo": 2, "gemini_image3_pro": 20, "gemini_2.5_flash": 5}
 
 
 def call(method: str, path: str, body: dict | None = None) -> dict:
@@ -108,10 +110,24 @@ def download(task_id: str, dest: Path) -> None:
 
 
 def log(entry: dict) -> None:
-    ledger = json.loads(LEDGER.read_text(encoding="utf-8")) if LEDGER.exists() else {"calls": []}
-    ledger["calls"].append(entry)
-    ledger["total_credits"] = sum(c.get("credits") or 0 for c in ledger["calls"])
-    LEDGER.write_text(json.dumps(ledger, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    # parallel queues share one ledger: hold a lock file around read-modify-write
+    lock = LEDGER.with_suffix(".lock")
+    for _ in range(600):
+        try:
+            fd = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+            break
+        except FileExistsError:
+            time.sleep(0.1)
+    else:
+        raise SystemExit(f"ledger lock stuck: {lock}")
+    try:
+        ledger = json.loads(LEDGER.read_text(encoding="utf-8")) if LEDGER.exists() else {"calls": []}
+        ledger["calls"].append(entry)
+        ledger["total_credits"] = sum(c.get("credits") or 0 for c in ledger["calls"])
+        LEDGER.write_text(json.dumps(ledger, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    finally:
+        os.close(fd)
+        lock.unlink()
 
 
 def wait(task_id: str) -> dict:
@@ -147,7 +163,12 @@ def main() -> int:
     ap.add_argument("--seconds", type=float, default=8)
     ap.add_argument("--model")
     ap.add_argument("--ratio")
+    ap.add_argument("--negative", help="extra negative-prompt terms for Veo")
+    ap.add_argument("--dir", default="runway3", help="production folder under film/")
     a = ap.parse_args()
+    global ROOT, LEDGER
+    ROOT = FILM / a.dir
+    LEDGER = ROOT / "ledger.json"
 
     if a.kind == "balance":
         print(balance())
@@ -185,7 +206,7 @@ def main() -> int:
         }
         if model.startswith("veo"):
             body["audio"] = False
-            body["negativePrompt"] = NEGATIVE
+            body["negativePrompt"] = NEGATIVE + (f", {a.negative}" if a.negative else "")
         endpoint = "/v1/image_to_video"
         expected = int(a.seconds) * {"veo3.1_fast": 10, "veo3.1": 20, "gen4_turbo": 5}.get(
             model, 10
