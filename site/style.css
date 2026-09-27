@@ -83,10 +83,35 @@ a { color: inherit; }
   border: 2px solid var(--line); animation: blink 1.2s steps(1) infinite;
 }
 @keyframes blink { 50% { background: var(--sun); } }
-.bar nav { display: flex; gap: 1.1rem; flex-wrap: wrap; justify-content: flex-end; }
-.bar nav a { font-weight: 600; text-decoration: none; padding: .4rem .2rem; }
-@media (max-width: 560px) { .bar nav a:not(:first-child) { display: none; } }
+.bar nav { display: flex; gap: .3rem 1.1rem; flex-wrap: wrap; justify-content: flex-end; }
+.bar nav a { font-weight: 600; text-decoration: none; padding: .4rem .2rem; white-space: nowrap; }
 .bar nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.bar nav a[aria-current="page"] {
+  text-decoration: underline; text-decoration-color: #ff5a1f;
+  text-decoration-thickness: 3px; text-underline-offset: 6px;
+}
+/* Phones: the links drop to a row of stickers under the logo. If a narrow
+   screen can't fit them, the row scrolls sideways rather than the page.
+   GitHub stays in the footer and further down the home page. */
+@media (max-width: 720px) {
+  .bar { padding: .8rem 0 .7rem; }
+  .bar .wrap { flex-wrap: wrap; row-gap: .65rem; }
+  .bar nav {
+    flex: 1 1 100%; flex-wrap: nowrap; justify-content: flex-start; gap: .4rem;
+    overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    margin: 0 -1.1rem; padding: 0 1.1rem .3rem;
+  }
+  .bar nav::-webkit-scrollbar { display: none; }
+  .bar nav a {
+    flex: none; padding: .38rem .7rem; font-size: .9rem; background: var(--label);
+    border: 2px solid var(--line); border-radius: 999px; box-shadow: 2px 2px 0 var(--line);
+  }
+  .bar nav a:hover { text-decoration: none; background: var(--sun); }
+  .bar nav a[aria-current="page"] { text-decoration: none; background: var(--sun); }
+  .bar nav .nav-gh { display: none; }
+}
+/* The logo already goes to the voices; this keeps the row to one line. */
+@media (max-width: 420px) { .bar nav .nav-voices { display: none; } }
 
 /* ---- hero: all seven papers at once ---- */
 .hero {
@@ -96,6 +121,7 @@ a { color: inherit; }
   min-height: calc(100svh - 4.6rem); position: relative;
   display: grid; align-items: center;
 }
+@media (max-width: 720px) { .hero { min-height: calc(100svh - 7.2rem); } }
 .scroll-cue {
   position: absolute; left: 50%; bottom: 1.1rem; translate: -50% 0;
   width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center;
@@ -111,11 +137,13 @@ a { color: inherit; }
 @media (min-width: 900px) { .hero .wrap { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); } }
 
 /* The cast, as stickers. Each one jumps to its card. */
-.cast { display: flex; flex-wrap: wrap; justify-content: center; gap: .2rem; padding: .4rem 0; }
-/* Twelve faces: a 4x3 block on phones, so nobody is left on a row of two. */
-@media (max-width: 899px) { .cast { display: grid; grid-template-columns: repeat(4, auto); justify-content: center; } }
+/* Twelve faces, always one tight 4x3 block, at every width. */
+.cast { display: grid; grid-template-columns: repeat(4, auto); justify-content: center; gap: .2rem; padding: .4rem 0; }
 .cast a {
   width: clamp(4.6rem, 20vw, 8.2rem); aspect-ratio: 1; margin: -.35rem;
+}
+@media (min-width: 900px) { .cast a { width: clamp(5rem, 9.5vw, 8.2rem); } }
+.cast a {
   border-radius: 50%; background: var(--bg, #fff);
   border: 3px solid var(--line); box-shadow: 4px 4px 0 var(--line);
   display: grid; place-items: center; overflow: hidden;
@@ -149,8 +177,10 @@ h1 .pop {
 
 /* ---- the sample book ---- */
 section.block { padding: clamp(2.8rem, 7vw, 4.5rem) 0 0; }
+section.block.wrap { padding-inline: 1.1rem; } /* keep the side gutter on stats.html */
 h2 { margin: 0 0 .4rem; font: 400 clamp(2rem, 6vw, 3.2rem)/1 var(--display); text-wrap: balance; }
 .sub { margin: 0 0 1.6rem; color: var(--ink-soft); max-width: 46ch; }
+h2 + .voices, h2 + .steps { margin-top: 1.3rem; }
 
 .voices {
   list-style: none; margin: 0; padding: 0; display: grid; gap: 1.6rem 1.3rem;
@@ -307,21 +337,89 @@ h2 { margin: 0 0 .4rem; font: 400 clamp(2rem, 6vw, 3.2rem)/1 var(--display); tex
 #suggest-form .btn { background: var(--ink); color: #fff; }
 .suggest-note { margin: 0; min-height: 1.4em; font-weight: 600; }
 .suggest-note:empty { display: none; }
-.board { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
-.board li {
-  display: flex; align-items: center; justify-content: space-between; gap: .6rem;
-  padding: .45rem .5rem .45rem .95rem; background: var(--label);
-  border: 2px solid var(--line); border-radius: 999px;
+/* The four most wanted, as chips. Tapping one backs it (app.js). */
+.wanted { display: grid; gap: .55rem; justify-items: start; }
+.wanted-label { font: 500 .72rem/1.2 var(--data); letter-spacing: .12em; text-transform: uppercase; }
+.chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; max-width: 100%; }
+.chips li { max-width: 100%; }
+.chip {
+  display: inline-flex; align-items: center; gap: .5rem; max-width: 100%;
+  padding: .35rem .4rem .35rem .85rem; border: 2px solid var(--line); border-radius: 999px;
+  background: var(--label); color: var(--ink); box-shadow: 2px 2px 0 var(--line);
+  font: 700 .95rem/1.2 var(--body); cursor: pointer;
+  transition: transform .1s ease, box-shadow .1s ease;
 }
-.board .who { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.vote {
-  display: inline-flex; align-items: center; gap: .25rem; padding: .3rem .7rem .3rem .45rem;
-  border: 2px solid var(--line); border-radius: 999px; background: var(--ground);
-  font: 500 .85rem/1 var(--data); cursor: pointer;
+.chip:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--line); }
+.chip:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--line); }
+.chip .who { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chip .n {
+  flex: none; display: inline-flex; align-items: center; gap: .15rem; min-height: 1.6rem;
+  padding: .15rem .5rem .15rem .35rem; border: 1.5px solid var(--line); border-radius: 999px;
+  background: var(--ground); font: 500 .8rem/1 var(--data); font-variant-numeric: tabular-nums;
 }
-.vote svg { width: 1rem; fill: none; stroke: currentColor; stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
-.vote:hover { background: var(--sun); }
-.vote.done { background: var(--ink); color: #fff; cursor: default; }
+.chip .n svg { width: .95rem; height: .95rem; fill: none; stroke: currentColor; stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
+.chip:hover .n { background: var(--sun); }
+.chip.done { cursor: default; }
+.chip.done .n { background: var(--ink); color: #fff; }
+.wanted .textlink { font-size: .92rem; }
+
+/* A short confirmation that floats in, then goes (app.js). Empty, it's gone. */
+.toast {
+  position: fixed; left: 50%; top: calc(.9rem + env(safe-area-inset-top, 0px)); z-index: 40;
+  width: max-content; max-width: calc(100% - 2rem); padding: .75rem 1.1rem;
+  font-weight: 700; text-align: center; box-shadow: var(--shadow);
+  transform: translateX(-50%); transition: opacity .2s ease, transform .2s ease;
+}
+.toast:empty { opacity: 0; visibility: hidden; transform: translate(-50%, -12px); pointer-events: none; }
+.toast.good { background: var(--sun); }
+.toast.bad { background: #ffd0cc; }
+
+/* ---- install steps sheet (phones; app.js opens it) ---- */
+html.sheet-open { overflow: hidden; }
+.sheet-backdrop {
+  position: fixed; inset: 0; z-index: 30; display: grid; place-items: end center;
+  padding: .75rem .75rem max(.75rem, env(safe-area-inset-bottom));
+  background: rgba(21, 23, 43, .55); overscroll-behavior: contain;
+}
+@media (min-width: 560px) { .sheet-backdrop { place-items: center; } }
+.sheet {
+  --bg: var(--ground); --tone: var(--sun); --tone-ink: var(--ink);
+  position: relative; width: min(27rem, 100%); max-height: calc(100svh - 1.5rem); overflow-y: auto;
+  padding: 1.15rem 1.05rem 1.05rem; display: grid; gap: .95rem; box-shadow: var(--shadow-lg);
+  animation: sheet-up .22s ease-out;
+}
+.sheet:focus { outline: none; }
+@keyframes sheet-up { from { transform: translateY(1.5rem); opacity: 0; } }
+.sheet .close {
+  position: absolute; top: .35rem; right: .45rem; background: none; border: 0;
+  color: var(--ink-soft); font-size: 1.6rem; line-height: 1; cursor: pointer; padding: .35rem .55rem;
+}
+.sheet-head { display: flex; align-items: center; gap: .8rem; padding-right: 2.2rem; }
+.sheet-avatar {
+  flex: none; width: 3.6rem; height: 3.6rem; border-radius: 50%; overflow: hidden;
+  background: var(--bg); border: 2.5px solid var(--line); display: grid; place-items: center;
+}
+.sheet-avatar img { width: 90%; height: 90%; }
+.sheet h2 { margin: 0; font-size: clamp(1.45rem, 6.4vw, 1.9rem); line-height: 1.05; }
+.sheet-inapp {
+  margin: 0; padding: .7rem .85rem; background: var(--sun);
+  border: 2px solid var(--line); border-radius: 12px; font-size: .92rem;
+}
+.sheet-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; }
+.sheet-steps li {
+  display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: .7rem; align-items: start;
+  color: var(--ink-soft); font-size: .95rem; line-height: 1.4;
+}
+.sheet-steps b, .sheet-steps a { color: var(--ink); }
+.sheet-steps a { font-weight: 700; text-underline-offset: 3px; }
+.sheet-steps .n {
+  width: 2rem; height: 2rem; display: grid; place-items: center; color: var(--ink);
+  border: 2.5px solid var(--line); border-radius: 50%; background: var(--sun);
+  font: 400 1rem/1 var(--display);
+}
+.sheet-foot { display: flex; align-items: center; justify-content: space-between; gap: .6rem 1rem; flex-wrap: wrap; }
+.sheet-foot .btn { padding: .65rem 1.05rem; font-size: .95rem; }
+.sheet-foot .textlink { font-size: .92rem; }
 
 .links { display: grid; gap: .9rem; }
 @media (min-width: 900px) { .links { grid-template-columns: repeat(3, 1fr); } }
@@ -488,3 +586,20 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .how-counted h3 { margin: 0 0 .5rem; font: 400 1.3rem/1.1 var(--display); }
 .how-counted ul { margin: 0; padding-left: 1.2rem; display: grid; gap: .45rem; color: var(--ink-soft); }
 .how-counted b { color: var(--ink); }
+
+/* Every character suggestion, most wanted first (stats.js). */
+.wanted-list {
+  list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%%, 18rem), 1fr));
+}
+.wanted-list li {
+  display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto; align-items: center; gap: .75rem;
+  padding: .65rem .95rem .65rem .7rem;
+}
+.wanted-list .rank { font: 400 1.2rem/1 var(--display); text-align: center; }
+.wanted-list li:first-child .rank { color: #ff5a1f; text-shadow: 2px 2px 0 var(--line); }
+.wanted-list .who { display: grid; gap: .35rem; min-width: 0; }
+.wanted-list .name { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wanted-list .meter { height: .6rem; }
+.wanted-list .votes { font: 500 .95rem/1 var(--data); font-variant-numeric: tabular-nums; text-align: right; }
+.wanted-list .votes small { display: block; margin-top: .2rem; font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }

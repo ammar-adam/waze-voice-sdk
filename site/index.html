@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Backseat — Make your GPS iconic</title>
+  <title>Backseat: Make your GPS iconic</title>
   <meta name="description" content="Character voice packs for Waze. Tap to hear one, tap again to put it in your car. Free, no account.">
   <link rel="canonical" href="https://backseatnav.com/">
   <meta name="theme-color" content="#ffd23f">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://backseatnav.com/">
-  <meta property="og:title" content="Backseat — Make your GPS iconic">
+  <meta property="og:title" content="Backseat: Make your GPS iconic">
   <meta property="og:description" content="Same route. Different voice. Character voice packs for Waze, free, one tap to install.">
   <meta property="og:image" content="https://backseatnav.com/og.png">
   <meta property="og:image:width" content="1200">
@@ -34,9 +34,12 @@
   <header class="bar">
     <div class="wrap">
       <a class="logo sticker" href="./"><span class="lamp" aria-hidden="true"></span>Backseat</a>
-      <nav>
+      <nav aria-label="Site">
+        <a class="nav-voices" href="#voices">Voices</a>
         <a href="how-it-works.html">How it works</a>
-        <a href="https://github.com/ammar-adam/waze-voice-sdk">GitHub</a>
+        <a href="make-your-own.html">Make your own</a>
+        <a href="stats.html">Stats</a>
+        <a class="nav-gh" href="https://github.com/ammar-adam/waze-voice-sdk">GitHub</a>
       </nav>
     </div>
   </header>
@@ -48,9 +51,8 @@
     </svg>
     <div class="wrap">
       <div class="hero-card sticker">
-        <p class="kicker">Voice packs for Waze</p>
         <h1 id="hero-h">Make your GPS <span class="pop">iconic.</span></h1>
-        <p class="lede">Pick a navigator. Hear it. One tap and it's riding in your car.</p>
+        <p class="lede">Pick a navigator. Hear it. One tap and it's riding in your Waze.</p>
         <a class="btn" href="#voices">Pick a voice
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v13"/><path d="m6 12 6 6 6-6"/></svg></a>
       </div>
@@ -71,7 +73,6 @@
 
     <section class="block" id="voices" aria-labelledby="voices-h">
       <h2 id="voices-h">Pick your navigator</h2>
-      <p class="sub">Every clip is a real line from the pack: exactly what you'll hear on the road.</p>
       <ul class="voices" id="voice-list">
         <li class="voice"><div class="label"><p class="blurb">Loading voices…</p></div></li>
       </ul>
@@ -80,7 +81,6 @@
 
     <section class="block" id="install" aria-labelledby="install-h">
       <h2 id="install-h">How to install</h2>
-      <p class="sub">Free, and no account. Waze does the rest.</p>
       <ol class="steps">
         <li class="sticker"><span class="n">1</span><b>Get the voice</b>
           <span data-device="phone">Tap <b>Install in Waze</b> under the voice you want.</span>
@@ -102,7 +102,11 @@
           <button class="btn" type="submit">Suggest</button>
         </form>
         <p class="suggest-note" id="suggest-note" aria-live="polite"></p>
-        <ol class="board" id="board" aria-label="Most wanted"></ol>
+        <div class="wanted">
+          <span class="wanted-label" id="board-label">Most wanted</span>
+          <ol class="chips" id="board" aria-labelledby="board-label"></ol>
+          <a class="textlink" href="stats.html#wanted">See every suggestion →</a>
+        </div>
       </div>
     </section>
 
@@ -146,6 +150,34 @@
       <button class="btn plain" type="button" data-answer="no">No</button>
     </div>
   </div>
+
+  <!-- Phones: Install in Waze opens these steps first (app.js). -->
+  <div class="sheet-backdrop" id="install-sheet" hidden>
+    <div class="sheet sticker" role="dialog" aria-modal="true" aria-labelledby="sheet-h" tabindex="-1">
+      <button class="close" type="button" aria-label="Close" data-sheet-close>×</button>
+      <div class="sheet-head">
+        <span class="sheet-avatar" aria-hidden="true"><img class="sheet-face" alt="" width="64" height="64"></span>
+        <h2 id="sheet-h">Add <span data-sheet-name></span> to Waze</h2>
+      </div>
+      <p class="sheet-inapp" id="sheet-inapp" hidden><b>First, open this page in Safari or Chrome.</b>
+        This app's built-in browser can't hand the voice to Waze. Use the <b>•••</b> menu, then <b>Open in browser</b>.</p>
+      <ol class="sheet-steps">
+        <li><span class="n">1</span><span><b>Tap Open Waze below.</b> Waze asks if you want to add the voice. Tap <b>Yes</b>.</span></li>
+        <li><span class="n">2</span><span><b>Tap <span data-sheet-name></span> in the list.</b> Adding a voice doesn't switch to it. The list is in Settings → Voice &amp; sound → Waze voice.</span></li>
+        <li><span class="n">3</span>
+          <span data-os="ios"><b>No Waze yet?</b> Get it free from the <a href="https://apps.apple.com/app/waze-navigation-live-traffic/id323229106">App Store</a>, open it once, then come back and tap Install again.</span>
+          <span data-os="android"><b>No Waze yet?</b> Tap Open Waze anyway and install it from <a href="https://play.google.com/store/apps/details?id=com.waze">Google Play</a>. The voice is waiting when Waze first opens.</span></li>
+      </ol>
+      <a class="install" id="sheet-go" href="#">Open Waze
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13"/><path d="m12 6 6 6-6 6"/></svg></a>
+      <div class="sheet-foot">
+        <button class="btn plain" type="button" data-sheet-close>Not now</button>
+        <a class="textlink" href="install.html">Trouble? Install guide</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast sticker" id="toast" role="status" aria-live="polite"></div>
 
   <script src="app.js"></script>
 </body>

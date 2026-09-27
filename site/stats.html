@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Live stats — Backseat</title>
+  <title>Live stats | Backseat</title>
   <meta name="description" content="Backseat by the numbers: visitors, install taps, confirmed installs and the most-wanted voices, counted live.">
   <link rel="canonical" href="https://backseatnav.com/stats.html">
   <meta name="theme-color" content="#ffd23f">
@@ -34,10 +34,12 @@
   <header class="bar">
     <div class="wrap">
       <a class="logo sticker" href="./"><span class="lamp" aria-hidden="true"></span>Backseat</a>
-      <nav>
-        <a href="./#voices">Voices</a>
+      <nav aria-label="Site">
+        <a class="nav-voices" href="./#voices">Voices</a>
         <a href="how-it-works.html">How it works</a>
-        <a href="https://github.com/ammar-adam/waze-voice-sdk">GitHub</a>
+        <a href="make-your-own.html">Make your own</a>
+        <a href="stats.html" aria-current="page">Stats</a>
+        <a class="nav-gh" href="https://github.com/ammar-adam/waze-voice-sdk">GitHub</a>
       </nav>
     </div>
   </header>
@@ -83,6 +85,12 @@
       <ol class="leader" id="leader"></ol>
     </section>
 
+    <section class="block wrap" id="wanted" aria-labelledby="wanted-h">
+      <h2 id="wanted-h">Who should ride next</h2>
+      <p class="sub" id="wanted-sub">Every character suggested on the home page, with how many people want it. Different spellings of one name count together.</p>
+      <ol class="wanted-list" id="wanted-list"></ol>
+    </section>
+
     <section class="block wrap" aria-labelledby="more-h">
       <h2 id="more-h">And the rest</h2>
       <ul class="small-stats">
@@ -96,9 +104,10 @@
       <div class="how-counted sticker">
         <h3>How these are counted</h3>
         <ul>
-          <li><b>Install taps</b> are taps on “Install in Waze” on a phone. Waze takes it from there and doesn't report back, so a tap is an install started, not one Waze has confirmed.</li>
+          <li><b>Install taps</b> are taps on “Open Waze” in the install steps on a phone. Waze takes it from there and doesn't report back, so a tap is an install started, not one Waze has confirmed.</li>
           <li><b><sup>*</sup>Confirmed installs</b> are people who answered “Yes” to the “Did it work?” prompt after coming back from Waze. They're self-reported, and plenty of people never answer, so the real number is higher.</li>
           <li><b>Visitors</b> are estimated without cookies: a one-way hash of the connection, counted in a structure that can't be turned back into who anyone is. No IP address is stored.</li>
+          <li><b>Suggestions</b> are counted per character, with typos and different spellings folded into one name. Suggesting a character that's already here doesn't add to the list.</li>
           <li><b>Character clicks</b> are preview plays plus taps on a face at the top of the page. Known bots aren't counted.</li>
         </ul>
       </div>

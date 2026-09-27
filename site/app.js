@@ -146,6 +146,87 @@
     askAbout(pending);
   })();
 
+  /* ---------------- install steps sheet (phones) ---------------- */
+  // Tapping Install in Waze on a phone opens three short steps and a real
+  // Open Waze link. The link is a plain <a>: iOS only hands a link to an app
+  // when the navigation comes straight from a tap, so nothing here delays it.
+
+  var sheet = document.getElementById("install-sheet");
+  var sheetPanel = sheet.querySelector(".sheet");
+  var sheetGo = document.getElementById("sheet-go");
+  var sheetVoice = null;
+  var sheetOpener = null;
+  var isAndroid = /android/i.test(navigator.userAgent || "");
+
+  // Only the steps for this phone: Android, or iPhone and iPad.
+  sheet.querySelectorAll("[data-os]").forEach(function (node) {
+    var os = node.getAttribute("data-os");
+    node.hidden = isAndroid ? os === "ios" : os === "android";
+  });
+  if (inapp) document.getElementById("sheet-inapp").hidden = false;
+
+  function focusables() {
+    return Array.prototype.filter.call(
+      sheetPanel.querySelectorAll("a[href], button:not([disabled])"),
+      function (n) { return n.offsetParent !== null; }
+    );
+  }
+
+  function openSheet(voice, opener) {
+    sheetVoice = voice;
+    sheetOpener = opener;
+    sheet.querySelectorAll("[data-sheet-name]").forEach(function (n) { n.textContent = voice.name; });
+    var face = sheet.querySelector(".sheet-face");
+    face.src = "faces/" + voice.slug + ".svg";
+    // The sheet borrows the character's colours from its card.
+    var colours = getComputedStyle(document.getElementById(voice.slug));
+    ["--bg", "--tone", "--tone-ink"].forEach(function (p) {
+      sheetPanel.style.setProperty(p, colours.getPropertyValue(p));
+    });
+    sheetGo.href = wazeLink(voice.uuid);
+    sheet.hidden = false;
+    document.documentElement.classList.add("sheet-open");
+    sheetPanel.focus();
+  }
+
+  function closeSheet() {
+    if (sheet.hidden) return;
+    sheet.hidden = true;
+    document.documentElement.classList.remove("sheet-open");
+    if (sheetOpener) sheetOpener.focus();
+    sheetOpener = null;
+  }
+
+  sheetGo.addEventListener("click", function () {
+    var voice = sheetVoice;
+    if (!voice) return;
+    store(false, { slug: voice.slug, name: voice.name, at: Date.now() });
+    wentAway = false;
+    // One event for every way a voice gets downloaded, per character.
+    track("download", { character: voice.slug, method: "tap" });
+    // Let the tap's navigation start before the sheet goes.
+    setTimeout(closeSheet, 400);
+  });
+
+  sheet.addEventListener("click", function (e) {
+    if (e.target === sheet || e.target.closest("[data-sheet-close]")) closeSheet();
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (sheet.hidden) return;
+    if (e.key === "Escape") { e.preventDefault(); closeSheet(); return; }
+    if (e.key !== "Tab") return;
+    // Keep Tab inside the sheet while it is open.
+    var items = focusables();
+    if (!items.length) return;
+    var first = items[0], last = items[items.length - 1];
+    if (e.shiftKey && (document.activeElement === first || document.activeElement === sheetPanel)) {
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
+  });
+
   /* ---------------- cards ---------------- */
 
   function card(voice, lines) {
@@ -158,7 +239,7 @@
     }).join("");
 
     var action = window.isPhone
-      ? '<a class="install" href="' + wazeLink(voice.uuid) + '">Install in Waze ' + ARROW + "</a>"
+      ? '<a class="install" href="' + wazeLink(voice.uuid) + '" aria-haspopup="dialog">Install in Waze ' + ARROW + "</a>"
       : '<button class="install ghost qr-toggle" type="button" aria-expanded="false">Install on your phone</button>' +
         '<div class="qr" hidden><img alt="QR code to install ' + escapeHtml(voice.name) +
         ' in Waze" width="136" height="136" loading="lazy" src="qr/' + voice.slug + '.svg">' +
@@ -191,15 +272,15 @@
 
     var install = node.querySelector("a.install");
     if (install) {
-      // Native navigation, deliberately not delayed for analytics: iOS only
-      // hands a link to an app when the navigation comes straight from a tap.
-      install.addEventListener("click", function () {
+      // On a phone the button opens the three steps first; the sheet's own
+      // Open Waze link is the tap that hands the voice to Waze. The href
+      // stays real, so a long-press or a failed script still installs.
+      install.addEventListener("click", function (e) {
+        if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        e.preventDefault();
         stop();
-        store(false, { slug: voice.slug, name: voice.name, at: Date.now() });
-        wentAway = false;
         track("install_click", { character: voice.slug, via: "button", device: device, inapp: inapp });
-        // One event for every way a voice gets downloaded, per character.
-        track("download", { character: voice.slug, method: "tap" });
+        openSheet(voice, install);
       });
     }
 
@@ -274,15 +355,35 @@
   /* GitHub links are tracked site-wide by track.js. */
 
   /* ---------------- who should ride next? ---------------- */
-  // Backed by /api/suggestions (api/suggestions.js). Until its store is
-  // connected the endpoint answers 503, and suggestions go to GitHub instead.
+  // Backed by /api/suggestions (api/suggestions.js), which stores every
+  // suggestion in Redis and folds different spellings into one entry. The
+  // chips under the box are the four most wanted; tapping one backs it.
+  // Until the store is connected the endpoint answers 503, and suggestions
+  // go to GitHub instead.
 
   var VOTED_KEY = "backseat.voted";
+  var TOP = 4;
+  // Shown when the board can't be read, so the chips are never empty.
+  var FALLBACK = [
+    { key: "spongebob", name: "SpongeBob" }, { key: "yoda", name: "Yoda" },
+    { key: "shrek", name: "Shrek" }, { key: "homersimpson", name: "Homer Simpson" }
+  ];
   var board = document.getElementById("board");
   var note = document.getElementById("suggest-note");
   var suggestForm = document.getElementById("suggest-form");
   var suggestName = document.getElementById("suggest-name");
+  var toastNode = document.getElementById("toast");
   var ISSUE = "https://github.com/ammar-adam/waze-voice-sdk/issues/new?labels=voice-request&title=";
+  var toastTimer = null;
+
+  // A status region that is always in the page, so screen readers announce
+  // each new message; empty, it is invisible.
+  function toast(text, kind) {
+    toastNode.textContent = text;
+    toastNode.className = "toast sticker" + (kind ? " " + kind : "");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toastNode.textContent = ""; }, 3600);
+  }
 
   function voted() {
     try { return JSON.parse(localStorage.getItem(VOTED_KEY) || "[]"); } catch (e) { return []; }
@@ -294,21 +395,35 @@
       localStorage.setItem(VOTED_KEY, JSON.stringify(list));
     } catch (e) {}
   }
-  function keyOf(name) { return name.toLowerCase().replace(/[^a-z0-9]+/g, ""); }
+  // The same key the server makes, near enough to catch a repeat before it's sent.
+  function keyOf(name) {
+    var s = String(name);
+    if (s.normalize) s = s.normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
+    return s.toLowerCase().replace(/&/g, " and ").trim().replace(/^the\s+/, "").replace(/[^a-z0-9]+/g, "");
+  }
 
   function drawBoard(items) {
     var mine = voted();
     board.innerHTML = "";
-    items.forEach(function (item) {
+    (items && items.length ? items : FALLBACK).slice(0, TOP).forEach(function (item) {
       var done = mine.indexOf(item.key) >= 0;
+      var count = typeof item.votes === "number";
       var li = el(
-        '<li><span class="who">' + escapeHtml(item.name) + "</span>" +
-        '<button class="vote' + (done ? " done" : "") + '" type="button"' + (done ? " disabled" : "") +
-        ' aria-label="Back ' + escapeHtml(item.name) + '">' +
-        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 14 6-6 6 6"/></svg>' +
-        '<span class="n">' + item.votes + "</span></button></li>"
+        '<li><button class="chip' + (done ? " done" : "") + '" type="button"' +
+        ' aria-label="' + (done ? "You backed " : "Back ") + escapeHtml(item.name) +
+        (count ? ", " + item.votes + (item.votes === 1 ? " vote" : " votes") : "") + '"' +
+        (done ? ' aria-disabled="true"' : "") + ">" +
+        '<span class="who">' + escapeHtml(item.name) + "</span>" +
+        '<span class="n" aria-hidden="true">' +
+        (done
+          ? '<svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg>'
+          : '<svg viewBox="0 0 24 24"><path d="m6 14 6-6 6 6"/></svg>') +
+        (count ? item.votes : "") + "</span></button></li>"
       );
-      li.querySelector(".vote").addEventListener("click", function () { send(item.name); });
+      li.querySelector(".chip").addEventListener("click", function () {
+        if (done) { toast("You've already backed " + item.name + "."); return; }
+        send(item.name);
+      });
       board.appendChild(li);
     });
   }
@@ -320,44 +435,56 @@
 
   function send(name) {
     var key = keyOf(name);
-    if (voted().indexOf(key) >= 0) { note.textContent = "You've already backed " + name + "."; return; }
+    if (key && voted().indexOf(key) >= 0) { toast("You've already backed " + name + "."); return; }
     fetch("api/suggestions", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: name })
     }).then(function (r) {
-      return r.json().then(function (body) { return { ok: r.ok, status: r.status, body: body }; });
+      return r.json().catch(function () { return {}; })
+        .then(function (body) { return { ok: r.ok, status: r.status, body: body || {} }; });
     }).then(function (res) {
-      if (res.status === 503) { offline(name); return; }
-      if (!res.ok) { note.textContent = res.body.error || "That didn't go through. Try again."; return; }
-      if (res.body.live) { note.textContent = res.body.live + " is already here. Scroll up and install it!"; return; }
+      if (res.status === 503) { offline(name); toast("Suggestions aren't open yet. Try GitHub for now.", "bad"); return; }
+      if (!res.ok) { toast(res.body.error || "That didn't go through. Try again.", "bad"); return; }
+      note.textContent = "";
+      if (res.body.live) {
+        toast("Already riding: " + res.body.live + ". Scroll up to install it.");
+        return;
+      }
+      var added = res.body.added || { key: key, name: name };
       remember(key);
-      note.textContent = "Thanks! " + name + " is on the list.";
+      remember(added.key);
+      toast("Suggestion added: " + added.name, "good");
       drawBoard(res.body.items);
-      track("suggest", { character: key });
-    }).catch(function () { offline(name); });
+      track("suggest", { character: added.key });
+    }).catch(function () {
+      offline(name);
+      toast("That didn't go through. Check your connection and try again.", "bad");
+    });
   }
 
   suggestForm.addEventListener("submit", function (e) {
     e.preventDefault();
     var name = suggestName.value.trim();
-    if (name.length < 2) return;
+    if (name.length < 2) { toast("Type a character's name first.", "bad"); suggestName.focus(); return; }
     suggestName.value = "";
     send(name);
   });
 
-  fetch("api/suggestions", { cache: "no-cache" }).then(function (r) {
+  drawBoard(null);
+  fetch("api/suggestions?limit=" + TOP, { cache: "no-cache" }).then(function (r) {
     if (r.status === 503 || !r.ok) throw new Error("offline");
     return r.json();
-  }).then(function (body) { drawBoard(body.items); }).catch(function () { offline(""); });
+  }).then(function (body) { drawBoard(body.items); }).catch(function () { drawBoard(null); });
 
   /* ---------------- every now and then, somebody moves ---------------- */
-  // Faces idle, and once in a while one of them spins, hops, nods, turns or
-  // wiggles. Random face, random move, random gap, so it never loops.
+  // Faces idle, and once in a while one of them hops, nods, turns or wiggles.
+  // Random face, random move, random gap, so it never loops.
 
   // Four moves per character, chosen to suit them. Every move is picked at
   // random from the character's set, never the same one twice in a row, so
-  // nobody is stuck with one trick.
+  // nobody is stuck with one trick. A full spin is a lot to look at, so it
+  // is rare: WEIGHTS keeps it under one move in twenty.
   var SETS = {
     "bugs-bunny": ["lean", "hop", "wiggle", "tilt"],
     "cookie-monster": ["chomp", "bounce", "wiggle", "shake"],
@@ -373,7 +500,21 @@
     "eric-cartman": ["squash", "shake", "spin", "wiggle"]
   };
   var DEFAULT_SET = ["spin", "hop", "nod", "wiggle"];
+  // Relative odds; anything not listed is 1. With three or four other moves
+  // to pick from, 0.1 puts a spin at 3 to 5 percent of moves.
+  var WEIGHTS = { spin: 0.1 };
   var still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function pick(choices) {
+    var weight = function (m) { return m in WEIGHTS ? WEIGHTS[m] : 1; };
+    var total = choices.reduce(function (sum, m) { return sum + weight(m); }, 0);
+    var roll = Math.random() * total;
+    for (var i = 0; i < choices.length; i++) {
+      roll -= weight(choices[i]);
+      if (roll < 0) return choices[i];
+    }
+    return choices[choices.length - 1];
+  }
 
   function slugOf(node) {
     var holder = node.closest("[id]");
@@ -384,7 +525,7 @@
     if (!face || face.dataset.moving) return;
     var set = SETS[slugOf(face)] || DEFAULT_SET;
     var choices = set.filter(function (m) { return m !== face.dataset.lastMove; });
-    var name = choices[Math.floor(Math.random() * choices.length)];
+    var name = pick(choices);
     face.dataset.moving = "1";
     face.dataset.lastMove = name;
     face.classList.add("move-" + name);
