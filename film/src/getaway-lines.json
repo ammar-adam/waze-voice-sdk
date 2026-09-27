@@ -1,0 +1,257 @@
+{
+ "bugs_arrived": {
+  "file": "ga/voices/bugs_arrived.wav",
+  "pack": "bugs-bunny",
+  "phrase_id": "arrived",
+  "text": "We've arrived. That's all, folks!",
+  "seconds": 2.565,
+  "words": [
+   {
+    "w": "We've",
+    "start": 0.0,
+    "end": 0.44
+   },
+   {
+    "w": "arrived.",
+    "start": 0.44,
+    "end": 0.86
+   },
+   {
+    "w": "That's",
+    "start": 1.37,
+    "end": 1.7
+   },
+   {
+    "w": "all,",
+    "start": 1.7,
+    "end": 1.94
+   },
+   {
+    "w": "folks!",
+    "start": 1.94,
+    "end": 2.26
+   }
+  ]
+ },
+ "daffy_police": {
+  "file": "ga/voices/daffy_police.wav",
+  "pack": "daffy-duck",
+  "phrase_id": "police_ahead",
+  "text": "Police ahead! Act natural. Act natural!",
+  "seconds": 3.906,
+  "words": [
+   {
+    "w": "Police",
+    "start": 0.0,
+    "end": 0.34
+   },
+   {
+    "w": "ahead!",
+    "start": 0.34,
+    "end": 0.84
+   },
+   {
+    "w": "Act",
+    "start": 1.2,
+    "end": 1.44
+   },
+   {
+    "w": "natural.",
+    "start": 1.44,
+    "end": 2.14
+   },
+   {
+    "w": "Act",
+    "start": 2.66,
+    "end": 2.94
+   },
+   {
+    "w": "natural!",
+    "start": 2.94,
+    "end": 3.42
+   }
+  ]
+ },
+ "elmo_hello": {
+  "file": "ga/voices/elmo_hello.wav",
+  "pack": "elmo",
+  "phrase_id": "start_drive_1",
+  "text": "Hi! Elmo is so happy to see you! Let's go!",
+  "seconds": 4.708,
+  "words": [
+   {
+    "w": "Hi!",
+    "start": 0.0,
+    "end": 0.48
+   },
+   {
+    "w": "Elmo",
+    "start": 1.0,
+    "end": 1.36
+   },
+   {
+    "w": "is",
+    "start": 1.36,
+    "end": 1.52
+   },
+   {
+    "w": "so",
+    "start": 1.52,
+    "end": 1.86
+   },
+   {
+    "w": "happy",
+    "start": 1.86,
+    "end": 2.22
+   },
+   {
+    "w": "to",
+    "start": 2.22,
+    "end": 2.54
+   },
+   {
+    "w": "see",
+    "start": 2.54,
+    "end": 2.86
+   },
+   {
+    "w": "you!",
+    "start": 2.86,
+    "end": 3.28
+   },
+   {
+    "w": "Let's",
+    "start": 3.61,
+    "end": 3.94
+   },
+   {
+    "w": "go!",
+    "start": 3.94,
+    "end": 4.38
+   }
+  ]
+ },
+ "paddington_police": {
+  "file": "ga/voices/paddington_police.wav",
+  "pack": "paddington",
+  "phrase_id": "police_ahead",
+  "text": "Police ahead. I shall give them a hard stare.",
+  "seconds": 4.255,
+  "words": [
+   {
+    "w": "Police",
+    "start": 0.0,
+    "end": 0.36
+   },
+   {
+    "w": "ahead.",
+    "start": 0.36,
+    "end": 0.9
+   },
+   {
+    "w": "I",
+    "start": 1.51,
+    "end": 1.64
+   },
+   {
+    "w": "shall",
+    "start": 1.64,
+    "end": 1.82
+   },
+   {
+    "w": "give",
+    "start": 1.82,
+    "end": 2.02
+   },
+   {
+    "w": "them",
+    "start": 2.02,
+    "end": 2.24
+   },
+   {
+    "w": "a",
+    "start": 2.24,
+    "end": 2.42
+   },
+   {
+    "w": "hard",
+    "start": 2.42,
+    "end": 2.7
+   },
+   {
+    "w": "stare.",
+    "start": 2.7,
+    "end": 3.24
+   }
+  ]
+ },
+ "vader_police": {
+  "file": "ga/voices/vader_police.wav",
+  "pack": "darth-vader",
+  "phrase_id": "police_ahead",
+  "text": "Police ahead. I sense a disturbance in the speed limit. Slow down.",
+  "seconds": 5.551,
+  "words": [
+   {
+    "w": "Police",
+    "start": 0.0,
+    "end": 0.66
+   },
+   {
+    "w": "ahead.",
+    "start": 0.66,
+    "end": 0.94
+   },
+   {
+    "w": "I",
+    "start": 1.76,
+    "end": 1.86
+   },
+   {
+    "w": "sense",
+    "start": 1.86,
+    "end": 2.08
+   },
+   {
+    "w": "a",
+    "start": 2.08,
+    "end": 2.24
+   },
+   {
+    "w": "disturbance",
+    "start": 2.24,
+    "end": 2.6
+   },
+   {
+    "w": "in",
+    "start": 2.6,
+    "end": 2.9
+   },
+   {
+    "w": "the",
+    "start": 2.9,
+    "end": 3.02
+   },
+   {
+    "w": "speed",
+    "start": 3.02,
+    "end": 3.28
+   },
+   {
+    "w": "limit.",
+    "start": 3.28,
+    "end": 3.62
+   },
+   {
+    "w": "Slow",
+    "start": 4.6,
+    "end": 4.8
+   },
+   {
+    "w": "down.",
+    "start": 4.8,
+    "end": 5.12
+   }
+  ]
+ }
+}

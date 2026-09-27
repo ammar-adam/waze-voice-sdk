@@ -3,6 +3,7 @@ import {Composition} from 'remotion';
 import {Ad} from './Ad';
 import * as AD from './config';
 import {FPS, Film, cutLength} from './Film';
+import {GETAWAY_FRAMES, Getaway} from './Getaway';
 
 // One composition per cut in docs/launch-film.md. 9:16 for TikTok, Reels and Shorts.
 const CUTS = ['MissedTurn', 'VaderOpen', 'PoliceAhead', 'Arrived'];
@@ -17,6 +18,10 @@ export const Root: React.FC = () => (
       width={AD.WIDTH}
       height={AD.HEIGHT}
     />
+    {/* TOUGH CROWD (film/runway2/plan.md): one timeline, two frames. */}
+    {/* THE GETAWAY (film/runway3/plan.md): one timeline, two frames. */}
+    <Composition id="Getaway" component={Getaway} defaultProps={{vertical: false}} durationInFrames={GETAWAY_FRAMES} fps={24} width={1920} height={1080} />
+    <Composition id="GetawayVertical" component={Getaway} defaultProps={{vertical: true}} durationInFrames={GETAWAY_FRAMES} fps={24} width={1080} height={1920} />
     {CUTS.map((id) => (
       <Composition
         key={id}
