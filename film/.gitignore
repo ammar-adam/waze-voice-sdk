@@ -17,3 +17,20 @@ runway2/**/*.jpeg
 runway2/**/*.webp
 runway2/**/*.wav
 runway2/**/*.mp3
+
+# Runway footage for THE GETAWAY: media is never committed.
+runway3/**/*.mp4
+runway3/**/*.mov
+runway3/**/*.png
+runway3/**/*.jpg
+runway3/**/*.jpeg
+runway3/**/*.webp
+runway3/**/*.wav
+runway3/**/*.mp3
+runway3/**/*.part
+
+# Production logs, queue scripts and prompt scratch from Runway runs.
+runway2/prompts/
+runway3/prompts/
+runway3/*.log
+runway3/*.sh

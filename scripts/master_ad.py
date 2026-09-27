@@ -5,6 +5,7 @@ set in film/src/config.ts is preserved; a limiter after it keeps true peak
 under -1 dBTP.
 
     python scripts/master_ad.py film/out/backseat_30s_raw.mp4 film/out/backseat_30s.mp4
+    python scripts/master_ad.py raw.mp4 out.mp4 --bitrate 320k
 """
 
 from __future__ import annotations
@@ -30,7 +31,13 @@ def measure(path: str, extra: str = "") -> dict:
 
 
 def main() -> int:
-    source, dest = sys.argv[1], sys.argv[2]
+    args = sys.argv[1:]
+    bitrate = "256k"
+    if "--bitrate" in args:
+        i = args.index("--bitrate")
+        bitrate = args[i + 1]
+        del args[i : i + 2]
+    source, dest = args[0], args[1]
     first = measure(source)
     params = (
         f"loudnorm=I={TARGET_LUFS}:TP={TRUE_PEAK}:LRA={LRA}"
@@ -41,7 +48,7 @@ def main() -> int:
     subprocess.run(
         ["ffmpeg", "-loglevel", "error", "-y", "-i", source, "-c:v", "copy",
          "-af", f"{params},alimiter=limit=0.84:level=false,aresample=48000",
-         "-c:a", "aac", "-b:a", "256k", dest],
+         "-c:a", "aac", "-b:a", bitrate, "-movflags", "+faststart", dest],
         check=True,
     )  # fmt: skip
     final = measure(dest)
