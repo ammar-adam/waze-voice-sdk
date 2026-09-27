@@ -98,13 +98,13 @@ const CUT: ShotSpec[] = [
   // 10.125 tyres spin, smoke and spray; sirens erupt.
   {id: 'TYRE', beat: 'tyres spin', clip: 'V05', srcIn: 1.15, frames: 12, rate: 1.3},
   // 10.625 launch: the sedan fishtails out; two patrol cars slide round the corner after it.
-  {id: 'LAUNCH', beat: 'launch, patrol cars pile in', clip: 'N2', srcIn: 1.0, frames: 36},
+  {id: 'LAUNCH', beat: 'launch, patrol cars pile in', clip: 'N2', srcIn: 2.6, frames: 36},
   // 12.125 hard drift through the first corner. Cookie's chip pops ON the turn.
   {id: 'DRIFT', beat: 'Cookie: corner drift', clip: 'N3', srcIn: 1.5, frames: 36},
   // 13.625 insane speed, a hand's width off the wet asphalt, patrol car closing.
   {id: 'LOWTRACK', beat: 'low tracking shot', clip: 'N4', srcIn: 1.0, frames: 30},
   // 14.875 bumper to bumper; the near miss with the truck; sparks.
-  {id: 'NEARMISS', beat: 'near miss, sparks', clip: 'N5', srcIn: 1.5, frames: 36},
+  {id: 'NEARMISS', beat: 'near miss, sparks', clip: 'N5', srcIn: 0.3, frames: 36},
   // 16.375 they blow past their turn; handbrake 180 (Gordon on the yank); reverse back.
   {id: 'OVERSHOOT', beat: 'Gordon: overshoot, handbrake 180', clip: 'N6', srcIn: 0.5, frames: 54},
   // 18.625 down the alley, the cops overshoot the turn; the car swings out at the far end (Daffy's chip).
