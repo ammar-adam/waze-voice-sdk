@@ -241,8 +241,31 @@ const EndCard: React.FC = () => {
   const cols = 6;
   const face = 140;
   const bugsIdx = CAST.findIndex((c) => c.slug === 'bugs-bunny');
+  // The site's look: a faint street map drifting under the sun yellow, and a
+  // dashed route marching to a pin behind the cast.
+  const drift = frame * 1.2;
+  const march = -frame * 2;
   return (
     <AbsoluteFill style={{background: BRAND.sun, alignItems: 'center'}}>
+      <AbsoluteFill
+        style={{
+          backgroundImage: `url(${staticFile('ga/map-tile.svg')})`,
+          backgroundSize: '320px 320px',
+          backgroundPosition: `${-drift}px ${drift}px`,
+        }}
+      />
+      <svg width={1920} height={1080} viewBox="0 0 1920 1080" style={{position: 'absolute', inset: 0}}>
+        <path
+          d="M-40 980 C 260 980 300 780 560 790 S 900 900 1040 700 S 1260 400 1520 430 S 1820 260 1860 150"
+          fill="none" stroke={INK} strokeWidth={7} strokeLinecap="round" strokeDasharray="3 20"
+          strokeDashoffset={march} opacity={0.2}
+        />
+        <path
+          d="M1860 70 c -30 0 -50 22 -50 46 c 0 36 50 74 50 74 s 50 -38 50 -74 c 0 -24 -20 -46 -50 -46 z m 0 30 a 16 16 0 1 1 0 32 a 16 16 0 1 1 0 -32 z"
+          fill="#ff5a1f" stroke={INK} strokeWidth={4} opacity={0.9}
+          transform={`translate(0 ${-Math.abs(Math.sin(frame / 8)) * 6})`}
+        />
+      </svg>
       <div style={{position: 'absolute', top: 52, left: 0, width: 1920, textAlign: 'center', transform: `scale(${title}) rotate(-1.5deg)`, fontFamily: FONT.display, fontSize: 100, lineHeight: 1.02, color: INK, textShadow: '6px 6px 0 rgba(21,23,43,0.18)'}}>
         {END.title}
       </div>

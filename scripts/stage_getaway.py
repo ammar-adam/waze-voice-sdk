@@ -56,6 +56,8 @@ NEW = {
     "N5": "N5_a.mp4",
     "N6": "N6_a.mp4",
     "N7": "N7_a.mp4",
+    "E1": "E1_a.mp4",
+    "E2": "E2_a.mp4",
 }
 
 # name -> (source, integrated loudness to stage at). Beds loop seamlessly (forward then back).
@@ -268,6 +270,8 @@ def main() -> int:
     make_grain(PUB / "grain.png")
     for src in sorted((REPO / "site" / "faces").glob("*.svg")):
         shutil.copy2(src, PUB / "faces" / src.name)
+    # The site's street-map texture, for the end card's background.
+    shutil.copy2(REPO / "site" / "map-tile.svg", PUB / "map-tile.svg")
 
     lines = {}
     for j in sorted((PUB / "voices").glob("*.json")):
