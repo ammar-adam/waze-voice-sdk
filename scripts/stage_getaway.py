@@ -2,11 +2,15 @@
 
     python scripts/stage_getaway.py
 
-- footage: the kept takes in film/runway3/takes/ -> public/ga/clips/<name>.mp4
+- footage: the reused takes in film/runway3/takes/ -> public/ga/clips/<name>.mp4;
+  the NEW action shots from film/runway4/takes/ when a take exists, otherwise
+  the approved first frame (film/runway4/stills/<N>_first.png, from
+  scripts/prep_getaway_frames.py) held for 8 s as a placeholder; which is
+  which goes to film/src/getaway-media.json, and the picture pushes in on a
+  placeholder
 - sound: SFX from film/runway3/sfx/ and the earlier films, loudness-matched;
   the drone, the screen tap and the music hit are synthesised here
-- faces: site/faces/*.svg -> public/ga/faces/; film grain; the phone insert's
-  background plate (a frame of the smirk take, blurred in Remotion)
+- faces: site/faces/*.svg -> public/ga/faces/; film grain
 - words: the voice JSONs written by build_getaway_voices.py become
   film/src/getaway-lines.json (text from the presets, one entry per preset
   word, timings from faster-whisper on the treated file, each phrase's first
@@ -28,21 +32,30 @@ import numpy as np
 
 REPO = Path(__file__).resolve().parent.parent
 R3 = REPO / "film" / "runway3"
+R4 = REPO / "film" / "runway4"
 PUB = REPO / "film" / "public" / "ga"
 SR = 48000
 
+# Reused from the first cut (film/runway3/takes/).
 CLIPS = {
-    "V01": "V01_walk_a.mp4",
     "V02A": "V02_chain_a.mp4",
     "V02B": "V02_chain_b.mp4",
     "V03": "V03_rack_a.mp4",
     "V05": "V05_tyre_a.mp4",
-    "V06": "V06_bluered_a.mp4",
     "V08": "V08_natural_a.mp4",
     "V09": "V09_officer_a.mp4",
-    "V11": "V11_nod_a.mp4",
     "V12": "V12_smirk_a.mp4",
     "V13": "V13_garage_a.mp4",
+}
+# The NEW action shots (film/runway4/plan.md): the kept take, by name, in film/runway4/takes/.
+NEW = {
+    "N1": "N1_a.mp4",
+    "N2": "N2_a.mp4",
+    "N3": "N3_a.mp4",
+    "N4": "N4_a.mp4",
+    "N5": "N5_a.mp4",
+    "N6": "N6_a.mp4",
+    "N7": "N7_a.mp4",
 }
 
 # name -> (source, integrated loudness to stage at). Beds loop seamlessly (forward then back).
@@ -57,6 +70,8 @@ ONE_SHOTS = {
     "pull_up": R3 / "sfx" / "pull_up.mp3",
     "garage_stop": R3 / "sfx" / "garage_stop.mp3",
     "exhale": R3 / "sfx" / "exhale.mp3",
+    "door_thunk": REPO / "film" / "runway2" / "sfx" / "door_thunk.mp3",
+    "whoosh": REPO / "film" / "runway2" / "sfx" / "whoosh.mp3",
 }
 
 
@@ -184,6 +199,24 @@ def main() -> int:
             shutil.copy2(p, PUB / "clips" / f"{name}.mp4")
         else:
             print(f"missing clip {name}: {p}")
+    media = {}
+    for name, take in NEW.items():
+        p = R4 / "takes" / take
+        if p.is_file():
+            shutil.copy2(p, PUB / "clips" / f"{name}.mp4")
+            media[name] = "take"
+            continue
+        still = R4 / "stills" / f"{name}_first.png"
+        if not still.is_file():
+            print(f"missing NEW shot {name}: no take ({p.name}) and no still ({still.name})")
+            return 1
+        ffmpeg("-loop", "1", "-framerate", "24", "-i", str(still), "-t", "8", "-vf", "format=yuv420p",
+               "-c:v", "libx264", "-crf", "14", "-r", "24", str(PUB / "clips" / f"{name}.mp4"))  # fmt: skip
+        media[name] = "placeholder"
+    (REPO / "film" / "src" / "getaway-media.json").write_text(
+        json.dumps(media, indent=1) + "\n", encoding="utf-8"
+    )
+    print("NEW shots: " + ", ".join(f"{k} {v}" for k, v in media.items()))
     for name, (src, lufs) in BEDS.items():
         if not src.is_file():
             print(f"missing bed {name}: {src}")
@@ -233,17 +266,6 @@ def main() -> int:
         str(PUB / "sfx" / "hit.wav"),
     )
     make_grain(PUB / "grain.png")
-    ffmpeg(
-        "-ss",
-        "2.9",
-        "-i",
-        str(R3 / "takes" / CLIPS["V12"]),
-        "-frames:v",
-        "1",
-        "-q:v",
-        "3",
-        str(PUB / "insert_bg.jpg"),
-    )
     for src in sorted((REPO / "site" / "faces").glob("*.svg")):
         shutil.copy2(src, PUB / "faces" / src.name)
 
@@ -257,12 +279,15 @@ def main() -> int:
             return 1
         # Whisper's word starts can trail the audible onset; snap each phrase's
         # first word to the measured onset when that is within 0.3 s earlier.
+        # The phrase's first word is the one starting nearest the onset (from
+        # 0.1 s before it); only a late start is moved, never a later word.
         heard = [dict(h) for h in heard]
         for on in onsets(PUB / "voices" / f"{j.stem}_clean.wav"):
-            for h in heard:
-                if 0 <= h["start"] - on <= 0.3:
+            near = [h for h in heard if -0.1 <= h["start"] - on <= 0.3]
+            if near:
+                h = min(near, key=lambda h: abs(h["start"] - on))
+                if h["start"] > on:
                     h["start"] = round(on, 2)
-                    break
         lines[j.stem] = {
             "file": f"ga/voices/{j.stem}.wav",
             "pack": info["pack"],
@@ -276,7 +301,7 @@ def main() -> int:
         }
     out = REPO / "film" / "src" / "getaway-lines.json"
     out.write_text(json.dumps(lines, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"staged {len(CLIPS)} clips, {len(lines)} lines -> {out.relative_to(REPO)}")
+    print(f"staged {len(CLIPS) + len(NEW)} clips, {len(lines)} lines -> {out.relative_to(REPO)}")
     return 0
 
 

@@ -1,5 +1,8 @@
 """Export the five GETAWAY voice lines from the live packs' master audio.
 
+The action-chase revision (film/runway4/plan.md): Elmo, Cookie Monster,
+Gordon Ramsay, Daffy Duck, Bugs Bunny, one per hard turn.
+
 Same treatment as scripts/build_toughcrowd_voices.py (the phone in the car): trim the
 silence at each end, band-limit, a touch of small-room reverb, loudness-match
 to -16 LUFS. Vader keeps his low end (high-pass at 180 Hz instead of 250 Hz).
@@ -27,9 +30,9 @@ OUT = REPO / "film" / "public" / "ga" / "voices"
 # name -> (pack, phrase id, high-pass Hz)
 LINES = {
     "elmo_hello": ("elmo", "start_drive_1", 250),
-    "paddington_police": ("paddington", "police_ahead", 250),
+    "cookie_police": ("cookie-monster", "police_ahead", 180),
+    "gordon_missed": ("gordon-ramsay", "reroute_chime", 250),
     "daffy_police": ("daffy-duck", "police_ahead", 250),
-    "vader_police": ("darth-vader", "police_ahead", 180),
     "bugs_arrived": ("bugs-bunny", "arrived", 250),
 }
 
@@ -58,6 +61,11 @@ def main() -> int:
     from faster_whisper import WhisperModel
 
     OUT.mkdir(parents=True, exist_ok=True)
+    # lines dropped from the film (stage_getaway.py reads every JSON here)
+    for old in OUT.glob("*.json"):
+        if old.stem not in LINES:
+            for f in OUT.glob(f"{old.stem}*"):
+                f.unlink()
     model = WhisperModel("small.en", device="cpu", compute_type="int8")
     for name, (pack, phrase, hp) in LINES.items():
         src = REPO / "packs" / pack / "audio" / "master" / f"{phrase}.mp3"

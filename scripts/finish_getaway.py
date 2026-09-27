@@ -1,19 +1,22 @@
-"""Render and master both cuts of THE GETAWAY.
+"""Render and master THE GETAWAY (action-chase revision, film/runway4/plan.md).
 
-    python scripts/finish_getaway.py             # render + mix + master both
-    python scripts/finish_getaway.py --no-render # mix + master the existing raw renders
-    python scripts/finish_getaway.py --only 9x16 # one cut only (the other master is left untouched)
+    python scripts/finish_getaway.py             # render + mix + master
+    python scripts/finish_getaway.py --no-render # mix + master the existing raw render
 
-1. Renders Getaway (1920x1080) and GetawayVertical (1080x1920) muted into
-   film/out/ga/raw_*.mp4 (--concurrency=2).
+16:9 only. While any NEW shot is still a placeholder (src/getaway-media.json)
+the output is the preview, film/out/getaway_v2_preview.mp4; once every NEW
+shot is a real take it is the master, film/out/getaway_v2_16x9.mp4, plus a
+web copy (_web).
+
+1. Renders Getaway (1920x1080) muted into film/out/ga/raw_16x9.mp4
+   (--concurrency=2).
 2. Builds the sound once with scripts/mix_getaway.py from the same cue list.
 3. Checks every voice line in the mix by cross-correlating it with its source
    file: each must start on its planned frame (under half a frame off).
 4. Converts the picture to limited-range yuv420p (Remotion writes full-range
    yuvj420p), masters with scripts/master_ad.py (-14 LUFS, true peak under
-   -1 dBTP, AAC 320k) into film/out/getaway_16x9.mp4 and _9x16.mp4, re-checks
-   the line sync, and writes web copies (H.264 about 10 Mbps, faststart) as
-   film/out/getaway_16x9_web.mp4 and _9x16_web.mp4.
+   -1 dBTP, AAC 320k), re-checks the line sync, and writes the web copy
+   (H.264 about 10 Mbps, AAC 192k, faststart).
 """
 
 from __future__ import annotations
@@ -29,7 +32,7 @@ REPO = Path(__file__).resolve().parent.parent
 FILM = REPO / "film"
 OUT = FILM / "out"
 PY = sys.executable
-CUTS = {"16x9": "Getaway", "9x16": "GetawayVertical"}
+CUTS = {"16x9": "Getaway"}
 
 
 def plan() -> list[tuple[str, float]]:
@@ -77,9 +80,9 @@ def offsets(path: Path, lines: list[tuple[str, float]]) -> list[float]:
 def main() -> int:
     render = "--no-render" not in sys.argv
     cuts = CUTS
-    if "--only" in sys.argv:
-        tag = sys.argv[sys.argv.index("--only") + 1]
-        cuts = {tag: CUTS[tag]}
+    media = json.loads((FILM / "src" / "getaway-media.json").read_text(encoding="utf-8"))
+    preview = any(v != "take" for v in media.values())
+    stem = "getaway_v2_preview" if preview else "getaway_v2_16x9"
     (OUT / "ga").mkdir(parents=True, exist_ok=True)
     lines = plan()
     raws = {tag: OUT / "ga" / f"raw_{tag}.mp4" for tag in cuts}
@@ -106,7 +109,7 @@ def main() -> int:
              "-af", "apad", "-shortest", "-c:a", "pcm_s24le", str(fixed)],
             check=True,
         )  # fmt: skip
-        dest = OUT / f"getaway_{tag}.mp4"
+        dest = OUT / f"{stem}.mp4"
         subprocess.run(
             [
                 PY,
@@ -122,7 +125,7 @@ def main() -> int:
         print(
             f"{tag}: mastered -> {dest.relative_to(REPO)}; lines {[round(o * 1000) for o in offs]} ms from their frames"  # noqa: E501
         )
-        web = OUT / f"getaway_{tag}_web.mp4"
+        web = OUT / f"{stem}_web.mp4"
         subprocess.run(
             ["ffmpeg", "-v", "error", "-y", "-i", str(dest), "-c:v", "libx264", "-profile:v", "high", "-preset", "slow",  # noqa: E501
              "-b:v", "10M", "-maxrate", "12M", "-bufsize", "20M", "-pix_fmt", "yuv420p", "-r", "24",

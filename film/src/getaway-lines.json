@@ -33,6 +33,50 @@
    }
   ]
  },
+ "cookie_police": {
+  "file": "ga/voices/cookie_police.wav",
+  "pack": "cookie-monster",
+  "phrase_id": "police_ahead",
+  "text": "Police ahead! Me behave! Me hide cookies!",
+  "seconds": 4.209,
+  "words": [
+   {
+    "w": "Police",
+    "start": 0.0,
+    "end": 0.38
+   },
+   {
+    "w": "ahead!",
+    "start": 0.38,
+    "end": 1.12
+   },
+   {
+    "w": "Me",
+    "start": 1.46,
+    "end": 1.72
+   },
+   {
+    "w": "behave!",
+    "start": 1.72,
+    "end": 2.32
+   },
+   {
+    "w": "Me",
+    "start": 2.86,
+    "end": 3.04
+   },
+   {
+    "w": "hide",
+    "start": 3.04,
+    "end": 3.34
+   },
+   {
+    "w": "cookies!",
+    "start": 3.34,
+    "end": 3.68
+   }
+  ]
+ },
  "daffy_police": {
   "file": "ga/voices/daffy_police.wav",
   "pack": "daffy-duck",
@@ -131,126 +175,37 @@
    }
   ]
  },
- "paddington_police": {
-  "file": "ga/voices/paddington_police.wav",
-  "pack": "paddington",
-  "phrase_id": "police_ahead",
-  "text": "Police ahead. I shall give them a hard stare.",
-  "seconds": 4.255,
+ "gordon_missed": {
+  "file": "ga/voices/gordon_missed.wav",
+  "pack": "gordon-ramsay",
+  "phrase_id": "reroute_chime",
+  "text": "You missed it, you donkey!",
+  "seconds": 2.307,
   "words": [
    {
-    "w": "Police",
+    "w": "You",
     "start": 0.0,
-    "end": 0.36
+    "end": 0.22
    },
    {
-    "w": "ahead.",
-    "start": 0.36,
-    "end": 0.9
+    "w": "missed",
+    "start": 0.22,
+    "end": 0.52
    },
    {
-    "w": "I",
-    "start": 1.51,
-    "end": 1.64
+    "w": "it,",
+    "start": 0.52,
+    "end": 1.0
    },
    {
-    "w": "shall",
-    "start": 1.64,
-    "end": 1.82
+    "w": "you",
+    "start": 1.3,
+    "end": 1.52
    },
    {
-    "w": "give",
-    "start": 1.82,
-    "end": 2.02
-   },
-   {
-    "w": "them",
-    "start": 2.02,
-    "end": 2.24
-   },
-   {
-    "w": "a",
-    "start": 2.24,
-    "end": 2.42
-   },
-   {
-    "w": "hard",
-    "start": 2.42,
-    "end": 2.7
-   },
-   {
-    "w": "stare.",
-    "start": 2.7,
-    "end": 3.24
-   }
-  ]
- },
- "vader_police": {
-  "file": "ga/voices/vader_police.wav",
-  "pack": "darth-vader",
-  "phrase_id": "police_ahead",
-  "text": "Police ahead. I sense a disturbance in the speed limit. Slow down.",
-  "seconds": 5.551,
-  "words": [
-   {
-    "w": "Police",
-    "start": 0.0,
-    "end": 0.66
-   },
-   {
-    "w": "ahead.",
-    "start": 0.66,
-    "end": 0.94
-   },
-   {
-    "w": "I",
-    "start": 1.76,
+    "w": "donkey!",
+    "start": 1.52,
     "end": 1.86
-   },
-   {
-    "w": "sense",
-    "start": 1.86,
-    "end": 2.08
-   },
-   {
-    "w": "a",
-    "start": 2.08,
-    "end": 2.24
-   },
-   {
-    "w": "disturbance",
-    "start": 2.24,
-    "end": 2.6
-   },
-   {
-    "w": "in",
-    "start": 2.6,
-    "end": 2.9
-   },
-   {
-    "w": "the",
-    "start": 2.9,
-    "end": 3.02
-   },
-   {
-    "w": "speed",
-    "start": 3.02,
-    "end": 3.28
-   },
-   {
-    "w": "limit.",
-    "start": 3.28,
-    "end": 3.62
-   },
-   {
-    "w": "Slow",
-    "start": 4.6,
-    "end": 4.8
-   },
-   {
-    "w": "down.",
-    "start": 4.8,
-    "end": 5.12
    }
   ]
  }
