@@ -139,6 +139,8 @@
   function leaderboard(characters) {
     var list = document.getElementById("leader");
     list.innerHTML = "";
+    // Slugs become an id, an image path and a link; only plain ones are drawn.
+    characters = characters.filter(function (c) { return c && /^[a-z0-9-]+$/.test(c.slug); });
     var top = Math.max.apply(null, characters.map(function (c) { return c.downloads || 0; }).concat([0]));
     characters.forEach(function (c, i) {
       var live = typeof c.downloads === "number";
@@ -247,7 +249,7 @@
       totals(t);
       if (data.since) {
         document.getElementById("stats-since").textContent =
-          "Counted on our own server since " + new Date(data.since + "T12:00:00Z").toLocaleDateString("en-US",
+          "Counted by Backseat itself since " + new Date(data.since + "T12:00:00Z").toLocaleDateString("en-US",
             { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }) + ". Updated every minute.";
       }
       if (!t.visitors && !t.pageviews) say("Fresh counters. The numbers start with the next visitor.");

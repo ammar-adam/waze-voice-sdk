@@ -95,3 +95,6 @@ scripts/*toughcrowd*.py
 scripts/runway_gen.py
 film/src/ToughCrowd.tsx
 film/src/toughcrowd*.*
+
+# The launch film is served by the site.
+!site/film/*.mp4

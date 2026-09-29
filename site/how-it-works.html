@@ -29,9 +29,11 @@
       <a class="logo sticker" href="./"><span class="lamp" aria-hidden="true"></span>Backseat</a>
       <nav aria-label="Site">
         <a class="nav-voices" href="./#voices">Voices</a>
+        <a class="nav-film" href="film.html">Film</a>
         <a href="how-it-works.html" aria-current="page">How it works</a>
         <a href="make-your-own.html">Make your own</a>
-        <a href="stats.html">Stats</a>
+        <a class="nav-docs" href="docs/">Docs</a>
+        <a class="nav-stats" href="stats.html">Stats</a>
         <a class="nav-gh" href="https://github.com/ammar-adam/waze-voice-sdk">GitHub</a>
       </nav>
     </div>
@@ -109,14 +111,14 @@
     ever creeps onto a prompt that repeats.</p>
 
     <h2 id="voice">Finding the right voice</h2>
-    <p>The voices are community models on <a href="https://fish.audio">Fish Audio</a>. A model's
+    <p>Most of the voices are community models on <a href="https://fish.audio">Fish Audio</a>. A model's
     title is whatever its uploader typed, and it's often wrong. So every candidate is checked
     three ways before it's used:</p>
     <ul>
       <li><b>Its cover art and description.</b> A model called "Batman" turned out to have
       Robert Pattinson's Batman on the cover, not the one we wanted.</li>
       <li><b>Its pitch.</b> Every model titled "Darth Vader" measured between 230 and 280 Hz:
-      far too high for Vader. James Earl Jones, the actual voice, measures around 100 Hz. That's
+      far too high for Vader. A model built on James Earl Jones's performance measures around 100 Hz. That's
       the one we use.</li>
       <li><b>Whether it can say the lines.</b> Each finalist reads the same test lines, and a
       speech recogniser checks every word came out right.</li>
@@ -125,7 +127,7 @@
     <h2 id="same">The same person, every prompt</h2>
     <p>A voice model never gives the same performance twice. One take is warm, the next is flat,
     a third sounds like someone else. On a drive that reads as three characters sharing one
-    voice. Two things fix it. Every voice runs at a lower sampling temperature, so takes vary
+    voice. Two things fix it. Every Fish Audio voice runs at a lower sampling temperature, so takes vary
     less. Then every clip gets a fingerprint (its timbre, pitch, pitch range and brightness)
     and is compared against a take that's been judged right. Anything that drifts is
     regenerated several times, and the closest take is kept.</p>
@@ -133,12 +135,11 @@
     <h2 id="check">Every line is checked</h2>
     <p>Voice models sometimes mumble, skip a word or loop. Before any pack ships, every one of
     its 43 clips is transcribed by a speech recogniser and compared with its script. Fumbled
-    takes are regenerated until they come back clean. It has caught a "Turn right" that came
-    out as "Can I?", and a Godfather voice that mumbled 26 of its 43 lines, which is why
-    that character never shipped.</p>
+    takes are regenerated until they come back clean. It has caught a Godfather voice that
+    mumbled 26 of its 43 lines, which sent that character off to find a new voice.</p>
 
     <h2 id="size">Fitting under the size cap</h2>
-    <p>Waze silently rejects packs over about 0.8 MB, and it tells you nothing about it. Rather
+    <p>Waze reportedly rejects packs over about 0.8 MB, and says nothing when it does. Rather
     than squeeze every clip the same way, the exporter shares the byte budget by how often
     each prompt is heard: the turns you hear constantly stay crisp, and long lines you hear
     once a drive absorb the compression. Every clip is also levelled to the same loudness,
@@ -164,7 +165,7 @@
 
   <footer>
     <div class="wrap">
-      <span>Independent project. Not affiliated with Waze or Google.</span>
+      <span>Independent fan project. Not affiliated with Waze, Google, or the owners of any character or person featured.</span>
       <nav class="foot-links">
         <a href="./">Voices</a>
         <a href="make-your-own.html">Make your own</a>

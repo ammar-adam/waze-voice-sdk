@@ -30,9 +30,16 @@
   var device = window.isPhone ? "phone" : "desktop";
   var inapp = window.inAppBrowser || "";
 
+  // The install waiting on a "Did it work?" answer. Anything in storage that
+  // isn't the shape this page wrote (an old version, an extension, a hand
+  // edit) reads as nothing pending.
   function store(get, value) {
     try {
-      if (get) return JSON.parse(localStorage.getItem(PENDING_KEY) || "null");
+      if (get) {
+        var p = JSON.parse(localStorage.getItem(PENDING_KEY) || "null");
+        return p && typeof p === "object" && typeof p.slug === "string" &&
+          typeof p.name === "string" && typeof p.at === "number" ? p : null;
+      }
       if (value === null) localStorage.removeItem(PENDING_KEY);
       else localStorage.setItem(PENDING_KEY, JSON.stringify(value));
     } catch (e) { return null; }
@@ -323,7 +330,10 @@
     });
 
     // backseatnav.com/#bugs-bunny lands on that voice: one link per character post.
-    var slug = decodeURIComponent(location.hash.slice(1));
+    // A malformed hash (#%E0) makes decodeURIComponent throw; it must not
+    // take the voice list down with it.
+    var slug = "";
+    try { slug = decodeURIComponent(location.hash.slice(1)); } catch (e) { slug = ""; }
     var target = slug && document.getElementById(slug);
     if (target && target.classList.contains("voice")) {
       target.classList.add("picked");
@@ -386,7 +396,10 @@
   }
 
   function voted() {
-    try { return JSON.parse(localStorage.getItem(VOTED_KEY) || "[]"); } catch (e) { return []; }
+    try {
+      var list = JSON.parse(localStorage.getItem(VOTED_KEY) || "[]");
+      return Array.isArray(list) ? list.filter(function (k) { return typeof k === "string"; }) : [];
+    } catch (e) { return []; }
   }
   function remember(key) {
     try {
@@ -428,9 +441,14 @@
     });
   }
 
+  // Built from nodes, not HTML: the name is whatever the visitor typed.
   function offline(name) {
-    note.innerHTML = 'Suggestions open soon. Meanwhile, <a href="' + ISSUE +
-      encodeURIComponent(name ? "Voice request: " + name : "Voice request: ") + '">suggest it on GitHub</a>.';
+    var link = document.createElement("a");
+    link.href = ISSUE + encodeURIComponent("Voice request: " + (name || ""));
+    link.textContent = "suggest it on GitHub";
+    note.textContent = "Suggestions open soon. Meanwhile, ";
+    note.appendChild(link);
+    note.appendChild(document.createTextNode("."));
   }
 
   function send(name) {
@@ -454,9 +472,13 @@
       var added = res.body.added || { key: key, name: name };
       remember(key);
       remember(added.key);
-      toast("Suggestion added: " + added.name, "good");
+      // The server counts one vote per network per character a day.
+      toast(res.body.counted === false
+        ? "You've already backed " + added.name + " today."
+        : "Suggestion added: " + added.name, "good");
       drawBoard(res.body.items);
-      track("suggest", { character: added.key });
+      // Only a vote the server counted moves the "suggested" number on stats.
+      if (res.body.counted !== false) track("suggest", { character: added.key });
     }).catch(function () {
       offline(name);
       toast("That didn't go through. Check your connection and try again.", "bad");

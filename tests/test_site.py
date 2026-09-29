@@ -148,7 +148,7 @@ class DomainTests(unittest.TestCase):
         ):
             with self.subTest(page=name):
                 self.assertIn(
-                    "Not affiliated with Waze or Google", (SITE / name).read_text(encoding="utf-8")
+                    "Not affiliated with Waze, Google", (SITE / name).read_text(encoding="utf-8")
                 )
 
 

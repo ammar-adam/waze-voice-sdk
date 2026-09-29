@@ -10,12 +10,18 @@
 //
 // Visitors are counted in HyperLogLogs of a salted hash of IP + user agent
 // (+ date for the daily one). A HyperLogLog keeps no members, so nothing that
-// identifies a person is stored; raw IPs are never written anywhere.
+// identifies a person is stored; raw IPs are never written anywhere, and the
+// rate-limit keys hold only salted hashes that expire after a day.
+//
+// Abuse: a browser on another site is refused (see crossSite in _store.js),
+// each visitor (IP + user agent) gets PER_DAY events a day, and each network
+// (IPv4 address or IPv6 /64) gets PER_NETWORK, so rotating user agents does
+// not buy unlimited counts.
 
-const crypto = require('crypto');
-const {SLUGS, PAGES, DOCS, KEY, config, redis, today} = require('./_store');
+const {SLUGS, PAGES, DOCS, KEY, config, redis, today, clientIp, ipBucket, hasher, crossSite, readBody} = require('./_store');
 
 const PER_DAY = 400; // events per visitor per day; a real visit is a few dozen
+const PER_NETWORK = 3000; // per IP or /64 per day; roomy for a shared carrier IP
 const DAY_TTL = String(400 * 86400); // per-day keys outlive the 30-day chart
 const BOT = /bot|crawl|spider|slurp|facebookexternalhit|preview|headless|lighthouse|curl|wget|python|axios|node-fetch/i;
 
@@ -23,11 +29,20 @@ function one(list, value) {
   return list.includes(value) ? value : null;
 }
 
+// A page as track.js reports it, folded onto the fixed list: /film/ and
+// /film/index are /film, and every /docs/... page is /docs.
+function pageOf(value) {
+  if (typeof value !== 'string' || value.length > 100) return null;
+  let path = value.replace(/\/index$/, '').replace(/\/+$/, '') || '/index';
+  if (/^\/docs\/[a-z0-9-]+$/.test(path)) path = '/docs';
+  return one(PAGES, path);
+}
+
 // The hash fields one event increments, or an error.
 function fields(body) {
   const event = String(body.event || '');
   const character = one(SLUGS, body.character);
-  const page = one(PAGES, body.page);
+  const page = pageOf(body.page);
   switch (event) {
     case 'pageview':
       if (!page) return {error: 'unknown page'};
@@ -50,7 +65,7 @@ function fields(body) {
     case 'github_click':
       return {fields: ['github_click', ...(page ? [`github_click:${page}`] : [])]};
     case 'doc_read': {
-      const doc = one(DOCS, body.page);
+      const doc = one(DOCS, page);
       if (!doc) return {error: 'unknown doc'};
       return {fields: ['doc_read', `doc_read:${doc}`]};
     }
@@ -61,18 +76,10 @@ function fields(body) {
   }
 }
 
-function parse(raw) {
-  if (raw && typeof raw === 'object' && !Buffer.isBuffer(raw)) return raw;
-  const text = Buffer.isBuffer(raw) ? raw.toString('utf8') : String(raw || '');
-  if (text.length > 2000) throw new Error('too long');
-  const body = JSON.parse(text || '{}');
-  if (!body || typeof body !== 'object') throw new Error('not an object');
-  return body;
-}
-
 module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
   if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
     res.status(405).json({error: 'POST only.'});
     return;
   }
@@ -81,9 +88,13 @@ module.exports = async (req, res) => {
     res.status(503).json({error: 'Counters are not connected yet.'});
     return;
   }
+  if (crossSite(req)) {
+    res.status(403).json({error: 'Not counted.'});
+    return;
+  }
   let body;
   try {
-    body = parse(req.body);
+    body = readBody(req);
   } catch (e) {
     res.status(400).json({error: 'Send JSON.'});
     return;
@@ -93,7 +104,7 @@ module.exports = async (req, res) => {
     res.status(400).json({error: counted.error});
     return;
   }
-  const ua = String(req.headers['user-agent'] || '');
+  const ua = String(req.headers['user-agent'] || '').slice(0, 512);
   // Preview deployments and bots share the store but must not move the numbers.
   const env = process.env.VERCEL_ENV;
   if ((env && env !== 'production') || !ua || BOT.test(ua)) {
@@ -102,15 +113,18 @@ module.exports = async (req, res) => {
   }
 
   const date = today();
-  const ip = String(req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || '').split(',')[0].trim();
-  const salt = process.env.STATS_SALT || store.token;
-  const hash = (...parts) => crypto.createHash('sha256').update([salt, ...parts].join('|')).digest('hex');
+  const ip = clientIp(req);
+  const hash = hasher(store);
   const person = hash(ip, ua);
 
   try {
     const rate = KEY.rate(person.slice(0, 24), date);
-    const [count] = await redis([['INCR', rate], ['EXPIRE', rate, '90000']]);
-    if (count > PER_DAY) {
+    const rateIp = KEY.rateIp(hash('net', ipBucket(ip)).slice(0, 24), date);
+    const [count, , network] = await redis([
+      ['INCR', rate], ['EXPIRE', rate, '90000'],
+      ['INCR', rateIp], ['EXPIRE', rateIp, '90000'],
+    ]);
+    if (count > PER_DAY || network > PER_NETWORK) {
       res.status(429).json({error: 'That\'s plenty for today.'});
       return;
     }
