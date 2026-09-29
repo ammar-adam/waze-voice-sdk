@@ -58,6 +58,7 @@ function summarise(total, visitors, since, days) {
 module.exports = async (req, res) => {
   if (req.method !== 'GET') {
     res.setHeader('Cache-Control', 'no-store');
+    res.setHeader('Allow', 'GET');
     res.status(405).json({error: 'GET only.'});
     return;
   }

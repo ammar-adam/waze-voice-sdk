@@ -110,8 +110,15 @@ a { color: inherit; }
   .bar nav a[aria-current="page"] { text-decoration: none; background: var(--sun); }
   .bar nav .nav-gh { display: none; }
 }
-/* The logo already goes to the voices; this keeps the row to one line. */
-@media (max-width: 420px) { .bar nav .nav-voices { display: none; } }
+/* Seven links fit one line from about 880px. Below that, GitHub and Stats go
+   (both are in every footer), then Voices (the logo goes there), and at phone
+   widths the stickers tighten so the row still fits 375px without scrolling. */
+@media (max-width: 880px) { .bar nav .nav-gh, .bar nav .nav-stats { display: none; } }
+@media (max-width: 580px) { .bar nav .nav-voices { display: none; } }
+@media (max-width: 420px) {
+  .bar nav { gap: .3rem; }
+  .bar nav a { padding: .36rem .5rem; font-size: .82rem; }
+}
 
 /* ---- hero: all seven papers at once ---- */
 .hero {

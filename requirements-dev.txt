@@ -6,3 +6,6 @@ mypy>=1.11
 
 # Site build only: pre-renders the desktop install QR codes as SVG.
 segno>=1.6
+
+# Site build only: renders the docs in site/docs/ (scripts/build_docs.py).
+markdown>=3.5

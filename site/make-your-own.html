@@ -29,9 +29,11 @@
       <a class="logo sticker" href="./"><span class="lamp" aria-hidden="true"></span>Backseat</a>
       <nav aria-label="Site">
         <a class="nav-voices" href="./#voices">Voices</a>
+        <a class="nav-film" href="film.html">Film</a>
         <a href="how-it-works.html">How it works</a>
         <a href="make-your-own.html" aria-current="page">Make your own</a>
-        <a href="stats.html">Stats</a>
+        <a class="nav-docs" href="docs/">Docs</a>
+        <a class="nav-stats" href="stats.html">Stats</a>
         <a class="nav-gh" href="https://github.com/ammar-adam/waze-voice-sdk">GitHub</a>
       </nav>
     </div>
@@ -79,8 +81,9 @@ $env:OPENAI_API_KEY = "..."        # Windows PowerShell</code></pre>
     <h2 id="first">Your first pack</h2>
     <p>The quickest start is a <b>preset</b>: a character that's already written. This builds
     Eeyore, all 43 prompts in both metric and imperial, in about a minute:</p>
-<pre><code>python scripts/wvs.py preflight          # free: checks everything except the audio
-python scripts/wvs.py quickstart --preset eeyore --accept-voice-terms</code></pre>
+<pre><code>python scripts/wvs.py preflight --preset eeyore   # free: checks everything except the audio
+python scripts/wvs.py pack new eeyore
+python scripts/wvs.py quickstart --pack eeyore --preset eeyore --accept-voice-terms</code></pre>
     <p>The finished pack lands in <code>packs/eeyore/audio/export/pack/</code>. See every preset
     with <code>python scripts/wvs.py presets list</code>.</p>
 
@@ -105,7 +108,7 @@ python scripts/wvs.py quickstart --preset eeyore --accept-voice-terms</code></pr
     "...": "all 43 lines"
   }
 }</code></pre>
-    <h3>The rules the build enforces</h3>
+    <h3>The rules the checks enforce</h3>
     <ul>
       <li><b>Direction words survive.</b> <code>turn_left</code> must say "left", and never "right".
       Distances must name exactly one distance.</li>
@@ -118,7 +121,9 @@ python scripts/wvs.py quickstart --preset eeyore --accept-voice-terms</code></pr
     </ul>
     <p>Then check and build it:</p>
 <pre><code>python scripts/wvs.py presets check captain-calm
-python scripts/wvs.py quickstart --preset captain-calm --accept-voice-terms</code></pre>
+python scripts/wvs.py pack new captain-calm
+python scripts/wvs.py quickstart --pack captain-calm --preset captain-calm --accept-voice-terms</code></pre>
+    <p>Run <code>python tests/run_tests.py</code> before opening a pull request: it checks the rules above.</p>
 
     <h2 id="check">Check it</h2>
     <p>Listen to it as a route before you ship it. <code>qa</code> stitches clips together the way
@@ -127,11 +132,13 @@ python scripts/wvs.py quickstart --preset captain-calm --accept-voice-terms</cod
     <p>With a community voice model, check that every prompt sounds like the same person. This
     fingerprints each clip, flags the odd ones out, and re-takes them:</p>
 <pre><code>python scripts/voice_consistency.py captain-calm --fix --takes 3</code></pre>
+    <p>Then rebuild so the kept takes reach the pack:</p>
+<pre><code>python scripts/build_all.py --only captain-calm --no-stage --reuse</code></pre>
 
     <h2 id="upload">Put it in Waze</h2>
     <p>Waze has no official way to add a custom voice, so packs go up through the community
     <a href="https://github.com/pipeeeeees/waze-voicepack-links">waze-voicepack-links</a> uploader.
-    Stage your pack into it (the name you give is the name drivers see in Waze), run the
+    Clone it next to this repo (or pass <code>--uploader &lt;path&gt;</code>), then stage your pack into it (the name you give is the name drivers see in Waze), run the
     uploader, and it prints a link:</p>
 <pre><code>python scripts/stage_for_upload.py --preset captain-calm --name "Captain Calm"
 # then, in waze-voicepack-links:
@@ -170,7 +177,7 @@ python mp3_upload/main.py</code></pre>
 
   <footer>
     <div class="wrap">
-      <span>Independent project. Not affiliated with Waze or Google.</span>
+      <span>Independent fan project. Not affiliated with Waze, Google, or the owners of any character or person featured.</span>
       <nav class="foot-links">
         <a href="./">Voices</a>
         <a href="how-it-works.html">How it works</a>
