@@ -255,6 +255,31 @@ h2 + .voices, h2 + .steps { margin-top: 1.3rem; }
 @keyframes move-squash { 25% { transform: scale(1.15, .8) translateY(8%); } 55% { transform: scale(.92, 1.1) translateY(-6%); } }
 @keyframes move-lean { 35%, 65% { transform: perspective(500px) rotateY(-30deg) rotate(4deg); } }
 
+/* Phones: a two-up grid of faces. Tapping one (the .peek button over the
+   stage) opens its full card across both columns; app.js keeps one open. */
+.peek, .tap-hint { display: none; }
+@media (max-width: 640px) {
+  .tap-hint { display: block; margin: .2rem 0 1.1rem; color: var(--ink-soft); }
+  .voices { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem .8rem; grid-auto-flow: dense; }
+  .voice { position: relative; }
+  .voice:not(.open) { transform: none; }
+  .voice:not(.open) .stage { height: 9.6rem; border-bottom: 0; padding: .5rem 0 2.4rem; }
+  .voice:not(.open) .stage .face { width: 6.2rem; height: 6.2rem; }
+  .voice:not(.open) .tag {
+    left: 50%; bottom: .55rem; transform: translateX(-50%); max-width: calc(100% - 1rem);
+    padding: .3rem .6rem; font-size: .92rem; text-align: center; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis; box-shadow: 2px 2px 0 var(--line);
+  }
+  .voice:not(.open) .label { display: none; }
+  .voice.open { grid-column: 1 / -1; }
+  .peek {
+    display: block; position: absolute; left: 0; right: 0; top: 0; height: 9.6rem; z-index: 2;
+    background: none; border: 0; padding: 0; cursor: pointer; border-radius: 20px 20px 0 0;
+  }
+  .voice.open .peek { height: 12rem; }
+  .peek:focus-visible { outline: 3px solid var(--ink); outline-offset: -5px; }
+}
+
 .tag {
   position: absolute; left: .9rem; bottom: -1.05rem; z-index: 1;
   padding: .35rem .85rem; background: var(--label);
