@@ -236,6 +236,21 @@
 
   /* ---------------- cards ---------------- */
 
+  // Phones show the voices as a two-up grid of faces; tapping one opens its
+  // full card (clips, the line it said, Install) across both columns. One open
+  // at a time. On wide screens every card is always open and this is inert.
+  function openCard(node) {
+    document.querySelectorAll(".voice.open").forEach(function (c) {
+      if (c === node) return;
+      c.classList.remove("open");
+      c.querySelector(".peek").setAttribute("aria-expanded", "false");
+    });
+    if (!node) return;
+    node.classList.add("open");
+    node.querySelector(".peek").setAttribute("aria-expanded", "true");
+    requestAnimationFrame(function () { node.scrollIntoView({ block: "nearest", behavior: "smooth" }); });
+  }
+
   function card(voice, lines) {
     var said = lines[voice.slug] || {};
     var clips = CLIPS.map(function (c) {
@@ -262,6 +277,8 @@
           '<img class="face" alt="" width="160" height="160" src="faces/' + voice.slug + '.svg">' +
           '<span class="tag">' + escapeHtml(voice.name) + "</span>" +
         "</div>" +
+        '<button class="peek" type="button" aria-expanded="false" aria-label="Show ' +
+          escapeHtml(voice.name) + '"></button>' +
         '<div class="label">' +
           "<h3 class=\"sr-only\">" + escapeHtml(voice.name) + "</h3>" +
           '<p class="blurb">' + escapeHtml(voice.blurb) + "</p>" +
@@ -271,6 +288,12 @@
         "</div>" +
       "</li>"
     );
+
+    node.querySelector(".peek").addEventListener("click", function () {
+      var opening = !node.classList.contains("open");
+      openCard(opening ? node : null);
+      if (opening) track("character_click", { character: voice.slug, action: "open" });
+    });
 
     node.querySelectorAll(".clip").forEach(function (button) {
       var clip = button.getAttribute("data-clip");
@@ -323,6 +346,7 @@
       a.addEventListener("click", function () {
         document.querySelectorAll(".voice.picked").forEach(function (c) { c.classList.remove("picked"); });
         document.getElementById(v.slug).classList.add("picked");
+        openCard(document.getElementById(v.slug));
         track("cast_click", { character: v.slug });
         track("character_click", { character: v.slug, action: "face" });
       });
@@ -337,6 +361,7 @@
     var target = slug && document.getElementById(slug);
     if (target && target.classList.contains("voice")) {
       target.classList.add("picked");
+      openCard(target);
       target.scrollIntoView({ block: "center" });
     }
   }
@@ -373,6 +398,7 @@
 
   var VOTED_KEY = "backseat.voted";
   var TOP = 4;
+  var MIN_SHOWN = 10;
   // Shown when the board can't be read, so the chips are never empty.
   var FALLBACK = [
     { key: "spongebob", name: "SpongeBob" }, { key: "yoda", name: "Yoda" },
@@ -420,7 +446,8 @@
     board.innerHTML = "";
     (items && items.length ? items : FALLBACK).slice(0, TOP).forEach(function (item) {
       var done = mine.indexOf(item.key) >= 0;
-      var count = typeof item.votes === "number";
+      // A count under MIN_SHOWN reads as an empty room, so it stays hidden.
+      var count = typeof item.votes === "number" && item.votes >= MIN_SHOWN;
       var li = el(
         '<li><button class="chip' + (done ? " done" : "") + '" type="button"' +
         ' aria-label="' + (done ? "You backed " : "Back ") + escapeHtml(item.name) +
