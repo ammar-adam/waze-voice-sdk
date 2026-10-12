@@ -1,0 +1,12 @@
+{
+ "status": "built",
+ "retaken": 8,
+ "unclear": {
+  "start_drive_9": {
+   "line": "Rooby-Rooby-Roo! Buckle up!",
+   "heard": "Ruby, Ruby, Ru! Buckle up!",
+   "clarity": 0.81
+  }
+ },
+ "voice": "31e36fa665eb464cb66cbe416c91f817"
+}

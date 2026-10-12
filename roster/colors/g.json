@@ -1,0 +1,9 @@
+{
+  "kylo-ren": {"bg": "#f3d4d2", "tone": "#c81e1e", "tone_ink": "#ffffff"},
+  "captain-america": {"bg": "#d9e4f7", "tone": "#1f4fa3", "tone_ink": "#ffffff"},
+  "wolverine": {"bg": "#d8e2f5", "tone": "#f2c21a", "tone_ink": "#15172b"},
+  "loki": {"bg": "#d9ecd6", "tone": "#1f6b3a", "tone_ink": "#ffffff"},
+  "mike-wazowski": {"bg": "#e3dcf5", "tone": "#8cc22e", "tone_ink": "#15172b"},
+  "sulley": {"bg": "#fbe6c8", "tone": "#27a9c9", "tone_ink": "#15172b"},
+  "porky-pig": {"bg": "#d6e9fa", "tone": "#f08fa6", "tone_ink": "#15172b"}
+}

@@ -1,0 +1,12 @@
+{
+ "status": "built",
+ "retaken": 3,
+ "unclear": {
+  "start_drive_5": {
+   "line": "Turn to page three hundred and ninety four. Then start the car.",
+   "heard": "Turn to page 394, then start the car.",
+   "clarity": 0.67
+  }
+ },
+ "voice": "f489051d2aa54196aa6bcb463e199027"
+}

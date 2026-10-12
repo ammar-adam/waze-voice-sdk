@@ -1,6 +1,6 @@
 {
   "_comment": "Single source for every UUID on the site. The page, the preview builder and the link checker all read this, so a stale pack is a one-line fix in one place. UUIDs change on every re-upload because Waze has no update-in-place.",
-  "updated": "2026-09-27",
+  "updated": "2026-10-12",
   "voices": [
     {
       "slug": "bugs-bunny",
@@ -9,7 +9,14 @@
       "waze_name": "Bugs Bunny FINAL",
       "blurb": "Unbothered. Wisecracking. A beat ahead of you.",
       "uuid": "9f9f6fa4-43dc-4f0e-adba-71fdfc1d4146",
-      "rights": "in-copyright"
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "looney tunes",
+        "rabbit",
+        "carrot"
+      ],
+      "featured": true
     },
     {
       "slug": "cookie-monster",
@@ -18,7 +25,14 @@
       "waze_name": "Cookie Monster",
       "blurb": "Blunt, delighted, thinking about snacks.",
       "uuid": "942cb57c-690a-4561-b46b-ab185aed25dc",
-      "rights": "in-copyright"
+      "rights": "in-copyright",
+      "category": "family-films",
+      "tags": [
+        "sesame street",
+        "muppet",
+        "cookies"
+      ],
+      "featured": true
     },
     {
       "slug": "daffy-duck",
@@ -27,7 +41,13 @@
       "waze_name": "Daffy Duck",
       "blurb": "Loud, theatrical, personally offended by traffic.",
       "uuid": "fe6e7793-2fc9-46bd-800e-b43fbd56a554",
-      "rights": "in-copyright"
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "looney tunes",
+        "duck"
+      ],
+      "featured": true
     },
     {
       "slug": "elmo",
@@ -36,7 +56,13 @@
       "waze_name": "Elmo",
       "blurb": "Bright, giggly, and proud of you for merging.",
       "uuid": "d258c3c8-540e-42f7-830e-bee395d2874b",
-      "rights": "in-copyright"
+      "rights": "in-copyright",
+      "category": "family-films",
+      "tags": [
+        "sesame street",
+        "muppet"
+      ],
+      "featured": true
     },
     {
       "slug": "tigger",
@@ -45,7 +71,14 @@
       "waze_name": "Tigger",
       "blurb": "Fast, bouncy, overconfident.",
       "uuid": "74ac53f6-9d64-4855-a5c6-5bdf8d15e66b",
-      "rights": "text-public-domain"
+      "rights": "text-public-domain",
+      "category": "disney-pixar",
+      "tags": [
+        "winnie the pooh",
+        "disney",
+        "tiger"
+      ],
+      "featured": true
     },
     {
       "slug": "pooh",
@@ -54,7 +87,15 @@
       "waze_name": "Winnie the Pooh",
       "blurb": "Warm, unhurried, audibly thinking it through.",
       "uuid": "d2516502-6a93-4af6-98f4-f2968d06605e",
-      "rights": "text-public-domain"
+      "rights": "text-public-domain",
+      "category": "disney-pixar",
+      "tags": [
+        "winnie the pooh",
+        "disney",
+        "bear",
+        "honey"
+      ],
+      "featured": true
     },
     {
       "slug": "paddington",
@@ -63,7 +104,14 @@
       "waze_name": "Paddington",
       "blurb": "Unfailingly polite. Marmalade under the hat.",
       "uuid": "b6fddfb7-6998-4297-9985-778226153f31",
-      "rights": "in-copyright"
+      "rights": "in-copyright",
+      "category": "family-films",
+      "tags": [
+        "bear",
+        "marmalade",
+        "british"
+      ],
+      "featured": true
     },
     {
       "slug": "mickey-mouse",
@@ -72,7 +120,13 @@
       "waze_name": "Mickey Mouse",
       "blurb": "Cheerful, plucky, and delighted by every single turn.",
       "uuid": "1beccd0b-0553-4e57-a2fd-2727a7dcde7e",
-      "rights": "in-copyright"
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "disney",
+        "mouse"
+      ],
+      "featured": true
     },
     {
       "slug": "darth-vader",
@@ -81,7 +135,14 @@
       "waze_name": "Darth Vader",
       "blurb": "Deep, calm, and disappointed in you.",
       "uuid": "db3230ba-6272-4110-a47f-a0505a63cc21",
-      "rights": "in-copyright"
+      "rights": "in-copyright",
+      "category": "star-wars",
+      "tags": [
+        "star wars",
+        "sith",
+        "dark side"
+      ],
+      "featured": true
     },
     {
       "slug": "batman",
@@ -90,7 +151,14 @@
       "waze_name": "Batman (Classic)",
       "blurb": "The classic. Low, calm, and already has the Batmobile running.",
       "uuid": "c2412ecf-493c-4a2c-a7fc-e90ca828a8f8",
-      "rights": "in-copyright"
+      "rights": "in-copyright",
+      "category": "superheroes",
+      "tags": [
+        "dc",
+        "gotham",
+        "dark knight"
+      ],
+      "featured": true
     },
     {
       "slug": "gordon-ramsay",
@@ -99,7 +167,14 @@
       "waze_name": "Gordon Ramsay",
       "blurb": "Furious, exacting, and calling you a donkey.",
       "uuid": "dd279026-4d80-42b4-a24d-7a6e2d962ba7",
-      "rights": "in-copyright"
+      "rights": "in-copyright",
+      "category": "film-tv",
+      "tags": [
+        "chef",
+        "hells kitchen",
+        "british"
+      ],
+      "featured": true
     },
     {
       "slug": "eric-cartman",
@@ -108,7 +183,1533 @@
       "waze_name": "Eric Cartman",
       "blurb": "Bossy, whiny, and in charge of the car now.",
       "uuid": "5cba202f-34a0-4504-b7b1-41cc566acacc",
-      "rights": "in-copyright"
+      "rights": "in-copyright",
+      "category": "adult-animation",
+      "tags": [
+        "south park",
+        "cartman"
+      ],
+      "featured": true
+    },
+    {
+      "slug": "yoda",
+      "preset": "yoda",
+      "name": "Yoda",
+      "waze_name": "Yoda",
+      "blurb": "Backwards of sentence. Sure of the way, he is.",
+      "uuid": "0de5cae1-7ac1-4519-ba1e-ff66da8bf53e",
+      "rights": "in-copyright",
+      "category": "star-wars",
+      "tags": [
+        "star wars",
+        "jedi",
+        "green",
+        "master",
+        "the force"
+      ]
+    },
+    {
+      "slug": "stormtrooper",
+      "preset": "stormtrooper",
+      "name": "Stormtrooper",
+      "waze_name": "Stormtrooper",
+      "blurb": "Loyal, armored, and misses every single shot.",
+      "uuid": "b6a8028c-aca4-42a3-b0fa-7064b77cabf6",
+      "rights": "in-copyright",
+      "category": "star-wars",
+      "tags": [
+        "star wars",
+        "empire",
+        "trooper",
+        "helmet",
+        "imperial"
+      ]
+    },
+    {
+      "slug": "c-3po",
+      "preset": "c-3po",
+      "name": "C-3PO",
+      "waze_name": "C-3PO",
+      "blurb": "Fussy, fretful, and certain we're doomed.",
+      "uuid": "419e81bc-444b-4687-bd51-07cc1bfae45e",
+      "rights": "in-copyright",
+      "category": "star-wars",
+      "tags": [
+        "star wars",
+        "droid",
+        "robot",
+        "gold",
+        "threepio"
+      ]
+    },
+    {
+      "slug": "obi-wan-kenobi",
+      "preset": "obi-wan-kenobi",
+      "name": "Obi-Wan Kenobi",
+      "waze_name": "Obi-Wan Kenobi",
+      "blurb": "Hello there. Calm, dry, and has the high ground.",
+      "uuid": "51ff4717-b397-454f-9ab2-006e9a09a260",
+      "rights": "in-copyright",
+      "category": "star-wars",
+      "tags": [
+        "star wars",
+        "jedi",
+        "hello there",
+        "kenobi",
+        "master"
+      ]
+    },
+    {
+      "slug": "jar-jar-binks",
+      "preset": "jar-jar-binks",
+      "name": "Jar Jar Binks",
+      "waze_name": "Jar Jar Binks",
+      "blurb": "Clumsy, cheerful, and meesa so sorry.",
+      "uuid": "645db283-7c52-4c41-a3c0-835a986e1264",
+      "rights": "in-copyright",
+      "category": "star-wars",
+      "tags": [
+        "star wars",
+        "gungan",
+        "meesa",
+        "naboo",
+        "clumsy"
+      ]
+    },
+    {
+      "slug": "emperor-palpatine",
+      "preset": "emperor-palpatine",
+      "name": "Emperor Palpatine",
+      "waze_name": "Emperor Palpatine",
+      "blurb": "Silky, gloating, and he has foreseen your route.",
+      "uuid": "671120f9-4d6b-426f-8d44-aea6797b71c4",
+      "rights": "in-copyright",
+      "category": "star-wars",
+      "tags": [
+        "star wars",
+        "sith",
+        "emperor",
+        "sidious",
+        "dark side"
+      ]
+    },
+    {
+      "slug": "spider-man",
+      "preset": "spider-man",
+      "name": "Spider-Man",
+      "waze_name": "Spider-Man",
+      "blurb": "Friendly, quippy, and his spider sense is tingling.",
+      "uuid": "572f11fd-5762-4ddd-bcd9-ad20691f7e6f",
+      "rights": "in-copyright",
+      "category": "superheroes",
+      "tags": [
+        "marvel",
+        "spidey",
+        "peter parker",
+        "superhero",
+        "web"
+      ]
+    },
+    {
+      "slug": "superman",
+      "preset": "superman",
+      "name": "Superman",
+      "waze_name": "Superman",
+      "blurb": "Earnest, heroic, and sticks to the speed limit.",
+      "uuid": "6298a736-ac74-4995-9d1d-98941d2228f0",
+      "rights": "in-copyright",
+      "category": "superheroes",
+      "tags": [
+        "dc",
+        "man of steel",
+        "clark kent",
+        "superhero",
+        "krypton"
+      ]
+    },
+    {
+      "slug": "iron-man",
+      "preset": "iron-man",
+      "name": "Iron Man",
+      "waze_name": "Iron Man",
+      "blurb": "Genius, billionaire, backseat driver.",
+      "uuid": "33b75ac0-db69-4290-b8a5-3cc795168a8a",
+      "rights": "in-copyright",
+      "category": "superheroes",
+      "tags": [
+        "marvel",
+        "tony stark",
+        "avengers",
+        "superhero",
+        "armor"
+      ]
+    },
+    {
+      "slug": "deadpool",
+      "preset": "deadpool",
+      "name": "Deadpool",
+      "waze_name": "Deadpool",
+      "blurb": "Breaks the fourth wall. Wants a chimichanga.",
+      "uuid": "37a33073-a367-474a-9e8c-17a50da4debd",
+      "rights": "in-copyright",
+      "category": "superheroes",
+      "tags": [
+        "marvel",
+        "wade wilson",
+        "merc with a mouth",
+        "antihero",
+        "chimichanga"
+      ]
+    },
+    {
+      "slug": "joker",
+      "preset": "joker",
+      "name": "The Joker",
+      "waze_name": "The Joker",
+      "blurb": "Why so serious? It's only rush hour.",
+      "uuid": "026298a2-dc13-4963-a1be-b82351edb713",
+      "rights": "in-copyright",
+      "category": "superheroes",
+      "tags": [
+        "dc",
+        "batman",
+        "villain",
+        "clown",
+        "gotham"
+      ]
+    },
+    {
+      "slug": "thor",
+      "preset": "thor",
+      "name": "Thor",
+      "waze_name": "Thor",
+      "blurb": "God of thunder. Every errand is a quest.",
+      "uuid": "3aa761ed-b0f2-47f3-8299-2842b5aad78a",
+      "rights": "in-copyright",
+      "category": "superheroes",
+      "tags": [
+        "marvel",
+        "avengers",
+        "asgard",
+        "thunder",
+        "hammer"
+      ]
+    },
+    {
+      "slug": "hulk",
+      "preset": "hulk",
+      "name": "Hulk",
+      "waze_name": "Hulk",
+      "blurb": "Big, green, and trying to stay calm in traffic.",
+      "uuid": "f344cdf6-f94d-4009-9139-ab73c53a6a7e",
+      "rights": "in-copyright",
+      "category": "superheroes",
+      "tags": [
+        "marvel",
+        "avengers",
+        "green",
+        "smash",
+        "bruce banner"
+      ]
+    },
+    {
+      "slug": "thanos",
+      "preset": "thanos",
+      "name": "Thanos",
+      "waze_name": "Thanos",
+      "blurb": "Calm, heavy, and your arrival is inevitable.",
+      "uuid": "8e1c5976-cfbb-48f3-85fd-aebafefbf0e3",
+      "rights": "in-copyright",
+      "category": "superheroes",
+      "tags": [
+        "marvel",
+        "avengers",
+        "titan",
+        "villain",
+        "infinity stones"
+      ]
+    },
+    {
+      "slug": "bane",
+      "preset": "bane",
+      "name": "Bane",
+      "waze_name": "Bane",
+      "blurb": "Muffled, grand, and born in the fast lane.",
+      "uuid": "11ff5042-1d38-459e-af34-ab925b6be1e3",
+      "rights": "in-copyright",
+      "category": "superheroes",
+      "tags": [
+        "dc",
+        "batman",
+        "villain",
+        "mask",
+        "dark knight rises"
+      ]
+    },
+    {
+      "slug": "harley-quinn",
+      "preset": "harley-quinn",
+      "name": "Harley Quinn",
+      "waze_name": "Harley Quinn",
+      "blurb": "Bubbly, chaotic, and calling you puddin'.",
+      "uuid": "1ef55e8f-8e6c-4b5e-82f8-46de16257593",
+      "rights": "in-copyright",
+      "category": "superheroes",
+      "tags": [
+        "dc",
+        "batman",
+        "villain",
+        "gotham",
+        "puddin"
+      ]
+    },
+    {
+      "slug": "goofy",
+      "preset": "goofy",
+      "name": "Goofy",
+      "waze_name": "Goofy",
+      "blurb": "Gawrsh. Kind, clumsy, and fairly sure of the way.",
+      "uuid": "94534287-112f-4197-b9f4-b8314626627f",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "disney",
+        "mickey mouse",
+        "goof troop",
+        "dog",
+        "gawrsh"
+      ]
+    },
+    {
+      "slug": "stitch",
+      "preset": "stitch",
+      "name": "Stitch",
+      "waze_name": "Stitch",
+      "blurb": "Small, blue, chaotic. Ohana rides together.",
+      "uuid": "91ff171e-49b6-41e7-904b-8dcaca7ce8cc",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "lilo and stitch",
+        "disney",
+        "alien",
+        "ohana",
+        "blue"
+      ]
+    },
+    {
+      "slug": "olaf",
+      "preset": "olaf",
+      "name": "Olaf",
+      "waze_name": "Olaf",
+      "blurb": "Sunny, melty, and worth buckling up for.",
+      "uuid": "ba30e1d7-98eb-409c-9df2-fd562bee269d",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "frozen",
+        "disney",
+        "snowman",
+        "warm hugs",
+        "summer"
+      ]
+    },
+    {
+      "slug": "timon",
+      "preset": "timon",
+      "name": "Timon",
+      "waze_name": "Timon",
+      "blurb": "Fast-talking meerkat. Takes all the credit.",
+      "uuid": "a610fa6f-1733-4a83-bee1-6930d4e543af",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "the lion king",
+        "disney",
+        "meerkat",
+        "hakuna matata",
+        "pumbaa"
+      ]
+    },
+    {
+      "slug": "pumbaa",
+      "preset": "pumbaa",
+      "name": "Pumbaa",
+      "waze_name": "Pumbaa",
+      "blurb": "Big-hearted warthog. Keep a window open.",
+      "uuid": "963abb79-39de-4f6f-b594-e6f1b2b017a1",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "the lion king",
+        "disney",
+        "warthog",
+        "hakuna matata",
+        "timon"
+      ]
+    },
+    {
+      "slug": "mushu",
+      "preset": "mushu",
+      "name": "Mushu",
+      "waze_name": "Mushu",
+      "blurb": "Travel-sized dragon. Dishonor on your cow.",
+      "uuid": "a51a4ad7-516c-4dc2-95fa-d6601541c181",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "mulan",
+        "disney",
+        "dragon",
+        "guardian",
+        "dishonor"
+      ]
+    },
+    {
+      "slug": "buzz-lightyear",
+      "preset": "buzz-lightyear",
+      "name": "Buzz Lightyear",
+      "waze_name": "Buzz Lightyear",
+      "blurb": "Space ranger. Your commute is now a mission.",
+      "uuid": "ea9d5cea-ac69-4937-ac31-34450433bc66",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "toy story",
+        "pixar",
+        "space ranger",
+        "infinity",
+        "astronaut"
+      ]
+    },
+    {
+      "slug": "woody",
+      "preset": "woody",
+      "name": "Woody",
+      "waze_name": "Woody",
+      "blurb": "Loyal sheriff. There's a snake in his boot.",
+      "uuid": "24653b19-5112-428c-ad59-9b70a5f153ab",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "toy story",
+        "pixar",
+        "cowboy",
+        "sheriff",
+        "howdy"
+      ]
+    },
+    {
+      "slug": "dory",
+      "preset": "dory",
+      "name": "Dory",
+      "waze_name": "Dory",
+      "blurb": "Just keep driving. Wait, where are we going?",
+      "uuid": "02b02962-8d1b-4ba6-8e20-d1e8f121a1c0",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "finding nemo",
+        "pixar",
+        "fish",
+        "just keep swimming",
+        "forgetful"
+      ]
+    },
+    {
+      "slug": "mater",
+      "preset": "mater",
+      "name": "Mater",
+      "waze_name": "Mater",
+      "blurb": "Rusty, loyal, and your new best friend.",
+      "uuid": "5053ed2a-484d-4ced-8a14-afcf3567abdc",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "cars",
+        "pixar",
+        "tow truck",
+        "radiator springs",
+        "dad gum"
+      ]
+    },
+    {
+      "slug": "lightning-mcqueen",
+      "preset": "lightning-mcqueen",
+      "name": "Lightning McQueen",
+      "waze_name": "Lightning McQueen",
+      "blurb": "He is speed. You are the speed limit. Ka-chow!",
+      "uuid": "a2fa1463-2b77-4587-a9d2-73ac671a8ac5",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "cars",
+        "pixar",
+        "race car",
+        "ka-chow",
+        "racing"
+      ]
+    },
+    {
+      "slug": "scar",
+      "preset": "scar",
+      "name": "Scar",
+      "waze_name": "Scar",
+      "blurb": "Silky, scheming, and surrounded by idiots.",
+      "uuid": "0eec8dc9-ebe4-42da-a4ff-1bf8b9fcaff2",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "the lion king",
+        "disney",
+        "villain",
+        "lion",
+        "be prepared"
+      ]
+    },
+    {
+      "slug": "jack-sparrow",
+      "preset": "jack-sparrow",
+      "name": "Jack Sparrow",
+      "waze_name": "Captain Jack Sparrow",
+      "blurb": "Captain, if you please. Compass optional. Savvy?",
+      "uuid": "59a95a34-696f-4491-a751-4c216f177766",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "pirates of the caribbean",
+        "disney",
+        "pirate",
+        "captain",
+        "savvy"
+      ]
+    },
+    {
+      "slug": "scooby-doo",
+      "preset": "scooby-doo",
+      "name": "Scooby-Doo",
+      "waze_name": "Scooby-Doo",
+      "blurb": "Ruh-roh! Will navigate for Scooby Snacks.",
+      "uuid": "02e792fd-8989-4541-a71d-b891296d5fad",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "scooby-doo",
+        "hanna-barbera",
+        "dog",
+        "mystery machine",
+        "scooby snacks"
+      ]
+    },
+    {
+      "slug": "shaggy",
+      "preset": "shaggy",
+      "name": "Shaggy",
+      "waze_name": "Shaggy",
+      "blurb": "Like, zoinks! Hungry, nervous, and navigating.",
+      "uuid": "91209498-def2-44f9-ba41-cbaefdbec153",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "scooby-doo",
+        "hanna-barbera",
+        "zoinks",
+        "mystery machine",
+        "hippie"
+      ]
+    },
+    {
+      "slug": "yosemite-sam",
+      "preset": "yosemite-sam",
+      "name": "Yosemite Sam",
+      "waze_name": "Yosemite Sam",
+      "blurb": "Short, loud, and furious at your driving, varmint.",
+      "uuid": "431611e4-c950-45d9-a5c4-9694c9ef7294",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "looney tunes",
+        "warner bros",
+        "cowboy",
+        "varmint",
+        "angry"
+      ]
+    },
+    {
+      "slug": "marvin-the-martian",
+      "preset": "marvin-the-martian",
+      "name": "Marvin the Martian",
+      "waze_name": "Marvin the Martian",
+      "blurb": "Polite, tiny, and very angry indeed.",
+      "uuid": "ae778f7c-3df9-45ca-8b24-9bd5408294e2",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "looney tunes",
+        "warner bros",
+        "martian",
+        "alien",
+        "mars",
+        "space"
+      ]
+    },
+    {
+      "slug": "fred-flintstone",
+      "preset": "fred-flintstone",
+      "name": "Fred Flintstone",
+      "waze_name": "Fred Flintstone",
+      "blurb": "Yabba dabba doo! Foot-powered directions.",
+      "uuid": "c8ced847-60a0-4ebb-8204-3af0bcced078",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "the flintstones",
+        "hanna-barbera",
+        "caveman",
+        "bedrock",
+        "yabba dabba doo"
+      ]
+    },
+    {
+      "slug": "yogi-bear",
+      "preset": "yogi-bear",
+      "name": "Yogi Bear",
+      "waze_name": "Yogi Bear",
+      "blurb": "Smarter than the average sat nav.",
+      "uuid": "7488f30f-893b-4f02-9805-3d40b7d1cde1",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "yogi bear",
+        "hanna-barbera",
+        "bear",
+        "picnic",
+        "jellystone",
+        "boo-boo"
+      ]
+    },
+    {
+      "slug": "homer-simpson",
+      "preset": "homer-simpson",
+      "name": "Homer Simpson",
+      "waze_name": "Homer Simpson",
+      "blurb": "D'oh! Mmm, directions.",
+      "uuid": "a6b9535a-de5b-4981-a7fb-30610c06b009",
+      "rights": "in-copyright",
+      "category": "adult-animation",
+      "tags": [
+        "the simpsons",
+        "springfield",
+        "donuts",
+        "doh",
+        "dad"
+      ]
+    },
+    {
+      "slug": "bart-simpson",
+      "preset": "bart-simpson",
+      "name": "Bart Simpson",
+      "waze_name": "Bart Simpson",
+      "blurb": "Ay caramba! He didn't miss that turn. You did.",
+      "uuid": "7a08489d-44a8-4db6-87d2-935236b5b2e4",
+      "rights": "in-copyright",
+      "category": "adult-animation",
+      "tags": [
+        "the simpsons",
+        "springfield",
+        "eat my shorts",
+        "cowabunga",
+        "skateboard"
+      ]
+    },
+    {
+      "slug": "peter-griffin",
+      "preset": "peter-griffin",
+      "name": "Peter Griffin",
+      "waze_name": "Peter Griffin",
+      "blurb": "Heh heh heh. He said turn. Then forgot why.",
+      "uuid": "8146dcf8-a977-4ee2-a671-ac9f2fbab931",
+      "rights": "in-copyright",
+      "category": "adult-animation",
+      "tags": [
+        "family guy",
+        "quahog",
+        "dad",
+        "bird is the word",
+        "lois"
+      ]
+    },
+    {
+      "slug": "stewie-griffin",
+      "preset": "stewie-griffin",
+      "name": "Stewie Griffin",
+      "waze_name": "Stewie Griffin",
+      "blurb": "A tiny tyrant, appalled by your lane discipline.",
+      "uuid": "8798ea05-29ef-46f6-81bf-1ee5d989cd1f",
+      "rights": "in-copyright",
+      "category": "adult-animation",
+      "tags": [
+        "family guy",
+        "baby",
+        "british",
+        "evil genius",
+        "football head"
+      ]
+    },
+    {
+      "slug": "quagmire",
+      "preset": "quagmire",
+      "name": "Quagmire",
+      "waze_name": "Quagmire",
+      "blurb": "Your over-eager airline pilot neighbor. Giggity.",
+      "uuid": "eddaa472-4bcd-40ff-bf98-859e73b98889",
+      "rights": "in-copyright",
+      "category": "adult-animation",
+      "tags": [
+        "family guy",
+        "giggity",
+        "pilot",
+        "glenn",
+        "quahog"
+      ]
+    },
+    {
+      "slug": "rick-sanchez",
+      "preset": "rick-sanchez",
+      "name": "Rick Sanchez",
+      "waze_name": "Rick Sanchez",
+      "blurb": "Smartest man in the universe. Stuck doing directions.",
+      "uuid": "6ccc58d8-1036-449f-baa8-c50576fd326d",
+      "rights": "in-copyright",
+      "category": "adult-animation",
+      "tags": [
+        "rick and morty",
+        "wubba lubba dub dub",
+        "scientist",
+        "grandpa",
+        "adult swim"
+      ]
+    },
+    {
+      "slug": "morty",
+      "preset": "morty",
+      "name": "Morty",
+      "waze_name": "Morty",
+      "blurb": "Aw, jeez. He is trying his best, okay?",
+      "uuid": "5dcec426-976f-4fbd-9f21-6742f0577615",
+      "rights": "in-copyright",
+      "category": "adult-animation",
+      "tags": [
+        "rick and morty",
+        "morty smith",
+        "aw jeez",
+        "nervous",
+        "adult swim"
+      ]
+    },
+    {
+      "slug": "butters",
+      "preset": "butters",
+      "name": "Butters",
+      "waze_name": "Butters",
+      "blurb": "Oh, hamburgers. Please don't get him grounded.",
+      "uuid": "3e9ae692-c8dc-4630-b92b-d0ec61a7015f",
+      "rights": "in-copyright",
+      "category": "adult-animation",
+      "tags": [
+        "south park",
+        "butters stotch",
+        "professor chaos",
+        "hamburgers",
+        "grounded"
+      ]
+    },
+    {
+      "slug": "randy-marsh",
+      "preset": "randy-marsh",
+      "name": "Randy Marsh",
+      "waze_name": "Randy Marsh",
+      "blurb": "I thought this was America! Fine, turn left.",
+      "uuid": "134e05dc-5f9f-44c4-a823-56870a52dfd8",
+      "rights": "in-copyright",
+      "category": "adult-animation",
+      "tags": [
+        "south park",
+        "dad",
+        "tegridy",
+        "stan's dad",
+        "geologist"
+      ]
+    },
+    {
+      "slug": "hank-hill",
+      "preset": "hank-hill",
+      "name": "Hank Hill",
+      "waze_name": "Hank Hill",
+      "blurb": "Propane, propane accessories, and the speed limit.",
+      "uuid": "54f0ed5e-963c-4c7f-86bf-8e9e577e1e5c",
+      "rights": "in-copyright",
+      "category": "adult-animation",
+      "tags": [
+        "king of the hill",
+        "propane",
+        "texas",
+        "i tell you what",
+        "dad"
+      ]
+    },
+    {
+      "slug": "archer",
+      "preset": "archer",
+      "name": "Archer",
+      "waze_name": "Archer",
+      "blurb": "World's greatest spy. Heading for the danger zone.",
+      "uuid": "b2ed38f5-b5c3-4553-a1cd-98d2c08e646e",
+      "rights": "in-copyright",
+      "category": "adult-animation",
+      "tags": [
+        "archer",
+        "sterling archer",
+        "spy",
+        "danger zone",
+        "lana"
+      ]
+    },
+    {
+      "slug": "spongebob",
+      "preset": "spongebob",
+      "name": "SpongeBob",
+      "waze_name": "SpongeBob",
+      "blurb": "I'm ready! Still never passed boating school.",
+      "uuid": "a2b5c55a-6b44-4170-aa71-0b47aaef6998",
+      "rights": "in-copyright",
+      "category": "family-films",
+      "tags": [
+        "spongebob squarepants",
+        "sponge",
+        "bikini bottom",
+        "krusty krab",
+        "nickelodeon"
+      ]
+    },
+    {
+      "slug": "patrick-star",
+      "preset": "patrick-star",
+      "name": "Patrick Star",
+      "waze_name": "Patrick Star",
+      "blurb": "No, this is Patrick. He thinks it might be left.",
+      "uuid": "3548973a-1c33-4b4a-88eb-f87e133f738e",
+      "rights": "in-copyright",
+      "category": "family-films",
+      "tags": [
+        "spongebob squarepants",
+        "starfish",
+        "pink",
+        "bikini bottom",
+        "nickelodeon"
+      ]
+    },
+    {
+      "slug": "squidward",
+      "preset": "squidward",
+      "name": "Squidward",
+      "waze_name": "Squidward",
+      "blurb": "Oh, joy. Another drive. He'd rather play clarinet.",
+      "uuid": "c3211b15-fb4d-46f7-8203-a7105ee28767",
+      "rights": "in-copyright",
+      "category": "family-films",
+      "tags": [
+        "spongebob squarepants",
+        "squid",
+        "clarinet",
+        "sarcastic",
+        "bikini bottom"
+      ]
+    },
+    {
+      "slug": "mr-krabs",
+      "preset": "mr-krabs",
+      "name": "Mr. Krabs",
+      "waze_name": "Mr. Krabs",
+      "blurb": "Time is money, and this detour is costing him.",
+      "uuid": "247aee54-1025-47cd-82a3-4d818e8b1888",
+      "rights": "in-copyright",
+      "category": "family-films",
+      "tags": [
+        "spongebob squarepants",
+        "crab",
+        "krusty krab",
+        "money",
+        "pirate"
+      ]
+    },
+    {
+      "slug": "shrek",
+      "preset": "shrek",
+      "name": "Shrek",
+      "waze_name": "Shrek",
+      "blurb": "Grumpy ogre. Has layers. Wants you out of his swamp.",
+      "uuid": "c7ff32b5-9caf-4df7-9532-1509b8ebae4a",
+      "rights": "in-copyright",
+      "category": "family-films",
+      "tags": [
+        "shrek",
+        "ogre",
+        "swamp",
+        "scottish",
+        "dreamworks"
+      ]
+    },
+    {
+      "slug": "donkey",
+      "preset": "donkey",
+      "name": "Donkey",
+      "waze_name": "Donkey",
+      "blurb": "Are we there yet? He will never stop asking.",
+      "uuid": "f77667b0-93f3-4d63-b90e-eb2a24743c49",
+      "rights": "in-copyright",
+      "category": "family-films",
+      "tags": [
+        "shrek",
+        "donkey",
+        "waffles",
+        "are we there yet",
+        "dreamworks"
+      ]
+    },
+    {
+      "slug": "gru",
+      "preset": "gru",
+      "name": "Gru",
+      "waze_name": "Gru",
+      "blurb": "Reformed supervillain. Runs errands like a heist.",
+      "uuid": "8e468281-8322-40f3-9024-9a3e4ea42ab5",
+      "rights": "in-copyright",
+      "category": "family-films",
+      "tags": [
+        "despicable me",
+        "minions",
+        "villain",
+        "freeze ray",
+        "illumination"
+      ]
+    },
+    {
+      "slug": "po",
+      "preset": "po",
+      "name": "Po",
+      "waze_name": "Po",
+      "blurb": "The Dragon Warrior. Skadoosh, then dumplings.",
+      "uuid": "92e6f9e7-f85b-411a-8057-06c8d4a274ab",
+      "rights": "in-copyright",
+      "category": "family-films",
+      "tags": [
+        "kung fu panda",
+        "panda",
+        "dragon warrior",
+        "skadoosh",
+        "dreamworks"
+      ]
+    },
+    {
+      "slug": "peppa-pig",
+      "preset": "peppa-pig",
+      "name": "Peppa Pig",
+      "waze_name": "Peppa Pig",
+      "blurb": "Bossy, cheerful, and hoping for muddy puddles.",
+      "uuid": "0a5de5b4-a638-4efb-a0fb-1eadae57deca",
+      "rights": "in-copyright",
+      "category": "family-films",
+      "tags": [
+        "peppa pig",
+        "pig",
+        "muddy puddles",
+        "kids",
+        "british"
+      ]
+    },
+    {
+      "slug": "mario",
+      "preset": "mario",
+      "name": "Mario",
+      "waze_name": "Mario",
+      "blurb": "It's-a him. Let's-a go, wahoo, and a clean arrival.",
+      "uuid": "0ca6cd6e-002d-42fe-ba5b-145febaf1e54",
+      "rights": "in-copyright",
+      "category": "games",
+      "tags": [
+        "super mario",
+        "nintendo",
+        "plumber",
+        "mario kart",
+        "mushroom kingdom"
+      ]
+    },
+    {
+      "slug": "luigi",
+      "preset": "luigi",
+      "name": "Luigi",
+      "waze_name": "Luigi",
+      "blurb": "The nervous brother. Brave anyway. Mostly.",
+      "uuid": "be757e40-78d4-4be7-bbcf-b5797085e3dd",
+      "rights": "in-copyright",
+      "category": "games",
+      "tags": [
+        "super mario",
+        "nintendo",
+        "green",
+        "luigi's mansion",
+        "mario kart"
+      ]
+    },
+    {
+      "slug": "bowser",
+      "preset": "bowser",
+      "name": "Bowser",
+      "waze_name": "Bowser",
+      "blurb": "The Koopa King. Takes every red light personally.",
+      "uuid": "6c3ab5ce-b680-4a60-ac75-e1a7bed0daa1",
+      "rights": "in-copyright",
+      "category": "games",
+      "tags": [
+        "super mario",
+        "nintendo",
+        "koopa",
+        "villain",
+        "mario kart"
+      ]
+    },
+    {
+      "slug": "sonic",
+      "preset": "sonic",
+      "name": "Sonic",
+      "waze_name": "Sonic",
+      "blurb": "Gotta go fast. Legally, though.",
+      "uuid": "2c460e47-263a-4dba-8d3f-3f89ae04aa66",
+      "rights": "in-copyright",
+      "category": "games",
+      "tags": [
+        "sonic the hedgehog",
+        "sega",
+        "hedgehog",
+        "blue",
+        "fast",
+        "gotta go fast"
+      ]
+    },
+    {
+      "slug": "master-chief",
+      "preset": "master-chief",
+      "name": "Master Chief",
+      "waze_name": "Master Chief",
+      "blurb": "Spartan calm. Your commute is the mission.",
+      "uuid": "216fd41a-5f94-412e-9f59-1ea325de8484",
+      "rights": "in-copyright",
+      "category": "games",
+      "tags": [
+        "halo",
+        "xbox",
+        "spartan",
+        "soldier",
+        "cortana"
+      ]
+    },
+    {
+      "slug": "glados",
+      "preset": "glados",
+      "name": "GLaDOS",
+      "waze_name": "GLaDOS",
+      "blurb": "Your driving is being tested. There may be cake.",
+      "uuid": "1601ad55-6c6f-4dbd-a3d4-4048b38468d5",
+      "rights": "in-copyright",
+      "category": "games",
+      "tags": [
+        "portal",
+        "valve",
+        "aperture science",
+        "robot",
+        "ai",
+        "cake"
+      ]
+    },
+    {
+      "slug": "kratos",
+      "preset": "kratos",
+      "name": "Kratos",
+      "waze_name": "Kratos",
+      "blurb": "Do not be sorry. Be a better driver. Boy.",
+      "uuid": "596c9e7c-80ac-4834-9791-f97186ce7938",
+      "rights": "in-copyright",
+      "category": "games",
+      "tags": [
+        "god of war",
+        "playstation",
+        "boy",
+        "sparta",
+        "norse"
+      ]
+    },
+    {
+      "slug": "solid-snake",
+      "preset": "solid-snake",
+      "name": "Solid Snake",
+      "waze_name": "Solid Snake",
+      "blurb": "Kept you waiting, huh? Sneaking through traffic.",
+      "uuid": "8ee3d363-17f1-4f64-a4dd-25effb874534",
+      "rights": "in-copyright",
+      "category": "games",
+      "tags": [
+        "metal gear solid",
+        "metal gear",
+        "konami",
+        "stealth",
+        "cardboard box",
+        "codec"
+      ]
+    },
+    {
+      "slug": "arthur-morgan",
+      "preset": "arthur-morgan",
+      "name": "Arthur Morgan",
+      "waze_name": "Arthur Morgan",
+      "blurb": "A tired outlaw who reckons it's the next left.",
+      "uuid": "38324fbf-e0d6-4a7e-9ec0-7f04a2a71f8e",
+      "rights": "in-copyright",
+      "category": "games",
+      "tags": [
+        "red dead redemption",
+        "rockstar",
+        "cowboy",
+        "outlaw",
+        "western",
+        "rdr2"
+      ]
+    },
+    {
+      "slug": "gandalf",
+      "preset": "gandalf",
+      "name": "Gandalf",
+      "waze_name": "Gandalf",
+      "blurb": "A wizard is never late. Nor is he early.",
+      "uuid": "3758a62c-0ce1-46d8-b6a8-454b54fd1600",
+      "rights": "in-copyright",
+      "category": "film-tv",
+      "tags": [
+        "lord of the rings",
+        "the hobbit",
+        "wizard",
+        "tolkien",
+        "middle earth",
+        "you shall not pass"
+      ]
+    },
+    {
+      "slug": "dumbledore",
+      "preset": "dumbledore",
+      "name": "Dumbledore",
+      "waze_name": "Dumbledore",
+      "blurb": "Calm, twinkling, and offering you a lemon drop.",
+      "uuid": "ac96e473-9ee9-4fa0-92a0-427a12945796",
+      "rights": "in-copyright",
+      "category": "film-tv",
+      "tags": [
+        "harry potter",
+        "hogwarts",
+        "wizard",
+        "headmaster",
+        "lemon drop"
+      ]
+    },
+    {
+      "slug": "snape",
+      "preset": "snape",
+      "name": "Snape",
+      "waze_name": "Snape",
+      "blurb": "Ten points from the driver. Obviously.",
+      "uuid": "e79f2e3a-f5c0-4253-8536-9ea8f942a7a6",
+      "rights": "in-copyright",
+      "category": "film-tv",
+      "tags": [
+        "harry potter",
+        "hogwarts",
+        "potions",
+        "slytherin",
+        "professor",
+        "severus"
+      ]
+    },
+    {
+      "slug": "optimus-prime",
+      "preset": "optimus-prime",
+      "name": "Optimus Prime",
+      "waze_name": "Optimus Prime",
+      "blurb": "Autobots, roll out. Mind the speed limit.",
+      "uuid": "65965bff-009e-4cba-8c1c-84ae8cf80e14",
+      "rights": "in-copyright",
+      "category": "film-tv",
+      "tags": [
+        "transformers",
+        "autobots",
+        "robot",
+        "truck",
+        "roll out"
+      ]
+    },
+    {
+      "slug": "hal-9000",
+      "preset": "hal-9000",
+      "name": "HAL 9000",
+      "waze_name": "HAL 9000",
+      "blurb": "I'm sorry, Dave. I'm afraid you missed the turn.",
+      "uuid": "b0720fa9-48cf-4acc-b174-1b23a511c7ef",
+      "rights": "in-copyright",
+      "category": "film-tv",
+      "tags": [
+        "2001 a space odyssey",
+        "kubrick",
+        "ai",
+        "computer",
+        "dave",
+        "sci fi"
+      ]
+    },
+    {
+      "slug": "jarvis",
+      "preset": "jarvis",
+      "name": "JARVIS",
+      "waze_name": "JARVIS",
+      "blurb": "At your service, sir. Do try to indicate.",
+      "uuid": "bf33709d-b3fa-4d6e-a79a-4117a7e93f45",
+      "rights": "in-copyright",
+      "category": "film-tv",
+      "tags": [
+        "iron man",
+        "marvel",
+        "avengers",
+        "tony stark",
+        "ai",
+        "butler"
+      ]
+    },
+    {
+      "slug": "ted",
+      "preset": "ted",
+      "name": "Ted",
+      "waze_name": "Ted",
+      "blurb": "A Boston teddy bear with opinions on your driving.",
+      "uuid": "b897eedf-d1f4-4f1a-9d90-991f1830e7e0",
+      "rights": "in-copyright",
+      "category": "film-tv",
+      "tags": [
+        "ted",
+        "seth macfarlane",
+        "teddy bear",
+        "boston",
+        "thunder buddies"
+      ]
+    },
+    {
+      "slug": "forrest-gump",
+      "preset": "forrest-gump",
+      "name": "Forrest Gump",
+      "waze_name": "Forrest Gump",
+      "blurb": "Mama always said, take the next exit.",
+      "uuid": "85e86d61-f09e-4b2c-976e-c010adebacb3",
+      "rights": "in-copyright",
+      "category": "film-tv",
+      "tags": [
+        "forrest gump",
+        "tom hanks",
+        "box of chocolates",
+        "alabama",
+        "run forrest run"
+      ]
+    },
+    {
+      "slug": "walter-white",
+      "preset": "walter-white",
+      "name": "Walter White",
+      "waze_name": "Walter White",
+      "blurb": "I am the one who navigates.",
+      "uuid": "9725f655-f52a-48be-879f-1b5a270485de",
+      "rights": "in-copyright",
+      "category": "film-tv",
+      "tags": [
+        "breaking bad",
+        "heisenberg",
+        "chemistry",
+        "say my name",
+        "bryan cranston"
+      ]
+    },
+    {
+      "slug": "kylo-ren",
+      "preset": "kylo-ren",
+      "name": "Kylo Ren",
+      "waze_name": "Kylo Ren",
+      "blurb": "Brooding, intense, and furious about that missed turn.",
+      "uuid": "324f1805-bed0-479b-97d1-071cbdf40d3b",
+      "rights": "in-copyright",
+      "category": "star-wars",
+      "tags": [
+        "star wars",
+        "sith",
+        "dark side",
+        "first order",
+        "ben solo",
+        "villain"
+      ]
+    },
+    {
+      "slug": "captain-america",
+      "preset": "captain-america",
+      "name": "Captain America",
+      "waze_name": "Captain America",
+      "blurb": "Earnest, steady, and he can do this all day.",
+      "uuid": "04068869-feb3-4280-ab59-66f342d39822",
+      "rights": "in-copyright",
+      "category": "superheroes",
+      "tags": [
+        "marvel",
+        "avengers",
+        "steve rogers",
+        "shield",
+        "superhero",
+        "cap"
+      ]
+    },
+    {
+      "slug": "wolverine",
+      "preset": "wolverine",
+      "name": "Wolverine",
+      "waze_name": "Wolverine",
+      "blurb": "Gruff, gravelly, and the best there is at directions.",
+      "uuid": "5655c3a6-7c5d-48e1-847a-4319b9c99a54",
+      "rights": "in-copyright",
+      "category": "superheroes",
+      "tags": [
+        "x-men",
+        "marvel",
+        "logan",
+        "claws",
+        "mutant",
+        "bub"
+      ]
+    },
+    {
+      "slug": "loki",
+      "preset": "loki",
+      "name": "Loki",
+      "waze_name": "Loki",
+      "blurb": "God of mischief. Burdened with your commute.",
+      "uuid": "80b539c5-887b-4428-84b3-d16e1a8809c4",
+      "rights": "in-copyright",
+      "category": "superheroes",
+      "tags": [
+        "marvel",
+        "avengers",
+        "thor",
+        "asgard",
+        "god of mischief",
+        "villain"
+      ]
+    },
+    {
+      "slug": "mike-wazowski",
+      "preset": "mike-wazowski",
+      "name": "Mike Wazowski",
+      "waze_name": "Mike Wazowski",
+      "blurb": "One eye on the road. It's the only one he's got.",
+      "uuid": "a3045d03-6149-4620-8a40-7c6f0ac0b01a",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "monsters inc",
+        "pixar",
+        "disney",
+        "monster",
+        "green",
+        "one eye"
+      ]
+    },
+    {
+      "slug": "sulley",
+      "preset": "sulley",
+      "name": "Sulley",
+      "waze_name": "Sulley",
+      "blurb": "A big blue softie who's got you, buddy.",
+      "uuid": "7ef702a9-8c03-4812-b749-f5baf9e06339",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "monsters inc",
+        "pixar",
+        "disney",
+        "monster",
+        "blue",
+        "kitty"
+      ]
+    },
+    {
+      "slug": "porky-pig",
+      "preset": "porky-pig",
+      "name": "Porky Pig",
+      "waze_name": "Porky Pig",
+      "blurb": "Sweet, flustered, and th-th-that's all, folks.",
+      "uuid": "b75fd4ef-c83d-4bc3-af8d-769886201d34",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "looney tunes",
+        "warner bros",
+        "pig",
+        "stutter",
+        "thats all folks"
+      ]
+    },
+    {
+      "slug": "bob-belcher",
+      "preset": "bob-belcher",
+      "name": "Bob Belcher",
+      "waze_name": "Bob Belcher",
+      "blurb": "Deadpan dad energy. Oh my God, just turn.",
+      "uuid": "d393ba1b-dfaa-4411-9f7a-b5ba68231c93",
+      "rights": "in-copyright",
+      "category": "adult-animation",
+      "tags": [
+        "bobs burgers",
+        "burgers",
+        "dad",
+        "fox",
+        "deadpan",
+        "animation"
+      ]
+    },
+    {
+      "slug": "kyle-broflovski",
+      "preset": "kyle-broflovski",
+      "name": "Kyle Broflovski",
+      "waze_name": "Kyle Broflovski",
+      "blurb": "The sensible one. Dude, just follow the directions.",
+      "uuid": "24493ffd-928a-4977-b1cf-05d5fd99689e",
+      "rights": "in-copyright",
+      "category": "adult-animation",
+      "tags": [
+        "south park",
+        "comedy central",
+        "green hat",
+        "dude",
+        "stan",
+        "cartoon"
+      ]
+    },
+    {
+      "slug": "plankton",
+      "preset": "plankton",
+      "name": "Plankton",
+      "waze_name": "Plankton",
+      "blurb": "One percent evil, ninety-nine percent hot gas.",
+      "uuid": "4cfed85f-fffd-492c-a503-2ef704657b67",
+      "rights": "in-copyright",
+      "category": "family-films",
+      "tags": [
+        "spongebob",
+        "nickelodeon",
+        "chum bucket",
+        "bikini bottom",
+        "villain",
+        "krabby patty"
+      ]
+    },
+    {
+      "slug": "dr-eggman",
+      "preset": "dr-eggman",
+      "name": "Dr. Eggman",
+      "waze_name": "Dr. Eggman",
+      "blurb": "IQ of three hundred. Still foiled by roundabouts.",
+      "uuid": "e6075040-65d4-4194-b8b7-0992981a2086",
+      "rights": "in-copyright",
+      "category": "games",
+      "tags": [
+        "sonic the hedgehog",
+        "sega",
+        "robotnik",
+        "villain",
+        "mad scientist",
+        "eggman"
+      ]
+    },
+    {
+      "slug": "wheatley",
+      "preset": "wheatley",
+      "name": "Wheatley",
+      "waze_name": "Wheatley",
+      "blurb": "Chatty, panicky, and definitely not a moron.",
+      "uuid": "5c888c83-a890-4815-b58d-23c2df44397d",
+      "rights": "in-copyright",
+      "category": "games",
+      "tags": [
+        "portal",
+        "valve",
+        "portal 2",
+        "aperture",
+        "robot",
+        "british"
+      ]
+    },
+    {
+      "slug": "saul-goodman",
+      "preset": "saul-goodman",
+      "name": "Saul Goodman",
+      "waze_name": "Saul Goodman",
+      "blurb": "Missed your exit? Better call Saul.",
+      "uuid": "b07d215f-e8d4-4149-933c-10461f0079fc",
+      "rights": "in-copyright",
+      "category": "film-tv",
+      "tags": [
+        "breaking bad",
+        "better call saul",
+        "lawyer",
+        "attorney",
+        "albuquerque",
+        "jimmy mcgill"
+      ]
+    },
+    {
+      "slug": "kitt",
+      "preset": "kitt",
+      "name": "KITT",
+      "waze_name": "KITT",
+      "blurb": "Calm, precise, and would rather drive itself.",
+      "uuid": "6e34f1e3-ceb0-4769-b045-a49a758a28a2",
+      "rights": "in-copyright",
+      "category": "film-tv",
+      "tags": [
+        "knight rider",
+        "talking car",
+        "trans am",
+        "eighties",
+        "michael knight",
+        "ai"
+      ]
+    },
+    {
+      "slug": "popeye",
+      "preset": "popeye",
+      "name": "Popeye",
+      "waze_name": "Popeye",
+      "blurb": "He yam what he yam: your navigator.",
+      "uuid": "f59e00b0-fc05-4b6f-8671-69b8a921dbdf",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "popeye",
+        "sailor",
+        "spinach",
+        "olive oyl",
+        "classic cartoon",
+        "king features"
+      ]
     }
   ]
 }

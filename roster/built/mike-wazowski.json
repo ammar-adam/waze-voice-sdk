@@ -1,0 +1,17 @@
+{
+ "status": "built",
+ "retaken": 0,
+ "unclear": {
+  "accident_ahead": {
+   "line": "An accident ahead. Twenty three nineteen! Careful, pal.",
+   "heard": "An accident ahead. 2319. Careful, pal.",
+   "clarity": 0.71
+  },
+  "start_drive_8": {
+   "line": "Twenty three nineteen! Kidding. All clear. Let's hit the road.",
+   "heard": "2319! Kidding. All clear. Let's hit the road.",
+   "clarity": 0.75
+  }
+ },
+ "voice": "03b05cd464c64c1cb6752260d3e48c43"
+}

@@ -28,7 +28,10 @@ var VERCEL_PROPS = {
   install_worked: ["character", "worked"],
   github_click: ["page", "link"],
   doc_read: ["page"],
-  suggest: ["character"]
+  suggest: ["character"],
+  search: ["query"],
+  search_suggest: ["query"],
+  category_filter: ["category"]
 };
 
 function vercelData(name, props) {

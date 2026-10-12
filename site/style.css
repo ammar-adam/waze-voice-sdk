@@ -255,6 +255,35 @@ h2 + .voices, h2 + .steps { margin-top: 1.3rem; }
 @keyframes move-squash { 25% { transform: scale(1.15, .8) translateY(8%); } 55% { transform: scale(.92, 1.1) translateY(-6%); } }
 @keyframes move-lean { 35%, 65% { transform: perspective(500px) rotateY(-30deg) rotate(4deg); } }
 
+/* Search and category filters above the voices (app.js: finder). */
+.finder { display: grid; gap: .7rem; margin: 0 0 1.5rem; }
+.finder input {
+  width: 100%; max-width: 30rem; padding: .8rem 1.1rem; font: inherit;
+  border: 2.5px solid var(--line); border-radius: 999px; background: var(--label);
+  box-shadow: var(--shadow);
+}
+.cats { display: flex; gap: .45rem; flex-wrap: wrap; }
+.cat {
+  padding: .4rem .85rem; border: 2px solid var(--line); border-radius: 999px;
+  background: var(--label); color: var(--ink); font: 700 .9rem/1.2 var(--body); cursor: pointer;
+  white-space: nowrap;
+}
+.cat:hover { background: var(--sun); }
+.cat[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.finder-note {
+  margin: .4rem 0 0; display: flex; gap: .7rem; align-items: center; flex-wrap: wrap;
+  font-weight: 600;
+}
+.finder-note[hidden], .voice[hidden] { display: none; }
+@media (max-width: 640px) {
+  /* One swipeable row of categories, so the faces stay near the top. */
+  .cats {
+    flex-wrap: nowrap; overflow-x: auto; margin: 0 -1.1rem; padding: 0 1.1rem .3rem;
+    scrollbar-width: none;
+  }
+  .cats::-webkit-scrollbar { display: none; }
+}
+
 /* Phones: a two-up grid of faces. Tapping one (the .peek button over the
    stage) opens its full card across both columns; app.js keeps one open. */
 .peek, .tap-hint { display: none; }

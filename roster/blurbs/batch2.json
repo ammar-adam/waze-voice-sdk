@@ -1,0 +1,280 @@
+{
+  "rafiki": {
+    "blurb": "Cackling wisdom. Will hit you with a stick.",
+    "tags": [
+      "the lion king",
+      "disney",
+      "monkey",
+      "baboon",
+      "wise"
+    ],
+    "waze_name": "Rafiki"
+  },
+  "timon": {
+    "blurb": "Fast-talking meerkat. Takes all the credit.",
+    "tags": [
+      "the lion king",
+      "disney",
+      "meerkat",
+      "hakuna matata",
+      "pumbaa"
+    ],
+    "waze_name": "Timon"
+  },
+  "pumbaa": {
+    "blurb": "Big-hearted warthog. Keep a window open.",
+    "tags": [
+      "the lion king",
+      "disney",
+      "warthog",
+      "hakuna matata",
+      "timon"
+    ],
+    "waze_name": "Pumbaa"
+  },
+  "mushu": {
+    "blurb": "Travel-sized dragon. Dishonor on your cow.",
+    "tags": [
+      "mulan",
+      "disney",
+      "dragon",
+      "guardian",
+      "dishonor"
+    ],
+    "waze_name": "Mushu"
+  },
+  "buzz-lightyear": {
+    "blurb": "Space ranger. Your commute is now a mission.",
+    "tags": [
+      "toy story",
+      "pixar",
+      "space ranger",
+      "infinity",
+      "astronaut"
+    ],
+    "waze_name": "Buzz Lightyear"
+  },
+  "woody": {
+    "blurb": "Loyal sheriff. There's a snake in his boot.",
+    "tags": [
+      "toy story",
+      "pixar",
+      "cowboy",
+      "sheriff",
+      "howdy"
+    ],
+    "waze_name": "Woody"
+  },
+  "dory": {
+    "blurb": "Just keep driving. Wait, where are we going?",
+    "tags": [
+      "finding nemo",
+      "pixar",
+      "fish",
+      "just keep swimming",
+      "forgetful"
+    ],
+    "waze_name": "Dory"
+  },
+  "mater": {
+    "blurb": "Rusty, loyal, and your new best friend.",
+    "tags": [
+      "cars",
+      "pixar",
+      "tow truck",
+      "radiator springs",
+      "dad gum"
+    ],
+    "waze_name": "Mater"
+  },
+  "lightning-mcqueen": {
+    "blurb": "He is speed. You are the speed limit. Ka-chow!",
+    "tags": [
+      "cars",
+      "pixar",
+      "race car",
+      "ka-chow",
+      "racing"
+    ],
+    "waze_name": "Lightning McQueen"
+  },
+  "maui": {
+    "blurb": "Demigod navigator. You're welcome.",
+    "tags": [
+      "moana",
+      "disney",
+      "demigod",
+      "you're welcome",
+      "the rock"
+    ],
+    "waze_name": "Maui"
+  },
+  "scar": {
+    "blurb": "Silky, scheming, and surrounded by idiots.",
+    "tags": [
+      "the lion king",
+      "disney",
+      "villain",
+      "lion",
+      "be prepared"
+    ],
+    "waze_name": "Scar"
+  },
+  "jack-sparrow": {
+    "blurb": "Captain, if you please. Compass optional. Savvy?",
+    "tags": [
+      "pirates of the caribbean",
+      "disney",
+      "pirate",
+      "captain",
+      "savvy"
+    ],
+    "waze_name": "Captain Jack Sparrow"
+  },
+  "eeyore": {
+    "blurb": "Flat, resigned, and entirely correct.",
+    "tags": [
+      "winnie the pooh",
+      "donkey",
+      "gloomy",
+      "sad",
+      "hundred acre wood"
+    ],
+    "waze_name": "Eeyore"
+  },
+  "scooby-doo": {
+    "blurb": "Ruh-roh! Will navigate for Scooby Snacks.",
+    "tags": [
+      "scooby-doo",
+      "hanna-barbera",
+      "dog",
+      "mystery machine",
+      "scooby snacks"
+    ],
+    "waze_name": "Scooby-Doo"
+  },
+  "shaggy": {
+    "blurb": "Like, zoinks! Hungry, nervous, and navigating.",
+    "tags": [
+      "scooby-doo",
+      "hanna-barbera",
+      "zoinks",
+      "mystery machine",
+      "hippie"
+    ],
+    "waze_name": "Shaggy"
+  },
+  "foghorn-leghorn": {
+    "blurb": "I say, I say, turn left, son. Left, that is.",
+    "tags": [
+      "looney tunes",
+      "warner bros",
+      "rooster",
+      "chicken",
+      "i say"
+    ],
+    "waze_name": "Foghorn Leghorn"
+  },
+  "yosemite-sam": {
+    "blurb": "Short, loud, and furious at your driving, varmint.",
+    "tags": [
+      "looney tunes",
+      "warner bros",
+      "cowboy",
+      "varmint",
+      "angry"
+    ],
+    "waze_name": "Yosemite Sam"
+  },
+  "marvin-the-martian": {
+    "blurb": "Polite, tiny, and very angry indeed.",
+    "tags": [
+      "looney tunes",
+      "warner bros",
+      "martian",
+      "alien",
+      "mars",
+      "space"
+    ],
+    "waze_name": "Marvin the Martian"
+  },
+  "fred-flintstone": {
+    "blurb": "Yabba dabba doo! Foot-powered directions.",
+    "tags": [
+      "the flintstones",
+      "hanna-barbera",
+      "caveman",
+      "bedrock",
+      "yabba dabba doo"
+    ],
+    "waze_name": "Fred Flintstone"
+  },
+  "yogi-bear": {
+    "blurb": "Smarter than the average sat nav.",
+    "tags": [
+      "yogi bear",
+      "hanna-barbera",
+      "bear",
+      "picnic",
+      "jellystone",
+      "boo-boo"
+    ],
+    "waze_name": "Yogi Bear"
+  },
+  "johnny-bravo": {
+    "blurb": "Whoa, mama! Great hair, decent directions.",
+    "tags": [
+      "johnny bravo",
+      "cartoon network",
+      "elvis",
+      "hair",
+      "muscles"
+    ],
+    "waze_name": "Johnny Bravo"
+  },
+  "homer-simpson": {
+    "blurb": "D'oh! Mmm, directions.",
+    "tags": [
+      "the simpsons",
+      "springfield",
+      "donuts",
+      "doh",
+      "dad"
+    ],
+    "waze_name": "Homer Simpson"
+  },
+  "bart-simpson": {
+    "blurb": "Ay caramba! He didn't miss that turn. You did.",
+    "tags": [
+      "the simpsons",
+      "springfield",
+      "eat my shorts",
+      "cowabunga",
+      "skateboard"
+    ],
+    "waze_name": "Bart Simpson"
+  },
+  "mr-burns": {
+    "blurb": "Excellent. Release the hounds on traffic.",
+    "tags": [
+      "the simpsons",
+      "springfield",
+      "excellent",
+      "smithers",
+      "villain",
+      "boss"
+    ],
+    "waze_name": "Mr. Burns"
+  },
+  "peter-griffin": {
+    "blurb": "Heh heh heh. He said turn. Then forgot why.",
+    "tags": [
+      "family guy",
+      "quahog",
+      "dad",
+      "bird is the word",
+      "lois"
+    ],
+    "waze_name": "Peter Griffin"
+  }
+}

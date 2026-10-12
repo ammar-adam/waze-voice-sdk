@@ -6,6 +6,16 @@ Notable changes. Dates are when the work landed on `main`.
 
 ### Added
 
+- **One hundred characters.** Eighty-eight new packs, built, transcribed,
+  uploaded and verified byte for byte. `roster/` holds the list, the voice
+  picks and the briefs; `scripts/find_voices.py` auditions Fish models (a pick
+  must name the character and have 10+ likes or 2,000+ uses), and
+  `scripts/ship_roster.py` takes a character from script and voice to a
+  published pack.
+- **Search and categories.** The site filters the hundred by name, franchise
+  and tag, forgives a typo, and turns a miss into a one-tap suggestion.
+- **A richer face style.** Every new face is cel-shaded and textured, drawn
+  from reference; `roster/BRIEF-faces-v2.md` is the style guide.
 - **Mickey Mouse replaces Hagrid.** A full pack on the most-used Mickey model,
   run through the consistency pass and transcription, uploaded and verified.
   Hagrid's preset stays in the repo but is off the site and the build list.

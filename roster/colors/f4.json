@@ -1,0 +1,77 @@
+{
+  "stewie-griffin": {
+    "bg": "#cfe6ff",
+    "tone": "#e03a2f",
+    "tone_ink": "#ffffff"
+  },
+  "quagmire": {
+    "bg": "#d3ecd9",
+    "tone": "#d8322a",
+    "tone_ink": "#ffffff"
+  },
+  "rick-sanchez": {
+    "bg": "#dcf3c9",
+    "tone": "#97ce4c",
+    "tone_ink": "#15172b"
+  },
+  "morty": {
+    "bg": "#cfe4ff",
+    "tone": "#f5d93b",
+    "tone_ink": "#15172b"
+  },
+  "bender": {
+    "bg": "#ffe7b8",
+    "tone": "#5f7d91",
+    "tone_ink": "#ffffff"
+  },
+  "butters": {
+    "bg": "#ddd6f7",
+    "tone": "#3fb5ab",
+    "tone_ink": "#15172b"
+  },
+  "randy-marsh": {
+    "bg": "#ffe3c2",
+    "tone": "#3f8fb0",
+    "tone_ink": "#15172b"
+  },
+  "mr-mackey": {
+    "bg": "#e7ddf6",
+    "tone": "#3f9a4a",
+    "tone_ink": "#15172b"
+  },
+  "hank-hill": {
+    "bg": "#f3e6cf",
+    "tone": "#2f6db5",
+    "tone_ink": "#ffffff"
+  },
+  "archer": {
+    "bg": "#ffd9d0",
+    "tone": "#1f2a44",
+    "tone_ink": "#ffffff"
+  },
+  "spongebob": {
+    "bg": "#c8ecff",
+    "tone": "#f7d21e",
+    "tone_ink": "#15172b"
+  },
+  "patrick-star": {
+    "bg": "#d5f2c4",
+    "tone": "#f2788c",
+    "tone_ink": "#15172b"
+  },
+  "squidward": {
+    "bg": "#f5e3c8",
+    "tone": "#4fa89a",
+    "tone_ink": "#15172b"
+  },
+  "mr-krabs": {
+    "bg": "#cdeef0",
+    "tone": "#e0392b",
+    "tone_ink": "#ffffff"
+  },
+  "shrek": {
+    "bg": "#efe0c4",
+    "tone": "#7fa32c",
+    "tone_ink": "#15172b"
+  }
+}

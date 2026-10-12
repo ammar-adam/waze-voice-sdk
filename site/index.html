@@ -76,6 +76,13 @@
     <section class="block" id="voices" aria-labelledby="voices-h">
       <h2 id="voices-h">Pick your navigator</h2>
       <p class="tap-hint">Tap a face to hear it and install.</p>
+      <!-- Search and category filters, filled by app.js from voices.json. -->
+      <div class="finder" id="finder" hidden>
+        <input id="voice-search" type="search" autocomplete="off" spellcheck="false"
+          placeholder="Search characters" aria-label="Search characters">
+        <div class="cats" id="voice-cats" role="group" aria-label="Filter by category"></div>
+        <p class="finder-note" id="finder-note" aria-live="polite" hidden></p>
+      </div>
       <ul class="voices" id="voice-list">
         <li class="voice"><div class="label"><p class="blurb">Loading voices…</p></div></li>
       </ul>

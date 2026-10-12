@@ -1,0 +1,17 @@
+{
+  "scar": {"bg": "#f3dcb8", "tone": "#8a3b1c", "tone_ink": "#ffffff"},
+  "jack-sparrow": {"bg": "#f6d5c8", "tone": "#c8322b", "tone_ink": "#ffffff"},
+  "eeyore": {"bg": "#f7d6e2", "tone": "#6f80b8", "tone_ink": "#ffffff"},
+  "scooby-doo": {"bg": "#cdeef0", "tone": "#b4722f", "tone_ink": "#15172b"},
+  "shaggy": {"bg": "#d6efc4", "tone": "#7fb92e", "tone_ink": "#15172b"},
+  "foghorn-leghorn": {"bg": "#ffe0b8", "tone": "#e0312b", "tone_ink": "#ffffff"},
+  "yosemite-sam": {"bg": "#ffe2bf", "tone": "#e8651f", "tone_ink": "#15172b"},
+  "marvin-the-martian": {"bg": "#ffd3cc", "tone": "#3e9b4f", "tone_ink": "#15172b"},
+  "fred-flintstone": {"bg": "#cfe6f7", "tone": "#f28a1e", "tone_ink": "#15172b"},
+  "yogi-bear": {"bg": "#d9efcf", "tone": "#3f9a45", "tone_ink": "#15172b"},
+  "johnny-bravo": {"bg": "#d5e4fb", "tone": "#f5d130", "tone_ink": "#15172b"},
+  "homer-simpson": {"bg": "#cfe4ff", "tone": "#ffd521", "tone_ink": "#15172b"},
+  "bart-simpson": {"bg": "#ffd9cf", "tone": "#e8452c", "tone_ink": "#ffffff"},
+  "mr-burns": {"bg": "#d6ecd2", "tone": "#3f7f5a", "tone_ink": "#ffffff"},
+  "peter-griffin": {"bg": "#d9efc9", "tone": "#3f9a45", "tone_ink": "#15172b"}
+}

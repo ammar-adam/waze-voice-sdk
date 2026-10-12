@@ -1,0 +1,77 @@
+{
+  "donkey": {
+    "bg": "#e6dfd6",
+    "tone": "#756c64",
+    "tone_ink": "#ffffff"
+  },
+  "puss-in-boots": {
+    "bg": "#ffe2c2",
+    "tone": "#e07a1f",
+    "tone_ink": "#15172b"
+  },
+  "gru": {
+    "bg": "#dde2ea",
+    "tone": "#4a4f5c",
+    "tone_ink": "#ffffff"
+  },
+  "po": {
+    "bg": "#d8f0d2",
+    "tone": "#23782e",
+    "tone_ink": "#ffffff"
+  },
+  "peppa-pig": {
+    "bg": "#ffe3ee",
+    "tone": "#d81b60",
+    "tone_ink": "#ffffff"
+  },
+  "mario": {
+    "bg": "#ffd8d4",
+    "tone": "#e52521",
+    "tone_ink": "#ffffff"
+  },
+  "luigi": {
+    "bg": "#d6f0d0",
+    "tone": "#1f8a2c",
+    "tone_ink": "#ffffff"
+  },
+  "bowser": {
+    "bg": "#fbe8b4",
+    "tone": "#c9371a",
+    "tone_ink": "#ffffff"
+  },
+  "sonic": {
+    "bg": "#cfe0ff",
+    "tone": "#1f5fd0",
+    "tone_ink": "#ffffff"
+  },
+  "master-chief": {
+    "bg": "#e3ebd0",
+    "tone": "#4f6b2f",
+    "tone_ink": "#ffffff"
+  },
+  "glados": {
+    "bg": "#d6dae4",
+    "tone": "#f5a700",
+    "tone_ink": "#15172b"
+  },
+  "kratos": {
+    "bg": "#f3d4d0",
+    "tone": "#a3161b",
+    "tone_ink": "#ffffff"
+  },
+  "geralt": {
+    "bg": "#c8cee0",
+    "tone": "#3a3f52",
+    "tone_ink": "#ffffff"
+  },
+  "solid-snake": {
+    "bg": "#d2dee8",
+    "tone": "#3f5870",
+    "tone_ink": "#ffffff"
+  },
+  "arthur-morgan": {
+    "bg": "#f0ddc2",
+    "tone": "#8a3b22",
+    "tone_ink": "#ffffff"
+  }
+}

@@ -1,0 +1,233 @@
+{
+  "sonic": {
+    "blurb": "Gotta go fast. Legally, though.",
+    "tags": [
+      "sonic the hedgehog",
+      "sega",
+      "hedgehog",
+      "blue",
+      "fast",
+      "gotta go fast"
+    ],
+    "waze_name": "Sonic"
+  },
+  "master-chief": {
+    "blurb": "Spartan calm. Your commute is the mission.",
+    "tags": [
+      "halo",
+      "xbox",
+      "spartan",
+      "soldier",
+      "cortana"
+    ],
+    "waze_name": "Master Chief"
+  },
+  "glados": {
+    "blurb": "Your driving is being tested. There may be cake.",
+    "tags": [
+      "portal",
+      "valve",
+      "aperture science",
+      "robot",
+      "ai",
+      "cake"
+    ],
+    "waze_name": "GLaDOS"
+  },
+  "kratos": {
+    "blurb": "Do not be sorry. Be a better driver. Boy.",
+    "tags": [
+      "god of war",
+      "playstation",
+      "boy",
+      "sparta",
+      "norse"
+    ],
+    "waze_name": "Kratos"
+  },
+  "geralt": {
+    "blurb": "Hmm. Wind's howling. Turn left.",
+    "tags": [
+      "the witcher",
+      "witcher",
+      "roach",
+      "gwent",
+      "monster hunter",
+      "rivia"
+    ],
+    "waze_name": "Geralt"
+  },
+  "solid-snake": {
+    "blurb": "Kept you waiting, huh? Sneaking through traffic.",
+    "tags": [
+      "metal gear solid",
+      "metal gear",
+      "konami",
+      "stealth",
+      "cardboard box",
+      "codec"
+    ],
+    "waze_name": "Solid Snake"
+  },
+  "arthur-morgan": {
+    "blurb": "A tired outlaw who reckons it's the next left.",
+    "tags": [
+      "red dead redemption",
+      "rockstar",
+      "cowboy",
+      "outlaw",
+      "western",
+      "rdr2"
+    ],
+    "waze_name": "Arthur Morgan"
+  },
+  "gandalf": {
+    "blurb": "A wizard is never late. Nor is he early.",
+    "tags": [
+      "lord of the rings",
+      "the hobbit",
+      "wizard",
+      "tolkien",
+      "middle earth",
+      "you shall not pass"
+    ],
+    "waze_name": "Gandalf"
+  },
+  "gollum": {
+    "blurb": "We knows the way, precious. Tricksy roads.",
+    "tags": [
+      "lord of the rings",
+      "the hobbit",
+      "smeagol",
+      "precious",
+      "tolkien",
+      "my precious"
+    ],
+    "waze_name": "Gollum"
+  },
+  "dumbledore": {
+    "blurb": "Calm, twinkling, and offering you a lemon drop.",
+    "tags": [
+      "harry potter",
+      "hogwarts",
+      "wizard",
+      "headmaster",
+      "lemon drop"
+    ],
+    "waze_name": "Dumbledore"
+  },
+  "snape": {
+    "blurb": "Ten points from the driver. Obviously.",
+    "tags": [
+      "harry potter",
+      "hogwarts",
+      "potions",
+      "slytherin",
+      "professor",
+      "severus"
+    ],
+    "waze_name": "Snape"
+  },
+  "dobby": {
+    "blurb": "Dobby is a free elf, and Dobby has a map, sir!",
+    "tags": [
+      "harry potter",
+      "house elf",
+      "elf",
+      "hogwarts",
+      "sock",
+      "free elf"
+    ],
+    "waze_name": "Dobby"
+  },
+  "optimus-prime": {
+    "blurb": "Autobots, roll out. Mind the speed limit.",
+    "tags": [
+      "transformers",
+      "autobots",
+      "robot",
+      "truck",
+      "roll out"
+    ],
+    "waze_name": "Optimus Prime"
+  },
+  "hal-9000": {
+    "blurb": "I'm sorry, Dave. I'm afraid you missed the turn.",
+    "tags": [
+      "2001 a space odyssey",
+      "kubrick",
+      "ai",
+      "computer",
+      "dave",
+      "sci fi"
+    ],
+    "waze_name": "HAL 9000"
+  },
+  "jarvis": {
+    "blurb": "At your service, sir. Do try to indicate.",
+    "tags": [
+      "iron man",
+      "marvel",
+      "avengers",
+      "tony stark",
+      "ai",
+      "butler"
+    ],
+    "waze_name": "JARVIS"
+  },
+  "ted": {
+    "blurb": "A Boston teddy bear with opinions on your driving.",
+    "tags": [
+      "ted",
+      "seth macfarlane",
+      "teddy bear",
+      "boston",
+      "thunder buddies"
+    ],
+    "waze_name": "Ted"
+  },
+  "forrest-gump": {
+    "blurb": "Mama always said, take the next exit.",
+    "tags": [
+      "forrest gump",
+      "tom hanks",
+      "box of chocolates",
+      "alabama",
+      "run forrest run"
+    ],
+    "waze_name": "Forrest Gump"
+  },
+  "michael-scott": {
+    "blurb": "World's best boss. Do not drive into the lake.",
+    "tags": [
+      "the office",
+      "dunder mifflin",
+      "scranton",
+      "boss",
+      "steve carell"
+    ],
+    "waze_name": "Michael Scott"
+  },
+  "walter-white": {
+    "blurb": "I am the one who navigates.",
+    "tags": [
+      "breaking bad",
+      "heisenberg",
+      "chemistry",
+      "say my name",
+      "bryan cranston"
+    ],
+    "waze_name": "Walter White"
+  },
+  "doc-brown": {
+    "blurb": "Great Scott! Where we're going, we do need roads.",
+    "tags": [
+      "back to the future",
+      "delorean",
+      "time travel",
+      "great scott",
+      "marty"
+    ],
+    "waze_name": "Doc Brown"
+  }
+}

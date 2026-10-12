@@ -98,3 +98,6 @@ film/src/toughcrowd*.*
 
 # The launch film is served by the site.
 !site/film/*.mp4
+
+# Roster build logs.
+roster/built/_*

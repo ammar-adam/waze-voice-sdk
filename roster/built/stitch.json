@@ -1,0 +1,12 @@
+{
+ "status": "built",
+ "retaken": 2,
+ "unclear": {
+  "start_drive_8": {
+   "line": "Experiment six two six, reporting for navigation.",
+   "heard": "Experiment 626, reporting for navigation.",
+   "clarity": 0.84
+  }
+ },
+ "voice": "2469c64d77bd466abe0371b1c0b092e9"
+}

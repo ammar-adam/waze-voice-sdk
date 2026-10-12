@@ -1,0 +1,255 @@
+{
+  "stewie-griffin": {
+    "blurb": "A tiny tyrant, appalled by your lane discipline.",
+    "tags": [
+      "family guy",
+      "baby",
+      "british",
+      "evil genius",
+      "football head"
+    ],
+    "waze_name": "Stewie Griffin"
+  },
+  "quagmire": {
+    "blurb": "Your over-eager airline pilot neighbor. Giggity.",
+    "tags": [
+      "family guy",
+      "giggity",
+      "pilot",
+      "glenn",
+      "quahog"
+    ],
+    "waze_name": "Quagmire"
+  },
+  "rick-sanchez": {
+    "blurb": "Smartest man in the universe. Stuck doing directions.",
+    "tags": [
+      "rick and morty",
+      "wubba lubba dub dub",
+      "scientist",
+      "grandpa",
+      "adult swim"
+    ],
+    "waze_name": "Rick Sanchez"
+  },
+  "morty": {
+    "blurb": "Aw, jeez. He is trying his best, okay?",
+    "tags": [
+      "rick and morty",
+      "morty smith",
+      "aw jeez",
+      "nervous",
+      "adult swim"
+    ],
+    "waze_name": "Morty"
+  },
+  "bender": {
+    "blurb": "Bite my shiny metal bumper, meatbag.",
+    "tags": [
+      "futurama",
+      "robot",
+      "meatbag",
+      "bending unit",
+      "planet express"
+    ],
+    "waze_name": "Bender"
+  },
+  "butters": {
+    "blurb": "Oh, hamburgers. Please don't get him grounded.",
+    "tags": [
+      "south park",
+      "butters stotch",
+      "professor chaos",
+      "hamburgers",
+      "grounded"
+    ],
+    "waze_name": "Butters"
+  },
+  "randy-marsh": {
+    "blurb": "I thought this was America! Fine, turn left.",
+    "tags": [
+      "south park",
+      "dad",
+      "tegridy",
+      "stan's dad",
+      "geologist"
+    ],
+    "waze_name": "Randy Marsh"
+  },
+  "mr-mackey": {
+    "blurb": "Missing your turn is bad, m'kay.",
+    "tags": [
+      "south park",
+      "mkay",
+      "counselor",
+      "teacher",
+      "school"
+    ],
+    "waze_name": "Mr. Mackey"
+  },
+  "hank-hill": {
+    "blurb": "Propane, propane accessories, and the speed limit.",
+    "tags": [
+      "king of the hill",
+      "propane",
+      "texas",
+      "i tell you what",
+      "dad"
+    ],
+    "waze_name": "Hank Hill"
+  },
+  "archer": {
+    "blurb": "World's greatest spy. Heading for the danger zone.",
+    "tags": [
+      "archer",
+      "sterling archer",
+      "spy",
+      "danger zone",
+      "lana"
+    ],
+    "waze_name": "Archer"
+  },
+  "spongebob": {
+    "blurb": "I'm ready! Still never passed boating school.",
+    "tags": [
+      "spongebob squarepants",
+      "sponge",
+      "bikini bottom",
+      "krusty krab",
+      "nickelodeon"
+    ],
+    "waze_name": "SpongeBob"
+  },
+  "patrick-star": {
+    "blurb": "No, this is Patrick. He thinks it might be left.",
+    "tags": [
+      "spongebob squarepants",
+      "starfish",
+      "pink",
+      "bikini bottom",
+      "nickelodeon"
+    ],
+    "waze_name": "Patrick Star"
+  },
+  "squidward": {
+    "blurb": "Oh, joy. Another drive. He'd rather play clarinet.",
+    "tags": [
+      "spongebob squarepants",
+      "squid",
+      "clarinet",
+      "sarcastic",
+      "bikini bottom"
+    ],
+    "waze_name": "Squidward"
+  },
+  "mr-krabs": {
+    "blurb": "Time is money, and this detour is costing him.",
+    "tags": [
+      "spongebob squarepants",
+      "crab",
+      "krusty krab",
+      "money",
+      "pirate"
+    ],
+    "waze_name": "Mr. Krabs"
+  },
+  "shrek": {
+    "blurb": "Grumpy ogre. Has layers. Wants you out of his swamp.",
+    "tags": [
+      "shrek",
+      "ogre",
+      "swamp",
+      "scottish",
+      "dreamworks"
+    ],
+    "waze_name": "Shrek"
+  },
+  "donkey": {
+    "blurb": "Are we there yet? He will never stop asking.",
+    "tags": [
+      "shrek",
+      "donkey",
+      "waffles",
+      "are we there yet",
+      "dreamworks"
+    ],
+    "waze_name": "Donkey"
+  },
+  "puss-in-boots": {
+    "blurb": "Fear him, if you dare. Then take the next left.",
+    "tags": [
+      "shrek",
+      "cat",
+      "swordsman",
+      "spanish",
+      "dreamworks"
+    ],
+    "waze_name": "Puss in Boots"
+  },
+  "gru": {
+    "blurb": "Reformed supervillain. Runs errands like a heist.",
+    "tags": [
+      "despicable me",
+      "minions",
+      "villain",
+      "freeze ray",
+      "illumination"
+    ],
+    "waze_name": "Gru"
+  },
+  "po": {
+    "blurb": "The Dragon Warrior. Skadoosh, then dumplings.",
+    "tags": [
+      "kung fu panda",
+      "panda",
+      "dragon warrior",
+      "skadoosh",
+      "dreamworks"
+    ],
+    "waze_name": "Po"
+  },
+  "peppa-pig": {
+    "blurb": "Bossy, cheerful, and hoping for muddy puddles.",
+    "tags": [
+      "peppa pig",
+      "pig",
+      "muddy puddles",
+      "kids",
+      "british"
+    ],
+    "waze_name": "Peppa Pig"
+  },
+  "mario": {
+    "blurb": "It's-a him. Let's-a go, wahoo, and a clean arrival.",
+    "tags": [
+      "super mario",
+      "nintendo",
+      "plumber",
+      "mario kart",
+      "mushroom kingdom"
+    ],
+    "waze_name": "Mario"
+  },
+  "luigi": {
+    "blurb": "The nervous brother. Brave anyway. Mostly.",
+    "tags": [
+      "super mario",
+      "nintendo",
+      "green",
+      "luigi's mansion",
+      "mario kart"
+    ],
+    "waze_name": "Luigi"
+  },
+  "bowser": {
+    "blurb": "The Koopa King. Takes every red light personally.",
+    "tags": [
+      "super mario",
+      "nintendo",
+      "koopa",
+      "villain",
+      "mario kart"
+    ],
+    "waze_name": "Bowser"
+  }
+}

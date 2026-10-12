@@ -1,0 +1,77 @@
+{
+  "yoda": {
+    "bg": "#dcefc0",
+    "tone": "#5c8a2c",
+    "tone_ink": "#15172b"
+  },
+  "stormtrooper": {
+    "bg": "#d5dbe8",
+    "tone": "#23232e",
+    "tone_ink": "#ffffff"
+  },
+  "c-3po": {
+    "bg": "#fff0c2",
+    "tone": "#d99a1c",
+    "tone_ink": "#15172b"
+  },
+  "obi-wan-kenobi": {
+    "bg": "#e6dcc8",
+    "tone": "#8a6a48",
+    "tone_ink": "#ffffff"
+  },
+  "jar-jar-binks": {
+    "bg": "#cdebd8",
+    "tone": "#d9773a",
+    "tone_ink": "#15172b"
+  },
+  "emperor-palpatine": {
+    "bg": "#dcd0f0",
+    "tone": "#3a2466",
+    "tone_ink": "#ffffff"
+  },
+  "spider-man": {
+    "bg": "#c9dcff",
+    "tone": "#d61f26",
+    "tone_ink": "#ffffff"
+  },
+  "superman": {
+    "bg": "#ffd9d6",
+    "tone": "#1f4fc4",
+    "tone_ink": "#ffffff"
+  },
+  "iron-man": {
+    "bg": "#ffe9a8",
+    "tone": "#b71c26",
+    "tone_ink": "#ffffff"
+  },
+  "deadpool": {
+    "bg": "#e0e0e6",
+    "tone": "#b01822",
+    "tone_ink": "#ffffff"
+  },
+  "joker": {
+    "bg": "#e6d3f5",
+    "tone": "#6a2c91",
+    "tone_ink": "#ffffff"
+  },
+  "thor": {
+    "bg": "#cfe3ff",
+    "tone": "#c42a2a",
+    "tone_ink": "#ffffff"
+  },
+  "hulk": {
+    "bg": "#e3d3f2",
+    "tone": "#4f8f2a",
+    "tone_ink": "#15172b"
+  },
+  "thanos": {
+    "bg": "#ffe9b0",
+    "tone": "#6f42a8",
+    "tone_ink": "#ffffff"
+  },
+  "bane": {
+    "bg": "#dfe3ea",
+    "tone": "#2b2f3a",
+    "tone_ink": "#ffffff"
+  }
+}

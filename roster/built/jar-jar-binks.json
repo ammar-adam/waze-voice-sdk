@@ -1,0 +1,17 @@
+{
+ "status": "built",
+ "retaken": 8,
+ "unclear": {
+  "start_drive_6": {
+   "line": "Okey day! Meesa know da way. Probably.",
+   "heard": "Okie-dee, miss another way, probably.",
+   "clarity": 0.7
+  },
+  "start_drive_7": {
+   "line": "Mooie mooie! Meesa love dis car!",
+   "heard": "Moi Moi! Mr. Loved his car!",
+   "clarity": 0.78
+  }
+ },
+ "voice": "7b9a9aa5e29542c48c713ae31cbb6a90"
+}

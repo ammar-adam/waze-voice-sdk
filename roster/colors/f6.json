@@ -1,0 +1,67 @@
+{
+  "gandalf": {
+    "bg": "#e3e6ee",
+    "tone": "#6f7686",
+    "tone_ink": "#ffffff"
+  },
+  "gollum": {
+    "bg": "#d8e6f2",
+    "tone": "#5f7a4a",
+    "tone_ink": "#ffffff"
+  },
+  "dumbledore": {
+    "bg": "#e6dcf5",
+    "tone": "#6b3fa0",
+    "tone_ink": "#ffffff"
+  },
+  "snape": {
+    "bg": "#dcd9e8",
+    "tone": "#1e1f2a",
+    "tone_ink": "#ffffff"
+  },
+  "dobby": {
+    "bg": "#dcecc9",
+    "tone": "#5f9a3e",
+    "tone_ink": "#15172b"
+  },
+  "optimus-prime": {
+    "bg": "#ffd3cf",
+    "tone": "#2b5fc7",
+    "tone_ink": "#ffffff"
+  },
+  "hal-9000": {
+    "bg": "#e3e5ea",
+    "tone": "#c8161b",
+    "tone_ink": "#ffffff"
+  },
+  "jarvis": {
+    "bg": "#cfeeff",
+    "tone": "#1583c9",
+    "tone_ink": "#15172b"
+  },
+  "ted": {
+    "bg": "#f3e1c8",
+    "tone": "#a8763f",
+    "tone_ink": "#15172b"
+  },
+  "forrest-gump": {
+    "bg": "#d3e8f5",
+    "tone": "#d62b2b",
+    "tone_ink": "#ffffff"
+  },
+  "michael-scott": {
+    "bg": "#dbe4f3",
+    "tone": "#34558b",
+    "tone_ink": "#ffffff"
+  },
+  "walter-white": {
+    "bg": "#dff0c8",
+    "tone": "#3f8f3a",
+    "tone_ink": "#15172b"
+  },
+  "doc-brown": {
+    "bg": "#ffe7b8",
+    "tone": "#e8701a",
+    "tone_ink": "#15172b"
+  }
+}
