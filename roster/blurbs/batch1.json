@@ -1,0 +1,222 @@
+{
+ "yoda": {
+  "blurb": "Backwards of sentence. Sure of the way, he is.",
+  "tags": [
+   "star wars",
+   "jedi",
+   "green",
+   "master",
+   "the force"
+  ],
+  "waze_name": "Yoda"
+ },
+ "stormtrooper": {
+  "blurb": "Loyal, armored, and misses every single shot.",
+  "tags": [
+   "star wars",
+   "empire",
+   "trooper",
+   "helmet",
+   "imperial"
+  ],
+  "waze_name": "Stormtrooper"
+ },
+ "c-3po": {
+  "blurb": "Fussy, fretful, and certain we're doomed.",
+  "tags": [
+   "star wars",
+   "droid",
+   "robot",
+   "gold",
+   "threepio"
+  ],
+  "waze_name": "C-3PO"
+ },
+ "obi-wan-kenobi": {
+  "blurb": "Hello there. Calm, dry, and has the high ground.",
+  "tags": [
+   "star wars",
+   "jedi",
+   "hello there",
+   "kenobi",
+   "master"
+  ],
+  "waze_name": "Obi-Wan Kenobi"
+ },
+ "jar-jar-binks": {
+  "blurb": "Clumsy, cheerful, and meesa so sorry.",
+  "tags": [
+   "star wars",
+   "gungan",
+   "meesa",
+   "naboo",
+   "clumsy"
+  ],
+  "waze_name": "Jar Jar Binks"
+ },
+ "emperor-palpatine": {
+  "blurb": "Silky, gloating, and he has foreseen your route.",
+  "tags": [
+   "star wars",
+   "sith",
+   "emperor",
+   "sidious",
+   "dark side"
+  ],
+  "waze_name": "Emperor Palpatine"
+ },
+ "spider-man": {
+  "blurb": "Friendly, quippy, and his spider sense is tingling.",
+  "tags": [
+   "marvel",
+   "spidey",
+   "peter parker",
+   "superhero",
+   "web"
+  ],
+  "waze_name": "Spider-Man"
+ },
+ "superman": {
+  "blurb": "Earnest, heroic, and sticks to the speed limit.",
+  "tags": [
+   "dc",
+   "man of steel",
+   "clark kent",
+   "superhero",
+   "krypton"
+  ],
+  "waze_name": "Superman"
+ },
+ "iron-man": {
+  "blurb": "Genius, billionaire, backseat driver.",
+  "tags": [
+   "marvel",
+   "tony stark",
+   "avengers",
+   "superhero",
+   "armor"
+  ],
+  "waze_name": "Iron Man"
+ },
+ "deadpool": {
+  "blurb": "Breaks the fourth wall. Wants a chimichanga.",
+  "tags": [
+   "marvel",
+   "wade wilson",
+   "merc with a mouth",
+   "antihero",
+   "chimichanga"
+  ],
+  "waze_name": "Deadpool"
+ },
+ "joker": {
+  "blurb": "Why so serious? It's only rush hour.",
+  "tags": [
+   "dc",
+   "batman",
+   "villain",
+   "clown",
+   "gotham"
+  ],
+  "waze_name": "The Joker"
+ },
+ "thor": {
+  "blurb": "God of thunder. Every errand is a quest.",
+  "tags": [
+   "marvel",
+   "avengers",
+   "asgard",
+   "thunder",
+   "hammer"
+  ],
+  "waze_name": "Thor"
+ },
+ "hulk": {
+  "blurb": "Big, green, and trying to stay calm in traffic.",
+  "tags": [
+   "marvel",
+   "avengers",
+   "green",
+   "smash",
+   "bruce banner"
+  ],
+  "waze_name": "Hulk"
+ },
+ "thanos": {
+  "blurb": "Calm, heavy, and your arrival is inevitable.",
+  "tags": [
+   "marvel",
+   "avengers",
+   "titan",
+   "villain",
+   "infinity stones"
+  ],
+  "waze_name": "Thanos"
+ },
+ "bane": {
+  "blurb": "Muffled, grand, and born in the fast lane.",
+  "tags": [
+   "dc",
+   "batman",
+   "villain",
+   "mask",
+   "dark knight rises"
+  ],
+  "waze_name": "Bane"
+ },
+ "harley-quinn": {
+  "blurb": "Bubbly, chaotic, and calling you puddin'.",
+  "tags": [
+   "dc",
+   "batman",
+   "villain",
+   "gotham",
+   "puddin"
+  ],
+  "waze_name": "Harley Quinn"
+ },
+ "goofy": {
+  "blurb": "Gawrsh. Kind, clumsy, and fairly sure of the way.",
+  "tags": [
+   "disney",
+   "mickey mouse",
+   "goof troop",
+   "dog",
+   "gawrsh"
+  ],
+  "waze_name": "Goofy"
+ },
+ "stitch": {
+  "blurb": "Small, blue, chaotic. Ohana rides together.",
+  "tags": [
+   "lilo and stitch",
+   "disney",
+   "alien",
+   "ohana",
+   "blue"
+  ],
+  "waze_name": "Stitch"
+ },
+ "olaf": {
+  "blurb": "Sunny, melty, and worth buckling up for.",
+  "tags": [
+   "frozen",
+   "disney",
+   "snowman",
+   "warm hugs",
+   "summer"
+  ],
+  "waze_name": "Olaf"
+ },
+ "genie": {
+  "blurb": "Three wishes, ten thousand years, no off switch.",
+  "tags": [
+   "aladdin",
+   "disney",
+   "lamp",
+   "wishes",
+   "blue"
+  ],
+  "waze_name": "Genie"
+ }
+}

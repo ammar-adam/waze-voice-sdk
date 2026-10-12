@@ -1,0 +1,12 @@
+{
+ "status": "built",
+ "retaken": 1,
+ "unclear": {
+  "start_drive_7": {
+   "line": "Rikki tikki tavi! Buckle up.",
+   "heard": "Ricky Ticky Tavi. Buckle up.",
+   "clarity": 0.85
+  }
+ },
+ "voice": "d2e75a3e3fd6419893057c02a375a113"
+}

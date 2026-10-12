@@ -1,0 +1,17 @@
+{
+  "harley-quinn": {"bg": "#ffd9df", "tone": "#d81e3a", "tone_ink": "#ffffff"},
+  "goofy": {"bg": "#dff3d6", "tone": "#2f8f4e", "tone_ink": "#15172b"},
+  "stitch": {"bg": "#d6e8ff", "tone": "#3f7fd0", "tone_ink": "#15172b"},
+  "olaf": {"bg": "#cfeaf7", "tone": "#ff8a1a", "tone_ink": "#15172b"},
+  "genie": {"bg": "#e6defc", "tone": "#1f9ad6", "tone_ink": "#15172b"},
+  "rafiki": {"bg": "#f3e6c8", "tone": "#5d7fb8", "tone_ink": "#15172b"},
+  "timon": {"bg": "#ffe6c2", "tone": "#c4471c", "tone_ink": "#ffffff"},
+  "pumbaa": {"bg": "#f5dcc8", "tone": "#8e3f22", "tone_ink": "#ffffff"},
+  "mushu": {"bg": "#ffe2b8", "tone": "#e23b2e", "tone_ink": "#ffffff"},
+  "buzz-lightyear": {"bg": "#dcf5c9", "tone": "#7b3fa0", "tone_ink": "#ffffff"},
+  "woody": {"bg": "#fff0b8", "tone": "#8b5a2b", "tone_ink": "#ffffff"},
+  "dory": {"bg": "#cdeefa", "tone": "#2f6fe0", "tone_ink": "#ffffff"},
+  "mater": {"bg": "#cfece8", "tone": "#9a5b2e", "tone_ink": "#ffffff"},
+  "lightning-mcqueen": {"bg": "#ffe89a", "tone": "#e8261c", "tone_ink": "#ffffff"},
+  "maui": {"bg": "#c9f0e6", "tone": "#1f8f8a", "tone_ink": "#15172b"}
+}

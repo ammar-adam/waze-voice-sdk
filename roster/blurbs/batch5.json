@@ -1,0 +1,181 @@
+{
+  "kylo-ren": {
+    "blurb": "Brooding, intense, and furious about that missed turn.",
+    "tags": [
+      "star wars",
+      "sith",
+      "dark side",
+      "first order",
+      "ben solo",
+      "villain"
+    ],
+    "waze_name": "Kylo Ren"
+  },
+  "captain-america": {
+    "blurb": "Earnest, steady, and he can do this all day.",
+    "tags": [
+      "marvel",
+      "avengers",
+      "steve rogers",
+      "shield",
+      "superhero",
+      "cap"
+    ],
+    "waze_name": "Captain America"
+  },
+  "wolverine": {
+    "blurb": "Gruff, gravelly, and the best there is at directions.",
+    "tags": [
+      "x-men",
+      "marvel",
+      "logan",
+      "claws",
+      "mutant",
+      "bub"
+    ],
+    "waze_name": "Wolverine"
+  },
+  "loki": {
+    "blurb": "God of mischief. Burdened with your commute.",
+    "tags": [
+      "marvel",
+      "avengers",
+      "thor",
+      "asgard",
+      "god of mischief",
+      "villain"
+    ],
+    "waze_name": "Loki"
+  },
+  "mike-wazowski": {
+    "blurb": "One eye on the road. It's the only one he's got.",
+    "tags": [
+      "monsters inc",
+      "pixar",
+      "disney",
+      "monster",
+      "green",
+      "one eye"
+    ],
+    "waze_name": "Mike Wazowski"
+  },
+  "sulley": {
+    "blurb": "A big blue softie who's got you, buddy.",
+    "tags": [
+      "monsters inc",
+      "pixar",
+      "disney",
+      "monster",
+      "blue",
+      "kitty"
+    ],
+    "waze_name": "Sulley"
+  },
+  "porky-pig": {
+    "blurb": "Sweet, flustered, and th-th-that's all, folks.",
+    "tags": [
+      "looney tunes",
+      "warner bros",
+      "pig",
+      "stutter",
+      "thats all folks"
+    ],
+    "waze_name": "Porky Pig"
+  },
+  "bob-belcher": {
+    "blurb": "Deadpan dad energy. Oh my God, just turn.",
+    "tags": [
+      "bobs burgers",
+      "burgers",
+      "dad",
+      "fox",
+      "deadpan",
+      "animation"
+    ],
+    "waze_name": "Bob Belcher"
+  },
+  "kyle-broflovski": {
+    "blurb": "The sensible one. Dude, just follow the directions.",
+    "tags": [
+      "south park",
+      "comedy central",
+      "green hat",
+      "dude",
+      "stan",
+      "cartoon"
+    ],
+    "waze_name": "Kyle Broflovski"
+  },
+  "plankton": {
+    "blurb": "One percent evil, ninety-nine percent hot gas.",
+    "tags": [
+      "spongebob",
+      "nickelodeon",
+      "chum bucket",
+      "bikini bottom",
+      "villain",
+      "krabby patty"
+    ],
+    "waze_name": "Plankton"
+  },
+  "dr-eggman": {
+    "blurb": "IQ of three hundred. Still foiled by roundabouts.",
+    "tags": [
+      "sonic the hedgehog",
+      "sega",
+      "robotnik",
+      "villain",
+      "mad scientist",
+      "eggman"
+    ],
+    "waze_name": "Dr. Eggman"
+  },
+  "wheatley": {
+    "blurb": "Chatty, panicky, and definitely not a moron.",
+    "tags": [
+      "portal",
+      "valve",
+      "portal 2",
+      "aperture",
+      "robot",
+      "british"
+    ],
+    "waze_name": "Wheatley"
+  },
+  "saul-goodman": {
+    "blurb": "Missed your exit? Better call Saul.",
+    "tags": [
+      "breaking bad",
+      "better call saul",
+      "lawyer",
+      "attorney",
+      "albuquerque",
+      "jimmy mcgill"
+    ],
+    "waze_name": "Saul Goodman"
+  },
+  "kitt": {
+    "blurb": "Calm, precise, and would rather drive itself.",
+    "tags": [
+      "knight rider",
+      "talking car",
+      "trans am",
+      "eighties",
+      "michael knight",
+      "ai"
+    ],
+    "waze_name": "KITT"
+  },
+  "popeye": {
+    "blurb": "He yam what he yam: your navigator.",
+    "tags": [
+      "popeye",
+      "sailor",
+      "spinach",
+      "olive oyl",
+      "classic cartoon",
+      "king features"
+    ],
+    "waze_name": "Popeye"
+  }
+}

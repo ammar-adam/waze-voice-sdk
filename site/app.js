@@ -336,9 +336,13 @@
     list.innerHTML = "";
     voices.forEach(function (v) { list.appendChild(card(v, lines)); });
 
-    // The hero lineup. Each face jumps to its card and lights it.
+    finder(voices);
+
+    // The hero lineup: the featured twelve (or the first twelve). Each face
+    // jumps to its card and lights it.
     var cast = document.getElementById("cast");
-    voices.forEach(function (v) {
+    var featured = voices.filter(function (v) { return v.featured; });
+    (featured.length ? featured : voices).slice(0, 12).forEach(function (v) {
       var a = el('<a href="#' + v.slug + '" id="cast-' + v.slug + '" aria-label="' + escapeHtml(v.name) + '">' +
         '<img alt="" width="120" height="120" src="faces/' + v.slug + '.svg"></a>');
       // The cast sits outside the card, so it borrows the card's colour here.
@@ -346,6 +350,7 @@
       a.addEventListener("click", function () {
         document.querySelectorAll(".voice.picked").forEach(function (c) { c.classList.remove("picked"); });
         document.getElementById(v.slug).classList.add("picked");
+        showAll();
         openCard(document.getElementById(v.slug));
         track("cast_click", { character: v.slug });
         track("character_click", { character: v.slug, action: "face" });
@@ -360,10 +365,134 @@
     try { slug = decodeURIComponent(location.hash.slice(1)); } catch (e) { slug = ""; }
     var target = slug && document.getElementById(slug);
     if (target && target.classList.contains("voice")) {
+      showAll();
       target.classList.add("picked");
       openCard(target);
       target.scrollIntoView({ block: "center" });
     }
+  }
+
+  /* ---------------- search and categories ---------------- */
+
+  var CATEGORIES = [
+    ["star-wars", "Star Wars"], ["superheroes", "Superheroes"], ["disney-pixar", "Disney & Pixar"],
+    ["classic-cartoons", "Classic cartoons"], ["adult-animation", "Adult animation"],
+    ["family-films", "Family"], ["games", "Games"], ["film-tv", "Film & TV"]
+  ];
+  // Clears any search or filter, so a linked or tapped character is never hidden.
+  var showAll = function () {};
+
+  function plain(text) {
+    var s = String(text || "");
+    if (s.normalize) s = s.normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
+    return s.toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, " ").trim();
+  }
+
+  // One edit apart (a typo, a dropped or swapped letter) still counts.
+  function near(a, b) {
+    if (a === b) return true;
+    if (Math.abs(a.length - b.length) > 1 || a.length < 4) return false;
+    var i = 0, j = 0, edits = 0;
+    while (i < a.length && j < b.length) {
+      if (a[i] === b[j]) { i++; j++; continue; }
+      if (++edits > 1) return false;
+      if (a[i + 1] === b[j] && a[i] === b[j + 1]) { i += 2; j += 2; }
+      else if (a.length > b.length) i++;
+      else if (a.length < b.length) j++;
+      else { i++; j++; }
+    }
+    return edits + (a.length - i) + (b.length - j) <= 1;
+  }
+
+  function finder(voices) {
+    var box = document.getElementById("finder");
+    var input = document.getElementById("voice-search");
+    var cats = document.getElementById("voice-cats");
+    var note = document.getElementById("finder-note");
+    if (!box) return;
+    var labels = {};
+    CATEGORIES.forEach(function (c) { labels[c[0]] = c[1]; });
+    var index = voices.map(function (v) {
+      var text = plain([v.name, plain(v.name).replace(/ /g, ""), v.slug, labels[v.category] || "", (v.tags || []).join(" ")].join(" "));
+      return { voice: v, node: document.getElementById(v.slug), text: text, words: text.split(" ") };
+    });
+    var category = "";
+
+    function matches(entry, tokens) {
+      return tokens.every(function (t) {
+        if (entry.text.indexOf(t) >= 0) return true;
+        return entry.words.some(function (w) { return near(t, w); });
+      });
+    }
+
+    function apply() {
+      var query = plain(input.value);
+      var tokens = query ? query.split(" ") : [];
+      var shown = 0;
+      index.forEach(function (entry) {
+        var ok = (!category || entry.voice.category === category) && matches(entry, tokens);
+        entry.node.hidden = !ok;
+        if (ok) shown++;
+        else if (entry.node.classList.contains("open")) openCard(null);
+      });
+      note.hidden = shown > 0;
+      if (shown) return;
+      var asked = input.value.trim().slice(0, 40);
+      note.textContent = asked ? "No \u201c" + asked + "\u201d yet. " : "Nothing here yet. ";
+      if (!asked) return;
+      var ask = document.createElement("button");
+      ask.type = "button"; ask.className = "btn plain"; ask.textContent = "Suggest it";
+      ask.addEventListener("click", function () {
+        var form = document.getElementById("suggest-form");
+        document.getElementById("suggest-name").value = asked;
+        track("search_suggest", { query: asked.toLowerCase() });
+        if (form.requestSubmit) form.requestSubmit(); else form.querySelector("button").click();
+        document.getElementById("suggest").scrollIntoView({ block: "center", behavior: "smooth" });
+      });
+      note.appendChild(ask);
+    }
+
+    function press(active) {
+      cats.querySelectorAll("button").forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b.getAttribute("data-cat") === active));
+      });
+    }
+
+    showAll = function () {
+      if (!input.value && !category) return;
+      input.value = ""; category = "";
+      press("");
+      apply();
+    };
+
+    var used = {};
+    voices.forEach(function (v) { if (v.category) used[v.category] = true; });
+    [["", "All"]].concat(CATEGORIES.filter(function (c) { return used[c[0]]; })).forEach(function (c) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "cat"; b.textContent = c[1];
+      b.setAttribute("data-cat", c[0]);
+      b.addEventListener("click", function () {
+        category = c[0];
+        press(c[0]);
+        if (c[0]) track("category_filter", { category: c[0] });
+        apply();
+      });
+      cats.appendChild(b);
+    });
+    press("");
+
+    var timer;
+    input.placeholder = "Search " + voices.length + " characters";
+    input.addEventListener("input", function () {
+      apply();
+      clearTimeout(timer);
+      // One event per settled search, not one per keystroke.
+      timer = setTimeout(function () {
+        var q = plain(input.value);
+        if (q.length > 1) track("search", { query: q.slice(0, 40) });
+      }, 1200);
+    });
+    box.hidden = false;
   }
 
   function json(url) {
@@ -401,8 +530,8 @@
   var MIN_SHOWN = 10;
   // Shown when the board can't be read, so the chips are never empty.
   var FALLBACK = [
-    { key: "spongebob", name: "SpongeBob" }, { key: "yoda", name: "Yoda" },
-    { key: "shrek", name: "Shrek" }, { key: "homersimpson", name: "Homer Simpson" }
+    { key: "rafiki", name: "Rafiki" }, { key: "genie", name: "Genie" },
+    { key: "bender", name: "Bender" }, { key: "gollum", name: "Gollum" }
   ];
   var board = document.getElementById("board");
   var note = document.getElementById("suggest-note");

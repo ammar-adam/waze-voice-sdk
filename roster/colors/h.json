@@ -1,0 +1,10 @@
+{
+  "bob-belcher": {"bg": "#F6E7B8", "tone": "#D92B2B", "tone_ink": "#ffffff"},
+  "kyle-broflovski": {"bg": "#D9F0D2", "tone": "#3FA535", "tone_ink": "#ffffff"},
+  "plankton": {"bg": "#D5EEF2", "tone": "#2F7D55", "tone_ink": "#ffffff"},
+  "dr-eggman": {"bg": "#FBE3C0", "tone": "#D8262C", "tone_ink": "#ffffff"},
+  "wheatley": {"bg": "#DCE9FB", "tone": "#2F7BEA", "tone_ink": "#ffffff"},
+  "saul-goodman": {"bg": "#FBE6B5", "tone": "#8E2C3F", "tone_ink": "#ffffff"},
+  "kitt": {"bg": "#F6D9D6", "tone": "#E0201C", "tone_ink": "#ffffff"},
+  "popeye": {"bg": "#D6E6F7", "tone": "#22355E", "tone_ink": "#ffffff"}
+}

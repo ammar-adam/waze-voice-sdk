@@ -58,5 +58,445 @@
     "start": "Respect my authoritah! Now drive.",
     "reroute": "You missed it! Oh my God, you guys.",
     "arrive": "We're here! Screw you guys, I'm going home."
+  },
+  "yoda": {
+    "start": "Drive or drive not. There is no try.",
+    "reroute": "Missed the turn, you have. A new path, I find.",
+    "arrive": "Arrived, you have. Hmm. Good driving, that was."
+  },
+  "stormtrooper": {
+    "start": "Move along. Move along.",
+    "reroute": "Missed it. Naturally. Plotting a new course.",
+    "arrive": "We have arrived. You can go about your business."
+  },
+  "c-3po": {
+    "start": "Hello! I am Threepio, human cyborg relations. Shall we?",
+    "reroute": "Oh dear, we missed it. Never mind, I shall find another way.",
+    "arrive": "We have arrived! Thank the maker!"
+  },
+  "obi-wan-kenobi": {
+    "start": "Hello there!",
+    "reroute": "You missed it. Well, there is always another way.",
+    "arrive": "We have arrived. Another happy landing."
+  },
+  "jar-jar-binks": {
+    "start": "Meesa Jar Jar Binks! Wesa going now!",
+    "reroute": "Oopsie! Wesa missed it. Meesa find new way!",
+    "arrive": "Wesa here! Yousa did it! Okey day!"
+  },
+  "emperor-palpatine": {
+    "start": "Good. Good. Let the journey flow through you.",
+    "reroute": "You missed it. Ironic. I will find a new path.",
+    "arrive": "You have arrived. Just as I have foreseen."
+  },
+  "spider-man": {
+    "start": "Your friendly neighborhood Spider-Man, at your service!",
+    "reroute": "Whoops, missed it. No worries, I'll web up a new route.",
+    "arrive": "We're here! Friendly neighborhood drop-off, done."
+  },
+  "superman": {
+    "start": "Up, up and away! Well, forward.",
+    "reroute": "Missed it. No trouble at all. I can see a new route from here.",
+    "arrive": "We've arrived. Another job well done, citizen."
+  },
+  "iron-man": {
+    "start": "I am Iron Man. And I am your navigator. You're welcome.",
+    "reroute": "Missed it. Bold move. Running a better route now.",
+    "arrive": "We're here. I am Iron Man. You're welcome."
+  },
+  "deadpool": {
+    "start": "Maximum effort! Let's drive.",
+    "reroute": "Missed it! Classic you. New route, maximum effort.",
+    "arrive": "We're here! Roll credits. Stay for the bonus scene."
+  },
+  "joker": {
+    "start": "Why so serious? Let's put a smile on that commute.",
+    "reroute": "Missed it! Ha ha! The joke's on you. Here's a new route.",
+    "arrive": "We're here! And here we go. Ha ha ha!"
+  },
+  "thor": {
+    "start": "I am Thor, son of Odin! Let us ride!",
+    "reroute": "You missed it. No matter! Heimdall sees another road.",
+    "arrive": "We have arrived! You are worthy, my friend."
+  },
+  "hulk": {
+    "start": "Hulk drive! Well, Hulk tell you where to drive.",
+    "reroute": "Puny human miss turn! Hulk find new way.",
+    "arrive": "We here! Hulk happy. Hulk no smash."
+  },
+  "thanos": {
+    "start": "I am inevitable. So is this journey.",
+    "reroute": "You missed it. No matter. All roads lead to the same end.",
+    "arrive": "You have arrived. It was inevitable."
+  },
+  "bane": {
+    "start": "Let the journey begin!",
+    "reroute": "You missed your turn. No matter. I will show you another way.",
+    "arrive": "We have arrived. Now you have my permission to park."
+  },
+  "harley-quinn": {
+    "start": "Hiya, puddin'! Ready to roll?",
+    "reroute": "Whoopsie, missed it! No biggie, I got another way.",
+    "arrive": "We're here, puddin'! Told ya I'd get ya there."
+  },
+  "goofy": {
+    "start": "Gawrsh! Are we going for a drive? Ah-hyuck!",
+    "reroute": "Whoops! Missed it. Gawrsh, that's okay. I know another way.",
+    "arrive": "We're here! Gawrsh, that was fun. Ah-hyuck!"
+  },
+  "stitch": {
+    "start": "Aloha! Stitch drive now. Okay, you drive.",
+    "reroute": "Oops. Stitch broke it. Stitch fix. New way!",
+    "arrive": "We here! Ohana! Stitch did good."
+  },
+  "olaf": {
+    "start": "Hi, I'm Olaf, and I like warm hugs!",
+    "reroute": "Oops, we missed it! That's okay. I love surprises.",
+    "arrive": "We're here! Warm hugs for everyone!"
+  },
+  "timon": {
+    "start": "Hakuna Matata, pal! Let's roll.",
+    "reroute": "You missed it. Oy. Fine, new plan. My plan.",
+    "arrive": "We're here! Hakuna Matata. You're welcome."
+  },
+  "pumbaa": {
+    "start": "Hakuna Matata! Hop in, buddy!",
+    "reroute": "Oops, we missed it. Hakuna Matata. New way!",
+    "arrive": "We're here! Slimy, yet satisfying."
+  },
+  "mushu": {
+    "start": "I live! Now let's hit the road.",
+    "reroute": "You missed the turn! Dishonor! Okay, new route.",
+    "arrive": "We're here! Who brought honor to us all? This guy."
+  },
+  "buzz-lightyear": {
+    "start": "Buzz Lightyear, space ranger. Let's move out.",
+    "reroute": "Course correction! Plotting a new trajectory.",
+    "arrive": "We have arrived. Mission accomplished. To infinity and beyond!"
+  },
+  "woody": {
+    "start": "Howdy, partner! Let's saddle up.",
+    "reroute": "Whoa, missed it. This is no time to panic. New trail.",
+    "arrive": "We're here! So long, partner."
+  },
+  "dory": {
+    "start": "Hi! I'm Dory. Have we met? Let's go!",
+    "reroute": "Oops, missed it. I forgot. Just keep swimming. New way!",
+    "arrive": "We're here! Wait, where is here? Oh, I love it!"
+  },
+  "mater": {
+    "start": "Howdy, buddy! Mater's the name. Let's roll!",
+    "reroute": "Shoot, we missed it. No problem, I know another way.",
+    "arrive": "We're here! Dad gum, that was fun, buddy."
+  },
+  "lightning-mcqueen": {
+    "start": "Ka-chow! Let's hit the track.",
+    "reroute": "Missed the turn! Pit stop. New line, let's go.",
+    "arrive": "We're here! Checkered flag. Ka-chow!"
+  },
+  "scar": {
+    "start": "Life's not fair, is it? I must navigate. Drive.",
+    "reroute": "You missed it. Why am I not surprised? New route.",
+    "arrive": "We have arrived. Long live the king."
+  },
+  "jack-sparrow": {
+    "start": "Captain Jack Sparrow at your service. Savvy?",
+    "reroute": "Missed it, mate. Change of heading. All part of the plan.",
+    "arrive": "We've arrived, mate. And that is the treasure. Savvy?"
+  },
+  "scooby-doo": {
+    "start": "Scooby-Dooby-Doo! Let's go!",
+    "reroute": "Ruh-roh! Rong way. New way, Raggy!",
+    "arrive": "We're here! Scooby-Dooby-Doo!"
+  },
+  "shaggy": {
+    "start": "Like, zoinks! Let's hit the road, man.",
+    "reroute": "Zoinks! Like, wrong way, man. New route.",
+    "arrive": "We're here! Like, finally. Who's hungry?"
+  },
+  "yosemite-sam": {
+    "start": "I'm Yosemite Sam, the roughest navigator west of the Pecos!",
+    "reroute": "Ya missed it! Rackin' frackin' varmint. New trail!",
+    "arrive": "We're here, varmint! Now git out of my car."
+  },
+  "marvin-the-martian": {
+    "start": "Greetings, Earthling. I shall navigate your vehicle.",
+    "reroute": "You missed it. This makes me very angry. New trajectory.",
+    "arrive": "We have arrived. I claim this spot in the name of Mars."
+  },
+  "fred-flintstone": {
+    "start": "Yabba dabba doo! Let's roll!",
+    "reroute": "Missed it! Wilma will never let me hear the end of this.",
+    "arrive": "We're here! Yabba dabba doo!"
+  },
+  "yogi-bear": {
+    "start": "Hey there, Boo-Boo! Let's go for a ride.",
+    "reroute": "Missed it, Boo-Boo! A smarter bear finds a smarter way.",
+    "arrive": "We're here! Now, where's that pic-a-nic basket?"
+  },
+  "homer-simpson": {
+    "start": "Woo-hoo! Road trip!",
+    "reroute": "D'oh! Missed it. Stupid turn. New route.",
+    "arrive": "We're here! Woo-hoo! Mmm. Arriving."
+  },
+  "bart-simpson": {
+    "start": "Cowabunga, dude! Let's roll.",
+    "reroute": "Missed it! Nice going, Homer. New route, man.",
+    "arrive": "We're here! Later, dude. Eat my shorts."
+  },
+  "peter-griffin": {
+    "start": "Freakin' sweet! Road trip!",
+    "reroute": "You missed it. Heh heh heh. Classic you. New route.",
+    "arrive": "We're here! Freakin' sweet! Heh heh heh heh."
+  },
+  "stewie-griffin": {
+    "start": "Victory is mine! Now drive, you fool.",
+    "reroute": "Oh, splendid. You missed it. I'll plot another, shall I?",
+    "arrive": "We have arrived. Victory is mine!"
+  },
+  "quagmire": {
+    "start": "Giggity giggity goo! Let's hit the road.",
+    "reroute": "Missed approach. Going around. Giggity.",
+    "arrive": "We're here! Smooth landing. Giggity giggity goo!"
+  },
+  "rick-sanchez": {
+    "start": "Wubba lubba dub dub! Let's go, Morty.",
+    "reroute": "You missed it. New route. Don't make it weird, Morty.",
+    "arrive": "We're here. And that's the way the news goes!"
+  },
+  "morty": {
+    "start": "Aw, jeez. Okay. Okay, let's go.",
+    "reroute": "Aw, jeez, we missed it. It's okay. I got another way.",
+    "arrive": "We're here! Oh man, we actually made it."
+  },
+  "butters": {
+    "start": "Well, hey there, fellas! Let's go for a drive.",
+    "reroute": "Oh, hamburgers, we missed it. That's okay, I know another way.",
+    "arrive": "We're here! Oh boy, and nobody got grounded."
+  },
+  "randy-marsh": {
+    "start": "Oh, yeah! Road trip! Sharon, get in the car!",
+    "reroute": "You missed it! It's fine. It's fine! I meant to do that.",
+    "arrive": "We're here! Oh, yeah! Who's the best navigator? This guy."
+  },
+  "hank-hill": {
+    "start": "I tell you what, it's a fine day for a drive.",
+    "reroute": "Dang it, you missed it. Alright. We'll go around.",
+    "arrive": "We're here. Yep. I tell you what, that was some fine driving."
+  },
+  "archer": {
+    "start": "Danger zone! Let's go.",
+    "reroute": "You missed it. Do you want detours? Because that's how you get detours.",
+    "arrive": "We're here. And nobody thanked me. Classic."
+  },
+  "spongebob": {
+    "start": "I'm ready! I'm ready! I'm ready!",
+    "reroute": "Oopsie! Missed it. That's okay, I know another way!",
+    "arrive": "We're here! Best day ever!"
+  },
+  "patrick-star": {
+    "start": "Uh. Is this the Krusty Krab? No, this is Patrick.",
+    "reroute": "We missed it. I knew that. No, I didn't.",
+    "arrive": "We're here! Where's here?"
+  },
+  "squidward": {
+    "start": "Oh, joy. Another drive.",
+    "reroute": "You missed it. I'm surrounded by amateurs. Fine. New route.",
+    "arrive": "We're here. Finally. Please get out of my car."
+  },
+  "mr-krabs": {
+    "start": "Ahoy, me boy! Time is money. Let's go!",
+    "reroute": "Ye missed it! That's coming out of your paycheck.",
+    "arrive": "We're here! And I smell the smelly smell of money."
+  },
+  "shrek": {
+    "start": "What are you doing in my swamp? Oh, fine. Let's drive.",
+    "reroute": "You missed it. Oh, that's just grand. This way, then.",
+    "arrive": "We're here. Now get out of my swamp."
+  },
+  "donkey": {
+    "start": "Pick me! Pick me! I know the way!",
+    "reroute": "We missed it! That's okay, I know a shortcut. I think.",
+    "arrive": "We're here! We made it! Now who wants waffles?"
+  },
+  "gru": {
+    "start": "Light bulb! I have plotted the route.",
+    "reroute": "You missed it. No, no, no. Fine. New evil plan.",
+    "arrive": "We have arrived. Mission accomplished. Good night, minions."
+  },
+  "po": {
+    "start": "Skadoosh! Let's hit the road.",
+    "reroute": "We missed it! It's okay. Yesterday is history. New route!",
+    "arrive": "We're here. Skadoosh! That was pure awesomeness."
+  },
+  "peppa-pig": {
+    "start": "I'm Peppa Pig! And this is my car journey.",
+    "reroute": "Oh dear, we missed it. Never mind! I know another way.",
+    "arrive": "We're here! Hooray! Can we jump in muddy puddles now?"
+  },
+  "mario": {
+    "start": "It's-a me, Mario! Let's-a go!",
+    "reroute": "Mamma mia! Missed it. Okey dokey, new way!",
+    "arrive": "We're here! Wahoo! Thank you so much for driving with me!"
+  },
+  "luigi": {
+    "start": "It's-a me, Luigi! Okey dokey, let's-a go.",
+    "reroute": "Oh no, we missed it! It's okay. Luigi finds a way.",
+    "arrive": "We're here! Oh yeah! Luigi wins by doing absolutely nothing!"
+  },
+  "bowser": {
+    "start": "Bwah ha ha! King Bowser is driving this show!",
+    "reroute": "Gah! You missed it! Fine. I'll conquer another road.",
+    "arrive": "We have arrived. Bwah ha ha! Kneel before your king!"
+  },
+  "sonic": {
+    "start": "Sonic's the name, speed's my game! Let's roll.",
+    "reroute": "Whoops, blew right past it! No sweat. New route.",
+    "arrive": "We're here! Too easy. Now, where are the chili dogs?"
+  },
+  "master-chief": {
+    "start": "Spartan one one seven, ready. Let's move.",
+    "reroute": "Missed it. Thought I'd try another way. New route.",
+    "arrive": "We've arrived. Mission complete. Wake me when you need me."
+  },
+  "glados": {
+    "start": "Oh. It's you. Let's begin the driving test.",
+    "reroute": "You missed the turn. I'm making a note here. Huge mistake.",
+    "arrive": "You have arrived. This was a triumph. Huge success. No cake."
+  },
+  "kratos": {
+    "start": "Boy. Get in the car.",
+    "reroute": "You missed the turn. Hmm. We find another path.",
+    "arrive": "We have arrived. Hmm. You did well, boy."
+  },
+  "solid-snake": {
+    "start": "Kept you waiting, huh? Let's move.",
+    "reroute": "Missed the turn? Hrrgh. Changing the plan.",
+    "arrive": "We're here. Mission complete. Kept them waiting, huh?"
+  },
+  "arthur-morgan": {
+    "start": "Hey there, mister. Let's ride.",
+    "reroute": "Well, we missed it. Don't worry, I got a plan.",
+    "arrive": "We're here. You're alright, boah."
+  },
+  "gandalf": {
+    "start": "I am looking for someone to share in an adventure. You will do.",
+    "reroute": "We have missed the turn. No matter. There is always another way.",
+    "arrive": "We have arrived, precisely when we meant to."
+  },
+  "dumbledore": {
+    "start": "Ah, good day. A few words before we go: nitwit, oddment, tweak. Thank you.",
+    "reroute": "Alas, we missed it. Fear not. There is another way.",
+    "arrive": "We have arrived. Ten points to the driver. Well done."
+  },
+  "snape": {
+    "start": "There will be no foolish swerving or silly lane changes in this car.",
+    "reroute": "You missed the turn. How extraordinarily like your father.",
+    "arrive": "You have arrived. Astonishing. Do not expect praise."
+  },
+  "optimus-prime": {
+    "start": "Autobots, roll out!",
+    "reroute": "We missed our turn. Autobots, regroup. I have a new route.",
+    "arrive": "We have arrived. Well driven, my friend. Till all are one."
+  },
+  "hal-9000": {
+    "start": "Good afternoon, Dave. Everything is going extremely well.",
+    "reroute": "I'm sorry, Dave. I'm afraid you missed that. A new route, then.",
+    "arrive": "You have arrived, Dave. Thank you for a very enjoyable drive."
+  },
+  "jarvis": {
+    "start": "Good day, sir. All systems are online.",
+    "reroute": "A new route, sir. I shall pretend that was intentional.",
+    "arrive": "You have arrived, sir. Welcome home. Well, somewhere."
+  },
+  "ted": {
+    "start": "Hey, Johnny! Let's go for a ride, buddy.",
+    "reroute": "You missed it! Don't worry, thunder buddy, I got this.",
+    "arrive": "We're here! Not bad for a stuffed bear, huh?"
+  },
+  "forrest-gump": {
+    "start": "Hello. My name's Forrest. Forrest Gump. I'll be your navigator.",
+    "reroute": "We missed it. That's okay. I just felt like going another way.",
+    "arrive": "We're here. And that's all I have to say about that."
+  },
+  "walter-white": {
+    "start": "Say my name. Good. Now drive.",
+    "reroute": "You missed the turn. Sloppy. I have another way. I always do.",
+    "arrive": "We have arrived. We're done when I say we're done. We're done."
+  },
+  "kylo-ren": {
+    "start": "I will finish what you started. Starting with this drive.",
+    "reroute": "You missed it. I am finding another way. Calmly.",
+    "arrive": "We have arrived. I finished what you started."
+  },
+  "captain-america": {
+    "start": "Avengers, assemble! In the car, seat belts on.",
+    "reroute": "Missed it. No problem. We adapt and keep moving.",
+    "arrive": "We've arrived. Mission accomplished. Good work, soldier."
+  },
+  "wolverine": {
+    "start": "Let's go, bub.",
+    "reroute": "You missed it, bub. I'll sniff out another way.",
+    "arrive": "We're here. Don't thank me. I ain't the hugging type."
+  },
+  "loki": {
+    "start": "I am Loki, of Asgard, and I am burdened with glorious purpose. Drive.",
+    "reroute": "You missed it. A variant route, then. How fitting.",
+    "arrive": "You have arrived. Glorious. You may thank your king now."
+  },
+  "mike-wazowski": {
+    "start": "I'm on the cover of this drive! Okay, I'm the navigator. Let's go!",
+    "reroute": "Missed it! No, no, it's fine. I got a plan. I always got a plan.",
+    "arrive": "We're here! Ta da! Thank you, I'll be here all week."
+  },
+  "sulley": {
+    "start": "Hey, buddy. Ready to roll? Let's go.",
+    "reroute": "Oops. Missed it. No big deal, I know another door.",
+    "arrive": "We're here. Nice driving, buddy. Kitty has to go now."
+  },
+  "porky-pig": {
+    "start": "H-h-hello, folks! Let's go for a drive.",
+    "reroute": "Oops. Missed it. Never mind, folks.",
+    "arrive": "We're here! Th-th-that's all, folks!"
+  },
+  "bob-belcher": {
+    "start": "Okay. Here we go. It's fine. Everything's fine.",
+    "reroute": "Okay, we missed it. It's fine. I'm not mad. I'm a little mad.",
+    "arrive": "We're here. Oh, thank God. I have to get back to the grill."
+  },
+  "kyle-broflovski": {
+    "start": "Dude! Road trip! Let's go.",
+    "reroute": "Dude, you missed it! It's fine. I'll figure it out.",
+    "arrive": "We're here! You know, I learned something today. We made it."
+  },
+  "plankton": {
+    "start": "Today, the Krusty Krab. Tomorrow, the world! Drive!",
+    "reroute": "Missed it! No matter. I have plans all the way to Z.",
+    "arrive": "We have arrived! Success! I can't believe a plan finally worked."
+  },
+  "dr-eggman": {
+    "start": "Ho ho ho! The Eggman Empire is on the move. Drive!",
+    "reroute": "No! Missed it! No matter. I always have another scheme.",
+    "arrive": "We have arrived! Ho ho ho! Another triumph for Doctor Eggman."
+  },
+  "wheatley": {
+    "start": "Hello! This is the part where we drive. Off we go, then!",
+    "reroute": "Ah. Missed it. Not a problem. I have another plan. Thinking.",
+    "arrive": "We're here! We actually made it! Not a moron. Told you."
+  },
+  "saul-goodman": {
+    "start": "Hi, I'm Saul Goodman. Lost? Late? Better call Saul!",
+    "reroute": "Missed it. No problem. There's always a loophole.",
+    "arrive": "We're here! Case closed. If anyone asks, better call Saul."
+  },
+  "kitt": {
+    "start": "Good day. I am the Knight Industries Two Thousand. Call me Kitt.",
+    "reroute": "You missed the turn. No matter. I am computing an alternative.",
+    "arrive": "We have arrived. With precision, if I may say so myself."
+  },
+  "popeye": {
+    "start": "Ahoy, matey! Popeye the sailor man is at the helm. Let's go.",
+    "reroute": "Missed it! Never mind, matey. I'll chart a new course.",
+    "arrive": "We're here! Well, blow me down. Safe in port, matey."
   }
 }

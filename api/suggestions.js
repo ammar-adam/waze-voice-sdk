@@ -79,9 +79,11 @@ function canonical(name) {
 // Already in the app: suggesting one of these points you at it instead.
 const VOICES = require('../site/voices.json').voices;
 const LIVE = Object.fromEntries(VOICES.map((v) => [keyOf(v.name), v.name]));
+// How many shipped characters a board read may have to step over.
+const SHIPPED_ROOM = 40;
 
 // A few to start the board so it is never empty.
-const SEEDS = ['SpongeBob', 'Yoda', 'Shrek', 'Homer Simpson', 'Mario', 'Scooby-Doo', 'Optimus Prime', 'Stewie Griffin'];
+const SEEDS = ['Rafiki', 'Genie', 'Bender', 'Gollum', 'Michael Scott', 'Dobby', 'Puss in Boots', 'Minions'];
 
 // Optimal string alignment distance (Damerau-Levenshtein with adjacent
 // swaps). Gives up early, returning max + 1, once it is past `max`.
@@ -144,7 +146,9 @@ function closest(key, candidates) {
 // visit asks for it, and a viral hour should cost Redis a handful of reads,
 // not one per visitor. A POST answers with a fresh board anyway.
 async function board(limit = DEFAULT_LIMIT) {
-  const read = [['ZREVRANGE', VOTES, '0', String(limit - 1), 'WITHSCORES'], ['ZCARD', VOTES]];
+  // A character that has since shipped stays in the store with its votes, but
+  // it is no longer wanted: read past it, and leave it off the board.
+  const read = [['ZREVRANGE', VOTES, '0', String(limit + SHIPPED_ROOM - 1), 'WITHSCORES'], ['ZCARD', VOTES]];
   let [ranked, total] = await redis(read);
   ranked = Array.isArray(ranked) ? ranked : [];
   if (!ranked.length) {
@@ -157,9 +161,11 @@ async function board(limit = DEFAULT_LIMIT) {
   }
   const keys = ranked.filter((_, i) => i % 2 === 0);
   const [names] = keys.length ? await redis([['HMGET', NAMES, ...keys]]) : [[]];
+  const all = keys.map((key, i) => ({key, name: (names && names[i]) || key, votes: Number(ranked[i * 2 + 1]) || 0}));
+  const wanted = all.filter((item) => !LIVE[item.key]);
   return {
-    items: keys.map((key, i) => ({key, name: (names && names[i]) || key, votes: Number(ranked[i * 2 + 1]) || 0})),
-    total: Number(total) || keys.length,
+    items: wanted.slice(0, limit),
+    total: Math.max((Number(total) || keys.length) - (all.length - wanted.length), wanted.length),
   };
 }
 

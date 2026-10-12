@@ -1,0 +1,12 @@
+{
+ "status": "built",
+ "retaken": 0,
+ "unclear": {
+  "start_drive_1": {
+   "line": "Spartan one one seven, ready. Let's move.",
+   "heard": "Spartan 117, ready. Let's move!",
+   "clarity": 0.76
+  }
+ },
+ "voice": "93071bfa2ae54d4085034b2924560f9f"
+}

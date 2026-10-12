@@ -166,7 +166,7 @@ test('track refuses anything off the list', async () => {
   const bad = [
     {event: 'pageview', page: '/admin'},
     {event: 'pageview'},
-    {event: 'character_click', character: 'spongebob'},
+    {event: 'character_click', character: 'rafiki'},
     {event: 'character_click', character: '__proto__'},
     {event: 'download', character: 'batman'},
     {event: 'download', character: 'batman', method: 'email'},
@@ -186,7 +186,7 @@ test('track accepts every character on the site', async () => {
   const redis = fakeRedis();
   connect(redis);
   const track = load('tally.js');
-  assert.equal(SLUGS.length, 12);
+  assert.ok(SLUGS.length >= 12);
   for (const character of SLUGS) {
     assert.equal((await call(track, {body: {event: 'character_click', character}})).code, 204);
   }
@@ -329,7 +329,7 @@ test('stats starts at zero with every character listed', async () => {
   assert.equal(res.body.totals.downloads, 0);
   assert.equal(res.body.totals.visitors, 0);
   assert.equal(res.body.since, null);
-  assert.equal(res.body.characters.length, 12);
+  assert.equal(res.body.characters.length, SLUGS.length);
   assert.equal(res.body.daily.length, 30);
   assert.match(res.headers['cache-control'], /s-maxage=60/);
 });
@@ -440,9 +440,9 @@ test('suggestions merges spellings into one entry', async () => {
   assert.equal(typo.body.merged, true);
   const shouty = await suggest(handler, 'KERMIT-THE-FROG!', '203.0.113.3');
   assert.equal(shouty.body.added.votes, 3);
-  const seeded = await suggest(handler, 'Sponge Bob Square Pants', '203.0.113.4');
-  assert.equal(seeded.body.added.key, 'spongebob');
-  assert.equal(seeded.body.added.name, 'SpongeBob');
+  const seeded = await suggest(handler, 'the GENIE!', '203.0.113.4');
+  assert.equal(seeded.body.added.key, 'genie');
+  assert.equal(seeded.body.added.name, 'Genie');
   assert.equal(seeded.body.added.votes, 2);
   const names = redis.data.get('suggest:names');
   assert.equal([...names.keys()].filter((k) => k.startsWith('kermit')).length, 1);
@@ -502,8 +502,8 @@ test('suggestions keeps real names that contain rude-looking letters', async () 
     assert.equal(res.code, 200, `${name}: ${JSON.stringify(res.body)}`);
   }
   // Fullwidth and "mathematical" letters are folded to plain ones before they are shown.
-  const wide = await suggest(handler, 'Ｓｈｒｅｋ', '203.0.113.130');
-  assert.equal(wide.body.added.name, 'Shrek');
+  const wide = await suggest(handler, 'Ｒａｆｉｋｉ', '203.0.113.130');
+  assert.equal(wide.body.added.name, 'Rafiki');
 });
 
 test('suggestions counts one vote per network per character per day', async () => {
@@ -557,7 +557,7 @@ test('suggestions honours the block list and the caps on new names', async () =>
   redis.data.set(`suggest:new:${new Date().toISOString().slice(0, 10)}`, 500);
   assert.equal((await suggest(handler, 'Totally New', '198.51.100.3')).code, 429);
   // Backing a name already on the list still works.
-  assert.equal((await suggest(handler, 'Shrek', '198.51.100.4')).code, 200);
+  assert.equal((await suggest(handler, 'Rafiki', '198.51.100.4')).code, 200);
 });
 
 test('suggestions answers a character already riding without touching Redis', async () => {

@@ -1,0 +1,629 @@
+{
+ "_comment": "The road to 100: every character beyond the first twelve. `main` ships; `alternates` stand in when a main has no well-used voice on Fish; `dropped` had none.",
+ "main": [
+  {
+   "slug": "yoda",
+   "name": "Yoda",
+   "category": "star-wars"
+  },
+  {
+   "slug": "stormtrooper",
+   "name": "Stormtrooper",
+   "category": "star-wars"
+  },
+  {
+   "slug": "c-3po",
+   "name": "C-3PO",
+   "category": "star-wars"
+  },
+  {
+   "slug": "obi-wan-kenobi",
+   "name": "Obi-Wan Kenobi",
+   "category": "star-wars"
+  },
+  {
+   "slug": "jar-jar-binks",
+   "name": "Jar Jar Binks",
+   "category": "star-wars"
+  },
+  {
+   "slug": "emperor-palpatine",
+   "name": "Emperor Palpatine",
+   "category": "star-wars"
+  },
+  {
+   "slug": "spider-man",
+   "name": "Spider-Man",
+   "category": "superheroes"
+  },
+  {
+   "slug": "superman",
+   "name": "Superman",
+   "category": "superheroes"
+  },
+  {
+   "slug": "iron-man",
+   "name": "Iron Man",
+   "category": "superheroes"
+  },
+  {
+   "slug": "deadpool",
+   "name": "Deadpool",
+   "category": "superheroes"
+  },
+  {
+   "slug": "joker",
+   "name": "The Joker",
+   "category": "superheroes"
+  },
+  {
+   "slug": "thor",
+   "name": "Thor",
+   "category": "superheroes"
+  },
+  {
+   "slug": "hulk",
+   "name": "Hulk",
+   "category": "superheroes"
+  },
+  {
+   "slug": "thanos",
+   "name": "Thanos",
+   "category": "superheroes"
+  },
+  {
+   "slug": "bane",
+   "name": "Bane",
+   "category": "superheroes"
+  },
+  {
+   "slug": "harley-quinn",
+   "name": "Harley Quinn",
+   "category": "superheroes"
+  },
+  {
+   "slug": "goofy",
+   "name": "Goofy",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "stitch",
+   "name": "Stitch",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "olaf",
+   "name": "Olaf",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "timon",
+   "name": "Timon",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "pumbaa",
+   "name": "Pumbaa",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "mushu",
+   "name": "Mushu",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "buzz-lightyear",
+   "name": "Buzz Lightyear",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "woody",
+   "name": "Woody",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "dory",
+   "name": "Dory",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "mater",
+   "name": "Mater",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "lightning-mcqueen",
+   "name": "Lightning McQueen",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "scar",
+   "name": "Scar",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "jack-sparrow",
+   "name": "Jack Sparrow",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "scooby-doo",
+   "name": "Scooby-Doo",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "shaggy",
+   "name": "Shaggy",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "yosemite-sam",
+   "name": "Yosemite Sam",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "marvin-the-martian",
+   "name": "Marvin the Martian",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "fred-flintstone",
+   "name": "Fred Flintstone",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "yogi-bear",
+   "name": "Yogi Bear",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "homer-simpson",
+   "name": "Homer Simpson",
+   "category": "adult-animation"
+  },
+  {
+   "slug": "bart-simpson",
+   "name": "Bart Simpson",
+   "category": "adult-animation"
+  },
+  {
+   "slug": "peter-griffin",
+   "name": "Peter Griffin",
+   "category": "adult-animation"
+  },
+  {
+   "slug": "stewie-griffin",
+   "name": "Stewie Griffin",
+   "category": "adult-animation"
+  },
+  {
+   "slug": "quagmire",
+   "name": "Quagmire",
+   "category": "adult-animation"
+  },
+  {
+   "slug": "rick-sanchez",
+   "name": "Rick Sanchez",
+   "category": "adult-animation"
+  },
+  {
+   "slug": "morty",
+   "name": "Morty",
+   "category": "adult-animation"
+  },
+  {
+   "slug": "butters",
+   "name": "Butters",
+   "category": "adult-animation"
+  },
+  {
+   "slug": "randy-marsh",
+   "name": "Randy Marsh",
+   "category": "adult-animation"
+  },
+  {
+   "slug": "hank-hill",
+   "name": "Hank Hill",
+   "category": "adult-animation"
+  },
+  {
+   "slug": "archer",
+   "name": "Archer",
+   "category": "adult-animation"
+  },
+  {
+   "slug": "spongebob",
+   "name": "SpongeBob",
+   "category": "family-films"
+  },
+  {
+   "slug": "patrick-star",
+   "name": "Patrick Star",
+   "category": "family-films"
+  },
+  {
+   "slug": "squidward",
+   "name": "Squidward",
+   "category": "family-films"
+  },
+  {
+   "slug": "mr-krabs",
+   "name": "Mr. Krabs",
+   "category": "family-films"
+  },
+  {
+   "slug": "shrek",
+   "name": "Shrek",
+   "category": "family-films"
+  },
+  {
+   "slug": "donkey",
+   "name": "Donkey",
+   "category": "family-films"
+  },
+  {
+   "slug": "gru",
+   "name": "Gru",
+   "category": "family-films"
+  },
+  {
+   "slug": "po",
+   "name": "Po",
+   "category": "family-films"
+  },
+  {
+   "slug": "peppa-pig",
+   "name": "Peppa Pig",
+   "category": "family-films"
+  },
+  {
+   "slug": "mario",
+   "name": "Mario",
+   "category": "games"
+  },
+  {
+   "slug": "luigi",
+   "name": "Luigi",
+   "category": "games"
+  },
+  {
+   "slug": "bowser",
+   "name": "Bowser",
+   "category": "games"
+  },
+  {
+   "slug": "sonic",
+   "name": "Sonic",
+   "category": "games"
+  },
+  {
+   "slug": "master-chief",
+   "name": "Master Chief",
+   "category": "games"
+  },
+  {
+   "slug": "glados",
+   "name": "GLaDOS",
+   "category": "games"
+  },
+  {
+   "slug": "kratos",
+   "name": "Kratos",
+   "category": "games"
+  },
+  {
+   "slug": "solid-snake",
+   "name": "Solid Snake",
+   "category": "games"
+  },
+  {
+   "slug": "arthur-morgan",
+   "name": "Arthur Morgan",
+   "category": "games"
+  },
+  {
+   "slug": "gandalf",
+   "name": "Gandalf",
+   "category": "film-tv"
+  },
+  {
+   "slug": "dumbledore",
+   "name": "Dumbledore",
+   "category": "film-tv"
+  },
+  {
+   "slug": "snape",
+   "name": "Snape",
+   "category": "film-tv"
+  },
+  {
+   "slug": "optimus-prime",
+   "name": "Optimus Prime",
+   "category": "film-tv"
+  },
+  {
+   "slug": "hal-9000",
+   "name": "HAL 9000",
+   "category": "film-tv"
+  },
+  {
+   "slug": "jarvis",
+   "name": "JARVIS",
+   "category": "film-tv"
+  },
+  {
+   "slug": "ted",
+   "name": "Ted",
+   "category": "film-tv"
+  },
+  {
+   "slug": "forrest-gump",
+   "name": "Forrest Gump",
+   "category": "film-tv"
+  },
+  {
+   "slug": "walter-white",
+   "name": "Walter White",
+   "category": "film-tv"
+  },
+  {
+   "slug": "kylo-ren",
+   "name": "Kylo Ren",
+   "category": "star-wars"
+  },
+  {
+   "slug": "captain-america",
+   "name": "Captain America",
+   "category": "superheroes"
+  },
+  {
+   "slug": "wolverine",
+   "name": "Wolverine",
+   "category": "superheroes"
+  },
+  {
+   "slug": "loki",
+   "name": "Loki",
+   "category": "superheroes"
+  },
+  {
+   "slug": "mike-wazowski",
+   "name": "Mike Wazowski",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "sulley",
+   "name": "Sulley",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "porky-pig",
+   "name": "Porky Pig",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "bob-belcher",
+   "name": "Bob Belcher",
+   "category": "adult-animation"
+  },
+  {
+   "slug": "kyle-broflovski",
+   "name": "Kyle Broflovski",
+   "category": "adult-animation"
+  },
+  {
+   "slug": "plankton",
+   "name": "Plankton",
+   "category": "family-films"
+  },
+  {
+   "slug": "dr-eggman",
+   "name": "Dr. Eggman",
+   "category": "games"
+  },
+  {
+   "slug": "wheatley",
+   "name": "Wheatley",
+   "category": "games"
+  },
+  {
+   "slug": "saul-goodman",
+   "name": "Saul Goodman",
+   "category": "film-tv"
+  },
+  {
+   "slug": "kitt",
+   "name": "KITT",
+   "category": "film-tv"
+  },
+  {
+   "slug": "popeye",
+   "name": "Popeye",
+   "category": "classic-cartoons"
+  }
+ ],
+ "alternates": [
+  {
+   "slug": "han-solo",
+   "name": "Han Solo",
+   "category": "star-wars"
+  },
+  {
+   "slug": "baloo",
+   "name": "Baloo",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "mufasa",
+   "name": "Mufasa",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "hades",
+   "name": "Hades",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "sylvester",
+   "name": "Sylvester",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "tweety",
+   "name": "Tweety",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "bojack-horseman",
+   "name": "BoJack Horseman",
+   "category": "adult-animation"
+  },
+  {
+   "slug": "ned-flanders",
+   "name": "Ned Flanders",
+   "category": "adult-animation"
+  },
+  {
+   "slug": "towelie",
+   "name": "Towelie",
+   "category": "adult-animation"
+  },
+  {
+   "slug": "kung-fu-panda-master-shifu",
+   "name": "Kung Fu Panda Master Shifu",
+   "category": "family-films"
+  },
+  {
+   "slug": "minion-kevin",
+   "name": "Minion Kevin",
+   "category": "family-films"
+  },
+  {
+   "slug": "wario",
+   "name": "Wario",
+   "category": "games"
+  },
+  {
+   "slug": "claptrap",
+   "name": "Claptrap",
+   "category": "games"
+  },
+  {
+   "slug": "dwight-schrute",
+   "name": "Dwight Schrute",
+   "category": "film-tv"
+  },
+  {
+   "slug": "morpheus",
+   "name": "Morpheus",
+   "category": "film-tv"
+  },
+  {
+   "slug": "spock",
+   "name": "Spock",
+   "category": "film-tv"
+  },
+  {
+   "slug": "austin-powers",
+   "name": "Austin Powers",
+   "category": "film-tv"
+  },
+  {
+   "slug": "captain-kirk",
+   "name": "Captain Kirk",
+   "category": "film-tv"
+  }
+ ],
+ "dropped": [
+  {
+   "slug": "genie",
+   "name": "Genie",
+   "category": "disney-pixar",
+   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)"
+  },
+  {
+   "slug": "rafiki",
+   "name": "Rafiki",
+   "category": "disney-pixar",
+   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)"
+  },
+  {
+   "slug": "maui",
+   "name": "Maui",
+   "category": "disney-pixar",
+   "reason": "no model on Fish with this character's name"
+  },
+  {
+   "slug": "eeyore",
+   "name": "Eeyore",
+   "category": "disney-pixar",
+   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)"
+  },
+  {
+   "slug": "foghorn-leghorn",
+   "name": "Foghorn Leghorn",
+   "category": "classic-cartoons",
+   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)"
+  },
+  {
+   "slug": "johnny-bravo",
+   "name": "Johnny Bravo",
+   "category": "classic-cartoons",
+   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)"
+  },
+  {
+   "slug": "mr-burns",
+   "name": "Mr. Burns",
+   "category": "adult-animation",
+   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)"
+  },
+  {
+   "slug": "bender",
+   "name": "Bender",
+   "category": "adult-animation",
+   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)"
+  },
+  {
+   "slug": "mr-mackey",
+   "name": "Mr. Mackey",
+   "category": "adult-animation",
+   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)"
+  },
+  {
+   "slug": "puss-in-boots",
+   "name": "Puss in Boots",
+   "category": "family-films",
+   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)"
+  },
+  {
+   "slug": "geralt",
+   "name": "Geralt",
+   "category": "games",
+   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)"
+  },
+  {
+   "slug": "gollum",
+   "name": "Gollum",
+   "category": "film-tv",
+   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)"
+  },
+  {
+   "slug": "dobby",
+   "name": "Dobby",
+   "category": "film-tv",
+   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)"
+  },
+  {
+   "slug": "michael-scott",
+   "name": "Michael Scott",
+   "category": "film-tv",
+   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)"
+  },
+  {
+   "slug": "doc-brown",
+   "name": "Doc Brown",
+   "category": "film-tv",
+   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)"
+  }
+ ]
+}

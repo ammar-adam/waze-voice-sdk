@@ -1,0 +1,12 @@
+{
+ "status": "built",
+ "retaken": 4,
+ "unclear": {
+  "in_one_mile": {
+   "line": "In one mile. Heh heh heh.",
+   "heard": "in one mile.  Hehehe.",
+   "clarity": 0.83
+  }
+ },
+ "voice": "d75c270eaee14c8aa1e9e980cc37cf1b"
+}
