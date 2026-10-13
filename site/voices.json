@@ -1,6 +1,6 @@
 {
   "_comment": "Single source for every UUID on the site. The page, the preview builder and the link checker all read this, so a stale pack is a one-line fix in one place. UUIDs change on every re-upload because Waze has no update-in-place.",
-  "updated": "2026-10-12",
+  "updated": "2026-10-13",
   "voices": [
     {
       "slug": "bugs-bunny",
@@ -503,7 +503,7 @@
       "name": "Olaf",
       "waze_name": "Olaf",
       "blurb": "Sunny, melty, and worth buckling up for.",
-      "uuid": "ba30e1d7-98eb-409c-9df2-fd562bee269d",
+      "uuid": "573e7394-4b3a-43a0-acc7-dc3cbceceaa4",
       "rights": "in-copyright",
       "category": "disney-pixar",
       "tags": [
@@ -570,8 +570,8 @@
       "preset": "buzz-lightyear",
       "name": "Buzz Lightyear",
       "waze_name": "Buzz Lightyear",
-      "blurb": "Space ranger. Your commute is now a mission.",
-      "uuid": "ea9d5cea-ac69-4937-ac31-34450433bc66",
+      "blurb": "This isn't driving. It's falling with style.",
+      "uuid": "03ca8134-7c88-4304-8f7d-6b06a9c671fb",
       "rights": "in-copyright",
       "category": "disney-pixar",
       "tags": [
@@ -580,23 +580,6 @@
         "space ranger",
         "infinity",
         "astronaut"
-      ]
-    },
-    {
-      "slug": "woody",
-      "preset": "woody",
-      "name": "Woody",
-      "waze_name": "Woody",
-      "blurb": "Loyal sheriff. There's a snake in his boot.",
-      "uuid": "24653b19-5112-428c-ad59-9b70a5f153ab",
-      "rights": "in-copyright",
-      "category": "disney-pixar",
-      "tags": [
-        "toy story",
-        "pixar",
-        "cowboy",
-        "sheriff",
-        "howdy"
       ]
     },
     {
@@ -1515,42 +1498,6 @@
       ]
     },
     {
-      "slug": "mike-wazowski",
-      "preset": "mike-wazowski",
-      "name": "Mike Wazowski",
-      "waze_name": "Mike Wazowski",
-      "blurb": "One eye on the road. It's the only one he's got.",
-      "uuid": "a3045d03-6149-4620-8a40-7c6f0ac0b01a",
-      "rights": "in-copyright",
-      "category": "disney-pixar",
-      "tags": [
-        "monsters inc",
-        "pixar",
-        "disney",
-        "monster",
-        "green",
-        "one eye"
-      ]
-    },
-    {
-      "slug": "sulley",
-      "preset": "sulley",
-      "name": "Sulley",
-      "waze_name": "Sulley",
-      "blurb": "A big blue softie who's got you, buddy.",
-      "uuid": "7ef702a9-8c03-4812-b749-f5baf9e06339",
-      "rights": "in-copyright",
-      "category": "disney-pixar",
-      "tags": [
-        "monsters inc",
-        "pixar",
-        "disney",
-        "monster",
-        "blue",
-        "kitty"
-      ]
-    },
-    {
       "slug": "porky-pig",
       "preset": "porky-pig",
       "name": "Porky Pig",
@@ -1709,6 +1656,59 @@
         "olive oyl",
         "classic cartoon",
         "king features"
+      ]
+    },
+    {
+      "slug": "donald-duck",
+      "preset": "donald-duck",
+      "name": "Donald Duck",
+      "waze_name": "Donald Duck",
+      "blurb": "Aw, phooey! Short fuse, shorter directions.",
+      "uuid": "49a13d3a-80d2-4444-8922-eb411b9f44cd",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "disney",
+        "duck",
+        "quack",
+        "angry",
+        "phooey"
+      ]
+    },
+    {
+      "slug": "minnie-mouse",
+      "preset": "minnie-mouse",
+      "name": "Minnie Mouse",
+      "waze_name": "Minnie Mouse",
+      "blurb": "Yoo-hoo! The politest directions on the road.",
+      "uuid": "fc7b53a4-ffb6-4772-8bec-c0e1bcda8144",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "disney",
+        "mouse",
+        "mickey",
+        "bow",
+        "polka dots",
+        "sweet"
+      ]
+    },
+    {
+      "slug": "mr-potato-head",
+      "preset": "mr-potato-head",
+      "name": "Mr. Potato Head",
+      "waze_name": "Mr. Potato Head",
+      "blurb": "Grumpy spud. Drive smooth or lose his nose.",
+      "uuid": "a0ec0e9e-3e6d-44f5-a8ee-2ab367f0dea6",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "toy story",
+        "pixar",
+        "potato",
+        "hockey puck",
+        "sarcastic",
+        "grumpy"
       ]
     }
   ]

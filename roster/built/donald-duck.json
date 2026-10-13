@@ -1,0 +1,33 @@
+{
+ "status": "built",
+ "retaken": 12,
+ "unclear": {
+  "and_then": {
+   "line": "and then,",
+   "heard": "And now!",
+   "clarity": 0.67
+  },
+  "arrived": {
+   "line": "We're here! About time! Oh boy!",
+   "heard": "Well, here!  About time!  Good boy!",
+   "clarity": 0.84
+  },
+  "red_light_camera_ahead": {
+   "line": "Red light camera ahead. Stop! Stop!",
+   "heard": "What like camera head? Stop! Stop!",
+   "clarity": 0.79
+  },
+  "reroute_chime": {
+   "line": "Aw, phooey! Missed it! New way!",
+   "heard": "Oh! Foolie! Missed it!  New way!",
+   "clarity": 0.81
+  },
+  "traffic_ahead": {
+   "line": "Traffic ahead. Aw, phooey!",
+   "heard": "Traffic ahead! Oh, boy!",
+   "clarity": 0.79
+  }
+ },
+ "voice": "a486ca175f0d4fc1b3c99b1082e2928b",
+ "note": "Core direction lines retaken until clear; the remaining unclear lines are in-character flavour."
+}

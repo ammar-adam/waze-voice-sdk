@@ -170,14 +170,9 @@
     "arrive": "We're here! Who brought honor to us all? This guy."
   },
   "buzz-lightyear": {
-    "start": "Buzz Lightyear, space ranger. Let's move out.",
-    "reroute": "Course correction! Plotting a new trajectory.",
-    "arrive": "We have arrived. Mission accomplished. To infinity and beyond!"
-  },
-  "woody": {
-    "start": "Howdy, partner! Let's saddle up.",
-    "reroute": "Whoa, missed it. This is no time to panic. New trail.",
-    "arrive": "We're here! So long, partner."
+    "start": "Buzz Lightyear, space ranger, Universe Protection Unit. Let's drive.",
+    "reroute": "Course correction! Star Command, plotting a new trajectory.",
+    "arrive": "We have arrived. Mission log: success. To infinity and beyond!"
   },
   "dory": {
     "start": "Hi! I'm Dory. Have we met? Let's go!",
@@ -444,16 +439,6 @@
     "reroute": "You missed it. A variant route, then. How fitting.",
     "arrive": "You have arrived. Glorious. You may thank your king now."
   },
-  "mike-wazowski": {
-    "start": "I'm on the cover of this drive! Okay, I'm the navigator. Let's go!",
-    "reroute": "Missed it! No, no, it's fine. I got a plan. I always got a plan.",
-    "arrive": "We're here! Ta da! Thank you, I'll be here all week."
-  },
-  "sulley": {
-    "start": "Hey, buddy. Ready to roll? Let's go.",
-    "reroute": "Oops. Missed it. No big deal, I know another door.",
-    "arrive": "We're here. Nice driving, buddy. Kitty has to go now."
-  },
   "porky-pig": {
     "start": "H-h-hello, folks! Let's go for a drive.",
     "reroute": "Oops. Missed it. Never mind, folks.",
@@ -498,5 +483,20 @@
     "start": "Ahoy, matey! Popeye the sailor man is at the helm. Let's go.",
     "reroute": "Missed it! Never mind, matey. I'll chart a new course.",
     "arrive": "We're here! Well, blow me down. Safe in port, matey."
+  },
+  "donald-duck": {
+    "start": "Oh boy, oh boy, oh boy! Let's go!",
+    "reroute": "Aw, phooey! Missed it! New way!",
+    "arrive": "We're here! About time! Oh boy!"
+  },
+  "minnie-mouse": {
+    "start": "Yoo-hoo! Hello there! Let's go for a drive.",
+    "reroute": "Oopsie! Never mind, dear. I know another way.",
+    "arrive": "We're here! Yoo-hoo! Wasn't that just lovely?"
+  },
+  "mr-potato-head": {
+    "start": "What are you lookin' at, ya hockey puck? Drive!",
+    "reroute": "You missed it. Unbelievable. Fine, here's a new route.",
+    "arrive": "We're here. Finally. Now help me find my other ear."
   }
 }

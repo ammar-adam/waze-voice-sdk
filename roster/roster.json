@@ -112,16 +112,6 @@
    "category": "disney-pixar"
   },
   {
-   "slug": "buzz-lightyear",
-   "name": "Buzz Lightyear",
-   "category": "disney-pixar"
-  },
-  {
-   "slug": "woody",
-   "name": "Woody",
-   "category": "disney-pixar"
-  },
-  {
    "slug": "dory",
    "name": "Dory",
    "category": "disney-pixar"
@@ -387,16 +377,6 @@
    "category": "superheroes"
   },
   {
-   "slug": "mike-wazowski",
-   "name": "Mike Wazowski",
-   "category": "disney-pixar"
-  },
-  {
-   "slug": "sulley",
-   "name": "Sulley",
-   "category": "disney-pixar"
-  },
-  {
    "slug": "porky-pig",
    "name": "Porky Pig",
    "category": "classic-cartoons"
@@ -440,6 +420,26 @@
    "slug": "popeye",
    "name": "Popeye",
    "category": "classic-cartoons"
+  },
+  {
+   "slug": "donald-duck",
+   "name": "Donald Duck",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "minnie-mouse",
+   "name": "Minnie Mouse",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "buzz-lightyear",
+   "name": "Buzz Lightyear",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "mr-potato-head",
+   "name": "Mr. Potato Head",
+   "category": "disney-pixar"
   }
  ],
  "alternates": [
@@ -624,6 +624,24 @@
    "name": "Doc Brown",
    "category": "film-tv",
    "reason": "no well-used model (needs 10+ likes or 2,000+ uses)"
+  },
+  {
+   "slug": "woody",
+   "name": "Woody",
+   "category": "disney-pixar",
+   "reason": "cut by the owner: not getting installs"
+  },
+  {
+   "slug": "mike-wazowski",
+   "name": "Mike Wazowski",
+   "category": "disney-pixar",
+   "reason": "cut by the owner"
+  },
+  {
+   "slug": "sulley",
+   "name": "Sulley",
+   "category": "disney-pixar",
+   "reason": "cut by the owner"
   }
  ]
 }
