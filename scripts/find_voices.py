@@ -73,6 +73,7 @@ QUERIES: dict[str, list[str]] = {
     "snape": ["Snape", "Severus Snape"],
     "master-chief": ["Master Chief", "Halo Master Chief"],
     "optimus-prime": ["Optimus Prime", "Optimus"],
+    "mr-potato-head": ["Mr. Potato Head", "Mr Potato Head", "Potato Head"],
     "lightning-mcqueen": ["Lightning McQueen", "McQueen"],
     "buzz-lightyear": ["Buzz Lightyear", "Buzz"],
     "marvin-the-martian": ["Marvin the Martian", "Marvin Martian"],

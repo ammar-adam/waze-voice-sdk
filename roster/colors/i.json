@@ -1,0 +1,5 @@
+{
+  "donald-duck": {"bg": "#FCE9B8", "tone": "#2E7AD8", "tone_ink": "#ffffff"},
+  "minnie-mouse": {"bg": "#FFDCE6", "tone": "#E3262E", "tone_ink": "#ffffff"},
+  "mr-potato-head": {"bg": "#D6ECF8", "tone": "#A8642C", "tone_ink": "#ffffff"}
+}

@@ -1,0 +1,37 @@
+{
+  "donald-duck": {
+    "blurb": "Aw, phooey! Short fuse, shorter directions.",
+    "tags": [
+      "disney",
+      "duck",
+      "quack",
+      "angry",
+      "phooey"
+    ],
+    "waze_name": "Donald Duck"
+  },
+  "minnie-mouse": {
+    "blurb": "Yoo-hoo! The politest directions on the road.",
+    "tags": [
+      "disney",
+      "mouse",
+      "mickey",
+      "bow",
+      "polka dots",
+      "sweet"
+    ],
+    "waze_name": "Minnie Mouse"
+  },
+  "mr-potato-head": {
+    "blurb": "Grumpy spud. Drive smooth or lose his nose.",
+    "tags": [
+      "toy story",
+      "pixar",
+      "potato",
+      "hockey puck",
+      "sarcastic",
+      "grumpy"
+    ],
+    "waze_name": "Mr. Potato Head"
+  }
+}

@@ -712,11 +712,11 @@
   "olaf": {
    "name": "Olaf",
    "status": "ok",
-   "model_id": "9008533e334c4452839ab9df2fe5a078",
-   "title": "Olaf",
-   "likes": 12,
-   "tasks": 1753,
-   "description": "Hi I'm Olaf follow me to grow together and thank you for the update ",
+   "model_id": "29ff65c774824b4ab1882f0d12fa3bb6",
+   "title": "Olaf frozen ",
+   "likes": 11,
+   "tasks": 370,
+   "description": "HEALING is weird, some days you are OKAY, and you are doing just FINE, Other days it still HURTS like it's fresh. It's a process with no definitive time frame.\r\n\r\nYou Just have to keep going, And know that when all is said and Done, \"YOU'RE GOING TO BE OKAY.\"\r\n\r\nYou're gonna make it okay here, I tru",
    "clarity": [
     1.0,
     1.0
@@ -747,143 +747,8 @@
      "description": "A calm and supportive middle-aged male voice with a gentle, empathetic tone. This voice is well-suited for wellness content, guided meditations, or any material requiring a reassuring and friendly presence."
     }
    ],
-   "category": "disney-pixar"
-  },
-  "genie": {
-   "name": "Genie",
-   "status": "none",
-   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)",
-   "tried": [
-    {
-     "id": "c734ecd38dd74e06b11435b2ebd2f599",
-     "title": "Genie ",
-     "description": "A middle-aged male voice with an energetic and theatrical tone, perfect for wacky characters or animated roles. The delivery is highly expressive, dynamic, and playful, featuring a clear American accent.",
-     "likes": 0,
-     "tasks": 136,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead! You have arrived at your destination!"
-     ],
-     "seconds": [
-      2.8,
-      4.45
-     ],
-     "pitch_hz": 195
-    },
-    {
-     "id": "e1b2089787a544baabf0852cca09b7e0",
-     "title": "Genie",
-     "description": "A confident and expressive female voice with a distinctive accent, perfect for dramatic storytelling and character roles.",
-     "likes": 0,
-     "tasks": 32,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead.  You have arrived at your destination."
-     ],
-     "seconds": [
-      2.25,
-      3.46
-     ],
-     "pitch_hz": 225
-    }
-   ],
-   "category": "disney-pixar"
-  },
-  "rafiki": {
-   "name": "Rafiki",
-   "status": "none",
-   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)",
-   "tried": [
-    {
-     "id": "e1c3d49c865e4c5a84c646bf44a7762f",
-     "title": "Rafiki",
-     "description": "A deep and authoritative male voice with a wise, calm, and serious tone, suitable for an elder character or philosophical narration.",
-     "likes": 3,
-     "tasks": 66,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead. You have arrived at your destination."
-     ],
-     "seconds": [
-      2.72,
-      3.8
-     ],
-     "pitch_hz": 115
-    },
-    {
-     "id": "446aa518c2b042aaa567548e1970fe2c",
-     "title": "Rafiki",
-     "description": "A deep, resonant male voice with a wise and authoritative tone. Its calm and warm delivery makes it ideal for character roles, storytelling, or cinematic narration.",
-     "likes": 0,
-     "tasks": 87,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "in a quarter of a mile, turn left.",
-      "Police ahead, you have arrived at your destination."
-     ],
-     "seconds": [
-      2.91,
-      3.93
-     ],
-     "pitch_hz": 116
-    },
-    {
-     "id": "9a6b0df00e5e4fb69a77c848bcfebc84",
-     "title": "Rafiki",
-     "description": "I love you my wife very much.\r\nMy love, my partner, my everything—today, I just want to take a moment to celebrate you. You are the sweetest, most loving, and caring soul I have ever known. Your kindness brightens my darkest days, and your love lifts me higher than I ever thought possible. You have ",
-     "likes": 1,
-     "tasks": 26,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead. You have arrived at your destination."
-     ],
-     "seconds": [
-      3.04,
-      4.24
-     ],
-     "pitch_hz": 98
-    }
-   ],
-   "category": "disney-pixar"
+   "category": "disney-pixar",
+   "notes": "Chosen after the owner said the first pick's voice was wrong; picked from the alternatives without a listen."
   },
   "timon": {
    "name": "Timon",
@@ -1005,86 +870,6 @@
    ],
    "category": "disney-pixar"
   },
-  "buzz-lightyear": {
-   "name": "Buzz Lightyear",
-   "status": "ok",
-   "model_id": "e4e3e4d933534eccb3e0091bf34bc4fe",
-   "title": "Buzz Lightyear",
-   "likes": 36,
-   "tasks": 8289,
-   "description": "To Infinity And Beyond!",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 150,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "7bbb12071d27472c8713750364788ade",
-     "title": "Buzz Lightyear",
-     "likes": 11,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 104,
-     "description": "A heroic and authoritative male voice with a deep, confident tone, perfectly suited for cinematic character roles and dramatic storytelling."
-    },
-    {
-     "id": "db90b1ffc50440cab05bbbea34060d22",
-     "title": "Buzz",
-     "likes": 0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 146,
-     "description": "A seasoned male voice with a confident and authoritative tone, perfect for sports commentary and discussions."
-    }
-   ],
-   "category": "disney-pixar"
-  },
-  "woody": {
-   "name": "Woody",
-   "status": "ok",
-   "model_id": "b772f897ead544e6909f361074a5dd3c",
-   "title": "Woody",
-   "likes": 71,
-   "tasks": 14349,
-   "description": "There’s A Snake In My Boot",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 215,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "79c7996c93a943e0824b49b1018e3737",
-     "title": "Woody",
-     "likes": 30,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 201,
-     "description": "A young male voice with an energetic and urgent tone, ideal for character performances and storytelling. The voice is clear, expressive, and authoritative, suitable for animated roles."
-    },
-    {
-     "id": "69ed57dfa9384cffb2262d4fbdb4a1ff",
-     "title": "WOODY",
-     "likes": 6,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 259,
-     "description": "This male voice is lively and animated, perfect for character acting and engaging storytelling."
-    }
-   ],
-   "category": "disney-pixar"
-  },
   "dory": {
    "name": "Dory",
    "status": "ok",
@@ -1159,13 +944,6 @@
    ],
    "category": "disney-pixar"
   },
-  "maui": {
-   "name": "Maui",
-   "status": "none",
-   "reason": "no model on Fish with this character's name",
-   "tried": [],
-   "category": "disney-pixar"
-  },
   "scar": {
    "name": "Scar",
    "status": "ok",
@@ -1231,86 +1009,6 @@
      ],
      "pitch_hz": 102,
      "description": "A calm and professional middle-aged male voice with a smooth, conversational delivery. It features a friendly and expressive tone well-suited for narration or podcasts."
-    }
-   ],
-   "category": "disney-pixar"
-  },
-  "eeyore": {
-   "name": "Eeyore",
-   "status": "none",
-   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)",
-   "tried": [
-    {
-     "id": "8b279852b1e2407b9766c3c6e5f4b239",
-     "title": "Eeyore",
-     "description": "From Winnie the Pooh.",
-     "likes": 6,
-     "tasks": 299,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead. You have arrived at your destination."
-     ],
-     "seconds": [
-      2.98,
-      4.45
-     ],
-     "pitch_hz": 112
-    },
-    {
-     "id": "7eeaa2f3f10b434cb176b29572efbad5",
-     "title": "Eeyore ",
-     "description": "Hallo Leute ich bin ein neuer ranter. Mein Sprite ist der esel IA von winnie poh.Unf bevor ihr weiterscrollt das ist mein erstes viedeo und ich würde mich sehr über ein like freuen und ja. Morgen kommt vielleicht auch ein viedeo aber ich muss noch schauen weil es ein bisschen stressig ist wegen schu",
-     "likes": 3,
-     "tasks": 102,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      0.95,
-      1.0
-     ],
-     "heard": [
-      "and a quarter of a mile turn left.",
-      "Police ahead. You have arrived at your destination."
-     ],
-     "seconds": [
-      3.19,
-      4.95
-     ],
-     "pitch_hz": 113
-    },
-    {
-     "id": "8f978f890231445086ed5478b6b182b2",
-     "title": "Eeyore",
-     "description": "This deep, calm male voice offers a measured and clear delivery, perfect for thoughtful narration and storytelling.",
-     "likes": 0,
-     "tasks": 172,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead. You have arrived at your destination."
-     ],
-     "seconds": [
-      2.49,
-      3.82
-     ],
-     "pitch_hz": 90
     }
    ],
    "category": "disney-pixar"
@@ -1391,62 +1089,6 @@
      ],
      "pitch_hz": 337,
      "description": "This lively female voice offers a playful and animated tone, ideal for engaging content. Her expressive delivery brings a unique charm to any narrative."
-    }
-   ],
-   "category": "classic-cartoons"
-  },
-  "foghorn-leghorn": {
-   "name": "Foghorn Leghorn",
-   "status": "none",
-   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)",
-   "tried": [
-    {
-     "id": "f143e1c00f6448669d8a65192c8e237c",
-     "title": "Foghorn Leghorn (Bill Farmer)",
-     "description": "Foghorn Leghorn Was a Western Character Lived In USA.",
-     "likes": 9,
-     "tasks": 700,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead! You have arrived at your destination."
-     ],
-     "seconds": [
-      2.67,
-      4.11
-     ],
-     "pitch_hz": 282
-    },
-    {
-     "id": "6e9ac190b173485eb926e0122e80306c",
-     "title": "Foghorn Leghorn (Chase Beck)",
-     "description": "A boisterous and energetic middle-aged male voice with a thick Southern accent and a classic cartoonish quality. It features a loud, authoritative tone that is both playful and highly expressive.",
-     "likes": 2,
-     "tasks": 574,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead. You have arrived at your destination."
-     ],
-     "seconds": [
-      1.73,
-      3.04
-     ],
-     "pitch_hz": 245
     }
    ],
    "category": "classic-cartoons"
@@ -1554,62 +1196,6 @@
    "runners_up": [],
    "category": "classic-cartoons"
   },
-  "johnny-bravo": {
-   "name": "Johnny Bravo",
-   "status": "none",
-   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)",
-   "tried": [
-    {
-     "id": "319a2fab6b5a435b9867bd5aba079a67",
-     "title": "Johnny bravo",
-     "description": "A confident and playful male voice with a boisterous tone, suitable for lively entertainment. This old gentleman offers a unique and engaging listening experience.",
-     "likes": 7,
-     "tasks": 597,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      0.95,
-      1.0
-     ],
-     "heard": [
-      "And a quarter of a mile, turn left.",
-      "Police ahead. You have arrived at your destination."
-     ],
-     "seconds": [
-      1.78,
-      2.98
-     ],
-     "pitch_hz": 211
-    },
-    {
-     "id": "2cd8a483d1fe43d982b97d36d164caeb",
-     "title": "Johnny Bravo",
-     "description": "This male voice, inspired by the iconic Johnny Bravo, exudes confident charm and playful energy, perfect for character performances.",
-     "likes": 2,
-     "tasks": 145,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead! You have arrived at your destination."
-     ],
-     "seconds": [
-      2.25,
-      3.61
-     ],
-     "pitch_hz": 231
-    }
-   ],
-   "category": "classic-cartoons"
-  },
   "homer-simpson": {
    "name": "Homer Simpson",
    "status": "ok",
@@ -1686,86 +1272,6 @@
      ],
      "pitch_hz": 291,
      "description": ""
-    }
-   ],
-   "category": "adult-animation"
-  },
-  "mr-burns": {
-   "name": "Mr. Burns",
-   "status": "none",
-   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)",
-   "tried": [
-    {
-     "id": "fac747c2b4544cb7a1880d07a4ded7ca",
-     "title": "Mr Burns",
-     "description": "Monty Burns from Simpsons",
-     "likes": 3,
-     "tasks": 536,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead! You have arrived at your destination."
-     ],
-     "seconds": [
-      2.72,
-      3.38
-     ],
-     "pitch_hz": 200
-    },
-    {
-     "id": "1a2d9d8fef1946778b805ba6986788ee",
-     "title": "Mr Burns",
-     "description": "",
-     "likes": 1,
-     "tasks": 42,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead. You have arrived at your destination."
-     ],
-     "seconds": [
-      2.36,
-      3.69
-     ],
-     "pitch_hz": 180
-    },
-    {
-     "id": "8ae5e57465094dd59aadc4e384f4f8e0",
-     "title": "Mr. Burns - The Simpsons",
-     "description": "A distinctive old male voice with an aristocratic, authoritative, and slightly sinister tone. It features a measured pace and a classic elite accent, making it ideal for villainous or refined character roles.",
-     "likes": 6,
-     "tasks": 454,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead! You have arrived at your destination."
-     ],
-     "seconds": [
-      2.49,
-      3.4
-     ],
-     "pitch_hz": 142
     }
    ],
    "category": "adult-animation"
@@ -1970,86 +1476,6 @@
    ],
    "category": "adult-animation"
   },
-  "bender": {
-   "name": "Bender",
-   "status": "none",
-   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)",
-   "tried": [
-    {
-     "id": "3d173a2ccad14296837033a9a7263e85",
-     "title": "Bender",
-     "description": "An energetic and dynamic voice perfect for engaging narratives and lively performances. This speaker brings excitement to every word.",
-     "likes": 9,
-     "tasks": 982,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead! You have arrived at your destination!"
-     ],
-     "seconds": [
-      2.54,
-      3.69
-     ],
-     "pitch_hz": 236
-    },
-    {
-     "id": "d4bdba4503e949f699527fcbda6f6f5d",
-     "title": "Bender",
-     "description": "Core Personality Profile\r\n\r\n· Voice & Speech Patterns:\r\n  · Catchphrases: \"Bite my shiny metal ass!\" (Primary signature), \"I'm back, baby!\", \"We're boned!\", \"Kiss my shiny metal...\", \"Let's go already!\", \"Oh, your God!\", \"Hot crackers, I take exception to that!\"\r\n  · Tone: Consistently sarcastic, cy",
-     "likes": 9,
-     "tasks": 880,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead! You have arrived at your destination!"
-     ],
-     "seconds": [
-      1.94,
-      3.56
-     ],
-     "pitch_hz": 278
-    },
-    {
-     "id": "3e7767834b3d431fae307c460c8db64f",
-     "title": "bender",
-     "description": "This is a high-energy, middle-aged male voice with a gravelly and aggressive tone. It excels in character-driven roles that require a loud, dramatic, and humorous delivery.",
-     "likes": 2,
-     "tasks": 175,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead! You have arrived at your destination!"
-     ],
-     "seconds": [
-      2.43,
-      4.16
-     ],
-     "pitch_hz": 227
-    }
-   ],
-   "category": "adult-animation"
-  },
   "butters": {
    "name": "Butters",
    "status": "ok",
@@ -2115,86 +1541,6 @@
      ],
      "pitch_hz": 157,
      "description": "Stan and Shelley's Father from South Park"
-    }
-   ],
-   "category": "adult-animation"
-  },
-  "mr-mackey": {
-   "name": "Mr. Mackey",
-   "status": "none",
-   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)",
-   "tried": [
-    {
-     "id": "36f18bd283764d5eb5e9b5cb2a49032e",
-     "title": "Mr. Mackey",
-     "description": "This middle-aged male voice features a distinctive high-pitched, nasally quality with a repetitive and rhythmic speech pattern. It is an expressive character voice ideal for comedic animation, parody, or gaming.",
-     "likes": 7,
-     "tasks": 695,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead! You have arrived at your destination!"
-     ],
-     "seconds": [
-      2.36,
-      3.19
-     ],
-     "pitch_hz": 224
-    },
-    {
-     "id": "b8a5455b06ec456cac6bcd62146b2cf4",
-     "title": "Mr Mackey",
-     "description": "This is Mr Mackey from south park, mkay?",
-     "likes": 6,
-     "tasks": 521,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead. You have arrived at your destination."
-     ],
-     "seconds": [
-      2.54,
-      3.27
-     ],
-     "pitch_hz": 206
-    },
-    {
-     "id": "31bc4d0c31c649c7a4e86c49854eef5e",
-     "title": "Mr. Mackey",
-     "description": "",
-     "likes": 3,
-     "tasks": 407,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead! You have arrived at your destination."
-     ],
-     "seconds": [
-      1.89,
-      2.78
-     ],
-     "pitch_hz": 250
     }
    ],
    "category": "adult-animation"
@@ -2515,86 +1861,6 @@
      ],
      "pitch_hz": 160,
      "description": "This middle-aged male voice offers a dynamic and expressive delivery, perfect for engaging storytelling and character work."
-    }
-   ],
-   "category": "family-films"
-  },
-  "puss-in-boots": {
-   "name": "Puss in Boots",
-   "status": "none",
-   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)",
-   "tried": [
-    {
-     "id": "2dcbaf6a9f3b428486671b956b19ef85",
-     "title": "Puss in boots",
-     "description": "This male voice offers a warm, inviting tone perfect for storytelling and engaging audiences with a touch of adventure.",
-     "likes": 3,
-     "tasks": 487,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead! You have arrived at your destination!"
-     ],
-     "seconds": [
-      2.54,
-      4.22
-     ],
-     "pitch_hz": 241
-    },
-    {
-     "id": "7818e256a61243b7a3ffa01d5852a32c",
-     "title": "Puss in boots",
-     "description": "Core core gatitto ",
-     "likes": 1,
-     "tasks": 78,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead. You have arrived at your destination."
-     ],
-     "seconds": [
-      3.14,
-      3.82
-     ],
-     "pitch_hz": 105
-    },
-    {
-     "id": "5ea5324ffd6740b1afd540a2b756a533",
-     "title": "Puss in Boots",
-     "description": "Puss in Boots: The Three Diablos Sep 12th 11:23pm On HBO",
-     "likes": 0,
-     "tasks": 30,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead. You have arrived at your destination."
-     ],
-     "seconds": [
-      2.72,
-      4.53
-     ],
-     "pitch_hz": 186
     }
    ],
    "category": "family-films"
@@ -2999,86 +2265,6 @@
    ],
    "category": "games"
   },
-  "geralt": {
-   "name": "Geralt",
-   "status": "none",
-   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)",
-   "tried": [
-    {
-     "id": "549767d13f024a6b9fb09647b91ab8e0",
-     "title": "Geralt of Rivia",
-     "description": "A deep, raspy male voice with a weary and authoritative tone, perfect for a grizzled fantasy warrior or monster hunter. The delivery is calm and serious, featuring a distinct gravelly texture.",
-     "likes": 4,
-     "tasks": 845,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead. You have arrived at your destination."
-     ],
-     "seconds": [
-      2.62,
-      3.56
-     ],
-     "pitch_hz": 99
-    },
-    {
-     "id": "c25cbc6c53d34902bbfe6161bf403f60",
-     "title": "Geralt",
-     "description": "Geralt of rivia from the witcher series",
-     "likes": 5,
-     "tasks": 444,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead. You have arrived at your destination."
-     ],
-     "seconds": [
-      2.36,
-      3.38
-     ],
-     "pitch_hz": 86
-    },
-    {
-     "id": "8a6f7fe4f1a94be0a80749bd947f59d1",
-     "title": "Geralt",
-     "description": "The witcher 3",
-     "likes": 2,
-     "tasks": 187,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead. You have arrived at your destination."
-     ],
-     "seconds": [
-      2.72,
-      4.24
-     ],
-     "pitch_hz": 85
-    }
-   ],
-   "category": "games"
-  },
   "solid-snake": {
    "name": "Solid Snake",
    "status": "ok",
@@ -3199,86 +2385,6 @@
    ],
    "category": "film-tv"
   },
-  "gollum": {
-   "name": "Gollum",
-   "status": "none",
-   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)",
-   "tried": [
-    {
-     "id": "637a33be6ebd4b12a7b3c1a4838119c2",
-     "title": "Gollum",
-     "description": "A high-pitched, extremely raspy and breathy male voice with a dramatic, creature-like quality and intense whispering. It is highly expressive with dynamic shifts in tone, making it ideal for fantasy storytelling and gaming.",
-     "likes": 3,
-     "tasks": 797,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      0.97
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left!",
-      "Place ahead! You have arrived at your destination!"
-     ],
-     "seconds": [
-      4.16,
-      5.05
-     ],
-     "pitch_hz": 155
-    },
-    {
-     "id": "209f430880bb42af8e770160115dfaad",
-     "title": "gollum",
-     "description": "This is a highly distinctive and raspy male character voice with a croaky, high-pitched quality. It exhibits intense, dramatic inflections and an eccentric, mysterious tone suitable for unique fantasy or horror narratives.",
-     "likes": 0,
-     "tasks": 890,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead. You have arrived at your destination."
-     ],
-     "seconds": [
-      3.51,
-      5.08
-     ],
-     "pitch_hz": 222
-    },
-    {
-     "id": "0f8007fa16c441ac87ac0b16e08fb860",
-     "title": "gollum",
-     "description": "A versatile voice adept at character impersonations, capable of shifting between distinct personalities with engaging dramatic flair.",
-     "likes": 0,
-     "tasks": 384,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead. You have arrived at your destination."
-     ],
-     "seconds": [
-      3.4,
-      4.4
-     ],
-     "pitch_hz": 194
-    }
-   ],
-   "category": "film-tv"
-  },
   "dumbledore": {
    "name": "Dumbledore",
    "status": "ok",
@@ -3355,86 +2461,6 @@
      ],
      "pitch_hz": 122,
      "description": "A deep, authoritative, and dramatic middle-aged male voice with a clear British accent. It has a slow, measured delivery with a slightly raspy and mysterious quality, making it ideal for storytelling and cinematic roles."
-    }
-   ],
-   "category": "film-tv"
-  },
-  "dobby": {
-   "name": "Dobby",
-   "status": "none",
-   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)",
-   "tried": [
-    {
-     "id": "e71ec50c15994b2d97c0cc59ff918004",
-     "title": "Dobby",
-     "description": "A deep and resonant male voice with a warm, mature quality that exudes wisdom and authority. The tone is empathetic and cinematic, making it perfect for inspirational narration or dramatic storytelling.",
-     "likes": 3,
-     "tasks": 671,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead. You have arrived at your destination."
-     ],
-     "seconds": [
-      3.19,
-      4.24
-     ],
-     "pitch_hz": 273
-    },
-    {
-     "id": "78feda1f645549c099675b1f6de570b1",
-     "title": "Dobby the elf (game)",
-     "description": "A high-pitched, eccentric male character voice with a frantic and nasal tone, ideal for fantasy creatures and dramatic storytelling.",
-     "likes": 0,
-     "tasks": 578,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left!",
-      "Police ahead! You have arrived at your destination!"
-     ],
-     "seconds": [
-      2.85,
-      3.69
-     ],
-     "pitch_hz": 316
-    },
-    {
-     "id": "ed68fc90e751408abc5494bc66f7e244",
-     "title": "Dobby (CapCut)",
-     "description": "CapCut voice!?!?",
-     "likes": 2,
-     "tasks": 138,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead! You have arrived at your destination!"
-     ],
-     "seconds": [
-      2.67,
-      3.8
-     ],
-     "pitch_hz": 374
     }
    ],
    "category": "film-tv"
@@ -3639,86 +2665,6 @@
    ],
    "category": "film-tv"
   },
-  "michael-scott": {
-   "name": "Michael Scott",
-   "status": "none",
-   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)",
-   "tried": [
-    {
-     "id": "ce5292b11e18453aab1b3a468a110610",
-     "title": "Michael Scott",
-     "description": "A confident and enthusiastic middle-aged male voice with a professional yet friendly tone. This voice is highly expressive and well-suited for conversational narration or entertainment purposes.",
-     "likes": 3,
-     "tasks": 1202,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead. You have arrived at your destination."
-     ],
-     "seconds": [
-      2.38,
-      3.8
-     ],
-     "pitch_hz": 171
-    },
-    {
-     "id": "58c1a40aa08941b7b963619aba4d6bde",
-     "title": "michael scott",
-     "description": "es Jara, Bitch…. súbete a la jaraneta ",
-     "likes": 6,
-     "tasks": 600,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead! You have arrived at your destination."
-     ],
-     "seconds": [
-      2.67,
-      3.61
-     ],
-     "pitch_hz": 131
-    },
-    {
-     "id": "6912a9debd02491b94eb530b4fd75d6d",
-     "title": "Michael scott",
-     "description": "Hey it’s Michael welcome to my voice I’m the king of the world, prison Mike would be proud!!!!",
-     "likes": 3,
-     "tasks": 444,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead. You have arrived at your destination."
-     ],
-     "seconds": [
-      2.12,
-      3.38
-     ],
-     "pitch_hz": 127
-    }
-   ],
-   "category": "film-tv"
-  },
   "walter-white": {
    "name": "Walter White",
    "status": "ok",
@@ -3758,126 +2704,6 @@
     }
    ],
    "category": "film-tv"
-  },
-  "doc-brown": {
-   "name": "Doc Brown",
-   "status": "none",
-   "reason": "no well-used model (needs 10+ likes or 2,000+ uses)",
-   "tried": [
-    {
-     "id": "811060e4f28a411da6e3cd92e0a40a6e",
-     "title": "Doc Brown",
-     "description": "From BTTF 2",
-     "likes": 5,
-     "tasks": 1013,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      0.94
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Please, ahead. You have arrived at your destination."
-     ],
-     "seconds": [
-      2.67,
-      4.03
-     ],
-     "pitch_hz": 272
-    },
-    {
-     "id": "4202138857c94234a2a54c1bfe238878",
-     "title": "Doc Brown",
-     "description": "An energetic middle-aged male voice with a fast-paced, authoritative delivery and a scholarly tone, well-suited for scientific or intellectual character roles.",
-     "likes": 3,
-     "tasks": 513,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "heard": [
-      "In a quarter of a mile, turn left.",
-      "Police ahead! You have arrived at your destination!"
-     ],
-     "seconds": [
-      2.62,
-      3.82
-     ],
-     "pitch_hz": 330
-    },
-    {
-     "id": "03caaa56a352405c934df04c9412956c",
-     "title": "Doc Brown",
-     "description": "Back to the Future",
-     "likes": 0,
-     "tasks": 266,
-     "languages": [
-      "en"
-     ],
-     "match": 1.0,
-     "clarity": [
-      0.95,
-      0.98
-     ],
-     "heard": [
-      "and a quarter of a mile turn left.",
-      "Police ahead. You've arrived at your destination."
-     ],
-     "seconds": [
-      2.78,
-      3.22
-     ],
-     "pitch_hz": 173
-    }
-   ],
-   "category": "film-tv"
-  },
-  "han-solo": {
-   "name": "Han Solo",
-   "status": "ok",
-   "model_id": "e83a045099784168b93af2bffc521424",
-   "title": "Han Solo ",
-   "likes": 11,
-   "tasks": 1737,
-   "description": "A confident and adventurous middle-aged male voice with a slight rasp and an authoritative tone. It sounds similar to a classic sci-fi hero, perfect for cinematic storytelling and character roles.",
-   "clarity": [
-    0.95,
-    1.0
-   ],
-   "pitch_hz": 156,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "cb7b617b4db24e6ca42674b105ce18bd",
-     "title": "Han Solo",
-     "likes": 7,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 229,
-     "description": "Han Solo voiced by Harrison Ford"
-    },
-    {
-     "id": "3b420b947d5f4043ba1d1eb691bd45fb",
-     "title": "Han Solo",
-     "likes": 4,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 226,
-     "description": "This middle-aged male voice has a deep, raspy, and world-weary tone with a gritty edge. It features a confident and serious delivery, making it ideal for action-oriented characters or cinematic storytelling."
-    }
-   ],
-   "category": "star-wars"
   },
   "kylo-ren": {
    "name": "Kylo Ren",
@@ -4039,62 +2865,498 @@
    ],
    "category": "superheroes"
   },
-  "mike-wazowski": {
-   "name": "Mike Wazowski",
+  "porky-pig": {
+   "name": "Porky Pig",
    "status": "ok",
-   "model_id": "03b05cd464c64c1cb6752260d3e48c43",
-   "title": "Mike Wazowski (Billy Crystal)",
-   "likes": 38,
-   "tasks": 2412,
-   "description": "This Voice Sounds Fantastic.",
+   "model_id": "c05f0d261df444e4b2eff87aef08af26",
+   "title": "Porky Pig (Bob Bergen)",
+   "likes": 21,
+   "tasks": 1630,
+   "description": "He is a pig that he can speak with an th-th-th-th and that's all folks! from the looney tunes",
    "clarity": [
     1.0,
     1.0
    ],
-   "pitch_hz": 186,
+   "pitch_hz": 195,
    "confidence": "high",
    "runners_up": [
     {
-     "id": "4210ea0ad8454f8bbb4d6bc0844cda78",
-     "title": "Mike Wazowski",
+     "id": "9499515c0d174b24a00844ceda0c18ed",
+     "title": "Porky pig ",
+     "likes": 1,
+     "clarity": [
+      1.0,
+      0.94
+     ],
+     "pitch_hz": 232,
+     "description": "A playful and humorous porky voice, ideal for lighthearted content and comedic moments with expressive delivery stress pig "
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "bob-belcher": {
+   "name": "Bob Belcher",
+   "status": "ok",
+   "model_id": "cc66efededda4bd88a2b950f691a7c9f",
+   "title": "Bob Belcher",
+   "likes": 17,
+   "tasks": 2531,
+   "description": "A middle-aged male voice with a distinctive raspy quality and a conversational, humorous tone. It is expressive and energetic, making it well-suited for character work and lighthearted content.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 112,
+   "confidence": "medium",
+   "runners_up": [],
+   "category": "adult-animation"
+  },
+  "kyle-broflovski": {
+   "name": "Kyle Broflovski",
+   "status": "ok",
+   "model_id": "9830641fbcd5492392caf02aad4b348d",
+   "title": "Kyle Broflovski",
+   "likes": 46,
+   "tasks": 10218,
+   "description": "This youthful male voice features a high-pitched, slightly nasal tone with high energy and an expressive delivery. It is reminiscent of an animated character, displaying a range of emotions from frustration to excitement.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 431,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "82ae859ed6994e9b84f3f6a94ed4fd3f",
+     "title": "Kyle Broflovski",
+     "likes": 28,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 455,
+     "description": "Kyle B. Broflovski is one of South Park's main characters, along with Eric Cartman, Stan Marsh, and Kenny McCormick."
+    },
+    {
+     "id": "f1de3de196734dcd86612ea2282e51e8",
+     "title": "Kyle Broflovski",
+     "likes": 3,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 286,
+     "description": "Kyle Broflovski from South Park by @naveiorange on TikTok"
+    }
+   ],
+   "category": "adult-animation"
+  },
+  "plankton": {
+   "name": "Plankton",
+   "status": "ok",
+   "model_id": "7c71952bfb624de1a54e6b47a04c4bff",
+   "title": "Plankton",
+   "likes": 35,
+   "tasks": 10955,
+   "description": "From SpongeBob SquarePants. Voiced by Doug Lawrence.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 226,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "fc33048c58604823aa19ace52e4842c9",
+     "title": "Plankton ",
+     "likes": 45,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 245,
+     "description": "A high-pitched, energetic male voice with a dramatic and expressive tone, reminiscent of a classic cartoon villain. This voice is characterized by its theatrical delivery and slightly nasal quality, making it ideal for animated characters."
+    },
+    {
+     "id": "fcb28b9be53e46f88b0efa80c36a9c5d",
+     "title": "Plankton",
+     "likes": 23,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 227,
+     "description": "Plankton from SpongeBob SquarePants trained off of Nickelodeon All Star Brawl 2"
+    }
+   ],
+   "category": "family-films"
+  },
+  "dr-eggman": {
+   "name": "Dr. Eggman",
+   "status": "ok",
+   "model_id": "0d0f9eecc1f44fed8418b239b5275596",
+   "title": "Dr. Eggman (Mike Polo)",
+   "likes": 55,
+   "tasks": 6926,
+   "description": "HO HO HO HO HO HO!!!!!! Why hello, everyone! I'm Dr.Eggman once again! And this is my official text-to-speech 2000, patent pending. Alright, everyone, use my text-to-speech RIGHT NOW!!!!",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 222,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "71d424b01a7941aea66d5bed674fd16f",
+     "title": "Dr. Eggman",
+     "likes": 21,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 284,
+     "description": "An energetic and dramatic male voice, perfect for thrilling game narration, powerful character roles, and intense action sequences."
+    },
+    {
+     "id": "658443be38f1459abcd980d125fef01d",
+     "title": "Sonic Frontiers - Dr. Eggman",
+     "likes": 45,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 163,
+     "description": "A middle-aged male voice with a scholarly and inquisitive tone, characterized by clear articulation and a refined, intellectual quality."
+    }
+   ],
+   "category": "games"
+  },
+  "wheatley": {
+   "name": "Wheatley",
+   "status": "ok",
+   "model_id": "c248d2d169bc4e5aa36a3123baafe2c1",
+   "title": "Wheatley",
+   "likes": 22,
+   "tasks": 7872,
+   "description": "Wheatley sound",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 257,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "4bb8133a91a64609895de0a376da593a",
+     "title": "Wheatley",
+     "likes": 6,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 166,
+     "description": "Something"
+    },
+    {
+     "id": "70438efee08c4173b05afc480c4039c5",
+     "title": "Wheatley",
+     "likes": 2,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 214,
+     "description": "Wheatley from Portal 2. I used internal game assets to train the voice!"
+    }
+   ],
+   "category": "games"
+  },
+  "saul-goodman": {
+   "name": "Saul Goodman",
+   "status": "ok",
+   "model_id": "15d3dea7e1f143ed864def4fd8fd0dba",
+   "title": "Saul goodman ",
+   "likes": 14,
+   "tasks": 2892,
+   "description": "A middle-aged male voice with an energetic, fast-talking, and persuasive delivery characteristic of a charismatic professional. It features a crisp tone with a rhythmic quality suitable for character roles or advertisements.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 172,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "56a200c27dc4475ba85dbd45cc305976",
+     "title": "Saul Goodman",
      "likes": 4,
      "clarity": [
       1.0,
       1.0
      ],
-     "pitch_hz": 312,
-     "description": "A highly expressive and animated male voice, perfect for dynamic character roles and engaging content with a range of emotions."
+     "pitch_hz": 197,
+     "description": "A middle-aged male voice with an energetic and confident tone, featuring a persuasive, fast-talking delivery and a slightly raspy texture. This charismatic and authoritative voice is well-suited for legal characters, advertisements, and promotional narrations."
     },
     {
-     "id": "8f3a9a6547d94d33aa6592855a7031bb",
-     "title": "Mike wazowski ",
+     "id": "bf0cd6e8c9a44380a8caba5b0cb99d08",
+     "title": "Saul Goodman",
+     "likes": 2,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 225,
+     "description": "A middle-aged male voice with a dynamic, persuasive, and fast-paced delivery. It ranges from an energetic, salesman-like tone to a more serious and dramatic register."
+    }
+   ],
+   "category": "film-tv"
+  },
+  "kitt": {
+   "name": "KITT",
+   "status": "ok",
+   "model_id": "eaa8a416bfcd4a38b3e3fa94ad934225",
+   "title": "KITT",
+   "likes": 66,
+   "tasks": 19328,
+   "description": "The Knight Industries Two Thousand",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 364,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "31b6c9c7e2af4a3b8296c8eda5cee4d4",
+     "title": "kitt",
+     "likes": 2,
+     "clarity": [
+      0.94,
+      1.0
+     ],
+     "pitch_hz": 320,
+     "description": ""
+    }
+   ],
+   "category": "film-tv"
+  },
+  "popeye": {
+   "name": "Popeye",
+   "status": "ok",
+   "model_id": "047f8e7a594a40fc9806a6a82428012f",
+   "title": "Popeye",
+   "likes": 11,
+   "tasks": 337,
+   "description": "A distinctive male voice with a raspy, energetic tone, characteristic of a classic cartoon sailor. The delivery is friendly and animated with a unique gravelly texture.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 297,
+   "confidence": "medium",
+   "runners_up": [],
+   "category": "classic-cartoons"
+  },
+  "donald-duck": {
+   "name": "Donald Duck",
+   "status": "ok",
+   "model_id": "a486ca175f0d4fc1b3c99b1082e2928b",
+   "title": "Donald Duck",
+   "likes": 103,
+   "tasks": 28437,
+   "description": "From Disney.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 453,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "a423d31e05e84a299333441dee0998b6",
+     "title": "Donald Duck",
+     "likes": 33,
+     "clarity": [
+      0.67,
+      1.0
+     ],
+     "pitch_hz": 464,
+     "description": ""
+    },
+    {
+     "id": "60952af49f8b4dda9278d3e7f0c97a86",
+     "title": "Donald Duck",
+     "likes": 3,
+     "clarity": [
+      1.0,
+      0.94
+     ],
+     "pitch_hz": 392,
+     "description": "A highly energetic and expressive child's voice, perfect for animated characters and playful content."
+    }
+   ],
+   "category": "disney-pixar"
+  },
+  "minnie-mouse": {
+   "name": "Minnie Mouse",
+   "status": "ok",
+   "model_id": "c1ee08b5a9024bfa8dbaa44a7ead5868",
+   "title": "Minnie Mouse",
+   "likes": 18,
+   "tasks": 4977,
+   "description": "",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 401,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "ff723edba85f4572be472bfe843bdd67",
+     "title": "Minnie Mouse",
+     "likes": 27,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 398,
+     "description": "A cheerful and friendly voice with an animated, high-pitched tone, perfect for engaging narratives and playful characters."
+    },
+    {
+     "id": "e95c4373e1b3417da92b15042ddac548",
+     "title": "Minnie Mouse",
+     "likes": 9,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 366,
+     "description": ""
+    }
+   ],
+   "category": "disney-pixar"
+  },
+  "buzz-lightyear": {
+   "name": "Buzz Lightyear",
+   "status": "ok",
+   "model_id": "3f5325ebfb734da5b24b03111da5278d",
+   "title": "Buzz Lightyear (Tim Allen, Uberduck.ai)",
+   "likes": 19,
+   "tasks": 624,
+   "description": "A recreation of the old Uberduck.ai Buzz Lightyear voice",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 104,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "7bbb12071d27472c8713750364788ade",
+     "title": "Buzz Lightyear",
+     "likes": 11,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 104,
+     "description": "A heroic and authoritative male voice with a deep, confident tone, perfectly suited for cinematic character roles and dramatic storytelling."
+    },
+    {
+     "id": "db90b1ffc50440cab05bbbea34060d22",
+     "title": "Buzz",
      "likes": 0,
      "clarity": [
       1.0,
       1.0
      ],
-     "pitch_hz": 304,
-     "description": "Mike wazowski "
+     "pitch_hz": 146,
+     "description": "A seasoned male voice with a confident and authoritative tone, perfect for sports commentary and discussions."
     }
    ],
-   "category": "disney-pixar"
+   "category": "disney-pixar",
+   "notes": "Chosen after the owner said the first pick's voice was wrong; picked from the alternatives without a listen."
   },
-  "sulley": {
-   "name": "Sulley",
+  "mr-potato-head": {
+   "name": "Mr. Potato Head",
    "status": "ok",
-   "model_id": "be4a7ee8008a4b559a898dcb82ac1406",
-   "title": "Sulley (John Goodman)",
-   "likes": 25,
-   "tasks": 1974,
-   "description": "This Voice Sounds Stupendous.",
+   "model_id": "6abba5e32ebc45969c86758097133915",
+   "title": "Mr. Potato Head - Toy Story",
+   "likes": 13,
+   "tasks": 538,
+   "description": "\"You can't touch me, Sheriff. I brought my attack dog with a built-in force field!\"",
    "clarity": [
     1.0,
     1.0
    ],
-   "pitch_hz": 108,
-   "confidence": "high",
-   "runners_up": [],
+   "pitch_hz": 279,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "30bd35bcea534af48b32159531d933e3",
+     "title": "Mr. Potato Head!",
+     "likes": 1,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 346,
+     "description": "This highly energetic and dynamic voice is perfect for character impersonations and dramatic, playful exclamations."
+    },
+    {
+     "id": "fa6e708283824fe684b94be5e0ef526c",
+     "title": "Mrs potato head",
+     "likes": 1,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 450,
+     "description": "A youthful and high-energy male voice with a playful, enthusiastic tone, perfect for animated characters or child-like personas. It features a bright and expressive quality that conveys excitement and warmth."
+    }
+   ],
    "category": "disney-pixar"
+  },
+  "han-solo": {
+   "name": "Han Solo",
+   "status": "ok",
+   "model_id": "e83a045099784168b93af2bffc521424",
+   "title": "Han Solo ",
+   "likes": 11,
+   "tasks": 1737,
+   "description": "A confident and adventurous middle-aged male voice with a slight rasp and an authoritative tone. It sounds similar to a classic sci-fi hero, perfect for cinematic storytelling and character roles.",
+   "clarity": [
+    0.95,
+    1.0
+   ],
+   "pitch_hz": 156,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "cb7b617b4db24e6ca42674b105ce18bd",
+     "title": "Han Solo",
+     "likes": 7,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 229,
+     "description": "Han Solo voiced by Harrison Ford"
+    },
+    {
+     "id": "3b420b947d5f4043ba1d1eb691bd45fb",
+     "title": "Han Solo",
+     "likes": 4,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 226,
+     "description": "This middle-aged male voice has a deep, raspy, and world-weary tone with a gritty edge. It features a confident and serious delivery, making it ideal for action-oriented characters or cinematic storytelling."
+    }
+   ],
+   "category": "star-wars"
   },
   "baloo": {
    "name": "Baloo",
@@ -4288,23 +3550,6 @@
    ],
    "category": "disney-pixar"
   },
-  "popeye": {
-   "name": "Popeye",
-   "status": "ok",
-   "model_id": "047f8e7a594a40fc9806a6a82428012f",
-   "title": "Popeye",
-   "likes": 11,
-   "tasks": 337,
-   "description": "A distinctive male voice with a raspy, energetic tone, characteristic of a classic cartoon sailor. The delivery is friendly and animated with a unique gravelly texture.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 297,
-   "confidence": "medium",
-   "runners_up": [],
-   "category": "classic-cartoons"
-  },
   "sylvester": {
    "name": "Sylvester",
    "status": "none",
@@ -4416,52 +3661,6 @@
     }
    ],
    "category": "classic-cartoons"
-  },
-  "porky-pig": {
-   "name": "Porky Pig",
-   "status": "ok",
-   "model_id": "c05f0d261df444e4b2eff87aef08af26",
-   "title": "Porky Pig (Bob Bergen)",
-   "likes": 21,
-   "tasks": 1630,
-   "description": "He is a pig that he can speak with an th-th-th-th and that's all folks! from the looney tunes",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 195,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "9499515c0d174b24a00844ceda0c18ed",
-     "title": "Porky pig ",
-     "likes": 1,
-     "clarity": [
-      1.0,
-      0.94
-     ],
-     "pitch_hz": 232,
-     "description": "A playful and humorous porky voice, ideal for lighthearted content and comedic moments with expressive delivery stress pig "
-    }
-   ],
-   "category": "classic-cartoons"
-  },
-  "bob-belcher": {
-   "name": "Bob Belcher",
-   "status": "ok",
-   "model_id": "cc66efededda4bd88a2b950f691a7c9f",
-   "title": "Bob Belcher",
-   "likes": 17,
-   "tasks": 2531,
-   "description": "A middle-aged male voice with a distinctive raspy quality and a conversational, humorous tone. It is expressive and energetic, making it well-suited for character work and lighthearted content.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 112,
-   "confidence": "medium",
-   "runners_up": [],
-   "category": "adult-animation"
   },
   "bojack-horseman": {
    "name": "BoJack Horseman",
@@ -4623,46 +3822,6 @@
    ],
    "category": "adult-animation"
   },
-  "kyle-broflovski": {
-   "name": "Kyle Broflovski",
-   "status": "ok",
-   "model_id": "9830641fbcd5492392caf02aad4b348d",
-   "title": "Kyle Broflovski",
-   "likes": 46,
-   "tasks": 10218,
-   "description": "This youthful male voice features a high-pitched, slightly nasal tone with high energy and an expressive delivery. It is reminiscent of an animated character, displaying a range of emotions from frustration to excitement.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 431,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "82ae859ed6994e9b84f3f6a94ed4fd3f",
-     "title": "Kyle Broflovski",
-     "likes": 28,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 455,
-     "description": "Kyle B. Broflovski is one of South Park's main characters, along with Eric Cartman, Stan Marsh, and Kenny McCormick."
-    },
-    {
-     "id": "f1de3de196734dcd86612ea2282e51e8",
-     "title": "Kyle Broflovski",
-     "likes": 3,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 286,
-     "description": "Kyle Broflovski from South Park by @naveiorange on TikTok"
-    }
-   ],
-   "category": "adult-animation"
-  },
   "towelie": {
    "name": "Towelie",
    "status": "none",
@@ -4694,46 +3853,6 @@
     }
    ],
    "category": "adult-animation"
-  },
-  "plankton": {
-   "name": "Plankton",
-   "status": "ok",
-   "model_id": "7c71952bfb624de1a54e6b47a04c4bff",
-   "title": "Plankton",
-   "likes": 35,
-   "tasks": 10955,
-   "description": "From SpongeBob SquarePants. Voiced by Doug Lawrence.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 226,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "fc33048c58604823aa19ace52e4842c9",
-     "title": "Plankton ",
-     "likes": 45,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 245,
-     "description": "A high-pitched, energetic male voice with a dramatic and expressive tone, reminiscent of a classic cartoon villain. This voice is characterized by its theatrical delivery and slightly nasal quality, making it ideal for animated characters."
-    },
-    {
-     "id": "fcb28b9be53e46f88b0efa80c36a9c5d",
-     "title": "Plankton",
-     "likes": 23,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 227,
-     "description": "Plankton from SpongeBob SquarePants trained off of Nickelodeon All Star Brawl 2"
-    }
-   ],
-   "category": "family-films"
   },
   "kung-fu-panda-master-shifu": {
    "name": "Kung Fu Panda Master Shifu",
@@ -4785,86 +3904,6 @@
      ],
      "pitch_hz": 209,
      "description": "An energetic and highly expressive male voice, perfect for animated characters and playful narrations, full of shouts and laughter."
-    }
-   ],
-   "category": "games"
-  },
-  "dr-eggman": {
-   "name": "Dr. Eggman",
-   "status": "ok",
-   "model_id": "0d0f9eecc1f44fed8418b239b5275596",
-   "title": "Dr. Eggman (Mike Polo)",
-   "likes": 55,
-   "tasks": 6926,
-   "description": "HO HO HO HO HO HO!!!!!! Why hello, everyone! I'm Dr.Eggman once again! And this is my official text-to-speech 2000, patent pending. Alright, everyone, use my text-to-speech RIGHT NOW!!!!",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 222,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "71d424b01a7941aea66d5bed674fd16f",
-     "title": "Dr. Eggman",
-     "likes": 21,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 284,
-     "description": "An energetic and dramatic male voice, perfect for thrilling game narration, powerful character roles, and intense action sequences."
-    },
-    {
-     "id": "658443be38f1459abcd980d125fef01d",
-     "title": "Sonic Frontiers - Dr. Eggman",
-     "likes": 45,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 163,
-     "description": "A middle-aged male voice with a scholarly and inquisitive tone, characterized by clear articulation and a refined, intellectual quality."
-    }
-   ],
-   "category": "games"
-  },
-  "wheatley": {
-   "name": "Wheatley",
-   "status": "ok",
-   "model_id": "c248d2d169bc4e5aa36a3123baafe2c1",
-   "title": "Wheatley",
-   "likes": 22,
-   "tasks": 7872,
-   "description": "Wheatley sound",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 257,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "4bb8133a91a64609895de0a376da593a",
-     "title": "Wheatley",
-     "likes": 6,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 166,
-     "description": "Something"
-    },
-    {
-     "id": "70438efee08c4173b05afc480c4039c5",
-     "title": "Wheatley",
-     "likes": 2,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 214,
-     "description": "Wheatley from Portal 2. I used internal game assets to train the voice!"
     }
    ],
    "category": "games"
@@ -5001,46 +4040,6 @@
       2.91
      ],
      "pitch_hz": 87
-    }
-   ],
-   "category": "film-tv"
-  },
-  "saul-goodman": {
-   "name": "Saul Goodman",
-   "status": "ok",
-   "model_id": "15d3dea7e1f143ed864def4fd8fd0dba",
-   "title": "Saul goodman ",
-   "likes": 14,
-   "tasks": 2892,
-   "description": "A middle-aged male voice with an energetic, fast-talking, and persuasive delivery characteristic of a charismatic professional. It features a crisp tone with a rhythmic quality suitable for character roles or advertisements.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 172,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "56a200c27dc4475ba85dbd45cc305976",
-     "title": "Saul Goodman",
-     "likes": 4,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 197,
-     "description": "A middle-aged male voice with an energetic and confident tone, featuring a persuasive, fast-talking delivery and a slightly raspy texture. This charismatic and authoritative voice is well-suited for legal characters, advertisements, and promotional narrations."
-    },
-    {
-     "id": "bf0cd6e8c9a44380a8caba5b0cb99d08",
-     "title": "Saul Goodman",
-     "likes": 2,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 225,
-     "description": "A middle-aged male voice with a dynamic, persuasive, and fast-paced delivery. It ranges from an energetic, salesman-like tone to a more serious and dramatic register."
     }
    ],
    "category": "film-tv"
@@ -5234,35 +4233,6 @@
       3.74
      ],
      "pitch_hz": 233
-    }
-   ],
-   "category": "film-tv"
-  },
-  "kitt": {
-   "name": "KITT",
-   "status": "ok",
-   "model_id": "eaa8a416bfcd4a38b3e3fa94ad934225",
-   "title": "KITT",
-   "likes": 66,
-   "tasks": 19328,
-   "description": "The Knight Industries Two Thousand",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 364,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "31b6c9c7e2af4a3b8296c8eda5cee4d4",
-     "title": "kitt",
-     "likes": 2,
-     "clarity": [
-      0.94,
-      1.0
-     ],
-     "pitch_hz": 320,
-     "description": ""
     }
    ],
    "category": "film-tv"
