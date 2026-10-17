@@ -1,6 +1,12 @@
 {
  "status": "built",
  "retaken": 2,
- "unclear": {},
+ "unclear": {
+  "hazard_ahead": {
+   "line": "Hazard ahead! Watch out! Uh oh. Heh heh.",
+   "heard": "Hathered ahead. Watch out!  Uh-oh.",
+   "clarity": 0.79
+  }
+ },
  "voice": "2aedbaca7b5241f38f020f3c5092fc4b"
 }
