@@ -1710,6 +1710,1003 @@
         "sarcastic",
         "grumpy"
       ]
+    },
+    {
+      "slug": "alvin",
+      "preset": "alvin",
+      "name": "Alvin",
+      "waze_name": "Alvin the Chipmunk",
+      "blurb": "ALVIIIN! Cocky, chaotic, and sure he's the star.",
+      "uuid": "3cda9934-4ace-479f-91bf-7c91ff948dba",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "alvin and the chipmunks",
+        "chipmunk",
+        "chipmunks",
+        "rock star",
+        "mischief",
+        "squeaky"
+      ]
+    },
+    {
+      "slug": "simon",
+      "preset": "simon",
+      "name": "Simon",
+      "waze_name": "Simon the Chipmunk",
+      "blurb": "The chipmunk with the glasses and the actual plan.",
+      "uuid": "da0807ec-b317-475e-b0ed-452d4f5b0450",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "alvin and the chipmunks",
+        "chipmunk",
+        "chipmunks",
+        "glasses",
+        "smart",
+        "nerd"
+      ]
+    },
+    {
+      "slug": "theodore",
+      "preset": "theodore",
+      "name": "Theodore",
+      "waze_name": "Theodore the Chipmunk",
+      "blurb": "Sweet, shy, and always up for a snack stop.",
+      "uuid": "f7307435-42e0-496d-aac8-f0af9e90a1b9",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "alvin and the chipmunks",
+        "chipmunk",
+        "chipmunks",
+        "sweet",
+        "shy",
+        "snacks"
+      ]
+    },
+    {
+      "slug": "king-bob",
+      "preset": "king-bob",
+      "name": "King Bob",
+      "waze_name": "King Bob",
+      "blurb": "Bello! A very small king with a very big crown.",
+      "uuid": "9db01559-1341-4f83-b12a-9171ccc26e23",
+      "rights": "in-copyright",
+      "category": "family-films",
+      "tags": [
+        "despicable me",
+        "minions",
+        "minion",
+        "bob",
+        "king",
+        "tim",
+        "banana",
+        "gibberish"
+      ]
+    },
+    {
+      "slug": "piglet",
+      "preset": "piglet",
+      "name": "Piglet",
+      "waze_name": "Piglet",
+      "blurb": "A very small animal, being ever so brave.",
+      "uuid": "a204e491-13c7-494d-b18b-3a3e4a1cf28a",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "winnie the pooh",
+        "pig",
+        "hundred acre wood",
+        "shy",
+        "pink"
+      ]
+    },
+    {
+      "slug": "lumiere",
+      "preset": "lumiere",
+      "name": "Lumiere",
+      "waze_name": "Lumiere",
+      "blurb": "Be his guest: a candlelit drive, served with flair.",
+      "uuid": "118db8a6-3098-4109-a4d0-223e6d37ff26",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "beauty and the beast",
+        "disney",
+        "candelabra",
+        "french",
+        "candle"
+      ]
+    },
+    {
+      "slug": "jafar",
+      "preset": "jafar",
+      "name": "Jafar",
+      "waze_name": "Jafar",
+      "blurb": "A royal vizier with a snake staff and big plans.",
+      "uuid": "913dfe7f-11c4-40a3-8e87-236f18aa70c0",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "aladdin",
+        "disney",
+        "villain",
+        "sorcerer",
+        "vizier",
+        "iago"
+      ]
+    },
+    {
+      "slug": "iago",
+      "preset": "iago",
+      "name": "Iago",
+      "waze_name": "Iago",
+      "blurb": "Loud, sarcastic and starving for crackers. Awk!",
+      "uuid": "b56de1cf-318a-40ae-8f6f-c380a9800298",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "aladdin",
+        "disney",
+        "parrot",
+        "sarcastic",
+        "sidekick"
+      ]
+    },
+    {
+      "slug": "ursula",
+      "preset": "ursula",
+      "name": "Ursula",
+      "waze_name": "Ursula",
+      "blurb": "Poor unfortunate drivers. Sign here, darling.",
+      "uuid": "426627c0-af71-4ab9-970f-636782cbd0c8",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "the little mermaid",
+        "disney",
+        "sea witch",
+        "villain",
+        "octopus"
+      ]
+    },
+    {
+      "slug": "captain-hook",
+      "preset": "captain-hook",
+      "name": "Captain Hook",
+      "waze_name": "Captain Hook",
+      "blurb": "Tick tock! A vain pirate captain at the helm.",
+      "uuid": "f9c5071e-d8e1-4210-bf41-778f0f3f593e",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "peter pan",
+        "pirate",
+        "captain",
+        "villain",
+        "disney"
+      ]
+    },
+    {
+      "slug": "cruella",
+      "preset": "cruella",
+      "name": "Cruella de Vil",
+      "waze_name": "Cruella de Vil",
+      "blurb": "Darling, she drives like she owns the road.",
+      "uuid": "c9d510cd-33a8-4b12-bf71-f62ce5170b3d",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "101 dalmatians",
+        "villain",
+        "dalmatians",
+        "fashion",
+        "disney villain"
+      ]
+    },
+    {
+      "slug": "baymax",
+      "preset": "baymax",
+      "name": "Baymax",
+      "waze_name": "Baymax",
+      "blurb": "Your personal healthcare companion, now with turns.",
+      "uuid": "3902a582-f834-4380-9ec2-e06ecc41668a",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "big hero 6",
+        "disney",
+        "robot",
+        "healthcare",
+        "huggable"
+      ]
+    },
+    {
+      "slug": "zazu",
+      "preset": "zazu",
+      "name": "Zazu",
+      "waze_name": "Zazu",
+      "blurb": "The royal hornbill who files a report on every turn.",
+      "uuid": "17abc2ec-30f0-401b-8fb7-31147c9943c7",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "the lion king",
+        "disney",
+        "hornbill",
+        "bird",
+        "majordomo",
+        "british"
+      ]
+    },
+    {
+      "slug": "rex",
+      "preset": "rex",
+      "name": "Rex",
+      "waze_name": "Rex",
+      "blurb": "A nervous T. rex trying his very best to be scary.",
+      "uuid": "1085119e-8448-4c46-be47-b66bffe00819",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "toy story",
+        "pixar",
+        "dinosaur",
+        "t rex",
+        "nervous"
+      ]
+    },
+    {
+      "slug": "joy",
+      "preset": "joy",
+      "name": "Joy",
+      "waze_name": "Joy",
+      "blurb": "Every drive is a core memory in the making.",
+      "uuid": "7f8f9e59-8be6-4174-9f38-bc96adfef53d",
+      "rights": "in-copyright",
+      "category": "disney-pixar",
+      "tags": [
+        "inside out",
+        "pixar",
+        "disney",
+        "emotions",
+        "happy"
+      ]
+    },
+    {
+      "slug": "alex-the-lion",
+      "preset": "alex-the-lion",
+      "name": "Alex the Lion",
+      "waze_name": "Alex the Lion",
+      "blurb": "The king of New York, out of the zoo and on the road.",
+      "uuid": "7061f379-7762-4e3f-b943-a1788be5f0b5",
+      "rights": "in-copyright",
+      "category": "family-films",
+      "tags": [
+        "madagascar",
+        "lion",
+        "dreamworks",
+        "zoo",
+        "showbiz"
+      ]
+    },
+    {
+      "slug": "fiona",
+      "preset": "fiona",
+      "name": "Princess Fiona",
+      "waze_name": "Princess Fiona",
+      "blurb": "Princess, ogre, and she rescues herself.",
+      "uuid": "70d79eca-200f-45e6-83ed-229d1e87f655",
+      "rights": "in-copyright",
+      "category": "family-films",
+      "tags": [
+        "shrek",
+        "princess",
+        "ogre",
+        "far far away",
+        "dreamworks"
+      ]
+    },
+    {
+      "slug": "hiccup",
+      "preset": "hiccup",
+      "name": "Hiccup",
+      "waze_name": "Hiccup",
+      "blurb": "A sarcastic Viking who'd rather be on his dragon.",
+      "uuid": "d16f8926-09f3-43e2-b20c-b36bdbefb3be",
+      "rights": "in-copyright",
+      "category": "family-films",
+      "tags": [
+        "how to train your dragon",
+        "dreamworks",
+        "viking",
+        "toothless",
+        "dragon"
+      ]
+    },
+    {
+      "slug": "garfield",
+      "preset": "garfield",
+      "name": "Garfield",
+      "waze_name": "Garfield",
+      "blurb": "Hates Mondays, loves lasagna, tolerates driving.",
+      "uuid": "7f13b5ab-7812-48a6-ae72-4a91e40151b2",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "garfield",
+        "cat",
+        "lasagna",
+        "mondays",
+        "orange",
+        "lazy"
+      ]
+    },
+    {
+      "slug": "elmer-fudd",
+      "preset": "elmer-fudd",
+      "name": "Elmer Fudd",
+      "waze_name": "Elmer Fudd",
+      "blurb": "Be vewy, vewy quiet. He's hunting for your exit.",
+      "uuid": "da6044d0-3a7d-4a4f-a25c-8bf9c0ef73c2",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "looney tunes",
+        "hunter",
+        "wabbit",
+        "warner bros",
+        "classic"
+      ]
+    },
+    {
+      "slug": "kermit",
+      "preset": "kermit",
+      "name": "Kermit the Frog",
+      "waze_name": "Kermit the Frog",
+      "blurb": "Hi ho! A frazzled frog keeping the show on the road.",
+      "uuid": "81175952-7a0c-4319-9f03-3e4e34f4cc01",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "the muppets",
+        "muppet",
+        "frog",
+        "green",
+        "jim henson"
+      ]
+    },
+    {
+      "slug": "miss-piggy",
+      "preset": "miss-piggy",
+      "name": "Miss Piggy",
+      "waze_name": "Miss Piggy",
+      "blurb": "Moi, navigating? Darling, of course. Kissy kissy!",
+      "uuid": "ecb97eae-4962-418c-a4f7-f8f8fc9d9d89",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "the muppets",
+        "muppet",
+        "pig",
+        "diva",
+        "pink"
+      ]
+    },
+    {
+      "slug": "grover",
+      "preset": "grover",
+      "name": "Grover",
+      "waze_name": "Grover",
+      "blurb": "Your lovable, furry old pal. Near! Far!",
+      "uuid": "ba836cca-2325-4aa0-8ecf-6d940f26f546",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "sesame street",
+        "muppet",
+        "monster",
+        "super grover",
+        "blue"
+      ]
+    },
+    {
+      "slug": "big-bird",
+      "preset": "big-bird",
+      "name": "Big Bird",
+      "waze_name": "Big Bird",
+      "blurb": "Eight feet of sunny yellow wonder on every street.",
+      "uuid": "71d79bb0-20aa-4fa1-8e3d-47a375a33245",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "sesame street",
+        "muppets",
+        "bird",
+        "yellow",
+        "kids"
+      ]
+    },
+    {
+      "slug": "oscar-the-grouch",
+      "preset": "oscar-the-grouch",
+      "name": "Oscar the Grouch",
+      "waze_name": "Oscar the Grouch",
+      "blurb": "Scram! A green grouch who loves trash and frowns.",
+      "uuid": "e896f644-cdb9-4f06-853f-166f1ce00404",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "sesame street",
+        "grouch",
+        "trash can",
+        "grumpy",
+        "green"
+      ]
+    },
+    {
+      "slug": "skeletor",
+      "preset": "skeletor",
+      "name": "Skeletor",
+      "waze_name": "Skeletor",
+      "blurb": "Nyeh heh heh! Evil directions from Snake Mountain.",
+      "uuid": "773f4105-5ee6-4d48-a1f0-e0aef167ccd9",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "masters of the universe",
+        "he-man",
+        "villain",
+        "skull",
+        "eighties"
+      ]
+    },
+    {
+      "slug": "he-man",
+      "preset": "he-man",
+      "name": "He-Man",
+      "waze_name": "He-Man",
+      "blurb": "By the power of Grayskull, turn left.",
+      "uuid": "1f460ed3-52ad-4524-a69e-61256484cc8b",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "masters of the universe",
+        "eternia",
+        "grayskull",
+        "80s",
+        "hero"
+      ]
+    },
+    {
+      "slug": "megatron",
+      "preset": "megatron",
+      "name": "Megatron",
+      "waze_name": "Megatron",
+      "blurb": "The Decepticon warlord, commanding every turn.",
+      "uuid": "38d9be46-b566-4748-9bfa-bae80152cd7e",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "transformers",
+        "decepticon",
+        "robot",
+        "villain",
+        "megatron"
+      ]
+    },
+    {
+      "slug": "tommy-pickles",
+      "preset": "tommy-pickles",
+      "name": "Tommy Pickles",
+      "waze_name": "Tommy Pickles",
+      "blurb": "A baby's gotta do what a baby's gotta do.",
+      "uuid": "3db27c3b-d7c4-48f3-b185-a9d7bb13ddb9",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "rugrats",
+        "baby",
+        "nickelodeon",
+        "reptar",
+        "90s"
+      ]
+    },
+    {
+      "slug": "angelica",
+      "preset": "angelica",
+      "name": "Angelica Pickles",
+      "waze_name": "Angelica Pickles",
+      "blurb": "Three years old, totally in charge, wants cookies.",
+      "uuid": "1c7e7eb2-cdba-4fcf-a09b-a508f4d29790",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "rugrats",
+        "nickelodeon",
+        "bossy",
+        "cynthia",
+        "nineties"
+      ]
+    },
+    {
+      "slug": "gir",
+      "preset": "gir",
+      "name": "GIR",
+      "waze_name": "GIR",
+      "blurb": "A tiny robot sidekick who mostly wants tacos.",
+      "uuid": "a49195d1-43bb-4939-a3f5-7dc8ac7f57ea",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "invader zim",
+        "robot",
+        "nickelodeon",
+        "doom song",
+        "tacos"
+      ]
+    },
+    {
+      "slug": "zim",
+      "preset": "zim",
+      "name": "Zim",
+      "waze_name": "Zim",
+      "blurb": "An alien invader who demands you obey his route.",
+      "uuid": "3878f838-91b8-484f-95e9-d41eecdadce1",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "invader zim",
+        "nickelodeon",
+        "alien",
+        "irken",
+        "invader"
+      ]
+    },
+    {
+      "slug": "krusty",
+      "preset": "krusty",
+      "name": "Krusty the Clown",
+      "waze_name": "Krusty the Clown",
+      "blurb": "Hey hey! A tired showbiz clown on the mic.",
+      "uuid": "ca3c02be-cf9c-4b19-b88b-fb0743426e24",
+      "rights": "in-copyright",
+      "category": "adult-animation",
+      "tags": [
+        "the simpsons",
+        "simpsons",
+        "clown",
+        "springfield",
+        "krusty burger"
+      ]
+    },
+    {
+      "slug": "lisa-simpson",
+      "preset": "lisa-simpson",
+      "name": "Lisa Simpson",
+      "waze_name": "Lisa Simpson",
+      "blurb": "The smartest kid in Springfield has the route.",
+      "uuid": "381f95a2-78e3-4293-9ca2-cc3478f532fd",
+      "rights": "in-copyright",
+      "category": "adult-animation",
+      "tags": [
+        "the simpsons",
+        "simpsons",
+        "saxophone",
+        "smart",
+        "springfield"
+      ]
+    },
+    {
+      "slug": "brian-griffin",
+      "preset": "brian-griffin",
+      "name": "Brian Griffin",
+      "waze_name": "Brian Griffin",
+      "blurb": "Dry, well read, and still working on that novel.",
+      "uuid": "1736705f-43f4-49c6-a2a1-6b84ba9fd227",
+      "rights": "in-copyright",
+      "category": "adult-animation",
+      "tags": [
+        "family guy",
+        "dog",
+        "writer",
+        "sarcastic",
+        "griffin"
+      ]
+    },
+    {
+      "slug": "lois-griffin",
+      "preset": "lois-griffin",
+      "name": "Lois Griffin",
+      "waze_name": "Lois Griffin",
+      "blurb": "Quahog's patient mom, married to a worse driver.",
+      "uuid": "f22abbcc-0c4e-453a-925e-31a0e48f1338",
+      "rights": "in-copyright",
+      "category": "adult-animation",
+      "tags": [
+        "family guy",
+        "griffin",
+        "mom",
+        "quahog",
+        "peter"
+      ]
+    },
+    {
+      "slug": "beavis",
+      "preset": "beavis",
+      "name": "Beavis",
+      "waze_name": "Beavis",
+      "blurb": "Heh heh. A giggling slacker who thinks turns rule.",
+      "uuid": "e78cb520-56f7-48f5-9b81-ecfaf7a060b0",
+      "rights": "in-copyright",
+      "category": "adult-animation",
+      "tags": [
+        "beavis and butt-head",
+        "mtv",
+        "cornholio",
+        "slacker",
+        "giggle"
+      ]
+    },
+    {
+      "slug": "jake-the-dog",
+      "preset": "jake-the-dog",
+      "name": "Jake the Dog",
+      "waze_name": "Jake the Dog",
+      "blurb": "Your stretchy best bud. Mathematical directions.",
+      "uuid": "31f3db7b-6245-4e8c-bff6-d81390202f86",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "adventure time",
+        "cartoon network",
+        "dog",
+        "stretchy",
+        "finn"
+      ]
+    },
+    {
+      "slug": "finn",
+      "preset": "finn",
+      "name": "Finn the Human",
+      "waze_name": "Finn the Human",
+      "blurb": "Adventure time! Every drive is an epic quest.",
+      "uuid": "c3e7e765-7587-4126-995b-31e6e816176d",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "adventure time",
+        "jake",
+        "hero",
+        "cartoon network",
+        "ooo"
+      ]
+    },
+    {
+      "slug": "doofenshmirtz",
+      "preset": "doofenshmirtz",
+      "name": "Dr. Doofenshmirtz",
+      "waze_name": "Dr. Doofenshmirtz",
+      "blurb": "Behold, the Navigate-inator! Curse you, traffic!",
+      "uuid": "277e843b-ed2a-4582-af06-48021de7981b",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "phineas and ferb",
+        "evil scientist",
+        "inator",
+        "perry",
+        "villain"
+      ]
+    },
+    {
+      "slug": "phineas",
+      "preset": "phineas",
+      "name": "Phineas",
+      "waze_name": "Phineas",
+      "blurb": "Hey Ferb, I know what we're gonna do today!",
+      "uuid": "892e0ac8-390d-43c3-92b8-bdf5f1ebe248",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "phineas and ferb",
+        "summer",
+        "inventor",
+        "perry",
+        "disney channel"
+      ]
+    },
+    {
+      "slug": "gumball",
+      "preset": "gumball",
+      "name": "Gumball",
+      "waze_name": "Gumball",
+      "blurb": "A blue cat who turns every errand into chaos.",
+      "uuid": "c2e62003-092b-4cce-b9d5-df52f85f58eb",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "the amazing world of gumball",
+        "cartoon network",
+        "cat",
+        "darwin",
+        "elmore"
+      ]
+    },
+    {
+      "slug": "bluey",
+      "preset": "bluey",
+      "name": "Bluey",
+      "waze_name": "Bluey",
+      "blurb": "For real life! A Blue Heeler pup with a new game.",
+      "uuid": "e39c4995-8aa1-44de-a13d-56d68238ffb0",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "bluey",
+        "heeler",
+        "dog",
+        "kids",
+        "australia",
+        "bingo"
+      ]
+    },
+    {
+      "slug": "bandit-heeler",
+      "preset": "bandit-heeler",
+      "name": "Bandit",
+      "waze_name": "Bandit Heeler",
+      "blurb": "Bluey's dad, turning every drive into a game.",
+      "uuid": "4ebe743a-98e0-4ab4-b63d-240c9b2d8930",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "bluey",
+        "dad",
+        "heeler",
+        "dog",
+        "australian"
+      ]
+    },
+    {
+      "slug": "mordecai",
+      "preset": "mordecai",
+      "name": "Mordecai",
+      "waze_name": "Mordecai",
+      "blurb": "A chill blue jay trying not to get fired.",
+      "uuid": "4f4b635c-fbba-4397-abca-bfdc15aee0fd",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "regular show",
+        "rigby",
+        "blue jay",
+        "cartoon network",
+        "dude"
+      ]
+    },
+    {
+      "slug": "crash-bandicoot",
+      "preset": "crash-bandicoot",
+      "name": "Crash Bandicoot",
+      "waze_name": "Crash Bandicoot",
+      "blurb": "Woo hoo! A spinning orange blur who loves to go.",
+      "uuid": "1bb0a79b-d62d-46d0-8bee-a77553ae9b29",
+      "rights": "in-copyright",
+      "category": "games",
+      "tags": [
+        "crash bandicoot",
+        "bandicoot",
+        "playstation",
+        "wumpa",
+        "spin"
+      ]
+    },
+    {
+      "slug": "knuckles",
+      "preset": "knuckles",
+      "name": "Knuckles",
+      "waze_name": "Knuckles",
+      "blurb": "Guards the Master Emerald. Now guards your route.",
+      "uuid": "b224d53e-8281-4acb-a21f-29a71ab24fa4",
+      "rights": "in-copyright",
+      "category": "games",
+      "tags": [
+        "sonic the hedgehog",
+        "echidna",
+        "sega",
+        "master emerald",
+        "red"
+      ]
+    },
+    {
+      "slug": "tails",
+      "preset": "tails",
+      "name": "Tails",
+      "waze_name": "Tails",
+      "blurb": "Sonic's genius sidekick, co-piloting every run.",
+      "uuid": "f788236c-a8df-46dc-a7cc-166c109629cc",
+      "rights": "in-copyright",
+      "category": "games",
+      "tags": [
+        "sonic the hedgehog",
+        "sega",
+        "fox",
+        "sidekick",
+        "tornado"
+      ]
+    },
+    {
+      "slug": "shadow",
+      "preset": "shadow",
+      "name": "Shadow the Hedgehog",
+      "waze_name": "Shadow",
+      "blurb": "The ultimate life form, now handling your directions.",
+      "uuid": "8737941a-7713-482f-aac2-2c80a77a9450",
+      "rights": "in-copyright",
+      "category": "games",
+      "tags": [
+        "sonic the hedgehog",
+        "sega",
+        "hedgehog",
+        "chaos control",
+        "black"
+      ]
+    },
+    {
+      "slug": "donkey-kong",
+      "preset": "donkey-kong",
+      "name": "Donkey Kong",
+      "waze_name": "Donkey Kong",
+      "blurb": "Big ape, big drive, and plenty of bananas packed.",
+      "uuid": "616f7917-0eb5-40c9-87f4-a3f95a8b5ebf",
+      "rights": "in-copyright",
+      "category": "games",
+      "tags": [
+        "nintendo",
+        "donkey kong",
+        "ape",
+        "gorilla",
+        "bananas"
+      ]
+    },
+    {
+      "slug": "princess-peach",
+      "preset": "princess-peach",
+      "name": "Princess Peach",
+      "waze_name": "Princess Peach",
+      "blurb": "Mushroom Kingdom royalty cheering every exit.",
+      "uuid": "435d1a65-bd9b-438d-a49b-96d43a21d137",
+      "rights": "in-copyright",
+      "category": "games",
+      "tags": [
+        "super mario",
+        "nintendo",
+        "mario",
+        "princess",
+        "mushroom kingdom"
+      ]
+    },
+    {
+      "slug": "toad",
+      "preset": "toad",
+      "name": "Toad",
+      "waze_name": "Toad",
+      "blurb": "Hooray! The Mushroom Kingdom's happiest co-pilot.",
+      "uuid": "be75f6f7-4603-414d-94c9-b12d45e8a451",
+      "rights": "in-copyright",
+      "category": "games",
+      "tags": [
+        "super mario",
+        "mario",
+        "nintendo",
+        "mushroom",
+        "toad"
+      ]
+    },
+    {
+      "slug": "mandalorian",
+      "preset": "mandalorian",
+      "name": "Mandalorian",
+      "waze_name": "The Mandalorian",
+      "blurb": "A bounty hunter of few words. This is the Way.",
+      "uuid": "6e6e5709-d4fc-45b3-9d9f-807b21d61e26",
+      "rights": "in-copyright",
+      "category": "star-wars",
+      "tags": [
+        "star wars",
+        "mandalorian",
+        "bounty hunter",
+        "grogu",
+        "beskar"
+      ]
+    },
+    {
+      "slug": "venom",
+      "preset": "venom",
+      "name": "Venom",
+      "waze_name": "Venom",
+      "blurb": "We are Venom. We are navigating. We want snacks.",
+      "uuid": "7f9ae218-10d5-4460-8247-6c6200f9833e",
+      "rights": "in-copyright",
+      "category": "superheroes",
+      "tags": [
+        "marvel",
+        "spider-man",
+        "symbiote",
+        "villain",
+        "eddie brock"
+      ]
+    },
+    {
+      "slug": "pennywise",
+      "preset": "pennywise",
+      "name": "Pennywise",
+      "waze_name": "Pennywise",
+      "blurb": "Beep beep! A spooky clown with a red balloon.",
+      "uuid": "e91ae133-53b0-41fc-93b7-96506c0002ad",
+      "rights": "in-copyright",
+      "category": "film-tv",
+      "tags": [
+        "it",
+        "stephen king",
+        "clown",
+        "balloon",
+        "horror",
+        "spooky"
+      ]
+    },
+    {
+      "slug": "willy-wonka",
+      "preset": "willy-wonka",
+      "name": "Willy Wonka",
+      "waze_name": "Willy Wonka",
+      "blurb": "Strike that, reverse it. A sweet and mostly safe ride.",
+      "uuid": "7b437872-e1ce-42d1-8f27-2d42f6e8b7fd",
+      "rights": "in-copyright",
+      "category": "family-films",
+      "tags": [
+        "charlie and the chocolate factory",
+        "chocolate",
+        "candy",
+        "golden ticket",
+        "roald dahl"
+      ]
+    },
+    {
+      "slug": "sheldon-cooper",
+      "preset": "sheldon-cooper",
+      "name": "Sheldon Cooper",
+      "waze_name": "Sheldon Cooper",
+      "blurb": "Bazinga! A physicist correcting your driving.",
+      "uuid": "96a62d92-33b5-40a7-b659-d69bb490cb4c",
+      "rights": "in-copyright",
+      "category": "film-tv",
+      "tags": [
+        "the big bang theory",
+        "big bang theory",
+        "physicist",
+        "bazinga",
+        "nerd"
+      ]
+    },
+    {
+      "slug": "han-solo",
+      "preset": "han-solo",
+      "name": "Han Solo",
+      "waze_name": "Han Solo",
+      "blurb": "Never tell him the odds. Just the next turn.",
+      "uuid": "a90cf901-e251-4a2f-84bf-a091fb0cd54e",
+      "rights": "in-copyright",
+      "category": "star-wars",
+      "tags": [
+        "star wars",
+        "smuggler",
+        "millennium falcon",
+        "chewie",
+        "rebel"
+      ]
     }
   ]
 }

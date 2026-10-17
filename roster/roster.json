@@ -730,6 +730,16 @@
    "slug": "han-solo",
    "name": "Han Solo",
    "category": "star-wars"
+  },
+  {
+   "slug": "bert",
+   "name": "Bert",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "ernie",
+   "name": "Ernie",
+   "category": "classic-cartoons"
   }
  ],
  "alternates": [

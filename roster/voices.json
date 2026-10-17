@@ -3433,6 +3433,1911 @@
    "runners_up": [],
    "category": "family-films"
   },
+  "piglet": {
+   "name": "Piglet",
+   "status": "ok",
+   "model_id": "cb1f6b08075c42a183aee3a44021ea26",
+   "title": "Piglet Winnie the Pooh)",
+   "likes": 19,
+   "tasks": 1104,
+   "description": "he is scared",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 348,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "12d09ac5c5214226a51e4d5245046479",
+     "title": "Piglet",
+     "likes": 1,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 317,
+     "description": "From Winnie the Pooh."
+    },
+    {
+     "id": "b7facb14beae4c6fa3b7f7e066b2a474",
+     "title": "Piglet (Travis Oates)",
+     "likes": 9,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 344,
+     "description": "This is Piglet's Text-To-Speech voice, played by Travis Oates. I hope you guys enjoyed it!"
+    }
+   ],
+   "category": "disney-pixar"
+  },
+  "lumiere": {
+   "name": "Lumiere",
+   "status": "ok",
+   "model_id": "d98972ae0363412db294182b7d17e5a1",
+   "title": "Lumiere (Jeff Bennett)",
+   "likes": 13,
+   "tasks": 390,
+   "description": "This is Lumiere's Text-To-Speech voice, played by Jeff Bennett. I hope you guys enjoyed it!",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 230,
+   "confidence": "medium",
+   "runners_up": [],
+   "category": "disney-pixar"
+  },
+  "jafar": {
+   "name": "Jafar",
+   "status": "ok",
+   "model_id": "94568104a6ec423185ad7d8cd0cca6b6",
+   "title": "Jafar (Jonathan Freeman)",
+   "likes": 20,
+   "tasks": 1042,
+   "description": "Greetings, Street Rats! I'm certain that you fools would dare to use my text-to-speech voice for fun! I dare you street rats to use my very own personal text-to-speech voice, or else, I will banish you from my property! So, use my text-to-speech voice at once!",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 164,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "9487a234dc4f4a76a05e69b94f750f92",
+     "title": "Jafar (Jonathan Freeman)",
+     "likes": 11,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 221,
+     "description": "\"Ah, but there’s a new order now... my order! Finally, you will bow to me!\"\r\n\"Trust me, my pungent friend. You'll get what's coming to you.\"\r\n\"At last, after all my years of searching... the Cave of Wonders.\"\r\n\"Now, remember. Bring me the lamp! The rest of the treasure is yours, but the lamp... is m"
+    },
+    {
+     "id": "f2c2abb03ec9442d8b4728767510ef3e",
+     "title": "elleven jafar",
+     "likes": 1,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 96,
+     "description": "A deep and calm middle-aged male voice with a professional and authoritative tone. It features a smooth, measured delivery that is well-suited for serious narration or documentary storytelling."
+    }
+   ],
+   "category": "disney-pixar"
+  },
+  "iago": {
+   "name": "Iago",
+   "status": "ok",
+   "model_id": "4bc008d76141451bb5d8a788d309ee21",
+   "title": "Iago (Gilbert Gottfried)",
+   "likes": 17,
+   "tasks": 1005,
+   "description": "\"What's coming to you. Awk!\"\r\n\"Awk. Cave of Wonders!\"\r\n\"Awk, the lamp. Awk, the lamp. Jeez, where'd ya dig this bozo up?\"\r\n\"I can't believe it! I just don't believe it! We're never gonna get a hold of that stupid lamp! Just forget it! Look at this. Look at this. I'm so ticked off that I'm molting.\"\r",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 299,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "60b57ec90e5242d596b88d9a5dcee5fb",
+     "title": "Iago (Aladdin/Gilbert Gottfried ",
+     "likes": 18,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 402,
+     "description": " And then I'd grab him around the head. Whack, "
+    },
+    {
+     "id": "665fd2b7b38442508ea29150066b812c",
+     "title": "Iago (Aladdin/Gilbert Gottfried ",
+     "likes": 13,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 250,
+     "description": "Gilbert Gottfried is the voice of Iago in Aladdin"
+    }
+   ],
+   "category": "disney-pixar"
+  },
+  "ursula": {
+   "name": "Ursula",
+   "status": "ok",
+   "model_id": "4b4046d3c71745c1bcbe5587b3f0ebdd",
+   "title": "Ursula (Pat Carroll)",
+   "likes": 16,
+   "tasks": 1258,
+   "description": "Hello, my dear people. I am your true and grateful villain, Ursula! And this is my beautiful text-to-speech voice. And this text-to-speech voice is in person! I hope all of you sweeties have a wonderful time with my wonderful text-to-speech voice! ",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 238,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "f814f4a6da1e4682a379cebc420c2844",
+     "title": "Ursula ",
+     "likes": 0,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 193,
+     "description": "This voice presents a calm, clear, and authoritative tone, ideal for serious discussions, diplomatic scenarios, or impactful narration."
+    },
+    {
+     "id": "a619fd73e3a04cf9bb53cc5f97f18757",
+     "title": "Ursula Andreia",
+     "likes": 0,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 284,
+     "description": "\r\nHello\r\n..\r\n\r\nHello...\r\n\r\nDear Ursula\r\nfollowers,\r\n\r\nThis video is a precious treasure for my followers.\r\n\r\nDear OnlyFans fans and followers,\r\n\r\nThere's a surprise coming\r\n\r\nthat you might like\r\n\r\nin the coming days...\r\n\r\nI invite you to be excited, supportive, and follow...\r\n\r\nUrsula will change f"
+    }
+   ],
+   "category": "disney-pixar"
+  },
+  "captain-hook": {
+   "name": "Captain Hook",
+   "status": "ok",
+   "model_id": "0dc9a49260804cb5870bd133a30678a3",
+   "title": "Captain Hook (Corey Burton)",
+   "likes": 21,
+   "tasks": 482,
+   "description": "Ahoy, Maties! I'm Captain Hook! And this is my text-to-speech voice! So, you fools better use my voice, or else, I will force all of you to walk off the plank!",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 226,
+   "confidence": "high",
+   "runners_up": [],
+   "category": "disney-pixar"
+  },
+  "cruella": {
+   "name": "Cruella de Vil",
+   "status": "ok",
+   "model_id": "6f7f8d7c3eba4fa3b4c477b9d8cf1145",
+   "title": "Cruella Deville (Susanne Blakeslee)",
+   "likes": 14,
+   "tasks": 359,
+   "description": "Hello, my dear fools, I'm Cruella Deville! And you all would be evil to hear that this is my text-to-speech voice! So, start using my text-to-speech voice already! Or else you all would be punished for life!",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 269,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "b2e81067a3dc41269bf1833f08296486",
+     "title": "Cruella",
+     "likes": 2,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 156,
+     "description": "A mature and deep male voice with a calm, measured pace and a slightly raspy texture. It carries a serious and dramatic tone, making it ideal for storytelling and cinematic narration."
+    },
+    {
+     "id": "99f1a029593b4aa4b5d42e8a23cedbea",
+     "title": "Cruella",
+     "likes": 0,
+     "clarity": [
+      1.0,
+      0.94
+     ],
+     "pitch_hz": 325,
+     "description": ""
+    }
+   ],
+   "category": "disney-pixar"
+  },
+  "baymax": {
+   "name": "Baymax",
+   "status": "ok",
+   "model_id": "72efa9af4dec4c71bd3920dc325cad3a",
+   "title": "Baymax Character Voice",
+   "likes": 5,
+   "tasks": 2553,
+   "description": "This voice captures the calm and friendly demeanor of a healthcare companion, offering clear and reassuring communication.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 189,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "b37a0bb01bb3440fa448c0322693fec6",
+     "title": "Baymax",
+     "likes": 7,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 180,
+     "description": "Hes a robot"
+    },
+    {
+     "id": "56d1ff3494584ada8fb23f0e5e917334",
+     "title": "Baymax",
+     "likes": 7,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 161,
+     "description": "A calm, flawlessly clean, and pure male voice of a friendly robotic healthcare companion. Soft, slightly high-pitched tone with a smooth, highly synthetic, and resonant quality that is completely devoid of breathiness, rasp, vocal fry, or throat sounds. He speaks at a slow, deliberate, and unhurried"
+    }
+   ],
+   "category": "disney-pixar"
+  },
+  "zazu": {
+   "name": "Zazu",
+   "status": "ok",
+   "model_id": "ef9a9fdf460945b08a9e593ea5a58166",
+   "title": "Zazu (The Lion King)",
+   "likes": 23,
+   "tasks": 592,
+   "description": "Yes, well, as slippery as your mind is, as the king's brother, you should have been first in line",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 227,
+   "confidence": "high",
+   "runners_up": [],
+   "category": "disney-pixar"
+  },
+  "rex": {
+   "name": "Rex",
+   "status": "ok",
+   "model_id": "598e3cf9e0b7477f93aebb1c91ce6b88",
+   "title": "Rex (Toy Story)",
+   "likes": 15,
+   "tasks": 525,
+   "description": "A dinosaur from toy story",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 295,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "92f5a6d5750a4bf9824998e568120ef4",
+     "title": "Rex!",
+     "likes": 4,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 209,
+     "description": "Rexsplode from invincible "
+    },
+    {
+     "id": "73fd462d4e0447e9aeed978fa8ecd4df",
+     "title": "Rex",
+     "likes": 5,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 280,
+     "description": "Rexsplode "
+    }
+   ],
+   "category": "disney-pixar"
+  },
+  "joy": {
+   "name": "Joy",
+   "status": "ok",
+   "model_id": "6a2e42ee1afc44839bb013e7d86379bd",
+   "title": "Joy (Inside Out)",
+   "likes": 38,
+   "tasks": 2200,
+   "description": "An energetic and cheerful voice with a bright and expressive tone, perfect for bringing animated characters to life.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 413,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "bd08f3f4161b43258d7e02fcc0234382",
+     "title": "Joy (Nigerian)",
+     "likes": 13,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 272,
+     "description": "This female voice is warm and articulate, ideal for engaging narration and expressive content. She balances calm reflection with an energetic, passionate delivery."
+    },
+    {
+     "id": "4ce26cdf9a5c4a0a9876ae4bb9182e49",
+     "title": "DJ Joy ",
+     "likes": 1,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 196,
+     "description": "Master "
+    }
+   ],
+   "category": "disney-pixar"
+  },
+  "alex-the-lion": {
+   "name": "Alex the Lion",
+   "status": "ok",
+   "model_id": "214493f5b28e459eb8421f85369362b9",
+   "title": "Alex madagascar ",
+   "likes": 16,
+   "tasks": 1138,
+   "description": "We are in temperate grassland. It's awesome out here. ",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 197,
+   "confidence": "medium",
+   "runners_up": [],
+   "category": "family-films"
+  },
+  "fiona": {
+   "name": "Princess Fiona",
+   "status": "ok",
+   "model_id": "e0d2b62d2a474ed09c8fc81ec293e52c",
+   "title": "Princess Fiona",
+   "likes": 13,
+   "tasks": 1926,
+   "description": "A youthful female voice with a refined English accent, characterized by a playful and theatrical tone. The delivery is crisp and expressive, making it ideal for storytelling or character roles.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 304,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "333b140b72a5492da02757879f9e8072",
+     "title": "Princess Fiona (Cameron Diaz)",
+     "likes": 19,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 242,
+     "description": "This Voice Sounds Truly Adoring."
+    }
+   ],
+   "category": "family-films"
+  },
+  "hiccup": {
+   "name": "Hiccup",
+   "status": "ok",
+   "model_id": "fa7f236651c047b6854a91d641be7d73",
+   "title": "Hiccup",
+   "likes": 31,
+   "tasks": 2283,
+   "description": "A youthful male voice with a sarcastic and slightly nerdy tone, characterized by a friendly and expressive delivery. It is ideal for character-driven narration and lighthearted storytelling.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 141,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "057cb69dc0724c818bd3950c56dd4e39",
+     "title": "Hiccup",
+     "likes": 2,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 204,
+     "description": "A friendly and expressive young male voice."
+    },
+    {
+     "id": "32ab880b6f3c42cbb03a5d4258083095",
+     "title": "Hiccup",
+     "likes": 3,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 196,
+     "description": "A young male voice with an energetic and highly expressive character-like quality. It features a fast-paced, boyish tone that is ideal for animation, gaming, or dynamic storytelling."
+    }
+   ],
+   "category": "family-films"
+  },
+  "garfield": {
+   "name": "Garfield",
+   "status": "ok",
+   "model_id": "977e5663237a4f38909adf01d7c74c8a",
+   "title": "Garfield",
+   "likes": 27,
+   "tasks": 4447,
+   "description": "A warm and expressive middle-aged male voice with a slight rasp, perfectly suited for animated characters and storytelling. It carries a friendly yet humorous tone that is both engaging and distinct.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 109,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "e534f012adb4457a9776d4104feddfcb",
+     "title": "Garfield",
+     "likes": 10,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 132,
+     "description": "A playful and slightly gruff male voice, perfect for adding a touch of humor or character to your audio projects."
+    },
+    {
+     "id": "3256056ccb144fdbbff1a3300610c3b9",
+     "title": "Garfield",
+     "likes": 5,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 132,
+     "description": "Garf"
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "elmer-fudd": {
+   "name": "Elmer Fudd",
+   "status": "ok",
+   "model_id": "0f2d1ddd09b440d3b89b630d27b8a2d4",
+   "title": "Elmer Fudd",
+   "likes": 14,
+   "tasks": 721,
+   "description": "Billy West is the voice of Elmer Fudd in Looney Tunes: Back in Action",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 182,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "134ab4485f2f4e3bb6473bb448e76288",
+     "title": "Elmer Fudd",
+     "likes": 8,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 211,
+     "description": "A high-pitched, energetic male character voice with a distinct rhotacism, reminiscent of classic cartoon hunters. It features a playful, animated tone perfect for comedic and whimsical performances."
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "kermit": {
+   "name": "Kermit the Frog",
+   "status": "ok",
+   "model_id": "e4ab98de928a4791a8613f102caae78a",
+   "title": "Kermit The Frog",
+   "likes": 22,
+   "tasks": 10841,
+   "description": "",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 236,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "481b7745308b4ace84d3db444cb80edd",
+     "title": "KERMIT",
+     "likes": 0,
+     "clarity": [
+      0.94,
+      1.0
+     ],
+     "pitch_hz": 245,
+     "description": "hey guys uh kermit the frog here"
+    },
+    {
+     "id": "aa0f3a420cd64f75b40423b750015182",
+     "title": "Kermit the frog",
+     "likes": 0,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 234,
+     "description": "A middle-aged male voice with an inquisitive and slightly suspicious tone, suitable for various interactive scenarios."
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "miss-piggy": {
+   "name": "Miss Piggy",
+   "status": "ok",
+   "model_id": "462ca923500b4c7292b62fc6dd4c3904",
+   "title": "Miss Piggy (Muppets Party Cruise)",
+   "likes": 19,
+   "tasks": 921,
+   "description": "Voiced by Eric Jacobson",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 404,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "ac68c63769bd4ae7ae1f68099c0cf6b9",
+     "title": "Miss Piggy (The Great Muppet Caper)",
+     "likes": 6,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 434,
+     "description": "Voiced by Frank Oz."
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "grover": {
+   "name": "Grover",
+   "status": "ok",
+   "model_id": "5d2db6355f7d4166ba6bcc7961e38a26",
+   "title": "Grover",
+   "likes": 11,
+   "tasks": 770,
+   "description": "From Sesame Street.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 377,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "9bfcd2342af343dc92e659628aaafcd7",
+     "title": "Grover (Sesame Street)",
+     "likes": 15,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 419,
+     "description": "Grover is a Character from Sesame Street"
+    },
+    {
+     "id": "6df228e351e34a6183e28200c684c577",
+     "title": "Grover Sesame Street",
+     "likes": 6,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 392,
+     "description": "An enthusiastic and high-pitched male voice with a distinctive raspy, puppet-like quality. This voice is playful and friendly, making it ideal for educational content or character-driven storytelling."
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "big-bird": {
+   "name": "Big Bird",
+   "status": "ok",
+   "model_id": "7475c607ba69483b9ac935a3795f0c10",
+   "title": "Big Bird",
+   "likes": 19,
+   "tasks": 5299,
+   "description": "From Sesame Street.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 246,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "b22182223be54fae9dff7f1752a79a62",
+     "title": "BigBird [Sesame Street - Letters to Big Bird]",
+     "likes": 10,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 244,
+     "description": "Big Bird has a letter of the alphabet in his end, what you do is click on 3 things on the shelf starting with that letter, and if you want you can make Big Bird say silly things like \"X-Monkey, No!\" and \"Jack in the Underwear\"."
+    },
+    {
+     "id": "18c2bfeb783a4fd6bab761c180256daf",
+     "title": "Big Bird (Sad)",
+     "likes": 7,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 321,
+     "description": "From Sesame Street."
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "oscar-the-grouch": {
+   "name": "Oscar the Grouch",
+   "status": "ok",
+   "model_id": "f4c42d6f5e104cb88baca0656d8ffc8e",
+   "title": "Oscar The Grouch (Sesame Street)",
+   "likes": 12,
+   "tasks": 2541,
+   "description": "",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 254,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "3230b97d24f2403fb9c3d65dddd5c599",
+     "title": "Oscar the grouch (Sesame Street)",
+     "likes": 2,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 281,
+     "description": "This voice carries a distinctive, slightly raspy quality, perfect for delivering angry or characterful lines with a touch of grumpiness."
+    },
+    {
+     "id": "1e2374d5e98a4181b595d2b5a64593ed",
+     "title": "Oscar the Grouch (Uberduck)",
+     "likes": 0,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 188,
+     "description": "Uses by JeremythePeanutsguy "
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "skeletor": {
+   "name": "Skeletor",
+   "status": "ok",
+   "model_id": "da47a56c89864082b90d9f2bae0f77c0",
+   "title": "Skeletor 2 Master of Evil",
+   "likes": 6,
+   "tasks": 2860,
+   "description": "A high-pitched, raspy male voice with a theatrical and villainous tone, perfectly suited for an iconic cartoon antagonist. The delivery is highly expressive and animated, capturing a classic character performance.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 279,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "3d34218a389248749099793b2b193f33",
+     "title": "skeletor",
+     "likes": 4,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 322,
+     "description": "This male voice is highly energetic and dramatic, featuring a young range with a crisp, theatrical delivery. It is well-suited for comedic character roles, social media, or high-energy advertisements."
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "he-man": {
+   "name": "He-Man",
+   "status": "ok",
+   "model_id": "49d63dc024404442ab0e04349ce2bfdb",
+   "title": "He-Man",
+   "likes": 14,
+   "tasks": 1121,
+   "description": "Strongest man in the Universe",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 168,
+   "confidence": "medium",
+   "runners_up": [],
+   "category": "classic-cartoons"
+  },
+  "megatron": {
+   "name": "Megatron",
+   "status": "ok",
+   "model_id": "2aa0a507d8f24f34ab2bf203281c4205",
+   "title": "Megatron",
+   "likes": 36,
+   "tasks": 6916,
+   "description": "The destined ruler of Cybertron, I will conquer the planet and bring greatness like never before!",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 199,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "cb7b58268bc64e2f83c355313e2eba19",
+     "title": "Megatron",
+     "likes": 17,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 92,
+     "description": "Deep, menacing, commanding, scratchy, metallic, guttural quality, conveying immense power, rage, ruthless ambition"
+    },
+    {
+     "id": "7f8c32b19a9441b28736e3d5414988bc",
+     "title": "Megatron",
+     "likes": 9,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 196,
+     "description": "Leader of the Decepticons."
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "tommy-pickles": {
+   "name": "Tommy Pickles",
+   "status": "ok",
+   "model_id": "8a2b47b196144830b5388a5f41a9196e",
+   "title": "Tommy Pickles (Rugrats)",
+   "likes": 31,
+   "tasks": 2014,
+   "description": "Voiced by E.G. Daily",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 500,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "026d529a16994471b4cd550e18f16a28",
+     "title": "Tommy Pickles (All Grown Up)",
+     "likes": 11,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 342,
+     "description": "from the Rugrats spin-off, All Grown Up. Voiced by E.G. Daily."
+    },
+    {
+     "id": "f91c0afee29745e692e441513705aafd",
+     "title": "Tommy Pickles (Pre-teen)",
+     "likes": 9,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 365,
+     "description": "From All Grown Up! (Looks like Rugrats), Voiced By E.G. Daily."
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "angelica": {
+   "name": "Angelica Pickles",
+   "status": "ok",
+   "model_id": "980fc9a512a24a6eb96b5a1a3d596c34",
+   "title": "Angelica Pickles (Rugrats)",
+   "likes": 39,
+   "tasks": 2131,
+   "description": "Voiced by Cheryl Chase.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 491,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "37256121eac9425e81adc487b120796f",
+     "title": "Angelica Pickles (All Grown Up!)",
+     "likes": 15,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 439,
+     "description": "\"Well, it takes a very special kind person to be an advice giver. You have to be soft on the inside, but tough on the outside. Like left over lasagna. Ask yourself, Harold, are you left over lasagna?\""
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "gir": {
+   "name": "GIR",
+   "status": "ok",
+   "model_id": "6e11aa80a8b94287aebfca166e1a0dc4",
+   "title": "Gir",
+   "likes": 23,
+   "tasks": 2873,
+   "description": "Gir from invaders zim",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 334,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "a9a6dd3eacc84e019abda96b48bb10a3",
+     "title": "Gir",
+     "likes": 17,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 376,
+     "description": "TACOS!!!"
+    },
+    {
+     "id": "edf041be4b0645c09d4a99b7dd7a4514",
+     "title": "Gir",
+     "likes": 10,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 377,
+     "description": "This energetic and playful voice has a wide range of emotions, from dramatic screams to joyful exclamations, making it perfect for expressive content."
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "zim": {
+   "name": "Zim",
+   "status": "ok",
+   "model_id": "e6b5bb86caac4759890a495b74b8e153",
+   "title": "Zim",
+   "likes": 12,
+   "tasks": 2099,
+   "description": "Zim",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 243,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "7ea18d5627564cd89720117e1bc6c366",
+     "title": "Zim",
+     "likes": 18,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 342,
+     "description": "from Invader Zim. Voiced by Richard Steven Horvitz."
+    },
+    {
+     "id": "9b97c68dfb324df19e6b7dabf8aff7ba",
+     "title": "zim",
+     "likes": 12,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 444,
+     "description": "MY ZIM"
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "krusty": {
+   "name": "Krusty the Clown",
+   "status": "ok",
+   "model_id": "d601d9db196c4d399b52b8d100a404a1",
+   "title": "Krusty The Clown - The Simpsons",
+   "likes": 10,
+   "tasks": 1534,
+   "description": "A middle-aged male voice with a notably raspy and gravelly texture. It features high energy, a wide dynamic range, and an animated, theatrical tone suitable for character acting.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 251,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "5cb409a38c0445348a76c290873d310e",
+     "title": "Krusty The Clown (The Simpsons)",
+     "likes": 8,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 277,
+     "description": ""
+    }
+   ],
+   "category": "adult-animation"
+  },
+  "lisa-simpson": {
+   "name": "Lisa Simpson",
+   "status": "ok",
+   "model_id": "a512767d4b5f47dd9df7ea6fccc7de3d",
+   "title": "Lisa Simpson (The Simpsons)",
+   "likes": 35,
+   "tasks": 3403,
+   "description": "A vibrant and animated young female voice, perfect for bringing youthful energy and expressive delivery to your projects.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 299,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "3344305cb89642a18572ef2b1dc60fd6",
+     "title": "Lisa Simpson",
+     "likes": 18,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 332,
+     "description": "Voiced by Yeardley Smith"
+    },
+    {
+     "id": "574d442269184dabbdba2c0982aa5ccb",
+     "title": "Lisa Simpson",
+     "likes": 7,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 356,
+     "description": "A youthful and energetic male voice with a clear, conversational tone. This voice is ideal for relatable character dialogue, social media narration, or casual educational content."
+    }
+   ],
+   "category": "adult-animation"
+  },
+  "brian-griffin": {
+   "name": "Brian Griffin",
+   "status": "ok",
+   "model_id": "7ed24fa3c1d6498c9b4895f51ef70491",
+   "title": "Brian Griffin",
+   "likes": 16,
+   "tasks": 2873,
+   "description": "From The TV Show Family guy",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 119,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "c8e60c3921db40b5b69fbf320deb0c26",
+     "title": "Brian Griffin",
+     "likes": 23,
+     "clarity": [
+      0.95,
+      1.0
+     ],
+     "pitch_hz": 145,
+     "description": "A sophisticated middle-aged male voice with a calm and measured delivery, characterized by its precise articulation and philosophical tone. The voice is smooth and authoritative, making it ideal for deep narration and educational content."
+    },
+    {
+     "id": "e88928ec5022418cad0606fcfc809b8a",
+     "title": "Brian Griffin",
+     "likes": 13,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 159,
+     "description": "A sophisticated middle-aged male voice with a calm and articulate delivery, ideal for educational or narrative content. The tone is measured and intelligent, conveying a sense of refinement and clarity."
+    }
+   ],
+   "category": "adult-animation"
+  },
+  "lois-griffin": {
+   "name": "Lois Griffin",
+   "status": "ok",
+   "model_id": "5ccea0cf418142ea9d91eddd8630efe0",
+   "title": "Lois Griffin",
+   "likes": 33,
+   "tasks": 12344,
+   "description": "She's a Diva",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 302,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "2bc7a1e555b446e68fdf022ce8ade09c",
+     "title": "Lois Griffin",
+     "likes": 22,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 255,
+     "description": "Voiced by Alex Borstein"
+    },
+    {
+     "id": "76aa1c02a45d497d8b9b2d052b605fb8",
+     "title": "Lois griffin ",
+     "likes": 12,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 294,
+     "description": "An expressive and humorous female voice, perfect for engaging stories and animated conversations."
+    }
+   ],
+   "category": "adult-animation"
+  },
+  "beavis": {
+   "name": "Beavis",
+   "status": "ok",
+   "model_id": "2aedbaca7b5241f38f020f3c5092fc4b",
+   "title": "Beavis",
+   "likes": 27,
+   "tasks": 7135,
+   "description": "A young male voice with a slow, raspy quality and a distinct nasal tone, reminiscent of a classic slacker character from an animated series. It features a playful, mischievous delivery with a signature low-pitched laugh.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 185,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "7bb532adb2a9457bbf390e23ef70d33c",
+     "title": "Beavis",
+     "likes": 6,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 206,
+     "description": "yea"
+    },
+    {
+     "id": "17efd29ca7d042c4a2e8606c5bb38f88",
+     "title": "Beavis",
+     "likes": 6,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 204,
+     "description": "From Mike Judge's Beavis and Butt-Head"
+    }
+   ],
+   "category": "adult-animation"
+  },
+  "jake-the-dog": {
+   "name": "Jake the Dog",
+   "status": "ok",
+   "model_id": "02291514dd824f3e869326b4e0638c46",
+   "title": "Jake the dog",
+   "likes": 32,
+   "tasks": 6739,
+   "description": "Jakey",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 267,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "064d808c20944c8ca0bed7a665e55c3c",
+     "title": "jake the dog ",
+     "likes": 9,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 209,
+     "description": "A high-energy and enthusiastic young male voice with a friendly, conversational tone and a slightly raspy quality. It features a dynamic and expressive delivery, making it ideal for engaging social media content and entertainment."
+    },
+    {
+     "id": "b22d17e5563c463f8416689d8459def1",
+     "title": "Jake the dog",
+     "likes": 4,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 216,
+     "description": ""
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "finn": {
+   "name": "Finn the Human",
+   "status": "ok",
+   "model_id": "1238a63f21404c499ca14b28fa781e00",
+   "title": "Finn the human",
+   "likes": 26,
+   "tasks": 5536,
+   "description": "A youthful and energetic male voice with a conversational tone, well-suited for character roles or social media narrations.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 172,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "62fd2a66a49b4d61aad7bb24785b0f85",
+     "title": "Finn The Human",
+     "likes": 6,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 274,
+     "description": "A high-pitched, energetic male voice with a youthful and enthusiastic tone. It features a playful, animated quality well-suited for cartoon characters and gaming."
+    },
+    {
+     "id": "d039b439654542eea9f2ade3c028a8e3",
+     "title": "Finn the human",
+     "likes": 6,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 255,
+     "description": "An energetic and highly expressive male voice, perfect for bringing animated characters to life with dramatic flair and playful enthusiasm."
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "doofenshmirtz": {
+   "name": "Dr. Doofenshmirtz",
+   "status": "ok",
+   "model_id": "542ae2f776d64d53bae3e9722dc489fc",
+   "title": "Dr. Heinz Doofenshmirtz",
+   "likes": 18,
+   "tasks": 5380,
+   "description": "A high-pitched, energetic male voice with a distinctive raspy quality and an eccentric, villainous accent. It is highly expressive and animated, perfect for character roles and comedic narration.",
+   "clarity": [
+    1.0,
+    0.92
+   ],
+   "pitch_hz": 329,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "67723181b6da4ca1a48cdc32d3799f47",
+     "title": "Doofenshmirtz",
+     "likes": 2,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 257,
+     "description": "An animated and expressive middle-aged male voice, perfect for character roles and engaging entertainment."
+    },
+    {
+     "id": "63cee974140147be9b5fd0c01076ec1a",
+     "title": "Doofenshmirtz ",
+     "likes": 2,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 215,
+     "description": "This male voice offers a playful and slightly mischievous tone, ideal for character narration and engaging storytelling."
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "phineas": {
+   "name": "Phineas",
+   "status": "ok",
+   "model_id": "d3f9d85f2dd34ba0b72ed9d35f5d6b62",
+   "title": "Phineas Flynn",
+   "likes": 19,
+   "tasks": 4070,
+   "description": "A bright and energetic young male voice with an enthusiastic and cheerful tone. It features a fast-paced, expressive delivery perfect for animated characters and lively storytelling.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 239,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "b6c7dbc62a824648957cfe1c4d5da8cd",
+     "title": "Phineas",
+     "likes": 11,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 251,
+     "description": "Hi I'm Phineas, and my brother name is Fred."
+    },
+    {
+     "id": "f488b748bc314ef9b2cc3f5846031b25",
+     "title": "Isabella (Phineas and Ferb)",
+     "likes": 28,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 517,
+     "description": "A youthful and energetic female voice with a bright, cheerful tone. It features a clear, animated delivery that is highly expressive and enthusiastic, perfect for character voices or social media content."
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "gumball": {
+   "name": "Gumball",
+   "status": "ok",
+   "model_id": "b986ed62f75d448bb4467a0dc84a3bb5",
+   "title": "gumball",
+   "likes": 124,
+   "tasks": 32884,
+   "description": "A young male voice with a highly energetic and playful tone, perfect for animated characters or engaging social media content. The delivery is enthusiastic and dynamic, featuring a friendly and approachable quality.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 385,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "18aae5c716344048a7666e4090a4c5d8",
+     "title": "Gumball",
+     "likes": 21,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 321,
+     "description": "Gumball"
+    },
+    {
+     "id": "b22a48b686f54fbfb655df8763dfc4f5",
+     "title": "Gumball ",
+     "likes": 26,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 313,
+     "description": "GUMBALL FOR RANTING"
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "bluey": {
+   "name": "Bluey",
+   "status": "ok",
+   "model_id": "51987d6290b54b299b3feba6a92c664d",
+   "title": "Bluey",
+   "likes": 308,
+   "tasks": 78277,
+   "description": "A high-pitched, energetic male child's voice with an enthusiastic and playful tone. This voice is ideal for youthful characters, animated stories, and friendly interactions.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 383,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "f56b971895ed4a9d8aaf90e4c4d96a61",
+     "title": "BLUEY",
+     "likes": 331,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 318,
+     "description": "A young female voice with a bright, cheerful tone and an enthusiastic delivery. This voice is perfect for playful characters, children's content, or high-energy social media posts."
+    },
+    {
+     "id": "d38790551b0548ba9de248dbd10b74e1",
+     "title": "bluey",
+     "likes": 43,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 347,
+     "description": "A high-pitched and energetic young male voice with a cheerful, playful tone. This voice is highly animated and well-suited for children's entertainment or character-driven roles."
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "bandit-heeler": {
+   "name": "Bandit",
+   "status": "ok",
+   "model_id": "47f1508c0e0f4420a1cfde5ecca20d91",
+   "title": "Bandit Heeler",
+   "likes": 13,
+   "tasks": 4420,
+   "description": "Dad Of Bluey! ",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 266,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "3b5e417feef542d48ed7632b36b760df",
+     "title": "Bandit Heeler",
+     "likes": 10,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 175,
+     "description": "A deep, smooth, and confident Japanese male voice with a seductive and assertive tone. This voice is well-suited for dramatic character roles, particularly in anime or gaming contexts."
+    },
+    {
+     "id": "34557e197a084fbabfc2d74c14d1182e",
+     "title": "Bandit Heeler (2016 Pilot)",
+     "likes": 6,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 178,
+     "description": "Bandit Heeler as of the 2016 unreleased Bluey pilot."
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "mordecai": {
+   "name": "Mordecai",
+   "status": "ok",
+   "model_id": "9148ace48554421a84d9994b16d08b3c",
+   "title": "Mordecai (Regular Show)",
+   "likes": 39,
+   "tasks": 5544,
+   "description": "A youthful male voice with an energetic and friendly tone, perfect for casual and conversational content. His speech is clear and animated, conveying a sense of excitement and approachability.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 164,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "742a2ce1f1c642ca944af688ef818789",
+     "title": "Mordecai",
+     "likes": 31,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 245,
+     "description": "Regular show"
+    },
+    {
+     "id": "52ec180740b04c2f8b25124387a17b2b",
+     "title": "Mordecai",
+     "likes": 13,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 151,
+     "description": "Regular show"
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "crash-bandicoot": {
+   "name": "Crash Bandicoot",
+   "status": "ok",
+   "model_id": "550fb491627045bba81a7252e0e1b1c8",
+   "title": "Crash Bandicoot",
+   "likes": 13,
+   "tasks": 1288,
+   "description": "Crash Bandicoot is the titular main protagonist of Activision’s franchise of the same name.\r\n\r\nHe was once an ordinary bandicoot until he was exposed to the Evolvo-Ray by his arch-nemesis, Dr. Neo Cortex, as part of his plan to create an army of mutant animals to take over the world. However, Cortex",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 284,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "af4d4bb6a1774911861b07c231868c20",
+     "title": "Crash Bandicoot",
+     "likes": 0,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 156,
+     "description": "Voice by Scott Whyte"
+    }
+   ],
+   "category": "games"
+  },
+  "knuckles": {
+   "name": "Knuckles",
+   "status": "ok",
+   "model_id": "166f151dac6d42d8abc78b1febe6344b",
+   "title": "Knuckles",
+   "likes": 44,
+   "tasks": 9251,
+   "description": "knuckles from sonic x",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 157,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "eb9c4e925d5f458ebb8c2575080db29e",
+     "title": "Knuckles",
+     "likes": 24,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 279,
+     "description": "Knucklehead Buddy"
+    },
+    {
+     "id": "9c0664203e3a4a29a68c8398f0496321",
+     "title": "Knuckles The Echidna ",
+     "likes": 24,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 210,
+     "description": "Voiced by Dave B Mitchell."
+    }
+   ],
+   "category": "games"
+  },
+  "tails": {
+   "name": "Tails",
+   "status": "ok",
+   "model_id": "523fed3574884de88e8f87102b06a3ba",
+   "title": "Tails",
+   "likes": 93,
+   "tasks": 29070,
+   "description": "A high-pitched and energetic young male voice with an enthusiastic, friendly tone. It is perfect for youthful character roles in gaming and animation.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 467,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "7b6ab6bbf6bc4b3e88357ca4db057207",
+     "title": "Tails!",
+     "likes": 63,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 403,
+     "description": "A young fox with a raspy voice"
+    },
+    {
+     "id": "038d0785b56547ad9efd1a18b5449efc",
+     "title": "Tails",
+     "likes": 39,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 372,
+     "description": "A youthful and energetic male voice with an enthusiastic and helpful tone, perfect for animated characters or video games. The voice is bright, clear, and highly expressive, conveying excitement and focus."
+    }
+   ],
+   "category": "games"
+  },
+  "shadow": {
+   "name": "Shadow the Hedgehog",
+   "status": "ok",
+   "model_id": "a1d8d13990884808a34fda5b7ddeb540",
+   "title": "Shadow The Hedgehog",
+   "likes": 133,
+   "tasks": 22940,
+   "description": "Kirk Thornton ",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 127,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "02eb287d85f3489ea258aab4012443d6",
+     "title": "Shadow the hedgehog",
+     "likes": 39,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 206,
+     "description": "I am Shadow the Hedgehog "
+    },
+    {
+     "id": "058be5ff8f774f6e80c13da983ad19de",
+     "title": "Shadow The Hedgehog",
+     "likes": 17,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 113,
+     "description": "Just Shadow The Hedgehog 👍"
+    }
+   ],
+   "category": "games"
+  },
+  "donkey-kong": {
+   "name": "Donkey Kong",
+   "status": "ok",
+   "model_id": "087c72278fd64aa1913e62c33b008a7b",
+   "title": "Donkey Kong (Seth Rogen)",
+   "likes": 16,
+   "tasks": 1322,
+   "description": "This middle-aged male voice offers a dynamic and expressive delivery, perfect for engaging storytelling and character work.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 192,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "974a22f34b224a5aa3fb3549253c595a",
+     "title": "Donkey Kong",
+     "likes": 6,
+     "clarity": [
+      0.94,
+      0.86
+     ],
+     "pitch_hz": 364,
+     "description": "Donkey Kong, also referred to as DK (or D.K.), or rarely D. Kong,[1][2] Donkey (more commonly used in Japan), or Kong,[3] is a powerful and carefree Kong who is a major character in the Super Mario franchise and the titular main protagonist of the Donkey Kong franchise. Created by video game designe"
+    },
+    {
+     "id": "6e4cb07ed85a438a87fa262368fc12ff",
+     "title": "Dixie Kong (Donkey Kong Country)",
+     "likes": 3,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 422,
+     "description": "Voiced by Stevie Vallance."
+    }
+   ],
+   "category": "games"
+  },
+  "princess-peach": {
+   "name": "Princess Peach",
+   "status": "ok",
+   "model_id": "14332b950ec142348cee5c4341f08a86",
+   "title": "Princess Peach",
+   "likes": 19,
+   "tasks": 6005,
+   "description": "A soft, breathy young female voice with an intimate and playful delivery. It has an expressive quality suitable for character-based performances.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 370,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "e2cf58f01d1649da94db1eb26ca7915a",
+     "title": "Princess Peach ",
+     "likes": 71,
+     "clarity": [
+      1.0,
+      0.87
+     ],
+     "pitch_hz": 443,
+     "description": "This is a high-pitched and energetic female voice with a cheerful, friendly tone. It is well-suited for animated characters, gaming, or high-energy social media narration."
+    },
+    {
+     "id": "13b47bb8592b409aabd3bdd09e1e979e",
+     "title": "princess peach",
+     "likes": 16,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 354,
+     "description": "A youthful and high-pitched female voice with a cheerful and energetic tone. It is highly expressive and animated, making it perfect for character voices or playful content."
+    }
+   ],
+   "category": "games"
+  },
+  "toad": {
+   "name": "Toad",
+   "status": "ok",
+   "model_id": "91a1e83b577448fbac8ef6fe050f67c9",
+   "title": "Toad",
+   "likes": 21,
+   "tasks": 5728,
+   "description": "",
+   "clarity": [
+    1.0,
+    0.94
+   ],
+   "pitch_hz": 404,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "df5086ce32c043eb97b40eaf033b477a",
+     "title": "Toad",
+     "likes": 0,
+     "clarity": [
+      0.93,
+      1.0
+     ],
+     "pitch_hz": 199,
+     "description": ""
+    },
+    {
+     "id": "1e40a367c1174d488346655ff6977c5e",
+     "title": "Toad (Mario Golf: Toadstool Tour)",
+     "likes": 14,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 524,
+     "description": "Voiced by Jen Taylor."
+    }
+   ],
+   "category": "games"
+  },
+  "mandalorian": {
+   "name": "Mandalorian",
+   "status": "ok",
+   "model_id": "c711f1b663174c89948b3523a8c7e2f2",
+   "title": "Mandalorian",
+   "likes": 31,
+   "tasks": 11842,
+   "description": "A deep, authoritative middle-aged male voice with a calm yet serious tone, suitable for cinematic storytelling or intense character roles.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 197,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "86a5bf78248f40008f8184d4d0d71e9e",
+     "title": "Din Djarin",
+     "likes": 1,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 148,
+     "description": "This deep, confident male voice delivers lines with an authoritative and husky tone, perfect for dramatic narration or character roles."
+    },
+    {
+     "id": "3c7a035f20fc4bebb387f526eed87e1d",
+     "title": "Mandalorian Commander",
+     "likes": 5,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 114,
+     "description": "A deep, authoritative male voice with a gravelly texture, ideal for commanding roles, dramatic narration, or imposing character voices."
+    }
+   ],
+   "category": "star-wars"
+  },
+  "venom": {
+   "name": "Venom",
+   "status": "ok",
+   "model_id": "785a8d3367b4431a9afb4bf6e5b2014e",
+   "title": "Venom ",
+   "likes": 45,
+   "tasks": 12355,
+   "description": "A menacing and deep male monster voice with a raspy, guttural quality and a distinct layered effect. It is ideal for villainous characters, horror settings, or cinematic trailers requiring an intimidating presence.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 179,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "bc4561c056b24359b91490e091f7d771",
+     "title": "Venom",
+     "likes": 33,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 248,
+     "description": "Deep voice "
+    },
+    {
+     "id": "47f13f60a79248e9a6846113654184b2",
+     "title": "Venom",
+     "likes": 19,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 61,
+     "description": "This is an Alien Male and big symbiote voice Venom with horror tone and so powerful character , It's dark, angry, horror and powerfull "
+    }
+   ],
+   "category": "superheroes"
+  },
+  "pennywise": {
+   "name": "Pennywise",
+   "status": "ok",
+   "model_id": "4cb7fbad2d794c74b1917316f8fb8872",
+   "title": "Pennywise",
+   "likes": 32,
+   "tasks": 6296,
+   "description": "A clown",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 181,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "dd774190439541baa2ebd0089d556354",
+     "title": "Pennywise ",
+     "likes": 8,
+     "clarity": [
+      1.0,
+      0.94
+     ],
+     "pitch_hz": 157,
+     "description": "Pennywise the terrifying clown"
+    },
+    {
+     "id": "d8a344705e534b0aa13c7c72856924ff",
+     "title": "Pennywise ",
+     "likes": 3,
+     "clarity": [
+      1.0,
+      0.91
+     ],
+     "pitch_hz": 144,
+     "description": "This is a male voice with a high-pitched, raspy, and chillingly playful tone, reminiscent of a theatrical horror character. It features a creepy delivery that shifts between gentle persuasion and unsettling, manic laughter."
+    }
+   ],
+   "category": "film-tv"
+  },
+  "willy-wonka": {
+   "name": "Willy Wonka",
+   "status": "ok",
+   "model_id": "0eaba2e6473e409288f1f7ae5f4563e9",
+   "title": "Willy Wonka (Gene Wilder)",
+   "likes": 11,
+   "tasks": 4049,
+   "description": "The owner and founder of the Willy Wonka Chocolate Factory from Willy Wonka & The Chocolate Factory (1971) played by Gene Wilder.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 117,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "22c63633275247739704d38d79d3f923",
+     "title": "2005 willy wonka ",
+     "likes": 6,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 122,
+     "description": "Oh... my dear God! You have got to be joking. Why you even think to ask me such revolting things "
+    },
+    {
+     "id": "6f504013866241689289601982af2959",
+     "title": "Violet Beauregarde (Willy Wonka, 1971)",
+     "likes": 2,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 516,
+     "description": "A lively and expressive young female voice, perfect for animated characters and dynamic storytelling."
+    }
+   ],
+   "category": "family-films"
+  },
+  "sheldon-cooper": {
+   "name": "Sheldon Cooper",
+   "status": "ok",
+   "model_id": "26785a3047f74dd18fd9a2604d192a69",
+   "title": "Sheldon Cooper From The Big Bang Theory",
+   "likes": 33,
+   "tasks": 6534,
+   "description": "I don't know why everyone gets so upset with me all the time.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 171,
+   "confidence": "high",
+   "runners_up": [],
+   "category": "film-tv"
+  },
   "han-solo": {
    "name": "Han Solo",
    "status": "ok",
@@ -3472,6 +5377,75 @@
     }
    ],
    "category": "star-wars"
+  },
+  "bert": {
+   "name": "Bert",
+   "status": "ok",
+   "model_id": "46821d570ffe4ec4942ed8e5669aa1e4",
+   "title": "Bert",
+   "likes": 10,
+   "tasks": 835,
+   "description": "From Sesame Street.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 406,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "696111c638dc419aaba2d4ab7e6637cc",
+     "title": "[Sesame Street] Bert(Eric Jacobson",
+     "likes": 16,
+     "clarity": [
+      1.0,
+      0.94
+     ],
+     "pitch_hz": 351,
+     "description": "i love babababababababbaabab"
+    },
+    {
+     "id": "8d52ac51fc7843a6bc4f931e623ec7c1",
+     "title": "[Sesame Street] Bert (Eric Jacobson)",
+     "likes": 16,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 261,
+     "description": "He's scared. He's scared, he'll calm down\""
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "ernie": {
+   "name": "Ernie",
+   "status": "ok",
+   "model_id": "b6f8a22bf20d4ac8a365fd06551121ea",
+   "title": "[Sesame Street] Ernie (Jim Henson)",
+   "likes": 22,
+   "tasks": 1341,
+   "description": "\"Would you still like me if I wore fruit on my head, bounced like a ball, and said 'Rudagga'",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 292,
+   "confidence": "high",
+   "runners_up": [
+    {
+     "id": "55c452d45d334e359881327fa6d376c7",
+     "title": "Ernie",
+     "likes": 10,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 284,
+     "description": "From Sesame Street."
+    }
+   ],
+   "category": "classic-cartoons"
   },
   "baloo": {
    "name": "Baloo",
@@ -4369,46 +6343,6 @@
    "runners_up": [],
    "category": "film-tv"
   },
-  "piglet": {
-   "name": "Piglet",
-   "status": "ok",
-   "model_id": "cb1f6b08075c42a183aee3a44021ea26",
-   "title": "Piglet Winnie the Pooh)",
-   "likes": 19,
-   "tasks": 1104,
-   "description": "he is scared",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 348,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "12d09ac5c5214226a51e4d5245046479",
-     "title": "Piglet",
-     "likes": 1,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 317,
-     "description": "From Winnie the Pooh."
-    },
-    {
-     "id": "b7facb14beae4c6fa3b7f7e066b2a474",
-     "title": "Piglet (Travis Oates)",
-     "likes": 9,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 344,
-     "description": "This is Piglet's Text-To-Speech voice, played by Travis Oates. I hope you guys enjoyed it!"
-    }
-   ],
-   "category": "disney-pixar"
-  },
   "sebastian": {
    "name": "Sebastian",
    "status": "ok",
@@ -4445,337 +6379,6 @@
      ],
      "pitch_hz": 202,
      "description": "A dynamic and expressive middle-aged male voice with a distinctive raspy quality and a wide dramatic range. It excels at delivering high-energy performances, from sarcastic mocking to intense, aggressive character roles."
-    }
-   ],
-   "category": "disney-pixar"
-  },
-  "lumiere": {
-   "name": "Lumiere",
-   "status": "ok",
-   "model_id": "d98972ae0363412db294182b7d17e5a1",
-   "title": "Lumiere (Jeff Bennett)",
-   "likes": 13,
-   "tasks": 390,
-   "description": "This is Lumiere's Text-To-Speech voice, played by Jeff Bennett. I hope you guys enjoyed it!",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 230,
-   "confidence": "medium",
-   "runners_up": [],
-   "category": "disney-pixar"
-  },
-  "jafar": {
-   "name": "Jafar",
-   "status": "ok",
-   "model_id": "94568104a6ec423185ad7d8cd0cca6b6",
-   "title": "Jafar (Jonathan Freeman)",
-   "likes": 20,
-   "tasks": 1042,
-   "description": "Greetings, Street Rats! I'm certain that you fools would dare to use my text-to-speech voice for fun! I dare you street rats to use my very own personal text-to-speech voice, or else, I will banish you from my property! So, use my text-to-speech voice at once!",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 164,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "9487a234dc4f4a76a05e69b94f750f92",
-     "title": "Jafar (Jonathan Freeman)",
-     "likes": 11,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 221,
-     "description": "\"Ah, but there’s a new order now... my order! Finally, you will bow to me!\"\r\n\"Trust me, my pungent friend. You'll get what's coming to you.\"\r\n\"At last, after all my years of searching... the Cave of Wonders.\"\r\n\"Now, remember. Bring me the lamp! The rest of the treasure is yours, but the lamp... is m"
-    },
-    {
-     "id": "f2c2abb03ec9442d8b4728767510ef3e",
-     "title": "elleven jafar",
-     "likes": 1,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 96,
-     "description": "A deep and calm middle-aged male voice with a professional and authoritative tone. It features a smooth, measured delivery that is well-suited for serious narration or documentary storytelling."
-    }
-   ],
-   "category": "disney-pixar"
-  },
-  "iago": {
-   "name": "Iago",
-   "status": "ok",
-   "model_id": "4bc008d76141451bb5d8a788d309ee21",
-   "title": "Iago (Gilbert Gottfried)",
-   "likes": 17,
-   "tasks": 1005,
-   "description": "\"What's coming to you. Awk!\"\r\n\"Awk. Cave of Wonders!\"\r\n\"Awk, the lamp. Awk, the lamp. Jeez, where'd ya dig this bozo up?\"\r\n\"I can't believe it! I just don't believe it! We're never gonna get a hold of that stupid lamp! Just forget it! Look at this. Look at this. I'm so ticked off that I'm molting.\"\r",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 299,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "60b57ec90e5242d596b88d9a5dcee5fb",
-     "title": "Iago (Aladdin/Gilbert Gottfried ",
-     "likes": 18,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 402,
-     "description": " And then I'd grab him around the head. Whack, "
-    },
-    {
-     "id": "665fd2b7b38442508ea29150066b812c",
-     "title": "Iago (Aladdin/Gilbert Gottfried ",
-     "likes": 13,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 250,
-     "description": "Gilbert Gottfried is the voice of Iago in Aladdin"
-    }
-   ],
-   "category": "disney-pixar"
-  },
-  "ursula": {
-   "name": "Ursula",
-   "status": "ok",
-   "model_id": "4b4046d3c71745c1bcbe5587b3f0ebdd",
-   "title": "Ursula (Pat Carroll)",
-   "likes": 16,
-   "tasks": 1258,
-   "description": "Hello, my dear people. I am your true and grateful villain, Ursula! And this is my beautiful text-to-speech voice. And this text-to-speech voice is in person! I hope all of you sweeties have a wonderful time with my wonderful text-to-speech voice! ",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 238,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "f814f4a6da1e4682a379cebc420c2844",
-     "title": "Ursula ",
-     "likes": 0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 193,
-     "description": "This voice presents a calm, clear, and authoritative tone, ideal for serious discussions, diplomatic scenarios, or impactful narration."
-    },
-    {
-     "id": "a619fd73e3a04cf9bb53cc5f97f18757",
-     "title": "Ursula Andreia",
-     "likes": 0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 284,
-     "description": "\r\nHello\r\n..\r\n\r\nHello...\r\n\r\nDear Ursula\r\nfollowers,\r\n\r\nThis video is a precious treasure for my followers.\r\n\r\nDear OnlyFans fans and followers,\r\n\r\nThere's a surprise coming\r\n\r\nthat you might like\r\n\r\nin the coming days...\r\n\r\nI invite you to be excited, supportive, and follow...\r\n\r\nUrsula will change f"
-    }
-   ],
-   "category": "disney-pixar"
-  },
-  "captain-hook": {
-   "name": "Captain Hook",
-   "status": "ok",
-   "model_id": "0dc9a49260804cb5870bd133a30678a3",
-   "title": "Captain Hook (Corey Burton)",
-   "likes": 21,
-   "tasks": 482,
-   "description": "Ahoy, Maties! I'm Captain Hook! And this is my text-to-speech voice! So, you fools better use my voice, or else, I will force all of you to walk off the plank!",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 226,
-   "confidence": "high",
-   "runners_up": [],
-   "category": "disney-pixar"
-  },
-  "cruella": {
-   "name": "Cruella de Vil",
-   "status": "ok",
-   "model_id": "6f7f8d7c3eba4fa3b4c477b9d8cf1145",
-   "title": "Cruella Deville (Susanne Blakeslee)",
-   "likes": 14,
-   "tasks": 359,
-   "description": "Hello, my dear fools, I'm Cruella Deville! And you all would be evil to hear that this is my text-to-speech voice! So, start using my text-to-speech voice already! Or else you all would be punished for life!",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 269,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "b2e81067a3dc41269bf1833f08296486",
-     "title": "Cruella",
-     "likes": 2,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 156,
-     "description": "A mature and deep male voice with a calm, measured pace and a slightly raspy texture. It carries a serious and dramatic tone, making it ideal for storytelling and cinematic narration."
-    },
-    {
-     "id": "99f1a029593b4aa4b5d42e8a23cedbea",
-     "title": "Cruella",
-     "likes": 0,
-     "clarity": [
-      1.0,
-      0.94
-     ],
-     "pitch_hz": 325,
-     "description": ""
-    }
-   ],
-   "category": "disney-pixar"
-  },
-  "baymax": {
-   "name": "Baymax",
-   "status": "ok",
-   "model_id": "72efa9af4dec4c71bd3920dc325cad3a",
-   "title": "Baymax Character Voice",
-   "likes": 5,
-   "tasks": 2553,
-   "description": "This voice captures the calm and friendly demeanor of a healthcare companion, offering clear and reassuring communication.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 189,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "b37a0bb01bb3440fa448c0322693fec6",
-     "title": "Baymax",
-     "likes": 7,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 180,
-     "description": "Hes a robot"
-    },
-    {
-     "id": "56d1ff3494584ada8fb23f0e5e917334",
-     "title": "Baymax",
-     "likes": 7,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 161,
-     "description": "A calm, flawlessly clean, and pure male voice of a friendly robotic healthcare companion. Soft, slightly high-pitched tone with a smooth, highly synthetic, and resonant quality that is completely devoid of breathiness, rasp, vocal fry, or throat sounds. He speaks at a slow, deliberate, and unhurried"
-    }
-   ],
-   "category": "disney-pixar"
-  },
-  "zazu": {
-   "name": "Zazu",
-   "status": "ok",
-   "model_id": "ef9a9fdf460945b08a9e593ea5a58166",
-   "title": "Zazu (The Lion King)",
-   "likes": 23,
-   "tasks": 592,
-   "description": "Yes, well, as slippery as your mind is, as the king's brother, you should have been first in line",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 227,
-   "confidence": "high",
-   "runners_up": [],
-   "category": "disney-pixar"
-  },
-  "rex": {
-   "name": "Rex",
-   "status": "ok",
-   "model_id": "598e3cf9e0b7477f93aebb1c91ce6b88",
-   "title": "Rex (Toy Story)",
-   "likes": 15,
-   "tasks": 525,
-   "description": "A dinosaur from toy story",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 295,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "92f5a6d5750a4bf9824998e568120ef4",
-     "title": "Rex!",
-     "likes": 4,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 209,
-     "description": "Rexsplode from invincible "
-    },
-    {
-     "id": "73fd462d4e0447e9aeed978fa8ecd4df",
-     "title": "Rex",
-     "likes": 5,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 280,
-     "description": "Rexsplode "
-    }
-   ],
-   "category": "disney-pixar"
-  },
-  "joy": {
-   "name": "Joy",
-   "status": "ok",
-   "model_id": "6a2e42ee1afc44839bb013e7d86379bd",
-   "title": "Joy (Inside Out)",
-   "likes": 38,
-   "tasks": 2200,
-   "description": "An energetic and cheerful voice with a bright and expressive tone, perfect for bringing animated characters to life.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 413,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "bd08f3f4161b43258d7e02fcc0234382",
-     "title": "Joy (Nigerian)",
-     "likes": 13,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 272,
-     "description": "This female voice is warm and articulate, ideal for engaging narration and expressive content. She balances calm reflection with an energetic, passionate delivery."
-    },
-    {
-     "id": "4ce26cdf9a5c4a0a9876ae4bb9182e49",
-     "title": "DJ Joy ",
-     "likes": 1,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 196,
-     "description": "Master "
     }
    ],
    "category": "disney-pixar"
@@ -4860,23 +6463,6 @@
    ],
    "category": "disney-pixar"
   },
-  "alex-the-lion": {
-   "name": "Alex the Lion",
-   "status": "ok",
-   "model_id": "214493f5b28e459eb8421f85369362b9",
-   "title": "Alex madagascar ",
-   "likes": 16,
-   "tasks": 1138,
-   "description": "We are in temperate grassland. It's awesome out here. ",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 197,
-   "confidence": "medium",
-   "runners_up": [],
-   "category": "family-films"
-  },
   "marty": {
    "name": "Marty",
    "status": "ok",
@@ -4913,35 +6499,6 @@
      ],
      "pitch_hz": 222,
      "description": "An energetic and highly expressive young male voice, perfect for bringing dynamic characters to life with a sense of adventure and wonder."
-    }
-   ],
-   "category": "family-films"
-  },
-  "fiona": {
-   "name": "Princess Fiona",
-   "status": "ok",
-   "model_id": "e0d2b62d2a474ed09c8fc81ec293e52c",
-   "title": "Princess Fiona",
-   "likes": 13,
-   "tasks": 1926,
-   "description": "A youthful female voice with a refined English accent, characterized by a playful and theatrical tone. The delivery is crisp and expressive, making it ideal for storytelling or character roles.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 304,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "333b140b72a5492da02757879f9e8072",
-     "title": "Princess Fiona (Cameron Diaz)",
-     "likes": 19,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 242,
-     "description": "This Voice Sounds Truly Adoring."
     }
    ],
    "category": "family-films"
@@ -5026,115 +6583,6 @@
    ],
    "category": "family-films"
   },
-  "hiccup": {
-   "name": "Hiccup",
-   "status": "ok",
-   "model_id": "fa7f236651c047b6854a91d641be7d73",
-   "title": "Hiccup",
-   "likes": 31,
-   "tasks": 2283,
-   "description": "A youthful male voice with a sarcastic and slightly nerdy tone, characterized by a friendly and expressive delivery. It is ideal for character-driven narration and lighthearted storytelling.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 141,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "057cb69dc0724c818bd3950c56dd4e39",
-     "title": "Hiccup",
-     "likes": 2,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 204,
-     "description": "A friendly and expressive young male voice."
-    },
-    {
-     "id": "32ab880b6f3c42cbb03a5d4258083095",
-     "title": "Hiccup",
-     "likes": 3,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 196,
-     "description": "A young male voice with an energetic and highly expressive character-like quality. It features a fast-paced, boyish tone that is ideal for animation, gaming, or dynamic storytelling."
-    }
-   ],
-   "category": "family-films"
-  },
-  "garfield": {
-   "name": "Garfield",
-   "status": "ok",
-   "model_id": "977e5663237a4f38909adf01d7c74c8a",
-   "title": "Garfield",
-   "likes": 27,
-   "tasks": 4447,
-   "description": "A warm and expressive middle-aged male voice with a slight rasp, perfectly suited for animated characters and storytelling. It carries a friendly yet humorous tone that is both engaging and distinct.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 109,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "e534f012adb4457a9776d4104feddfcb",
-     "title": "Garfield",
-     "likes": 10,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 132,
-     "description": "A playful and slightly gruff male voice, perfect for adding a touch of humor or character to your audio projects."
-    },
-    {
-     "id": "3256056ccb144fdbbff1a3300610c3b9",
-     "title": "Garfield",
-     "likes": 5,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 132,
-     "description": "Garf"
-    }
-   ],
-   "category": "classic-cartoons"
-  },
-  "elmer-fudd": {
-   "name": "Elmer Fudd",
-   "status": "ok",
-   "model_id": "0f2d1ddd09b440d3b89b630d27b8a2d4",
-   "title": "Elmer Fudd",
-   "likes": 14,
-   "tasks": 721,
-   "description": "Billy West is the voice of Elmer Fudd in Looney Tunes: Back in Action",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 182,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "134ab4485f2f4e3bb6473bb448e76288",
-     "title": "Elmer Fudd",
-     "likes": 8,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 211,
-     "description": "A high-pitched, energetic male character voice with a distinct rhotacism, reminiscent of classic cartoon hunters. It features a playful, animated tone perfect for comedic and whimsical performances."
-    }
-   ],
-   "category": "classic-cartoons"
-  },
   "barney-rubble": {
    "name": "Barney Rubble",
    "status": "ok",
@@ -5164,281 +6612,6 @@
    ],
    "category": "classic-cartoons"
   },
-  "kermit": {
-   "name": "Kermit the Frog",
-   "status": "ok",
-   "model_id": "e4ab98de928a4791a8613f102caae78a",
-   "title": "Kermit The Frog",
-   "likes": 22,
-   "tasks": 10841,
-   "description": "",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 236,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "481b7745308b4ace84d3db444cb80edd",
-     "title": "KERMIT",
-     "likes": 0,
-     "clarity": [
-      0.94,
-      1.0
-     ],
-     "pitch_hz": 245,
-     "description": "hey guys uh kermit the frog here"
-    },
-    {
-     "id": "aa0f3a420cd64f75b40423b750015182",
-     "title": "Kermit the frog",
-     "likes": 0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 234,
-     "description": "A middle-aged male voice with an inquisitive and slightly suspicious tone, suitable for various interactive scenarios."
-    }
-   ],
-   "category": "classic-cartoons"
-  },
-  "miss-piggy": {
-   "name": "Miss Piggy",
-   "status": "ok",
-   "model_id": "462ca923500b4c7292b62fc6dd4c3904",
-   "title": "Miss Piggy (Muppets Party Cruise)",
-   "likes": 19,
-   "tasks": 921,
-   "description": "Voiced by Eric Jacobson",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 404,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "ac68c63769bd4ae7ae1f68099c0cf6b9",
-     "title": "Miss Piggy (The Great Muppet Caper)",
-     "likes": 6,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 434,
-     "description": "Voiced by Frank Oz."
-    }
-   ],
-   "category": "classic-cartoons"
-  },
-  "grover": {
-   "name": "Grover",
-   "status": "ok",
-   "model_id": "5d2db6355f7d4166ba6bcc7961e38a26",
-   "title": "Grover",
-   "likes": 11,
-   "tasks": 770,
-   "description": "From Sesame Street.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 377,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "9bfcd2342af343dc92e659628aaafcd7",
-     "title": "Grover (Sesame Street)",
-     "likes": 15,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 419,
-     "description": "Grover is a Character from Sesame Street"
-    },
-    {
-     "id": "6df228e351e34a6183e28200c684c577",
-     "title": "Grover Sesame Street",
-     "likes": 6,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 392,
-     "description": "An enthusiastic and high-pitched male voice with a distinctive raspy, puppet-like quality. This voice is playful and friendly, making it ideal for educational content or character-driven storytelling."
-    }
-   ],
-   "category": "classic-cartoons"
-  },
-  "big-bird": {
-   "name": "Big Bird",
-   "status": "ok",
-   "model_id": "7475c607ba69483b9ac935a3795f0c10",
-   "title": "Big Bird",
-   "likes": 19,
-   "tasks": 5299,
-   "description": "From Sesame Street.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 246,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "b22182223be54fae9dff7f1752a79a62",
-     "title": "BigBird [Sesame Street - Letters to Big Bird]",
-     "likes": 10,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 244,
-     "description": "Big Bird has a letter of the alphabet in his end, what you do is click on 3 things on the shelf starting with that letter, and if you want you can make Big Bird say silly things like \"X-Monkey, No!\" and \"Jack in the Underwear\"."
-    },
-    {
-     "id": "18c2bfeb783a4fd6bab761c180256daf",
-     "title": "Big Bird (Sad)",
-     "likes": 7,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 321,
-     "description": "From Sesame Street."
-    }
-   ],
-   "category": "classic-cartoons"
-  },
-  "oscar-the-grouch": {
-   "name": "Oscar the Grouch",
-   "status": "ok",
-   "model_id": "f4c42d6f5e104cb88baca0656d8ffc8e",
-   "title": "Oscar The Grouch (Sesame Street)",
-   "likes": 12,
-   "tasks": 2541,
-   "description": "",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 254,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "3230b97d24f2403fb9c3d65dddd5c599",
-     "title": "Oscar the grouch (Sesame Street)",
-     "likes": 2,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 281,
-     "description": "This voice carries a distinctive, slightly raspy quality, perfect for delivering angry or characterful lines with a touch of grumpiness."
-    },
-    {
-     "id": "1e2374d5e98a4181b595d2b5a64593ed",
-     "title": "Oscar the Grouch (Uberduck)",
-     "likes": 0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 188,
-     "description": "Uses by JeremythePeanutsguy "
-    }
-   ],
-   "category": "classic-cartoons"
-  },
-  "skeletor": {
-   "name": "Skeletor",
-   "status": "ok",
-   "model_id": "da47a56c89864082b90d9f2bae0f77c0",
-   "title": "Skeletor 2 Master of Evil",
-   "likes": 6,
-   "tasks": 2860,
-   "description": "A high-pitched, raspy male voice with a theatrical and villainous tone, perfectly suited for an iconic cartoon antagonist. The delivery is highly expressive and animated, capturing a classic character performance.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 279,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "3d34218a389248749099793b2b193f33",
-     "title": "skeletor",
-     "likes": 4,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 322,
-     "description": "This male voice is highly energetic and dramatic, featuring a young range with a crisp, theatrical delivery. It is well-suited for comedic character roles, social media, or high-energy advertisements."
-    }
-   ],
-   "category": "classic-cartoons"
-  },
-  "he-man": {
-   "name": "He-Man",
-   "status": "ok",
-   "model_id": "49d63dc024404442ab0e04349ce2bfdb",
-   "title": "He-Man",
-   "likes": 14,
-   "tasks": 1121,
-   "description": "Strongest man in the Universe",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 168,
-   "confidence": "medium",
-   "runners_up": [],
-   "category": "classic-cartoons"
-  },
-  "megatron": {
-   "name": "Megatron",
-   "status": "ok",
-   "model_id": "2aa0a507d8f24f34ab2bf203281c4205",
-   "title": "Megatron",
-   "likes": 36,
-   "tasks": 6916,
-   "description": "The destined ruler of Cybertron, I will conquer the planet and bring greatness like never before!",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 199,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "cb7b58268bc64e2f83c355313e2eba19",
-     "title": "Megatron",
-     "likes": 17,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 92,
-     "description": "Deep, menacing, commanding, scratchy, metallic, guttural quality, conveying immense power, rage, ruthless ambition"
-    },
-    {
-     "id": "7f8c32b19a9441b28736e3d5414988bc",
-     "title": "Megatron",
-     "likes": 9,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 196,
-     "description": "Leader of the Decepticons."
-    }
-   ],
-   "category": "classic-cartoons"
-  },
   "fred-jones": {
    "name": "Fred Jones",
    "status": "ok",
@@ -5464,155 +6637,6 @@
      ],
      "pitch_hz": 194,
      "description": "A mature male voice with a powerful, raspy, and aggressive tone, ideal for intense character-driven performances."
-    }
-   ],
-   "category": "classic-cartoons"
-  },
-  "tommy-pickles": {
-   "name": "Tommy Pickles",
-   "status": "ok",
-   "model_id": "8a2b47b196144830b5388a5f41a9196e",
-   "title": "Tommy Pickles (Rugrats)",
-   "likes": 31,
-   "tasks": 2014,
-   "description": "Voiced by E.G. Daily",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 500,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "026d529a16994471b4cd550e18f16a28",
-     "title": "Tommy Pickles (All Grown Up)",
-     "likes": 11,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 342,
-     "description": "from the Rugrats spin-off, All Grown Up. Voiced by E.G. Daily."
-    },
-    {
-     "id": "f91c0afee29745e692e441513705aafd",
-     "title": "Tommy Pickles (Pre-teen)",
-     "likes": 9,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 365,
-     "description": "From All Grown Up! (Looks like Rugrats), Voiced By E.G. Daily."
-    }
-   ],
-   "category": "classic-cartoons"
-  },
-  "angelica": {
-   "name": "Angelica Pickles",
-   "status": "ok",
-   "model_id": "980fc9a512a24a6eb96b5a1a3d596c34",
-   "title": "Angelica Pickles (Rugrats)",
-   "likes": 39,
-   "tasks": 2131,
-   "description": "Voiced by Cheryl Chase.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 491,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "37256121eac9425e81adc487b120796f",
-     "title": "Angelica Pickles (All Grown Up!)",
-     "likes": 15,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 439,
-     "description": "\"Well, it takes a very special kind person to be an advice giver. You have to be soft on the inside, but tough on the outside. Like left over lasagna. Ask yourself, Harold, are you left over lasagna?\""
-    }
-   ],
-   "category": "classic-cartoons"
-  },
-  "gir": {
-   "name": "GIR",
-   "status": "ok",
-   "model_id": "6e11aa80a8b94287aebfca166e1a0dc4",
-   "title": "Gir",
-   "likes": 23,
-   "tasks": 2873,
-   "description": "Gir from invaders zim",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 334,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "a9a6dd3eacc84e019abda96b48bb10a3",
-     "title": "Gir",
-     "likes": 17,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 376,
-     "description": "TACOS!!!"
-    },
-    {
-     "id": "edf041be4b0645c09d4a99b7dd7a4514",
-     "title": "Gir",
-     "likes": 10,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 377,
-     "description": "This energetic and playful voice has a wide range of emotions, from dramatic screams to joyful exclamations, making it perfect for expressive content."
-    }
-   ],
-   "category": "classic-cartoons"
-  },
-  "zim": {
-   "name": "Zim",
-   "status": "ok",
-   "model_id": "e6b5bb86caac4759890a495b74b8e153",
-   "title": "Zim",
-   "likes": 12,
-   "tasks": 2099,
-   "description": "Zim",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 243,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "7ea18d5627564cd89720117e1bc6c366",
-     "title": "Zim",
-     "likes": 18,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 342,
-     "description": "from Invader Zim. Voiced by Richard Steven Horvitz."
-    },
-    {
-     "id": "9b97c68dfb324df19e6b7dabf8aff7ba",
-     "title": "zim",
-     "likes": 12,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 444,
-     "description": "MY ZIM"
     }
    ],
    "category": "classic-cartoons"
@@ -5657,35 +6681,6 @@
    ],
    "category": "classic-cartoons"
   },
-  "krusty": {
-   "name": "Krusty the Clown",
-   "status": "ok",
-   "model_id": "d601d9db196c4d399b52b8d100a404a1",
-   "title": "Krusty The Clown - The Simpsons",
-   "likes": 10,
-   "tasks": 1534,
-   "description": "A middle-aged male voice with a notably raspy and gravelly texture. It features high energy, a wide dynamic range, and an animated, theatrical tone suitable for character acting.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 251,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "5cb409a38c0445348a76c290873d310e",
-     "title": "Krusty The Clown (The Simpsons)",
-     "likes": 8,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 277,
-     "description": ""
-    }
-   ],
-   "category": "adult-animation"
-  },
   "marge-simpson": {
    "name": "Marge Simpson",
    "status": "ok",
@@ -5725,246 +6720,6 @@
     }
    ],
    "category": "adult-animation"
-  },
-  "lisa-simpson": {
-   "name": "Lisa Simpson",
-   "status": "ok",
-   "model_id": "a512767d4b5f47dd9df7ea6fccc7de3d",
-   "title": "Lisa Simpson (The Simpsons)",
-   "likes": 35,
-   "tasks": 3403,
-   "description": "A vibrant and animated young female voice, perfect for bringing youthful energy and expressive delivery to your projects.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 299,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "3344305cb89642a18572ef2b1dc60fd6",
-     "title": "Lisa Simpson",
-     "likes": 18,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 332,
-     "description": "Voiced by Yeardley Smith"
-    },
-    {
-     "id": "574d442269184dabbdba2c0982aa5ccb",
-     "title": "Lisa Simpson",
-     "likes": 7,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 356,
-     "description": "A youthful and energetic male voice with a clear, conversational tone. This voice is ideal for relatable character dialogue, social media narration, or casual educational content."
-    }
-   ],
-   "category": "adult-animation"
-  },
-  "brian-griffin": {
-   "name": "Brian Griffin",
-   "status": "ok",
-   "model_id": "7ed24fa3c1d6498c9b4895f51ef70491",
-   "title": "Brian Griffin",
-   "likes": 16,
-   "tasks": 2873,
-   "description": "From The TV Show Family guy",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 119,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "c8e60c3921db40b5b69fbf320deb0c26",
-     "title": "Brian Griffin",
-     "likes": 23,
-     "clarity": [
-      0.95,
-      1.0
-     ],
-     "pitch_hz": 145,
-     "description": "A sophisticated middle-aged male voice with a calm and measured delivery, characterized by its precise articulation and philosophical tone. The voice is smooth and authoritative, making it ideal for deep narration and educational content."
-    },
-    {
-     "id": "e88928ec5022418cad0606fcfc809b8a",
-     "title": "Brian Griffin",
-     "likes": 13,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 159,
-     "description": "A sophisticated middle-aged male voice with a calm and articulate delivery, ideal for educational or narrative content. The tone is measured and intelligent, conveying a sense of refinement and clarity."
-    }
-   ],
-   "category": "adult-animation"
-  },
-  "lois-griffin": {
-   "name": "Lois Griffin",
-   "status": "ok",
-   "model_id": "5ccea0cf418142ea9d91eddd8630efe0",
-   "title": "Lois Griffin",
-   "likes": 33,
-   "tasks": 12344,
-   "description": "She's a Diva",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 302,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "2bc7a1e555b446e68fdf022ce8ade09c",
-     "title": "Lois Griffin",
-     "likes": 22,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 255,
-     "description": "Voiced by Alex Borstein"
-    },
-    {
-     "id": "76aa1c02a45d497d8b9b2d052b605fb8",
-     "title": "Lois griffin ",
-     "likes": 12,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 294,
-     "description": "An expressive and humorous female voice, perfect for engaging stories and animated conversations."
-    }
-   ],
-   "category": "adult-animation"
-  },
-  "beavis": {
-   "name": "Beavis",
-   "status": "ok",
-   "model_id": "2aedbaca7b5241f38f020f3c5092fc4b",
-   "title": "Beavis",
-   "likes": 27,
-   "tasks": 7135,
-   "description": "A young male voice with a slow, raspy quality and a distinct nasal tone, reminiscent of a classic slacker character from an animated series. It features a playful, mischievous delivery with a signature low-pitched laugh.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 185,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "7bb532adb2a9457bbf390e23ef70d33c",
-     "title": "Beavis",
-     "likes": 6,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 206,
-     "description": "yea"
-    },
-    {
-     "id": "17efd29ca7d042c4a2e8606c5bb38f88",
-     "title": "Beavis",
-     "likes": 6,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 204,
-     "description": "From Mike Judge's Beavis and Butt-Head"
-    }
-   ],
-   "category": "adult-animation"
-  },
-  "jake-the-dog": {
-   "name": "Jake the Dog",
-   "status": "ok",
-   "model_id": "02291514dd824f3e869326b4e0638c46",
-   "title": "Jake the dog",
-   "likes": 32,
-   "tasks": 6739,
-   "description": "Jakey",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 267,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "064d808c20944c8ca0bed7a665e55c3c",
-     "title": "jake the dog ",
-     "likes": 9,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 209,
-     "description": "A high-energy and enthusiastic young male voice with a friendly, conversational tone and a slightly raspy quality. It features a dynamic and expressive delivery, making it ideal for engaging social media content and entertainment."
-    },
-    {
-     "id": "b22d17e5563c463f8416689d8459def1",
-     "title": "Jake the dog",
-     "likes": 4,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 216,
-     "description": ""
-    }
-   ],
-   "category": "classic-cartoons"
-  },
-  "finn": {
-   "name": "Finn the Human",
-   "status": "ok",
-   "model_id": "1238a63f21404c499ca14b28fa781e00",
-   "title": "Finn the human",
-   "likes": 26,
-   "tasks": 5536,
-   "description": "A youthful and energetic male voice with a conversational tone, well-suited for character roles or social media narrations.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 172,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "62fd2a66a49b4d61aad7bb24785b0f85",
-     "title": "Finn The Human",
-     "likes": 6,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 274,
-     "description": "A high-pitched, energetic male voice with a youthful and enthusiastic tone. It features a playful, animated quality well-suited for cartoon characters and gaming."
-    },
-    {
-     "id": "d039b439654542eea9f2ade3c028a8e3",
-     "title": "Finn the human",
-     "likes": 6,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 255,
-     "description": "An energetic and highly expressive male voice, perfect for bringing animated characters to life with dramatic flair and playful enthusiasm."
-    }
-   ],
-   "category": "classic-cartoons"
   },
   "bmo": {
    "name": "BMO",
@@ -6046,435 +6801,6 @@
    ],
    "category": "classic-cartoons"
   },
-  "doofenshmirtz": {
-   "name": "Dr. Doofenshmirtz",
-   "status": "ok",
-   "model_id": "542ae2f776d64d53bae3e9722dc489fc",
-   "title": "Dr. Heinz Doofenshmirtz",
-   "likes": 18,
-   "tasks": 5380,
-   "description": "A high-pitched, energetic male voice with a distinctive raspy quality and an eccentric, villainous accent. It is highly expressive and animated, perfect for character roles and comedic narration.",
-   "clarity": [
-    1.0,
-    0.92
-   ],
-   "pitch_hz": 329,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "67723181b6da4ca1a48cdc32d3799f47",
-     "title": "Doofenshmirtz",
-     "likes": 2,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 257,
-     "description": "An animated and expressive middle-aged male voice, perfect for character roles and engaging entertainment."
-    },
-    {
-     "id": "63cee974140147be9b5fd0c01076ec1a",
-     "title": "Doofenshmirtz ",
-     "likes": 2,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 215,
-     "description": "This male voice offers a playful and slightly mischievous tone, ideal for character narration and engaging storytelling."
-    }
-   ],
-   "category": "classic-cartoons"
-  },
-  "phineas": {
-   "name": "Phineas",
-   "status": "ok",
-   "model_id": "d3f9d85f2dd34ba0b72ed9d35f5d6b62",
-   "title": "Phineas Flynn",
-   "likes": 19,
-   "tasks": 4070,
-   "description": "A bright and energetic young male voice with an enthusiastic and cheerful tone. It features a fast-paced, expressive delivery perfect for animated characters and lively storytelling.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 239,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "b6c7dbc62a824648957cfe1c4d5da8cd",
-     "title": "Phineas",
-     "likes": 11,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 251,
-     "description": "Hi I'm Phineas, and my brother name is Fred."
-    },
-    {
-     "id": "f488b748bc314ef9b2cc3f5846031b25",
-     "title": "Isabella (Phineas and Ferb)",
-     "likes": 28,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 517,
-     "description": "A youthful and energetic female voice with a bright, cheerful tone. It features a clear, animated delivery that is highly expressive and enthusiastic, perfect for character voices or social media content."
-    }
-   ],
-   "category": "classic-cartoons"
-  },
-  "gumball": {
-   "name": "Gumball",
-   "status": "ok",
-   "model_id": "b986ed62f75d448bb4467a0dc84a3bb5",
-   "title": "gumball",
-   "likes": 124,
-   "tasks": 32884,
-   "description": "A young male voice with a highly energetic and playful tone, perfect for animated characters or engaging social media content. The delivery is enthusiastic and dynamic, featuring a friendly and approachable quality.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 385,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "18aae5c716344048a7666e4090a4c5d8",
-     "title": "Gumball",
-     "likes": 21,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 321,
-     "description": "Gumball"
-    },
-    {
-     "id": "b22a48b686f54fbfb655df8763dfc4f5",
-     "title": "Gumball ",
-     "likes": 26,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 313,
-     "description": "GUMBALL FOR RANTING"
-    }
-   ],
-   "category": "classic-cartoons"
-  },
-  "bluey": {
-   "name": "Bluey",
-   "status": "ok",
-   "model_id": "51987d6290b54b299b3feba6a92c664d",
-   "title": "Bluey",
-   "likes": 308,
-   "tasks": 78277,
-   "description": "A high-pitched, energetic male child's voice with an enthusiastic and playful tone. This voice is ideal for youthful characters, animated stories, and friendly interactions.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 383,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "f56b971895ed4a9d8aaf90e4c4d96a61",
-     "title": "BLUEY",
-     "likes": 331,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 318,
-     "description": "A young female voice with a bright, cheerful tone and an enthusiastic delivery. This voice is perfect for playful characters, children's content, or high-energy social media posts."
-    },
-    {
-     "id": "d38790551b0548ba9de248dbd10b74e1",
-     "title": "bluey",
-     "likes": 43,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 347,
-     "description": "A high-pitched and energetic young male voice with a cheerful, playful tone. This voice is highly animated and well-suited for children's entertainment or character-driven roles."
-    }
-   ],
-   "category": "classic-cartoons"
-  },
-  "bandit-heeler": {
-   "name": "Bandit",
-   "status": "ok",
-   "model_id": "47f1508c0e0f4420a1cfde5ecca20d91",
-   "title": "Bandit Heeler",
-   "likes": 13,
-   "tasks": 4420,
-   "description": "Dad Of Bluey! ",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 266,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "3b5e417feef542d48ed7632b36b760df",
-     "title": "Bandit Heeler",
-     "likes": 10,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 175,
-     "description": "A deep, smooth, and confident Japanese male voice with a seductive and assertive tone. This voice is well-suited for dramatic character roles, particularly in anime or gaming contexts."
-    },
-    {
-     "id": "34557e197a084fbabfc2d74c14d1182e",
-     "title": "Bandit Heeler (2016 Pilot)",
-     "likes": 6,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 178,
-     "description": "Bandit Heeler as of the 2016 unreleased Bluey pilot."
-    }
-   ],
-   "category": "classic-cartoons"
-  },
-  "mordecai": {
-   "name": "Mordecai",
-   "status": "ok",
-   "model_id": "9148ace48554421a84d9994b16d08b3c",
-   "title": "Mordecai (Regular Show)",
-   "likes": 39,
-   "tasks": 5544,
-   "description": "A youthful male voice with an energetic and friendly tone, perfect for casual and conversational content. His speech is clear and animated, conveying a sense of excitement and approachability.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 164,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "742a2ce1f1c642ca944af688ef818789",
-     "title": "Mordecai",
-     "likes": 31,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 245,
-     "description": "Regular show"
-    },
-    {
-     "id": "52ec180740b04c2f8b25124387a17b2b",
-     "title": "Mordecai",
-     "likes": 13,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 151,
-     "description": "Regular show"
-    }
-   ],
-   "category": "classic-cartoons"
-  },
-  "crash-bandicoot": {
-   "name": "Crash Bandicoot",
-   "status": "ok",
-   "model_id": "550fb491627045bba81a7252e0e1b1c8",
-   "title": "Crash Bandicoot",
-   "likes": 13,
-   "tasks": 1288,
-   "description": "Crash Bandicoot is the titular main protagonist of Activision’s franchise of the same name.\r\n\r\nHe was once an ordinary bandicoot until he was exposed to the Evolvo-Ray by his arch-nemesis, Dr. Neo Cortex, as part of his plan to create an army of mutant animals to take over the world. However, Cortex",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 284,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "af4d4bb6a1774911861b07c231868c20",
-     "title": "Crash Bandicoot",
-     "likes": 0,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 156,
-     "description": "Voice by Scott Whyte"
-    }
-   ],
-   "category": "games"
-  },
-  "knuckles": {
-   "name": "Knuckles",
-   "status": "ok",
-   "model_id": "166f151dac6d42d8abc78b1febe6344b",
-   "title": "Knuckles",
-   "likes": 44,
-   "tasks": 9251,
-   "description": "knuckles from sonic x",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 157,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "eb9c4e925d5f458ebb8c2575080db29e",
-     "title": "Knuckles",
-     "likes": 24,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 279,
-     "description": "Knucklehead Buddy"
-    },
-    {
-     "id": "9c0664203e3a4a29a68c8398f0496321",
-     "title": "Knuckles The Echidna ",
-     "likes": 24,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 210,
-     "description": "Voiced by Dave B Mitchell."
-    }
-   ],
-   "category": "games"
-  },
-  "tails": {
-   "name": "Tails",
-   "status": "ok",
-   "model_id": "523fed3574884de88e8f87102b06a3ba",
-   "title": "Tails",
-   "likes": 93,
-   "tasks": 29070,
-   "description": "A high-pitched and energetic young male voice with an enthusiastic, friendly tone. It is perfect for youthful character roles in gaming and animation.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 467,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "7b6ab6bbf6bc4b3e88357ca4db057207",
-     "title": "Tails!",
-     "likes": 63,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 403,
-     "description": "A young fox with a raspy voice"
-    },
-    {
-     "id": "038d0785b56547ad9efd1a18b5449efc",
-     "title": "Tails",
-     "likes": 39,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 372,
-     "description": "A youthful and energetic male voice with an enthusiastic and helpful tone, perfect for animated characters or video games. The voice is bright, clear, and highly expressive, conveying excitement and focus."
-    }
-   ],
-   "category": "games"
-  },
-  "shadow": {
-   "name": "Shadow the Hedgehog",
-   "status": "ok",
-   "model_id": "a1d8d13990884808a34fda5b7ddeb540",
-   "title": "Shadow The Hedgehog",
-   "likes": 133,
-   "tasks": 22940,
-   "description": "Kirk Thornton ",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 127,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "02eb287d85f3489ea258aab4012443d6",
-     "title": "Shadow the hedgehog",
-     "likes": 39,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 206,
-     "description": "I am Shadow the Hedgehog "
-    },
-    {
-     "id": "058be5ff8f774f6e80c13da983ad19de",
-     "title": "Shadow The Hedgehog",
-     "likes": 17,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 113,
-     "description": "Just Shadow The Hedgehog 👍"
-    }
-   ],
-   "category": "games"
-  },
-  "donkey-kong": {
-   "name": "Donkey Kong",
-   "status": "ok",
-   "model_id": "087c72278fd64aa1913e62c33b008a7b",
-   "title": "Donkey Kong (Seth Rogen)",
-   "likes": 16,
-   "tasks": 1322,
-   "description": "This middle-aged male voice offers a dynamic and expressive delivery, perfect for engaging storytelling and character work.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 192,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "974a22f34b224a5aa3fb3549253c595a",
-     "title": "Donkey Kong",
-     "likes": 6,
-     "clarity": [
-      0.94,
-      0.86
-     ],
-     "pitch_hz": 364,
-     "description": "Donkey Kong, also referred to as DK (or D.K.), or rarely D. Kong,[1][2] Donkey (more commonly used in Japan), or Kong,[3] is a powerful and carefree Kong who is a major character in the Super Mario franchise and the titular main protagonist of the Donkey Kong franchise. Created by video game designe"
-    },
-    {
-     "id": "6e4cb07ed85a438a87fa262368fc12ff",
-     "title": "Dixie Kong (Donkey Kong Country)",
-     "likes": 3,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 422,
-     "description": "Voiced by Stevie Vallance."
-    }
-   ],
-   "category": "games"
-  },
   "waluigi": {
    "name": "Waluigi",
    "status": "none",
@@ -6554,206 +6880,6 @@
     }
    ],
    "category": "games"
-  },
-  "princess-peach": {
-   "name": "Princess Peach",
-   "status": "ok",
-   "model_id": "14332b950ec142348cee5c4341f08a86",
-   "title": "Princess Peach",
-   "likes": 19,
-   "tasks": 6005,
-   "description": "A soft, breathy young female voice with an intimate and playful delivery. It has an expressive quality suitable for character-based performances.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 370,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "e2cf58f01d1649da94db1eb26ca7915a",
-     "title": "Princess Peach ",
-     "likes": 71,
-     "clarity": [
-      1.0,
-      0.87
-     ],
-     "pitch_hz": 443,
-     "description": "This is a high-pitched and energetic female voice with a cheerful, friendly tone. It is well-suited for animated characters, gaming, or high-energy social media narration."
-    },
-    {
-     "id": "13b47bb8592b409aabd3bdd09e1e979e",
-     "title": "princess peach",
-     "likes": 16,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 354,
-     "description": "A youthful and high-pitched female voice with a cheerful and energetic tone. It is highly expressive and animated, making it perfect for character voices or playful content."
-    }
-   ],
-   "category": "games"
-  },
-  "toad": {
-   "name": "Toad",
-   "status": "ok",
-   "model_id": "91a1e83b577448fbac8ef6fe050f67c9",
-   "title": "Toad",
-   "likes": 21,
-   "tasks": 5728,
-   "description": "",
-   "clarity": [
-    1.0,
-    0.94
-   ],
-   "pitch_hz": 404,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "df5086ce32c043eb97b40eaf033b477a",
-     "title": "Toad",
-     "likes": 0,
-     "clarity": [
-      0.93,
-      1.0
-     ],
-     "pitch_hz": 199,
-     "description": ""
-    },
-    {
-     "id": "1e40a367c1174d488346655ff6977c5e",
-     "title": "Toad (Mario Golf: Toadstool Tour)",
-     "likes": 14,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 524,
-     "description": "Voiced by Jen Taylor."
-    }
-   ],
-   "category": "games"
-  },
-  "mandalorian": {
-   "name": "Mandalorian",
-   "status": "ok",
-   "model_id": "c711f1b663174c89948b3523a8c7e2f2",
-   "title": "Mandalorian",
-   "likes": 31,
-   "tasks": 11842,
-   "description": "A deep, authoritative middle-aged male voice with a calm yet serious tone, suitable for cinematic storytelling or intense character roles.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 197,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "86a5bf78248f40008f8184d4d0d71e9e",
-     "title": "Din Djarin",
-     "likes": 1,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 148,
-     "description": "This deep, confident male voice delivers lines with an authoritative and husky tone, perfect for dramatic narration or character roles."
-    },
-    {
-     "id": "3c7a035f20fc4bebb387f526eed87e1d",
-     "title": "Mandalorian Commander",
-     "likes": 5,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 114,
-     "description": "A deep, authoritative male voice with a gravelly texture, ideal for commanding roles, dramatic narration, or imposing character voices."
-    }
-   ],
-   "category": "star-wars"
-  },
-  "venom": {
-   "name": "Venom",
-   "status": "ok",
-   "model_id": "785a8d3367b4431a9afb4bf6e5b2014e",
-   "title": "Venom ",
-   "likes": 45,
-   "tasks": 12355,
-   "description": "A menacing and deep male monster voice with a raspy, guttural quality and a distinct layered effect. It is ideal for villainous characters, horror settings, or cinematic trailers requiring an intimidating presence.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 179,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "bc4561c056b24359b91490e091f7d771",
-     "title": "Venom",
-     "likes": 33,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 248,
-     "description": "Deep voice "
-    },
-    {
-     "id": "47f13f60a79248e9a6846113654184b2",
-     "title": "Venom",
-     "likes": 19,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 61,
-     "description": "This is an Alien Male and big symbiote voice Venom with horror tone and so powerful character , It's dark, angry, horror and powerfull "
-    }
-   ],
-   "category": "superheroes"
-  },
-  "pennywise": {
-   "name": "Pennywise",
-   "status": "ok",
-   "model_id": "4cb7fbad2d794c74b1917316f8fb8872",
-   "title": "Pennywise",
-   "likes": 32,
-   "tasks": 6296,
-   "description": "A clown",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 181,
-   "confidence": "high",
-   "runners_up": [
-    {
-     "id": "dd774190439541baa2ebd0089d556354",
-     "title": "Pennywise ",
-     "likes": 8,
-     "clarity": [
-      1.0,
-      0.94
-     ],
-     "pitch_hz": 157,
-     "description": "Pennywise the terrifying clown"
-    },
-    {
-     "id": "d8a344705e534b0aa13c7c72856924ff",
-     "title": "Pennywise ",
-     "likes": 3,
-     "clarity": [
-      1.0,
-      0.91
-     ],
-     "pitch_hz": 144,
-     "description": "This is a male voice with a high-pitched, raspy, and chillingly playful tone, reminiscent of a theatrical horror character. It features a creepy delivery that shifts between gentle persuasion and unsettling, manic laughter."
-    }
-   ],
-   "category": "film-tv"
   },
   "jack-skellington": {
    "name": "Jack Skellington",
@@ -6914,63 +7040,6 @@
     }
    ],
    "category": "family-films"
-  },
-  "willy-wonka": {
-   "name": "Willy Wonka",
-   "status": "ok",
-   "model_id": "0eaba2e6473e409288f1f7ae5f4563e9",
-   "title": "Willy Wonka (Gene Wilder)",
-   "likes": 11,
-   "tasks": 4049,
-   "description": "The owner and founder of the Willy Wonka Chocolate Factory from Willy Wonka & The Chocolate Factory (1971) played by Gene Wilder.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 117,
-   "confidence": "medium",
-   "runners_up": [
-    {
-     "id": "22c63633275247739704d38d79d3f923",
-     "title": "2005 willy wonka ",
-     "likes": 6,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 122,
-     "description": "Oh... my dear God! You have got to be joking. Why you even think to ask me such revolting things "
-    },
-    {
-     "id": "6f504013866241689289601982af2959",
-     "title": "Violet Beauregarde (Willy Wonka, 1971)",
-     "likes": 2,
-     "clarity": [
-      1.0,
-      1.0
-     ],
-     "pitch_hz": 516,
-     "description": "A lively and expressive young female voice, perfect for animated characters and dynamic storytelling."
-    }
-   ],
-   "category": "family-films"
-  },
-  "sheldon-cooper": {
-   "name": "Sheldon Cooper",
-   "status": "ok",
-   "model_id": "26785a3047f74dd18fd9a2604d192a69",
-   "title": "Sheldon Cooper From The Big Bang Theory",
-   "likes": 33,
-   "tasks": 6534,
-   "description": "I don't know why everyone gets so upset with me all the time.",
-   "clarity": [
-    1.0,
-    1.0
-   ],
-   "pitch_hz": 171,
-   "confidence": "high",
-   "runners_up": [],
-   "category": "film-tv"
   }
  }
 }

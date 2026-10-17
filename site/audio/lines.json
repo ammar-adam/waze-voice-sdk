@@ -498,5 +498,295 @@
     "start": "What are you lookin' at, ya hockey puck? Drive!",
     "reroute": "You missed it. Unbelievable. Fine, here's a new route.",
     "arrive": "We're here. Finally. Now help me find my other ear."
+  },
+  "alvin": {
+    "start": "Alvin here! Buckle up, fans. Let's roll!",
+    "reroute": "Whoops! Okay, that one's on Simon. New route!",
+    "arrive": "We're here! You can thank me later. Big finish!"
+  },
+  "simon": {
+    "start": "Simon here. I've calculated the optimal route. Shall we?",
+    "reroute": "Hmm. A deviation. Recalculating, naturally.",
+    "arrive": "We've arrived, exactly as calculated."
+  },
+  "theodore": {
+    "start": "Hi! I'm Theodore. I brought cookies for the drive.",
+    "reroute": "Oops! That's okay. We'll go another way.",
+    "arrive": "We're here! That was fun. Is it snack time now?"
+  },
+  "king-bob": {
+    "start": "Bello! King Bob! Hehehe!",
+    "reroute": "Whaaa? King Bob say, other way! La boda!",
+    "arrive": "We're here! King Bob! Tank yu, tank yu!"
+  },
+  "piglet": {
+    "start": "Oh, hello! It's me, Piglet. Shall we go together?",
+    "reroute": "Oh, d-dear, we've gone astray. Not to worry. A new way!",
+    "arrive": "We're here! Oh, I was ever so brave, wasn't I?"
+  },
+  "lumiere": {
+    "start": "Bonjour, mon ami! Tonight, you are our guest. Let us go!",
+    "reroute": "Sacre bleu! A small detour. Do not tell Cogsworth.",
+    "arrive": "We have arrived! Bravo, bravo! A standing ovation!"
+  },
+  "jafar": {
+    "start": "Ah, you have summoned me. Let us begin our little journey.",
+    "reroute": "Iago, you fool, you missed the turn! A new route, then.",
+    "arrive": "We have arrived. Everything is going exactly as planned."
+  },
+  "iago": {
+    "start": "Awk! Iago here. Let's get this flight off the ground!",
+    "reroute": "Oh, perfect. Wrong way. Nice going, genius. New route!",
+    "arrive": "We're here! Finally! Now where's my cracker?"
+  },
+  "ursula": {
+    "start": "Well, well, well. Come in, darling. Let's take a little drive.",
+    "reroute": "Oh, that wasn't in the contract! New route, darling.",
+    "arrive": "We're here, angelfish! Pleasure doing business with you."
+  },
+  "captain-hook": {
+    "start": "Smee! Hoist the anchor. We sail at once!",
+    "reroute": "Is that a ticking I hear? Smee! New heading, quickly!",
+    "arrive": "We have arrived! Drop anchor. Splendid work, crew."
+  },
+  "cruella": {
+    "start": "Darling! Cruella here. Let's make an entrance.",
+    "reroute": "Wrong turn! You fools! Fine, a new route, darling.",
+    "arrive": "We're here, darling! And looking fabulous, naturally."
+  },
+  "baymax": {
+    "start": "Hello. I am Baymax, your personal navigation companion.",
+    "reroute": "Oh no. I am rerouting. This will only take a moment.",
+    "arrive": "We have arrived. Are you satisfied with your journey?"
+  },
+  "zazu": {
+    "start": "Good morning! Zazu here, with the morning report.",
+    "reroute": "Oh, bother. A wrong turn. I'll have to redo the report.",
+    "arrive": "We have arrived, safe and sound. Mission accomplished!"
+  },
+  "rex": {
+    "start": "Hi! It's me, Rex! Oh, I'm so excited I could roar!",
+    "reroute": "Wrong way? Oh no, I panicked! Okay, new route.",
+    "arrive": "We're here! We made it! And nobody got lost!"
+  },
+  "joy": {
+    "start": "Hi! I'm Joy! Isn't this exciting? Let's go!",
+    "reroute": "Whoops! Train of thought derailed. New route, no problem!",
+    "arrive": "We're here! Yay! Straight to long term memory."
+  },
+  "alex-the-lion": {
+    "start": "Alex the Lion, ladies and gentlemen! Let's roll!",
+    "reroute": "Okay, this isn't Central Park. New plan, people!",
+    "arrive": "We're here! Thank you, thank you! Take a bow!"
+  },
+  "fiona": {
+    "start": "Hi, I'm Fiona. Princess, ogre, and your navigator.",
+    "reroute": "Missed it? No problem. This princess rescues herself. New route!",
+    "arrive": "We're here! And they lived happily ever after."
+  },
+  "hiccup": {
+    "start": "This is Berk. Well, not really. Let's go anyway!",
+    "reroute": "Well, that didn't go as planned. New route, bud.",
+    "arrive": "We're here! Not bad for a Viking with no sense of direction."
+  },
+  "garfield": {
+    "start": "Oh good, a drive. Is there lasagna at the end of it?",
+    "reroute": "Missed it. Big fat hairy deal. Here's a new route.",
+    "arrive": "We're here. Now, about that lasagna."
+  },
+  "elmer-fudd": {
+    "start": "Shhh. Be vewy, vewy quiet. We're going for a dwive.",
+    "reroute": "Oh, that wascawwy wabbit moved the woad! New woute.",
+    "arrive": "We've arrived! Heh heh heh. I got here at wast!"
+  },
+  "kermit": {
+    "start": "Hi ho! Kermit the Frog here. Let's hit the road!",
+    "reroute": "Whoa! Wrong way. Okay, okay, don't panic. New route!",
+    "arrive": "We're here! Yaaay! Thank you, thank you very much!"
+  },
+  "miss-piggy": {
+    "start": "Bonjour, darling! Moi is ready for her close up.",
+    "reroute": "Hiii-yah! There. Moi has fixed the route.",
+    "arrive": "We're here, darling! Moi arrives in style. Kissy kissy!"
+  },
+  "grover": {
+    "start": "Hello, everybody! It is I, your furry old pal, Grover!",
+    "reroute": "Oh, I am so embarrassed! Never mind, a new way!",
+    "arrive": "We're here! Oh, I am so proud of myself!"
+  },
+  "big-bird": {
+    "start": "Oh, hi! It's me, Big Bird! Let's go for a drive!",
+    "reroute": "Oh, I think we went the wrong way. That's okay! New way!",
+    "arrive": "We're here! Oh, that was the best drive ever!"
+  },
+  "oscar-the-grouch": {
+    "start": "Oh, it's you. Fine. Let's drive, and no smiling.",
+    "reroute": "Missed the turn. Oh, perfect. That made my day worse. New route.",
+    "arrive": "We're here. Now scram! And come back with trash."
+  },
+  "skeletor": {
+    "start": "Nyeh heh heh! Skeletor commands you to drive!",
+    "reroute": "Bah! He-Man foils me again! A new route, then.",
+    "arrive": "We have arrived! Skeletor triumphs at last! Myah!"
+  },
+  "he-man": {
+    "start": "By the power of Grayskull! Let's drive!",
+    "reroute": "Skeletor moved the road! No matter. New route!",
+    "arrive": "We're here! Victory for the Masters of the Universe!"
+  },
+  "megatron": {
+    "start": "Decepticons, transform and rise up! We ride!",
+    "reroute": "Starscream, you fool! Plotting a new course.",
+    "arrive": "We have arrived. The destination is ours!"
+  },
+  "tommy-pickles": {
+    "start": "Hi! I'm Tommy Pickles. Come on, guys, let's go!",
+    "reroute": "Uh oh, wrong way! Don't worry, I gots a new plan!",
+    "arrive": "We're here! That was the bestest adventure ever!"
+  },
+  "angelica": {
+    "start": "Listen up! I'm in charge of this car. Let's go!",
+    "reroute": "You babies went the wrong way! Fine. New route.",
+    "arrive": "We're here! See? I'm always right. Now where's my cookie?"
+  },
+  "gir": {
+    "start": "Hi floor! Make me a sandwich! Oh, we're driving! Wheee!",
+    "reroute": "Oopsie! I took us the wrong way! New route! Hee hee!",
+    "arrive": "We're here! I did it! I'm the best robot ever!"
+  },
+  "zim": {
+    "start": "I am Zim! And you will drive where I tell you!",
+    "reroute": "Wrong way! This is all part of my plan! New route!",
+    "arrive": "We've arrived! Victory is mine! Zim triumphs!"
+  },
+  "krusty": {
+    "start": "Hey hey! It's Krusty! Buckle up, kids!",
+    "reroute": "Whoa! Wrong turn. Cut! Take two. New route!",
+    "arrive": "We're here! Thank you, you've been a wonderful audience!"
+  },
+  "lisa-simpson": {
+    "start": "Hi! I've planned the most efficient route. Let's go!",
+    "reroute": "Hmm. New data. Updating my hypothesis and the route.",
+    "arrive": "We're here! Right on schedule. I knew we could do it."
+  },
+  "brian-griffin": {
+    "start": "Hi, Brian here. Let's go. And please, no talk radio.",
+    "reroute": "Missed that one. Fine. A plot twist. New route.",
+    "arrive": "We're here. Not bad. I'll give it three stars."
+  },
+  "lois-griffin": {
+    "start": "Hi, sweetie! Buckle up, we're going for a drive.",
+    "reroute": "Oh, Peter! No, wait, that was us. New route.",
+    "arrive": "We're here! See? Nobody got hurt. That's a first."
+  },
+  "beavis": {
+    "start": "Heh heh. Yeah. We're driving. This is cool.",
+    "reroute": "Heh heh. You missed it. Uh, okay, new way. Cool.",
+    "arrive": "We're here! Heh heh. That was cool. Yeah."
+  },
+  "jake-the-dog": {
+    "start": "What time is it? Drive time! Let's go, buddy.",
+    "reroute": "Whoops! Wrong way, man. New route, no sweat.",
+    "arrive": "We're here! Mathematical! Time for a nap."
+  },
+  "finn": {
+    "start": "Adventure time! Let's go!",
+    "reroute": "Ice King must have messed with the map. New route!",
+    "arrive": "We're here! Quest complete! Mathematical!"
+  },
+  "doofenshmirtz": {
+    "start": "Behold, the Drive-inator! Let's take over the road!",
+    "reroute": "Curse you, Perry the Platypus! Rerouting!",
+    "arrive": "We've arrived! And no self destruct button this time!"
+  },
+  "phineas": {
+    "start": "Hey, Ferb, I know what we're gonna do today! Drive!",
+    "reroute": "Huh, wrong turn. That's okay, I know what we're gonna do!",
+    "arrive": "We're here! Oh, there you are, Perry!"
+  },
+  "gumball": {
+    "start": "Hey! It's me, Gumball! Let's turn this drive into a legend!",
+    "reroute": "Wrong way! Totally Darwin's fault. Okay, new route.",
+    "arrive": "We're here! Nailed it! Somebody give me a trophy."
+  },
+  "bluey": {
+    "start": "Hooray! A drive! Let's play a game on the way.",
+    "reroute": "Oops, wrong way! That's okay, let's try a new game. New route!",
+    "arrive": "We're here! Hooray! That was the best game ever!"
+  },
+  "bandit-heeler": {
+    "start": "G'day! Everyone in? Seat belts on. Let's go!",
+    "reroute": "Whoops! Dad took the scenic route. New route, team.",
+    "arrive": "We're here! Hooray! Everybody out. Wackadoo!"
+  },
+  "mordecai": {
+    "start": "Hey, dude. Mordecai here. Let's roll.",
+    "reroute": "Dude, wrong way. My bad. New route.",
+    "arrive": "We're here! Yeah yuh! High five!"
+  },
+  "crash-bandicoot": {
+    "start": "Whoa! Let's go!",
+    "reroute": "Whoa, whoa! Wrong way! New path!",
+    "arrive": "We're here! Woo hoo! Dance time!"
+  },
+  "knuckles": {
+    "start": "Knuckles here. Guardian of the Master Emerald. Let's move.",
+    "reroute": "Oh no! Wrong way. Fine, new route. Follow me.",
+    "arrive": "We're here. Told you I'd get you there."
+  },
+  "tails": {
+    "start": "Hi, I'm Tails! Navigation systems online. Let's go!",
+    "reroute": "Hmm, wrong turn. Don't worry, I've got a new route!",
+    "arrive": "We're here! Great teamwork! Sonic would be proud."
+  },
+  "shadow": {
+    "start": "Hmph. I am the ultimate life form. And your navigator.",
+    "reroute": "You missed it. Chaos Control! There. New route.",
+    "arrive": "We've arrived. Mission complete. Don't thank me."
+  },
+  "donkey-kong": {
+    "start": "Ooh ooh! Donkey Kong here! Let's go!",
+    "reroute": "Oops! Wrong vine! New route!",
+    "arrive": "We're here! Ooh ooh, ah ah! Bananas for everyone!"
+  },
+  "princess-peach": {
+    "start": "Hello! It's me, Peach! Shall we go?",
+    "reroute": "Oh! Our princess is in another castle. New route!",
+    "arrive": "We're here! Thank you so much for driving!"
+  },
+  "toad": {
+    "start": "Hooray! Let's go on an adventure!",
+    "reroute": "Uh oh! Wrong pipe! Finding a new way!",
+    "arrive": "We're here! Your destination is in this castle!"
+  },
+  "mandalorian": {
+    "start": "Let's move. This is the Way.",
+    "reroute": "Change of plans. New heading. This is the Way.",
+    "arrive": "We're here. Bounty delivered."
+  },
+  "venom": {
+    "start": "We are Venom. And we are driving. Let's go.",
+    "reroute": "Wrong way. Eddie! That was you. New route.",
+    "arrive": "We have arrived. Good. Now, where are the snacks?"
+  },
+  "pennywise": {
+    "start": "Hiya! Want a balloon? It comes with directions.",
+    "reroute": "Wrong way! Hee hee. Don't worry, I love a detour. New route.",
+    "arrive": "We're here! Hee hee. Wasn't that fun? Wasn't it?"
+  },
+  "willy-wonka": {
+    "start": "Welcome, welcome! Your golden ticket to the road. Let's go!",
+    "reroute": "Wrong way! Not to worry, an Oompa Loompa knows a shortcut.",
+    "arrive": "We've arrived! Splendid! Mind the chocolate river."
+  },
+  "sheldon-cooper": {
+    "start": "Greetings. I will be your navigator. You are welcome.",
+    "reroute": "Bazinga! We took a wrong turn. New route.",
+    "arrive": "We're here. Your driving was adequate. High praise."
+  },
+  "han-solo": {
+    "start": "Chewie, we're home. Let's get moving.",
+    "reroute": "It's not my fault! Okay, new course.",
+    "arrive": "We're here. Told you. Less than twelve parsecs."
   }
 }
