@@ -81,6 +81,7 @@ QUERIES: dict[str, list[str]] = {
     "alvin": ["Alvin", "Alvin Seville", "Alvin chipmunk"],
     "simon": ["Simon the chipmunk", "Simon Seville", "Simon"],
     "theodore": ["Theodore chipmunks", "Theodore Seville", "Theodore"],
+    "minion": ["Minion", "Minions"],
 }
 
 # Names shared with louder characters ("Simon" finds Ghost from Call of Duty
