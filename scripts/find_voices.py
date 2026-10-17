@@ -176,9 +176,10 @@ def norm(text: str) -> str:
 
 
 def fish(path: str) -> dict:
+    key = os.environ.get("FISH_AUDIO_API_KEY") or os.environ["FISH_API_KEY"]
     request = urllib.request.Request(
         "https://api.fish.audio" + path,
-        headers={"Authorization": "Bearer " + (os.environ.get("FISH_AUDIO_API_KEY") or os.environ["FISH_API_KEY"])},
+        headers={"Authorization": "Bearer " + key},
     )
     with urllib.request.urlopen(request, timeout=60) as response:
         return json.load(response)
