@@ -81,7 +81,7 @@ QUERIES: dict[str, list[str]] = {
     "alvin": ["Alvin", "Alvin Seville", "Alvin chipmunk"],
     "simon": ["Simon the chipmunk", "Simon Seville", "Simon"],
     "theodore": ["Theodore chipmunks", "Theodore Seville", "Theodore"],
-    "minion": ["Minion", "Minions"],
+    "king-bob": ["King Bob", "Bob", "Minion Bob"],
 }
 
 # Names shared with louder characters ("Simon" finds Ghost from Call of Duty
@@ -95,6 +95,8 @@ ONLY: dict[str, set[str]] = {
     },
     "simon": {"396be6334bcc41f68af3070e595aee76", "2f2d482d3b2c4b8690a86b58d4875212"},
     "theodore": {"c6a1e8d58484431bbced072437913c64", "9266edd99ed448748d028613803e30ef"},
+    # the one English "Bob" whose voice is Minion babble
+    "king-bob": {"2dd100dd8ed64ae8a7b9c2d046b7434a"},
 }
 BAD = re.compile(
     r"\b(cover|sings?|song|rap|español|espanol|latino|portugu|deutsch|fran[cç]ais|"

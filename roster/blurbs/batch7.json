@@ -35,16 +35,18 @@
     ],
     "waze_name": "Theodore the Chipmunk"
   },
-  "minion": {
-    "blurb": "Bello! Pure gibberish, plus the turns. Banana!",
+  "king-bob": {
+    "blurb": "Bello! A very small king with a very big crown.",
     "tags": [
       "despicable me",
       "minions",
       "minion",
+      "bob",
+      "king",
+      "tim",
       "banana",
-      "gibberish",
-      "yellow"
+      "gibberish"
     ],
-    "waze_name": "Minion"
+    "waze_name": "King Bob"
   }
 }

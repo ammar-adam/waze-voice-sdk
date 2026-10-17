@@ -46,7 +46,7 @@ MAX_UNCLEAR = 5
 # Packs that babble on purpose. A transcript of gibberish never matches its
 # script, so for these only the words a driver needs ("left", "half a mile",
 # "police") have to be heard, and lines with none are not checked.
-GIBBERISH = {"minion"}
+GIBBERISH = {"king-bob"}
 SPOKEN = {"0.1": "point one", "1.5": "one point five", "u turn": "you turn", "uturn": "you turn"}
 
 
