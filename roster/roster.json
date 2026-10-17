@@ -440,6 +440,21 @@
    "slug": "mr-potato-head",
    "name": "Mr. Potato Head",
    "category": "disney-pixar"
+  },
+  {
+   "slug": "alvin",
+   "name": "Alvin",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "simon",
+   "name": "Simon",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "theodore",
+   "name": "Theodore",
+   "category": "classic-cartoons"
   }
  ],
  "alternates": [

@@ -1,0 +1,38 @@
+{
+  "alvin": {
+    "blurb": "ALVIIIN! Cocky, chaotic, and sure he's the star.",
+    "tags": [
+      "alvin and the chipmunks",
+      "chipmunk",
+      "chipmunks",
+      "rock star",
+      "mischief",
+      "squeaky"
+    ],
+    "waze_name": "Alvin the Chipmunk"
+  },
+  "simon": {
+    "blurb": "The chipmunk with the glasses and the actual plan.",
+    "tags": [
+      "alvin and the chipmunks",
+      "chipmunk",
+      "chipmunks",
+      "glasses",
+      "smart",
+      "nerd"
+    ],
+    "waze_name": "Simon the Chipmunk"
+  },
+  "theodore": {
+    "blurb": "Sweet, shy, and always up for a snack stop.",
+    "tags": [
+      "alvin and the chipmunks",
+      "chipmunk",
+      "chipmunks",
+      "sweet",
+      "shy",
+      "snacks"
+    ],
+    "waze_name": "Theodore the Chipmunk"
+  }
+}
