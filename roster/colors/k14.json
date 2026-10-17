@@ -1,0 +1,4 @@
+{
+  "bert": {"bg": "#FFF1C9", "tone": "#F2C21B", "tone_ink": "#15172b"},
+  "ernie": {"bg": "#FFE4CF", "tone": "#E8792B", "tone_ink": "#15172b"}
+}

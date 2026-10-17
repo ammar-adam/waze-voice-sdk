@@ -81,6 +81,8 @@ QUERIES: dict[str, list[str]] = {
     "alvin": ["Alvin", "Alvin Seville", "Alvin chipmunk"],
     "simon": ["Simon the chipmunk", "Simon Seville", "Simon"],
     "theodore": ["Theodore chipmunks", "Theodore Seville", "Theodore"],
+    "bert": ["Bert Sesame Street", "Bert and Ernie", "Bert"],
+    "ernie": ["Ernie Sesame Street", "Bert and Ernie", "Ernie"],
     "piglet": ["Piglet"],
     "sebastian": ["Sebastian crab", "Sebastian Little Mermaid", "Sebastian"],
     "lumiere": ["Lumiere"],
@@ -163,6 +165,14 @@ ONLY: dict[str, set[str]] = {
     "theodore": {"c6a1e8d58484431bbced072437913c64", "9266edd99ed448748d028613803e30ef"},
     # the one English "Bob" whose voice is Minion babble
     "king-bob": {"2dd100dd8ed64ae8a7b9c2d046b7434a"},
+    # Sesame Street's pair; "Ernie" alone also finds Pumbaa (Ernie Sabella)
+    "bert": {
+        "8d52ac51fc7843a6bc4f931e623ec7c1",
+        "696111c638dc419aaba2d4ab7e6637cc",
+        "151c71932f9e46bc9cd47236e74a0e08",
+        "46821d570ffe4ec4942ed8e5669aa1e4",
+    },
+    "ernie": {"b6f8a22bf20d4ac8a365fd06551121ea", "55c452d45d334e359881327fa6d376c7"},
 }
 BAD = re.compile(
     r"\b(cover|sings?|song|rap|español|espanol|latino|portugu|deutsch|fran[cç]ais|"

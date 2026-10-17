@@ -1,0 +1,24 @@
+{
+  "bert": {
+    "blurb": "Paper clips, pigeons and a very tidy route.",
+    "tags": [
+      "sesame street",
+      "muppet",
+      "pigeons",
+      "paper clips",
+      "unibrow"
+    ],
+    "waze_name": "Bert"
+  },
+  "ernie": {
+    "blurb": "Rubber Duckie rides shotgun. Heh heh heh.",
+    "tags": [
+      "sesame street",
+      "muppet",
+      "rubber duckie",
+      "prankster",
+      "orange"
+    ],
+    "waze_name": "Ernie"
+  }
+}

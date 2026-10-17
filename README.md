@@ -342,7 +342,7 @@ newer than its audio.
 
 ## Project status
 
-Working, and in use. A hundred packs built by this tool are live on Waze, verified
+Working, and in use. Over 150 packs built by this tool are live on Waze, verified
 byte-identical after upload, and driven with.
 
 **Trigger distances are confirmed correct** — which callout fires at which
