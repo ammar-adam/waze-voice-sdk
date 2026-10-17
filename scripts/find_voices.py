@@ -78,6 +78,22 @@ QUERIES: dict[str, list[str]] = {
     "buzz-lightyear": ["Buzz Lightyear", "Buzz"],
     "marvin-the-martian": ["Marvin the Martian", "Marvin Martian"],
     "ted": ["Ted bear", "Ted Seth MacFarlane", "Ted"],
+    "alvin": ["Alvin", "Alvin Seville", "Alvin chipmunk"],
+    "simon": ["Simon the chipmunk", "Simon Seville", "Simon"],
+    "theodore": ["Theodore chipmunks", "Theodore Seville", "Theodore"],
+}
+
+# Names shared with louder characters ("Simon" finds Ghost from Call of Duty
+# first): only these models, checked by hand to be the right character, count.
+ONLY: dict[str, set[str]] = {
+    "alvin": {
+        "586c6d979ce54a24ad2979717b2bbeb6",
+        "0e9885266fda4ce6aa12fdd7ecec92d0",
+        "4a1d673a2cb042518afdfa96effe2b5b",
+        "ccccd4b7a7224f1696b96494f6fb1def",
+    },
+    "simon": {"396be6334bcc41f68af3070e595aee76", "2f2d482d3b2c4b8690a86b58d4875212"},
+    "theodore": {"c6a1e8d58484431bbced072437913c64", "9266edd99ed448748d028613803e30ef"},
 }
 BAD = re.compile(
     r"\b(cover|sings?|song|rap|español|espanol|latino|portugu|deutsch|fran[cç]ais|"
@@ -134,6 +150,8 @@ def rank(slug: str, name: str, models: list[dict]) -> list[dict]:
         if not title or BAD.search(m["title"]) or BAD.search(m["description"]):
             continue
         if m["languages"] and "en" not in m["languages"]:
+            continue
+        if slug in ONLY and m["id"] not in ONLY[slug]:
             continue
         # The title has to name the character outright. A near miss ("Maki" for
         # "Maui") is a different voice, however clear it sounds.
