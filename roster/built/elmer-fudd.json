@@ -1,0 +1,13 @@
+{
+ "status": "review",
+ "retaken": 3,
+ "unclear": {
+  "turn_right": {
+   "line": "Turn right.",
+   "heard": "Turn white.",
+   "clarity": 0.7
+  }
+ },
+ "voice": "0f2d1ddd09b440d3b89b630d27b8a2d4",
+ "reason": "turn_right is heard as \"Turn white.\" on every take (two builds, three takes each): the model keeps the w-for-r on a turn"
+}
