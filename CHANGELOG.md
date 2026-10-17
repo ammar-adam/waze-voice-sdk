@@ -6,11 +6,11 @@ Notable changes. Dates are when the work landed on `main`.
 
 ### Added
 
-- **Past 150.** Fifty-seven more packs: Alvin, Simon, Theodore, King Bob and
-  fifty-three new characters across Disney, DreamWorks, the Muppets and
+- **Past 150.** Fifty-eight more packs: Alvin, Simon, Theodore, King Bob and
+  fifty-four new characters across Disney, DreamWorks, the Muppets and
   Sesame Street, 80s to 2000s cartoons, modern animation, games and film.
-  All built, transcribed and staged for upload. Elmer Fudd is held for
-  review: his voice says "Turn white" for "Turn right" on every take.
+  All built, transcribed and staged for upload. Elmer Fudd says "Turn
+  white" for "Turn right", and that stays: it is the character.
 - **One hundred characters.** Eighty-eight new packs, built, transcribed,
   uploaded and verified byte for byte. `roster/` holds the list, the voice
   picks and the briefs; `scripts/find_voices.py` auditions Fish models (a pick
