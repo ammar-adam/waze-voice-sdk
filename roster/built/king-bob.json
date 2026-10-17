@@ -1,0 +1,12 @@
+{
+ "status": "built",
+ "retaken": 1,
+ "unclear": {
+  "in_tenth_mile": {
+   "line": "In point one miles.",
+   "heard": "in 0.1 miles.",
+   "clarity": 0.0
+  }
+ },
+ "voice": "2dd100dd8ed64ae8a7b9c2d046b7434a"
+}

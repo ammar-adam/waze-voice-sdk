@@ -3318,6 +3318,121 @@
    ],
    "category": "disney-pixar"
   },
+  "alvin": {
+   "name": "Alvin",
+   "status": "ok",
+   "model_id": "586c6d979ce54a24ad2979717b2bbeb6",
+   "title": "Alvin ",
+   "likes": 10,
+   "tasks": 3618,
+   "description": "Alvin’s voice is iconic for being hyper-pitched, squeaky, and fast-paced. It has an upbeat, raspy, and energetic quality that perfectly matches his mischievous and charismatic personality",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 422,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "0e9885266fda4ce6aa12fdd7ecec92d0",
+     "title": "Alvin Seville",
+     "likes": 15,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 508,
+     "description": "Sort of high pitch"
+    },
+    {
+     "id": "4a1d673a2cb042518afdfa96effe2b5b",
+     "title": "Alvin Seville (Alvin And The Chipmunks 80s Series)",
+     "likes": 5,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 437,
+     "description": "An energetic and highly expressive young voice, perfect for animated characters or playful content."
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "simon": {
+   "name": "Simon",
+   "status": "ok",
+   "model_id": "396be6334bcc41f68af3070e595aee76",
+   "title": "Simon the chipmunk",
+   "likes": 16,
+   "tasks": 2283,
+   "description": "A high-pitched, energetic male voice with an expressive and theatrical tone, perfect for animated characters. It sounds youthful and playful with a bright, crisp delivery.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 387,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "2f2d482d3b2c4b8690a86b58d4875212",
+     "title": "Simon the chipmunk",
+     "likes": 1,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 352,
+     "description": "This is a high-pitched, vibrant, and animated voice with a playful, child-like quality. Its expressive and dynamic range makes it perfect for distinct character roles and lighthearted storytelling."
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "theodore": {
+   "name": "Theodore",
+   "status": "ok",
+   "model_id": "c6a1e8d58484431bbced072437913c64",
+   "title": "Theodore(chipmunks) ",
+   "likes": 11,
+   "tasks": 2507,
+   "description": "A cheerful and enthusiastic young female voice with a bright and energetic tone, perfect for engaging content.",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 500,
+   "confidence": "medium",
+   "runners_up": [
+    {
+     "id": "9266edd99ed448748d028613803e30ef",
+     "title": "Theodore",
+     "likes": 4,
+     "clarity": [
+      1.0,
+      1.0
+     ],
+     "pitch_hz": 511,
+     "description": "A high-pitched, energetic male voice with a youthful and slightly frantic tone. This expressive, squeaky voice is ideal for playful or comedic animated character roles."
+    }
+   ],
+   "category": "classic-cartoons"
+  },
+  "king-bob": {
+   "name": "King Bob",
+   "status": "ok",
+   "model_id": "2dd100dd8ed64ae8a7b9c2d046b7434a",
+   "title": "Bob",
+   "likes": 10,
+   "tasks": 1478,
+   "description": "Minion",
+   "clarity": [
+    1.0,
+    1.0
+   ],
+   "pitch_hz": 335,
+   "confidence": "medium",
+   "runners_up": [],
+   "category": "family-films"
+  },
   "han-solo": {
    "name": "Han Solo",
    "status": "ok",
