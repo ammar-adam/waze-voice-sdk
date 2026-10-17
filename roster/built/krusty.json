@@ -1,0 +1,12 @@
+{
+ "status": "built",
+ "retaken": 0,
+ "unclear": {
+  "exit_sixth": {
+   "line": "take the sixth exit. Heh heh heh.",
+   "heard": "TAKE THE 6TH EXIT!  Hehehehehehehehehehe",
+   "clarity": 0.82
+  }
+ },
+ "voice": "d601d9db196c4d399b52b8d100a404a1"
+}
