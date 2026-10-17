@@ -429,23 +429,23 @@ test('suggestions merges spellings into one entry', async () => {
   connect(redis);
   const handler = load('suggestions.js');
   await call(handler, {method: 'GET'}); // seeds the board
-  const first = await suggest(handler, 'Kermit the Frog', '203.0.113.1');
+  const first = await suggest(handler, 'Fozzie the Bear', '203.0.113.1');
   assert.equal(first.code, 200);
-  assert.equal(first.body.added.key, 'kermitthefrog');
+  assert.equal(first.body.added.key, 'fozziethebear');
   assert.equal(first.body.merged, false);
-  const typo = await suggest(handler, 'kermit teh frog', '203.0.113.2');
-  assert.equal(typo.body.added.key, 'kermitthefrog');
-  assert.equal(typo.body.added.name, 'Kermit the Frog');
+  const typo = await suggest(handler, 'fozzie teh bear', '203.0.113.2');
+  assert.equal(typo.body.added.key, 'fozziethebear');
+  assert.equal(typo.body.added.name, 'Fozzie the Bear');
   assert.equal(typo.body.added.votes, 2);
   assert.equal(typo.body.merged, true);
-  const shouty = await suggest(handler, 'KERMIT-THE-FROG!', '203.0.113.3');
+  const shouty = await suggest(handler, 'FOZZIE-THE-BEAR!', '203.0.113.3');
   assert.equal(shouty.body.added.votes, 3);
   const seeded = await suggest(handler, 'the GENIE!', '203.0.113.4');
   assert.equal(seeded.body.added.key, 'genie');
   assert.equal(seeded.body.added.name, 'Genie');
   assert.equal(seeded.body.added.votes, 2);
   const names = redis.data.get('suggest:names');
-  assert.equal([...names.keys()].filter((k) => k.startsWith('kermit')).length, 1);
+  assert.equal([...names.keys()].filter((k) => k.startsWith('fozzie')).length, 1);
 });
 
 test('suggestions points at a character already riding, typos and all', async () => {
@@ -510,25 +510,25 @@ test('suggestions counts one vote per network per character per day', async () =
   const redis = fakeRedis();
   connect(redis);
   const handler = load('suggestions.js');
-  const first = await suggest(handler, 'Kermit the Frog', '198.51.100.7');
+  const first = await suggest(handler, 'Fozzie the Bear', '198.51.100.7');
   assert.equal(first.body.added.votes, 1);
   assert.equal(first.body.counted, true);
-  const again = await suggest(handler, 'kermit the frog!', '198.51.100.7');
+  const again = await suggest(handler, 'fozzie the bear!', '198.51.100.7');
   assert.equal(again.code, 200);
   assert.equal(again.body.counted, false);
   assert.equal(again.body.added.votes, 1);
   // A new address in the same IPv6 /64 is the same network.
-  await suggest(handler, 'Kermit the Frog', '2001:db8:5:6::1');
-  const same64 = await suggest(handler, 'Kermit the Frog', '2001:db8:5:6::ffff');
+  await suggest(handler, 'Fozzie the Bear', '2001:db8:5:6::1');
+  const same64 = await suggest(handler, 'Fozzie the Bear', '2001:db8:5:6::ffff');
   assert.equal(same64.body.counted, false);
   assert.equal(same64.body.added.votes, 2);
-  assert.equal(redis.data.get('suggest:votes').get('kermitthefrog'), 2);
+  assert.equal(redis.data.get('suggest:votes').get('fozziethebear'), 2);
 });
 
 test('suggestions never stores an IP address', async () => {
   const redis = fakeRedis();
   connect(redis);
-  await suggest(load('suggestions.js'), 'Kermit the Frog', '198.51.100.23');
+  await suggest(load('suggestions.js'), 'Fozzie the Bear', '198.51.100.23');
   const everything = JSON.stringify(redis.calls);
   assert.ok(!everything.includes('198.51.100.23'));
 });
@@ -537,7 +537,7 @@ test('suggestions refuses cross-site and non-JSON posts', async () => {
   const redis = fakeRedis();
   connect(redis);
   const handler = load('suggestions.js');
-  const body = {name: 'Kermit'};
+  const body = {name: 'Fozzie'};
   assert.equal((await call(handler, {body, headers: {origin: 'https://evil.example'}})).code, 403);
   assert.equal((await call(handler, {body, headers: {'sec-fetch-site': 'cross-site'}})).code, 403);
   assert.equal((await call(handler, {body: JSON.stringify(body), headers: {'content-type': 'text/plain'}})).code, 415);
@@ -550,9 +550,9 @@ test('suggestions honours the block list and the caps on new names', async () =>
   const redis = fakeRedis();
   connect(redis);
   const handler = load('suggestions.js');
-  redis.data.set('suggest:blocked', new Set(['kermitthefrog']));
-  assert.equal((await suggest(handler, 'Kermit the Frog', '198.51.100.1')).code, 400);
-  assert.equal((await suggest(handler, 'Kermit teh Frog', '198.51.100.2')).code, 400, 'near-misses too');
+  redis.data.set('suggest:blocked', new Set(['fozziethebear']));
+  assert.equal((await suggest(handler, 'Fozzie the Bear', '198.51.100.1')).code, 400);
+  assert.equal((await suggest(handler, 'Fozzie teh Bear', '198.51.100.2')).code, 400, 'near-misses too');
   await call(handler, {method: 'GET'}); // seeds the board
   redis.data.set(`suggest:new:${new Date().toISOString().slice(0, 10)}`, 500);
   assert.equal((await suggest(handler, 'Totally New', '198.51.100.3')).code, 429);
@@ -577,5 +577,5 @@ test('suggestions caches the board briefly and degrades when Redis is down', asy
   const down = await call(handler, {method: 'GET'});
   assert.equal(down.code, 502);
   assert.equal(down.headers['cache-control'], 'no-store');
-  assert.equal((await suggest(handler, 'Kermit')).code, 502);
+  assert.equal((await suggest(handler, 'Fozzie')).code, 502);
 });
