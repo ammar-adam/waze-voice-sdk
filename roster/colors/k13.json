@@ -1,0 +1,11 @@
+{
+  "captain-hook": {"bg": "#FCE1E4", "tone": "#B0203A", "tone_ink": "#ffffff"},
+  "alex-the-lion": {"bg": "#FFEFD2", "tone": "#D98A2B", "tone_ink": "#15172b"},
+  "miss-piggy": {"bg": "#E9E4FA", "tone": "#E86FA6", "tone_ink": "#15172b"},
+  "megatron": {"bg": "#E4E8EE", "tone": "#6E7A8A", "tone_ink": "#ffffff"},
+  "lisa-simpson": {"bg": "#FFE6DA", "tone": "#E8483B", "tone_ink": "#ffffff"},
+  "doofenshmirtz": {"bg": "#E4EEF4", "tone": "#4E5A6B", "tone_ink": "#ffffff"},
+  "crash-bandicoot": {"bg": "#DDF0FA", "tone": "#F07A1E", "tone_ink": "#15172b"},
+  "toad": {"bg": "#E3F1FF", "tone": "#D62A2A", "tone_ink": "#ffffff"},
+  "han-solo": {"bg": "#F1E9DD", "tone": "#5B3B26", "tone_ink": "#ffffff"}
+}

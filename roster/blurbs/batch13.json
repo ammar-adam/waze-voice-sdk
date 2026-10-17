@@ -1,0 +1,101 @@
+{
+  "captain-hook": {
+    "blurb": "Tick tock! A vain pirate captain at the helm.",
+    "tags": [
+      "peter pan",
+      "pirate",
+      "captain",
+      "villain",
+      "disney"
+    ],
+    "waze_name": "Captain Hook"
+  },
+  "alex-the-lion": {
+    "blurb": "The king of New York, out of the zoo and on the road.",
+    "tags": [
+      "madagascar",
+      "lion",
+      "dreamworks",
+      "zoo",
+      "showbiz"
+    ],
+    "waze_name": "Alex the Lion"
+  },
+  "miss-piggy": {
+    "blurb": "Moi, navigating? Darling, of course. Kissy kissy!",
+    "tags": [
+      "the muppets",
+      "muppet",
+      "pig",
+      "diva",
+      "pink"
+    ],
+    "waze_name": "Miss Piggy"
+  },
+  "megatron": {
+    "blurb": "The Decepticon warlord, commanding every turn.",
+    "tags": [
+      "transformers",
+      "decepticon",
+      "robot",
+      "villain",
+      "megatron"
+    ],
+    "waze_name": "Megatron"
+  },
+  "lisa-simpson": {
+    "blurb": "The smartest kid in Springfield has the route.",
+    "tags": [
+      "the simpsons",
+      "simpsons",
+      "saxophone",
+      "smart",
+      "springfield"
+    ],
+    "waze_name": "Lisa Simpson"
+  },
+  "doofenshmirtz": {
+    "blurb": "Behold, the Navigate-inator! Curse you, traffic!",
+    "tags": [
+      "phineas and ferb",
+      "evil scientist",
+      "inator",
+      "perry",
+      "villain"
+    ],
+    "waze_name": "Dr. Doofenshmirtz"
+  },
+  "crash-bandicoot": {
+    "blurb": "Woo hoo! A spinning orange blur who loves to go.",
+    "tags": [
+      "crash bandicoot",
+      "bandicoot",
+      "playstation",
+      "wumpa",
+      "spin"
+    ],
+    "waze_name": "Crash Bandicoot"
+  },
+  "toad": {
+    "blurb": "Hooray! The Mushroom Kingdom's happiest co-pilot.",
+    "tags": [
+      "super mario",
+      "mario",
+      "nintendo",
+      "mushroom",
+      "toad"
+    ],
+    "waze_name": "Toad"
+  },
+  "han-solo": {
+    "blurb": "Never tell him the odds. Just the next turn.",
+    "tags": [
+      "star wars",
+      "smuggler",
+      "millennium falcon",
+      "chewie",
+      "rebel"
+    ],
+    "waze_name": "Han Solo"
+  }
+}

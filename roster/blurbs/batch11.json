@@ -1,0 +1,101 @@
+{
+  "iago": {
+    "blurb": "Loud, sarcastic and starving for crackers. Awk!",
+    "tags": [
+      "aladdin",
+      "disney",
+      "parrot",
+      "sarcastic",
+      "sidekick"
+    ],
+    "waze_name": "Iago"
+  },
+  "rex": {
+    "blurb": "A nervous T. rex trying his very best to be scary.",
+    "tags": [
+      "toy story",
+      "pixar",
+      "dinosaur",
+      "t rex",
+      "nervous"
+    ],
+    "waze_name": "Rex"
+  },
+  "elmer-fudd": {
+    "blurb": "Be vewy, vewy quiet. He's hunting for your exit.",
+    "tags": [
+      "looney tunes",
+      "hunter",
+      "wabbit",
+      "warner bros",
+      "classic"
+    ],
+    "waze_name": "Elmer Fudd"
+  },
+  "skeletor": {
+    "blurb": "Nyeh heh heh! Evil directions from Snake Mountain.",
+    "tags": [
+      "masters of the universe",
+      "he-man",
+      "villain",
+      "skull",
+      "eighties"
+    ],
+    "waze_name": "Skeletor"
+  },
+  "zim": {
+    "blurb": "An alien invader who demands you obey his route.",
+    "tags": [
+      "invader zim",
+      "nickelodeon",
+      "alien",
+      "irken",
+      "invader"
+    ],
+    "waze_name": "Zim"
+  },
+  "jake-the-dog": {
+    "blurb": "Your stretchy best bud. Mathematical directions.",
+    "tags": [
+      "adventure time",
+      "cartoon network",
+      "dog",
+      "stretchy",
+      "finn"
+    ],
+    "waze_name": "Jake the Dog"
+  },
+  "bandit-heeler": {
+    "blurb": "Bluey's dad, turning every drive into a game.",
+    "tags": [
+      "bluey",
+      "dad",
+      "heeler",
+      "dog",
+      "australian"
+    ],
+    "waze_name": "Bandit Heeler"
+  },
+  "donkey-kong": {
+    "blurb": "Big ape, big drive, and plenty of bananas packed.",
+    "tags": [
+      "nintendo",
+      "donkey kong",
+      "ape",
+      "gorilla",
+      "bananas"
+    ],
+    "waze_name": "Donkey Kong"
+  },
+  "willy-wonka": {
+    "blurb": "Strike that, reverse it. A sweet and mostly safe ride.",
+    "tags": [
+      "charlie and the chocolate factory",
+      "chocolate",
+      "candy",
+      "golden ticket",
+      "roald dahl"
+    ],
+    "waze_name": "Willy Wonka"
+  }
+}

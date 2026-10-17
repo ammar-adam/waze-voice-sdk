@@ -1,0 +1,101 @@
+{
+  "ursula": {
+    "blurb": "Poor unfortunate drivers. Sign here, darling.",
+    "tags": [
+      "the little mermaid",
+      "disney",
+      "sea witch",
+      "villain",
+      "octopus"
+    ],
+    "waze_name": "Ursula"
+  },
+  "joy": {
+    "blurb": "Every drive is a core memory in the making.",
+    "tags": [
+      "inside out",
+      "pixar",
+      "disney",
+      "emotions",
+      "happy"
+    ],
+    "waze_name": "Joy"
+  },
+  "kermit": {
+    "blurb": "Hi ho! A frazzled frog keeping the show on the road.",
+    "tags": [
+      "the muppets",
+      "muppet",
+      "frog",
+      "green",
+      "jim henson"
+    ],
+    "waze_name": "Kermit the Frog"
+  },
+  "he-man": {
+    "blurb": "By the power of Grayskull, turn left.",
+    "tags": [
+      "masters of the universe",
+      "eternia",
+      "grayskull",
+      "80s",
+      "hero"
+    ],
+    "waze_name": "He-Man"
+  },
+  "krusty": {
+    "blurb": "Hey hey! A tired showbiz clown on the mic.",
+    "tags": [
+      "the simpsons",
+      "simpsons",
+      "clown",
+      "springfield",
+      "krusty burger"
+    ],
+    "waze_name": "Krusty the Clown"
+  },
+  "finn": {
+    "blurb": "Adventure time! Every drive is an epic quest.",
+    "tags": [
+      "adventure time",
+      "jake",
+      "hero",
+      "cartoon network",
+      "ooo"
+    ],
+    "waze_name": "Finn the Human"
+  },
+  "mordecai": {
+    "blurb": "A chill blue jay trying not to get fired.",
+    "tags": [
+      "regular show",
+      "rigby",
+      "blue jay",
+      "cartoon network",
+      "dude"
+    ],
+    "waze_name": "Mordecai"
+  },
+  "princess-peach": {
+    "blurb": "Mushroom Kingdom royalty cheering every exit.",
+    "tags": [
+      "super mario",
+      "nintendo",
+      "mario",
+      "princess",
+      "mushroom kingdom"
+    ],
+    "waze_name": "Princess Peach"
+  },
+  "sheldon-cooper": {
+    "blurb": "Bazinga! A physicist correcting your driving.",
+    "tags": [
+      "the big bang theory",
+      "big bang theory",
+      "physicist",
+      "bazinga",
+      "nerd"
+    ],
+    "waze_name": "Sheldon Cooper"
+  }
+}

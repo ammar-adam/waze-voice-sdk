@@ -1,0 +1,11 @@
+{
+  "ursula": {"bg": "#ECE2F7", "tone": "#7A3FA0", "tone_ink": "#ffffff"},
+  "joy": {"bg": "#FFF6CC", "tone": "#F3C623", "tone_ink": "#15172b"},
+  "kermit": {"bg": "#E3F4D6", "tone": "#4CA83A", "tone_ink": "#15172b"},
+  "he-man": {"bg": "#FCEBD2", "tone": "#E0A82E", "tone_ink": "#15172b"},
+  "krusty": {"bg": "#E1F1E3", "tone": "#3E9E4F", "tone_ink": "#15172b"},
+  "finn": {"bg": "#DDF0FB", "tone": "#2F8FD8", "tone_ink": "#15172b"},
+  "mordecai": {"bg": "#DCE8FA", "tone": "#3E7FD1", "tone_ink": "#15172b"},
+  "princess-peach": {"bg": "#FFE1EC", "tone": "#E8559A", "tone_ink": "#15172b"},
+  "sheldon-cooper": {"bg": "#FDE7D9", "tone": "#D43B2E", "tone_ink": "#ffffff"}
+}

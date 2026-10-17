@@ -1,0 +1,101 @@
+{
+  "piglet": {
+    "blurb": "A very small animal, being ever so brave.",
+    "tags": [
+      "winnie the pooh",
+      "pig",
+      "hundred acre wood",
+      "shy",
+      "pink"
+    ],
+    "waze_name": "Piglet"
+  },
+  "cruella": {
+    "blurb": "Darling, she drives like she owns the road.",
+    "tags": [
+      "101 dalmatians",
+      "villain",
+      "dalmatians",
+      "fashion",
+      "disney villain"
+    ],
+    "waze_name": "Cruella de Vil"
+  },
+  "fiona": {
+    "blurb": "Princess, ogre, and she rescues herself.",
+    "tags": [
+      "shrek",
+      "princess",
+      "ogre",
+      "far far away",
+      "dreamworks"
+    ],
+    "waze_name": "Princess Fiona"
+  },
+  "grover": {
+    "blurb": "Your lovable, furry old pal. Near! Far!",
+    "tags": [
+      "sesame street",
+      "muppet",
+      "monster",
+      "super grover",
+      "blue"
+    ],
+    "waze_name": "Grover"
+  },
+  "tommy-pickles": {
+    "blurb": "A baby's gotta do what a baby's gotta do.",
+    "tags": [
+      "rugrats",
+      "baby",
+      "nickelodeon",
+      "reptar",
+      "90s"
+    ],
+    "waze_name": "Tommy Pickles"
+  },
+  "brian-griffin": {
+    "blurb": "Dry, well read, and still working on that novel.",
+    "tags": [
+      "family guy",
+      "dog",
+      "writer",
+      "sarcastic",
+      "griffin"
+    ],
+    "waze_name": "Brian Griffin"
+  },
+  "phineas": {
+    "blurb": "Hey Ferb, I know what we're gonna do today!",
+    "tags": [
+      "phineas and ferb",
+      "summer",
+      "inventor",
+      "perry",
+      "disney channel"
+    ],
+    "waze_name": "Phineas"
+  },
+  "knuckles": {
+    "blurb": "Guards the Master Emerald. Now guards your route.",
+    "tags": [
+      "sonic the hedgehog",
+      "echidna",
+      "sega",
+      "master emerald",
+      "red"
+    ],
+    "waze_name": "Knuckles"
+  },
+  "mandalorian": {
+    "blurb": "A bounty hunter of few words. This is the Way.",
+    "tags": [
+      "star wars",
+      "mandalorian",
+      "bounty hunter",
+      "grogu",
+      "beskar"
+    ],
+    "waze_name": "The Mandalorian"
+  }
+}
