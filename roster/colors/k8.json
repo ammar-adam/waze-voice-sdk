@@ -1,0 +1,11 @@
+{
+  "piglet": {"bg": "#FBE3EC", "tone": "#D9578A", "tone_ink": "#ffffff"},
+  "cruella": {"bg": "#ECE6EE", "tone": "#B4202A", "tone_ink": "#ffffff"},
+  "fiona": {"bg": "#E5F1D6", "tone": "#3F8A3A", "tone_ink": "#ffffff"},
+  "grover": {"bg": "#DCEBFB", "tone": "#2E6FD0", "tone_ink": "#ffffff"},
+  "tommy-pickles": {"bg": "#E3EEFA", "tone": "#3B78C2", "tone_ink": "#ffffff"},
+  "brian-griffin": {"bg": "#E8EEF5", "tone": "#C62E35", "tone_ink": "#ffffff"},
+  "phineas": {"bg": "#FFF0D2", "tone": "#E2701F", "tone_ink": "#15172b"},
+  "knuckles": {"bg": "#FBE0DC", "tone": "#D2262E", "tone_ink": "#ffffff"},
+  "mandalorian": {"bg": "#E6E9EE", "tone": "#5E6875", "tone_ink": "#ffffff"}
+}

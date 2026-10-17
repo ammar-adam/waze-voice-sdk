@@ -1,0 +1,11 @@
+{
+  "iago": {"bg": "#FFE6D2", "tone": "#D9352B", "tone_ink": "#ffffff"},
+  "rex": {"bg": "#E3F2D4", "tone": "#6A9A33", "tone_ink": "#ffffff"},
+  "elmer-fudd": {"bg": "#E6EEDC", "tone": "#9C733C", "tone_ink": "#ffffff"},
+  "skeletor": {"bg": "#E7E0F5", "tone": "#6E3E99", "tone_ink": "#ffffff"},
+  "zim": {"bg": "#F7DDEB", "tone": "#C2387A", "tone_ink": "#ffffff"},
+  "jake-the-dog": {"bg": "#DDEFF7", "tone": "#E39A1E", "tone_ink": "#15172b"},
+  "bandit-heeler": {"bg": "#FBEBD3", "tone": "#3B4C7C", "tone_ink": "#ffffff"},
+  "donkey-kong": {"bg": "#E2F1D2", "tone": "#D8282E", "tone_ink": "#ffffff"},
+  "willy-wonka": {"bg": "#F6E7C9", "tone": "#6C3A8E", "tone_ink": "#ffffff"}
+}

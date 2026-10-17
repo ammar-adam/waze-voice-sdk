@@ -1,0 +1,11 @@
+{
+  "jafar": {"bg": "#F6E7C6", "tone": "#A51E2D", "tone_ink": "#ffffff"},
+  "zazu": {"bg": "#FFF0C4", "tone": "#2F6FD0", "tone_ink": "#ffffff"},
+  "garfield": {"bg": "#DCEBFA", "tone": "#F08A1C", "tone_ink": "#15172b"},
+  "oscar-the-grouch": {"bg": "#E9E2F5", "tone": "#5E9B2E", "tone_ink": "#ffffff"},
+  "gir": {"bg": "#F9E1EA", "tone": "#22B5D8", "tone_ink": "#15172b"},
+  "beavis": {"bg": "#DAE8F8", "tone": "#F2C230", "tone_ink": "#15172b"},
+  "bluey": {"bg": "#FDEFD0", "tone": "#4C7FD0", "tone_ink": "#ffffff"},
+  "shadow": {"bg": "#FFDCD6", "tone": "#C81F2B", "tone_ink": "#ffffff"},
+  "pennywise": {"bg": "#E2E8F1", "tone": "#D2452A", "tone_ink": "#ffffff"}
+}

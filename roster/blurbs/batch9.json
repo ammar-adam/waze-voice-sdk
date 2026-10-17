@@ -1,0 +1,101 @@
+{
+  "lumiere": {
+    "blurb": "Be his guest: a candlelit drive, served with flair.",
+    "tags": [
+      "beauty and the beast",
+      "disney",
+      "candelabra",
+      "french",
+      "candle"
+    ],
+    "waze_name": "Lumiere"
+  },
+  "baymax": {
+    "blurb": "Your personal healthcare companion, now with turns.",
+    "tags": [
+      "big hero 6",
+      "disney",
+      "robot",
+      "healthcare",
+      "huggable"
+    ],
+    "waze_name": "Baymax"
+  },
+  "hiccup": {
+    "blurb": "A sarcastic Viking who'd rather be on his dragon.",
+    "tags": [
+      "how to train your dragon",
+      "dreamworks",
+      "viking",
+      "toothless",
+      "dragon"
+    ],
+    "waze_name": "Hiccup"
+  },
+  "big-bird": {
+    "blurb": "Eight feet of sunny yellow wonder on every street.",
+    "tags": [
+      "sesame street",
+      "muppets",
+      "bird",
+      "yellow",
+      "kids"
+    ],
+    "waze_name": "Big Bird"
+  },
+  "angelica": {
+    "blurb": "Three years old, totally in charge, wants cookies.",
+    "tags": [
+      "rugrats",
+      "nickelodeon",
+      "bossy",
+      "cynthia",
+      "nineties"
+    ],
+    "waze_name": "Angelica Pickles"
+  },
+  "lois-griffin": {
+    "blurb": "Quahog's patient mom, married to a worse driver.",
+    "tags": [
+      "family guy",
+      "griffin",
+      "mom",
+      "quahog",
+      "peter"
+    ],
+    "waze_name": "Lois Griffin"
+  },
+  "gumball": {
+    "blurb": "A blue cat who turns every errand into chaos.",
+    "tags": [
+      "the amazing world of gumball",
+      "cartoon network",
+      "cat",
+      "darwin",
+      "elmore"
+    ],
+    "waze_name": "Gumball"
+  },
+  "tails": {
+    "blurb": "Sonic's genius sidekick, co-piloting every run.",
+    "tags": [
+      "sonic the hedgehog",
+      "sega",
+      "fox",
+      "sidekick",
+      "tornado"
+    ],
+    "waze_name": "Tails"
+  },
+  "venom": {
+    "blurb": "We are Venom. We are navigating. We want snacks.",
+    "tags": [
+      "marvel",
+      "spider-man",
+      "symbiote",
+      "villain",
+      "eddie brock"
+    ],
+    "waze_name": "Venom"
+  }
+}

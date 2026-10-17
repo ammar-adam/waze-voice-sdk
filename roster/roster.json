@@ -460,14 +460,279 @@
    "slug": "king-bob",
    "name": "King Bob",
    "category": "family-films"
-  }
- ],
- "alternates": [
+  },
+  {
+   "slug": "piglet",
+   "name": "Piglet",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "lumiere",
+   "name": "Lumiere",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "jafar",
+   "name": "Jafar",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "iago",
+   "name": "Iago",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "ursula",
+   "name": "Ursula",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "captain-hook",
+   "name": "Captain Hook",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "cruella",
+   "name": "Cruella de Vil",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "baymax",
+   "name": "Baymax",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "zazu",
+   "name": "Zazu",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "rex",
+   "name": "Rex",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "joy",
+   "name": "Joy",
+   "category": "disney-pixar"
+  },
+  {
+   "slug": "alex-the-lion",
+   "name": "Alex the Lion",
+   "category": "family-films"
+  },
+  {
+   "slug": "fiona",
+   "name": "Princess Fiona",
+   "category": "family-films"
+  },
+  {
+   "slug": "hiccup",
+   "name": "Hiccup",
+   "category": "family-films"
+  },
+  {
+   "slug": "garfield",
+   "name": "Garfield",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "elmer-fudd",
+   "name": "Elmer Fudd",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "kermit",
+   "name": "Kermit the Frog",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "miss-piggy",
+   "name": "Miss Piggy",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "grover",
+   "name": "Grover",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "big-bird",
+   "name": "Big Bird",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "oscar-the-grouch",
+   "name": "Oscar the Grouch",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "skeletor",
+   "name": "Skeletor",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "he-man",
+   "name": "He-Man",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "megatron",
+   "name": "Megatron",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "tommy-pickles",
+   "name": "Tommy Pickles",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "angelica",
+   "name": "Angelica Pickles",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "gir",
+   "name": "GIR",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "zim",
+   "name": "Zim",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "krusty",
+   "name": "Krusty the Clown",
+   "category": "adult-animation"
+  },
+  {
+   "slug": "lisa-simpson",
+   "name": "Lisa Simpson",
+   "category": "adult-animation"
+  },
+  {
+   "slug": "brian-griffin",
+   "name": "Brian Griffin",
+   "category": "adult-animation"
+  },
+  {
+   "slug": "lois-griffin",
+   "name": "Lois Griffin",
+   "category": "adult-animation"
+  },
+  {
+   "slug": "beavis",
+   "name": "Beavis",
+   "category": "adult-animation"
+  },
+  {
+   "slug": "jake-the-dog",
+   "name": "Jake the Dog",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "finn",
+   "name": "Finn the Human",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "doofenshmirtz",
+   "name": "Dr. Doofenshmirtz",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "phineas",
+   "name": "Phineas",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "gumball",
+   "name": "Gumball",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "bluey",
+   "name": "Bluey",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "bandit-heeler",
+   "name": "Bandit",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "mordecai",
+   "name": "Mordecai",
+   "category": "classic-cartoons"
+  },
+  {
+   "slug": "crash-bandicoot",
+   "name": "Crash Bandicoot",
+   "category": "games"
+  },
+  {
+   "slug": "knuckles",
+   "name": "Knuckles",
+   "category": "games"
+  },
+  {
+   "slug": "tails",
+   "name": "Tails",
+   "category": "games"
+  },
+  {
+   "slug": "shadow",
+   "name": "Shadow the Hedgehog",
+   "category": "games"
+  },
+  {
+   "slug": "donkey-kong",
+   "name": "Donkey Kong",
+   "category": "games"
+  },
+  {
+   "slug": "princess-peach",
+   "name": "Princess Peach",
+   "category": "games"
+  },
+  {
+   "slug": "toad",
+   "name": "Toad",
+   "category": "games"
+  },
+  {
+   "slug": "mandalorian",
+   "name": "Mandalorian",
+   "category": "star-wars"
+  },
+  {
+   "slug": "venom",
+   "name": "Venom",
+   "category": "superheroes"
+  },
+  {
+   "slug": "pennywise",
+   "name": "Pennywise",
+   "category": "film-tv"
+  },
+  {
+   "slug": "willy-wonka",
+   "name": "Willy Wonka",
+   "category": "family-films"
+  },
+  {
+   "slug": "sheldon-cooper",
+   "name": "Sheldon Cooper",
+   "category": "film-tv"
+  },
   {
    "slug": "han-solo",
    "name": "Han Solo",
    "category": "star-wars"
-  },
+  }
+ ],
+ "alternates": [
   {
    "slug": "baloo",
    "name": "Baloo",
@@ -554,63 +819,8 @@
    "category": "film-tv"
   },
   {
-   "slug": "piglet",
-   "name": "Piglet",
-   "category": "disney-pixar"
-  },
-  {
    "slug": "sebastian",
    "name": "Sebastian",
-   "category": "disney-pixar"
-  },
-  {
-   "slug": "lumiere",
-   "name": "Lumiere",
-   "category": "disney-pixar"
-  },
-  {
-   "slug": "jafar",
-   "name": "Jafar",
-   "category": "disney-pixar"
-  },
-  {
-   "slug": "iago",
-   "name": "Iago",
-   "category": "disney-pixar"
-  },
-  {
-   "slug": "ursula",
-   "name": "Ursula",
-   "category": "disney-pixar"
-  },
-  {
-   "slug": "captain-hook",
-   "name": "Captain Hook",
-   "category": "disney-pixar"
-  },
-  {
-   "slug": "cruella",
-   "name": "Cruella de Vil",
-   "category": "disney-pixar"
-  },
-  {
-   "slug": "baymax",
-   "name": "Baymax",
-   "category": "disney-pixar"
-  },
-  {
-   "slug": "zazu",
-   "name": "Zazu",
-   "category": "disney-pixar"
-  },
-  {
-   "slug": "rex",
-   "name": "Rex",
-   "category": "disney-pixar"
-  },
-  {
-   "slug": "joy",
-   "name": "Joy",
    "category": "disney-pixar"
   },
   {
@@ -619,18 +829,8 @@
    "category": "disney-pixar"
   },
   {
-   "slug": "alex-the-lion",
-   "name": "Alex the Lion",
-   "category": "family-films"
-  },
-  {
    "slug": "marty",
    "name": "Marty",
-   "category": "family-films"
-  },
-  {
-   "slug": "fiona",
-   "name": "Princess Fiona",
    "category": "family-films"
   },
   {
@@ -644,63 +844,8 @@
    "category": "family-films"
   },
   {
-   "slug": "hiccup",
-   "name": "Hiccup",
-   "category": "family-films"
-  },
-  {
-   "slug": "garfield",
-   "name": "Garfield",
-   "category": "classic-cartoons"
-  },
-  {
-   "slug": "elmer-fudd",
-   "name": "Elmer Fudd",
-   "category": "classic-cartoons"
-  },
-  {
    "slug": "barney-rubble",
    "name": "Barney Rubble",
-   "category": "classic-cartoons"
-  },
-  {
-   "slug": "kermit",
-   "name": "Kermit the Frog",
-   "category": "classic-cartoons"
-  },
-  {
-   "slug": "miss-piggy",
-   "name": "Miss Piggy",
-   "category": "classic-cartoons"
-  },
-  {
-   "slug": "grover",
-   "name": "Grover",
-   "category": "classic-cartoons"
-  },
-  {
-   "slug": "big-bird",
-   "name": "Big Bird",
-   "category": "classic-cartoons"
-  },
-  {
-   "slug": "oscar-the-grouch",
-   "name": "Oscar the Grouch",
-   "category": "classic-cartoons"
-  },
-  {
-   "slug": "skeletor",
-   "name": "Skeletor",
-   "category": "classic-cartoons"
-  },
-  {
-   "slug": "he-man",
-   "name": "He-Man",
-   "category": "classic-cartoons"
-  },
-  {
-   "slug": "megatron",
-   "name": "Megatron",
    "category": "classic-cartoons"
   },
   {
@@ -709,34 +854,9 @@
    "category": "classic-cartoons"
   },
   {
-   "slug": "tommy-pickles",
-   "name": "Tommy Pickles",
-   "category": "classic-cartoons"
-  },
-  {
-   "slug": "angelica",
-   "name": "Angelica Pickles",
-   "category": "classic-cartoons"
-  },
-  {
-   "slug": "gir",
-   "name": "GIR",
-   "category": "classic-cartoons"
-  },
-  {
-   "slug": "zim",
-   "name": "Zim",
-   "category": "classic-cartoons"
-  },
-  {
    "slug": "dexter",
    "name": "Dexter",
    "category": "classic-cartoons"
-  },
-  {
-   "slug": "krusty",
-   "name": "Krusty the Clown",
-   "category": "adult-animation"
   },
   {
    "slug": "marge-simpson",
@@ -744,124 +864,14 @@
    "category": "adult-animation"
   },
   {
-   "slug": "lisa-simpson",
-   "name": "Lisa Simpson",
-   "category": "adult-animation"
-  },
-  {
-   "slug": "brian-griffin",
-   "name": "Brian Griffin",
-   "category": "adult-animation"
-  },
-  {
-   "slug": "lois-griffin",
-   "name": "Lois Griffin",
-   "category": "adult-animation"
-  },
-  {
-   "slug": "beavis",
-   "name": "Beavis",
-   "category": "adult-animation"
-  },
-  {
-   "slug": "jake-the-dog",
-   "name": "Jake the Dog",
-   "category": "classic-cartoons"
-  },
-  {
-   "slug": "finn",
-   "name": "Finn the Human",
-   "category": "classic-cartoons"
-  },
-  {
    "slug": "bmo",
    "name": "BMO",
    "category": "classic-cartoons"
   },
   {
-   "slug": "doofenshmirtz",
-   "name": "Dr. Doofenshmirtz",
-   "category": "classic-cartoons"
-  },
-  {
-   "slug": "phineas",
-   "name": "Phineas",
-   "category": "classic-cartoons"
-  },
-  {
-   "slug": "gumball",
-   "name": "Gumball",
-   "category": "classic-cartoons"
-  },
-  {
-   "slug": "bluey",
-   "name": "Bluey",
-   "category": "classic-cartoons"
-  },
-  {
-   "slug": "bandit-heeler",
-   "name": "Bandit",
-   "category": "classic-cartoons"
-  },
-  {
-   "slug": "mordecai",
-   "name": "Mordecai",
-   "category": "classic-cartoons"
-  },
-  {
-   "slug": "crash-bandicoot",
-   "name": "Crash Bandicoot",
-   "category": "games"
-  },
-  {
-   "slug": "knuckles",
-   "name": "Knuckles",
-   "category": "games"
-  },
-  {
-   "slug": "tails",
-   "name": "Tails",
-   "category": "games"
-  },
-  {
-   "slug": "shadow",
-   "name": "Shadow the Hedgehog",
-   "category": "games"
-  },
-  {
-   "slug": "donkey-kong",
-   "name": "Donkey Kong",
-   "category": "games"
-  },
-  {
    "slug": "waluigi",
    "name": "Waluigi",
    "category": "games"
-  },
-  {
-   "slug": "princess-peach",
-   "name": "Princess Peach",
-   "category": "games"
-  },
-  {
-   "slug": "toad",
-   "name": "Toad",
-   "category": "games"
-  },
-  {
-   "slug": "mandalorian",
-   "name": "Mandalorian",
-   "category": "star-wars"
-  },
-  {
-   "slug": "venom",
-   "name": "Venom",
-   "category": "superheroes"
-  },
-  {
-   "slug": "pennywise",
-   "name": "Pennywise",
-   "category": "film-tv"
   },
   {
    "slug": "jack-skellington",
@@ -872,16 +882,6 @@
    "slug": "grinch",
    "name": "The Grinch",
    "category": "family-films"
-  },
-  {
-   "slug": "willy-wonka",
-   "name": "Willy Wonka",
-   "category": "family-films"
-  },
-  {
-   "slug": "sheldon-cooper",
-   "name": "Sheldon Cooper",
-   "category": "film-tv"
   }
  ],
  "dropped": [

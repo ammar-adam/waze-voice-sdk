@@ -1,0 +1,106 @@
+{
+  "jafar": {
+    "blurb": "A royal vizier with a snake staff and big plans.",
+    "tags": [
+      "aladdin",
+      "disney",
+      "villain",
+      "sorcerer",
+      "vizier",
+      "iago"
+    ],
+    "waze_name": "Jafar"
+  },
+  "zazu": {
+    "blurb": "The royal hornbill who files a report on every turn.",
+    "tags": [
+      "the lion king",
+      "disney",
+      "hornbill",
+      "bird",
+      "majordomo",
+      "british"
+    ],
+    "waze_name": "Zazu"
+  },
+  "garfield": {
+    "blurb": "Hates Mondays, loves lasagna, tolerates driving.",
+    "tags": [
+      "garfield",
+      "cat",
+      "lasagna",
+      "mondays",
+      "orange",
+      "lazy"
+    ],
+    "waze_name": "Garfield"
+  },
+  "oscar-the-grouch": {
+    "blurb": "Scram! A green grouch who loves trash and frowns.",
+    "tags": [
+      "sesame street",
+      "grouch",
+      "trash can",
+      "grumpy",
+      "green"
+    ],
+    "waze_name": "Oscar the Grouch"
+  },
+  "gir": {
+    "blurb": "A tiny robot sidekick who mostly wants tacos.",
+    "tags": [
+      "invader zim",
+      "robot",
+      "nickelodeon",
+      "doom song",
+      "tacos"
+    ],
+    "waze_name": "GIR"
+  },
+  "beavis": {
+    "blurb": "Heh heh. A giggling slacker who thinks turns rule.",
+    "tags": [
+      "beavis and butt-head",
+      "mtv",
+      "cornholio",
+      "slacker",
+      "giggle"
+    ],
+    "waze_name": "Beavis"
+  },
+  "bluey": {
+    "blurb": "For real life! A Blue Heeler pup with a new game.",
+    "tags": [
+      "bluey",
+      "heeler",
+      "dog",
+      "kids",
+      "australia",
+      "bingo"
+    ],
+    "waze_name": "Bluey"
+  },
+  "shadow": {
+    "blurb": "The ultimate life form, now handling your directions.",
+    "tags": [
+      "sonic the hedgehog",
+      "sega",
+      "hedgehog",
+      "chaos control",
+      "black"
+    ],
+    "waze_name": "Shadow"
+  },
+  "pennywise": {
+    "blurb": "Beep beep! A spooky clown with a red balloon.",
+    "tags": [
+      "it",
+      "stephen king",
+      "clown",
+      "balloon",
+      "horror",
+      "spooky"
+    ],
+    "waze_name": "Pennywise"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "lumiere": {"bg": "#FBEBD3", "tone": "#D9A21B", "tone_ink": "#15172b"},
+  "baymax": {"bg": "#DCEAF7", "tone": "#D8343A", "tone_ink": "#ffffff"},
+  "hiccup": {"bg": "#E0EEDA", "tone": "#4E6B34", "tone_ink": "#ffffff"},
+  "big-bird": {"bg": "#DAEEFA", "tone": "#F5C518", "tone_ink": "#15172b"},
+  "angelica": {"bg": "#EEE2F8", "tone": "#8549C4", "tone_ink": "#ffffff"},
+  "lois-griffin": {"bg": "#DDF1E8", "tone": "#D9622A", "tone_ink": "#15172b"},
+  "gumball": {"bg": "#FFF1CC", "tone": "#2F92D6", "tone_ink": "#15172b"},
+  "tails": {"bg": "#DDEBFA", "tone": "#EE9A1E", "tone_ink": "#15172b"},
+  "venom": {"bg": "#E3E1EE", "tone": "#1F2133", "tone_ink": "#ffffff"}
+}
