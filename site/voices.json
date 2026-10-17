@@ -2707,6 +2707,40 @@
         "chewie",
         "rebel"
       ]
+    },
+    {
+      "slug": "bert",
+      "preset": "bert",
+      "name": "Bert",
+      "waze_name": "Bert",
+      "blurb": "Paper clips, pigeons and a very tidy route.",
+      "uuid": "fbf3558f-2c38-416a-b37f-05092d17a9c6",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "sesame street",
+        "muppet",
+        "pigeons",
+        "paper clips",
+        "unibrow"
+      ]
+    },
+    {
+      "slug": "ernie",
+      "preset": "ernie",
+      "name": "Ernie",
+      "waze_name": "Ernie",
+      "blurb": "Rubber Duckie rides shotgun. Heh heh heh.",
+      "uuid": "db40b8dc-112d-414e-8dd6-d4917c1aec90",
+      "rights": "in-copyright",
+      "category": "classic-cartoons",
+      "tags": [
+        "sesame street",
+        "muppet",
+        "rubber duckie",
+        "prankster",
+        "orange"
+      ]
     }
   ]
 }

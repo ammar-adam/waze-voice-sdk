@@ -6,8 +6,8 @@ Notable changes. Dates are when the work landed on `main`.
 
 ### Added
 
-- **Past 150.** Fifty-eight more packs: Alvin, Simon, Theodore, King Bob and
-  fifty-four new characters across Disney, DreamWorks, the Muppets and
+- **Past 150.** Sixty more packs: Alvin, Simon, Theodore, King Bob, Bert,
+  Ernie and fifty-four new characters across Disney, DreamWorks, the Muppets and
   Sesame Street, 80s to 2000s cartoons, modern animation, games and film.
   All built, transcribed and staged for upload. Elmer Fudd says "Turn
   white" for "Turn right", and that stays: it is the character.
