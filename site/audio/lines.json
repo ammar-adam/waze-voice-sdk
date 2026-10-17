@@ -788,5 +788,15 @@
     "start": "Chewie, we're home. Let's get moving.",
     "reroute": "It's not my fault! Okay, new course.",
     "arrive": "We're here. Told you. Less than twelve parsecs."
+  },
+  "bert": {
+    "start": "Hello. It's me, Bert. Seat belt fastened? Good. Let's go.",
+    "reroute": "Ernie! Did you touch the map? Never mind. New route.",
+    "arrive": "We're here. On time and in order. My kind of drive."
+  },
+  "ernie": {
+    "start": "Hiya! It's me, Ernie! Let's go for a drive!",
+    "reroute": "Oops! I took us the silly way. Heh heh. New route!",
+    "arrive": "We're here! Hey Bert, we made it! Bert? Heh heh heh."
   }
 }
