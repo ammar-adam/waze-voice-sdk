@@ -43,6 +43,10 @@ BUILT = ROSTER / "built"
 CLEAR = 0.85
 TAKES = 3
 MAX_UNCLEAR = 5
+# Packs that babble on purpose. A transcript of gibberish never matches its
+# script, so for these only the words a driver needs ("left", "half a mile",
+# "police") have to be heard, and lines with none are not checked.
+GIBBERISH = {"minion"}
 SPOKEN = {"0.1": "point one", "1.5": "one point five", "u turn": "you turn", "uturn": "you turn"}
 
 
@@ -134,6 +138,22 @@ def clarity(line: str, path: Path) -> tuple[float, str]:
     return difflib.SequenceMatcher(None, norm(line), norm(text)).ratio(), text
 
 
+def navigation_clarity(phrase_id: str, path: Path) -> tuple[float, str] | None:
+    """1.0 when every required token is heard, 0.0 when one is not; None if none."""
+    required = presets.REQUIRED_TOKENS.get(phrase_id)
+    if not required:
+        return None
+    text = heard(path)
+    ok = all(any(presets.contains_word(text, t) for t in options) for options in required)
+    return (1.0 if ok else 0.0), text
+
+
+def score(slug: str, phrase_id: str, line: str, path: Path) -> tuple[float, str] | None:
+    if slug in GIBBERISH:
+        return navigation_clarity(phrase_id, path)
+    return clarity(line, path)
+
+
 def run(*args: str) -> int:
     return subprocess.run([sys.executable, *args], cwd=str(REPO)).returncode
 
@@ -170,18 +190,18 @@ def build_one(entry: dict) -> dict:
         line = preset.lines.get(clip.stem)
         if not line:
             continue
-        score, text = clarity(line, clip)
-        if score >= CLEAR:
+        first = score(slug, clip.stem, line, clip)
+        if first is None or first[0] >= CLEAR:
             continue
-        best = (score, text, None)
+        best = (*first, None)
         for n in range(TAKES):
             take = scratch / f"{clip.stem}.{n}.mp3"
             options = preset.options_for(clip.stem, weights.get(clip.stem, 1.0))
             provider.synthesize(line, preset.voice, take, options)
-            score, text = clarity(line, take)
-            if score > best[0]:
-                best = (score, text, take)
-            if score >= CLEAR:
+            took, text = score(slug, clip.stem, line, take)
+            if took > best[0]:
+                best = (took, text, take)
+            if took >= CLEAR:
                 break
         if best[2] is not None:
             shutil.copyfile(best[2], clip)

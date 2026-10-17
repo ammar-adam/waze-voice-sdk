@@ -455,6 +455,11 @@
    "slug": "theodore",
    "name": "Theodore",
    "category": "classic-cartoons"
+  },
+  {
+   "slug": "minion",
+   "name": "Minion",
+   "category": "family-films"
   }
  ],
  "alternates": [

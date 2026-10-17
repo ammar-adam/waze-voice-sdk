@@ -34,5 +34,17 @@
       "snacks"
     ],
     "waze_name": "Theodore the Chipmunk"
+  },
+  "minion": {
+    "blurb": "Bello! Pure gibberish, plus the turns. Banana!",
+    "tags": [
+      "despicable me",
+      "minions",
+      "minion",
+      "banana",
+      "gibberish",
+      "yellow"
+    ],
+    "waze_name": "Minion"
   }
 }
