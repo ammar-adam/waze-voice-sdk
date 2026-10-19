@@ -91,9 +91,24 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends ffmpeg
 
+      # Chocolatey's community feed goes down for hours at a time (503s, "not
+      # found"); when it does, take the static build from GitHub instead.
       - name: Install ffmpeg (Windows)
         if: runner.os == 'Windows'
-        run: choco install ffmpeg --no-progress --yes
+        shell: pwsh
+        run: |
+          choco install ffmpeg --no-progress --yes
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "Chocolatey failed; using the BtbN static build from GitHub"
+            $zip = Join-Path $env:RUNNER_TEMP "ffmpeg.zip"
+            $dir = Join-Path $env:RUNNER_TEMP "ffmpeg"
+            Invoke-WebRequest -Uri "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip" -OutFile $zip
+            Expand-Archive -Path $zip -DestinationPath $dir
+            $bin = Join-Path (Get-ChildItem $dir -Directory | Select-Object -First 1).FullName "bin"
+            Add-Content -Path $env:GITHUB_PATH -Value $bin
+            & (Join-Path $bin "ffmpeg.exe") -version | Select-Object -First 1
+            $global:LASTEXITCODE = 0
+          }
 
       - name: Show ffmpeg build
         run: ffmpeg -version
