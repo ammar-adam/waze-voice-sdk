@@ -9,9 +9,15 @@ Open it on your phone. Tap a voice to hear the real lines, then **Install in
 Waze**. No account, nothing to download from us. On a computer, each voice has a
 QR code to scan.
 
-The voices: **Bugs Bunny, Cookie Monster, Daffy Duck, Elmo, Tigger, Winnie the
-Pooh, Paddington, Mickey Mouse, Gordon Ramsay, Darth Vader, Batman and Eric
-Cartman.**
+**160 voices**, from Mickey Mouse, Darth Vader and SpongeBob to Kermit, Bluey,
+Alvin and the Chipmunks, Bert and Ernie, Shrek, Garfield and Sonic. Search the
+site by name, franchise or category.
+
+**Drive safely.** Character voices can be distracting. Before any install, the
+site shows a short safety notice and asks you to agree to the
+[safety notice and terms](https://backseatnav.com/legal.html): set the voice up
+before you drive, don't touch your phone while driving, and follow the road, not
+the voice. Voices are provided as is, and you use them at your own risk.
 
 [![CI](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/ci.yml)
 [![Link health](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/link-health.yml/badge.svg)](https://github.com/ammar-adam/waze-voice-sdk/actions/workflows/link-health.yml)
@@ -289,6 +295,12 @@ Do not commit copyrighted media, extracted clips, synthesized character or celeb
 voices, trained model weights, demo videos, or finished packs containing audio you
 cannot redistribute. The `.gitignore` is set up to make that the default outcome, but it
 is not a substitute for judgement. Read [LEGAL.md](LEGAL.md).
+
+The site's user-facing terms (driving safety, no warranty, limitation of
+liability, takedowns) live in [`site/legal.html`](site/legal.html). Every install
+on the site, by tap or QR code, waits for the visitor to agree to them; the
+agreement is remembered per browser under a versioned key in `site/app.js`, so
+changing that key asks everyone again after the terms change.
 
 ## Contributing
 
