@@ -370,6 +370,23 @@ h2 + .voices, h2 + .steps { margin-top: 1.3rem; }
 .qr img { width: 7.5rem; height: 7.5rem; background: #fff; border-radius: 8px; border: 2px solid var(--line); }
 .qr p { margin: 0; font-size: .88rem; color: var(--ink-soft); }
 .qr strong { display: block; color: var(--ink); }
+.qr-wrap { display: grid; gap: .6rem; }
+.qr-wrap[hidden], .qr[hidden], .agree[hidden] { display: none; }
+
+/* The safety notice an install waits on (sheet and QR panel). */
+.agree {
+  padding: .7rem .8rem; background: var(--label); border: 2px solid var(--line); border-radius: 12px;
+  font-size: .88rem; color: var(--ink-soft); display: grid; gap: .5rem;
+}
+.agree p { margin: 0; }
+.agree b, .agree a { color: var(--ink); }
+.agree a { font-weight: 700; text-underline-offset: 3px; }
+.agree label { display: flex; gap: .55rem; align-items: flex-start; color: var(--ink); font-weight: 600; cursor: pointer; }
+.agree input { width: 1.15rem; height: 1.15rem; margin: .1rem 0 0; flex: none; accent-color: var(--ink); }
+.agree.nudge { border-color: #d7262e; animation: agree-nudge .32s ease-in-out; }
+@keyframes agree-nudge { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+@media (prefers-reduced-motion: reduce) { .agree.nudge { animation: none; } }
+.install.locked { opacity: .45; }
 
 /* ---- install steps ---- */
 .steps {

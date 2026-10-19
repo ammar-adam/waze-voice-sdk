@@ -6,6 +6,10 @@ Notable changes. Dates are when the work landed on `main`.
 
 ### Added
 
+- **Safety notice before every install.** The install sheet and the desktop QR
+  panel show a short drive-safely notice and wait for "I agree" before Open
+  Waze works or the QR code appears; agreeing is remembered per browser. The
+  full text is a new Safety and terms page (legal.html), linked from every footer.
 - **Past 150.** Sixty more packs: Alvin, Simon, Theodore, King Bob, Bert,
   Ernie and fifty-four new characters across Disney, DreamWorks, the Muppets and
   Sesame Street, 80s to 2000s cartoons, modern animation, games and film.

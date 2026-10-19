@@ -24,6 +24,7 @@ var VERCEL_PROPS = {
   character_click: ["character", "action"],
   install_click: ["character", "inapp"],
   install_qr_shown: ["character"],
+  terms_agreed: ["via"],
   download: ["character", "method"],
   install_worked: ["character", "worked"],
   github_click: ["page", "link"],

@@ -46,6 +46,16 @@
     return null;
   }
 
+  // Whether this browser has agreed to the safety notice and terms. Asked on
+  // every install until agreed; storage failing just means asking again.
+  var AGREE_KEY = "backseat:agreed-terms-2026-10-19";
+  function agreed(set) {
+    try {
+      if (set) localStorage.setItem(AGREE_KEY, "1");
+      return localStorage.getItem(AGREE_KEY) === "1";
+    } catch (e) { return !!set; }
+  }
+
   function el(html) {
     var t = document.createElement("template");
     t.innerHTML = html.trim();
@@ -161,6 +171,7 @@
   var sheet = document.getElementById("install-sheet");
   var sheetPanel = sheet.querySelector(".sheet");
   var sheetGo = document.getElementById("sheet-go");
+  var sheetAgree = document.getElementById("sheet-agree");
   var sheetVoice = null;
   var sheetOpener = null;
   var isAndroid = /android/i.test(navigator.userAgent || "");
@@ -174,7 +185,7 @@
 
   function focusables() {
     return Array.prototype.filter.call(
-      sheetPanel.querySelectorAll("a[href], button:not([disabled])"),
+      sheetPanel.querySelectorAll("a[href], button:not([disabled]), input"),
       function (n) { return n.offsetParent !== null; }
     );
   }
@@ -191,6 +202,8 @@
       sheetPanel.style.setProperty(p, colours.getPropertyValue(p));
     });
     sheetGo.href = wazeLink(voice.uuid);
+    sheetAgree.checked = agreed();
+    lockGo();
     sheet.hidden = false;
     document.documentElement.classList.add("sheet-open");
     sheetPanel.focus();
@@ -204,9 +217,34 @@
     sheetOpener = null;
   }
 
-  sheetGo.addEventListener("click", function () {
+  // Open Waze stays a real link (iOS needs the tap itself to navigate), but
+  // it does nothing until the safety notice is agreed to.
+  function lockGo() {
+    sheetGo.classList.toggle("locked", !sheetAgree.checked);
+    sheetGo.setAttribute("aria-disabled", String(!sheetAgree.checked));
+  }
+
+  sheetAgree.addEventListener("change", function () {
+    if (sheetAgree.checked) {
+      agreed(true);
+      track("terms_agreed", { via: "sheet" });
+    }
+    sheetAgree.closest(".agree").classList.remove("nudge");
+    lockGo();
+  });
+
+  sheetGo.addEventListener("click", function (e) {
     var voice = sheetVoice;
     if (!voice) return;
+    if (!sheetAgree.checked) {
+      e.preventDefault();
+      var box = sheetAgree.closest(".agree");
+      box.classList.remove("nudge");
+      void box.offsetWidth; // restart the nudge animation
+      box.classList.add("nudge");
+      sheetAgree.focus();
+      return;
+    }
     store(false, { slug: voice.slug, name: voice.name, at: Date.now() });
     wentAway = false;
     // One event for every way a voice gets downloaded, per character.
@@ -263,10 +301,16 @@
     var action = window.isPhone
       ? '<a class="install" href="' + wazeLink(voice.uuid) + '" aria-haspopup="dialog">Install in Waze ' + ARROW + "</a>"
       : '<button class="install ghost qr-toggle" type="button" aria-expanded="false">Install on your phone</button>' +
+        '<div class="qr-wrap" hidden>' +
+        '<div class="agree"><p><b>Drive safely.</b> Character voices can be distracting. Set yours up ' +
+        "before you drive, don't touch your phone while driving, and follow the road, not the voice. " +
+        "Voices are provided as is and you use them at your own risk.</p>" +
+        '<label><input type="checkbox" class="qr-agree"> <span>I\'ve read and agree to the ' +
+        '<a href="legal.html">safety notice and terms</a>.</span></label></div>' +
         '<div class="qr" hidden><img alt="QR code to install ' + escapeHtml(voice.name) +
         ' in Waze" width="136" height="136" loading="lazy" src="qr/' + voice.slug + '.svg">' +
         "<p><strong>Scan with your phone camera.</strong>Waze opens and offers the voice. " +
-        "Needs the Waze app on that phone.</p></div>";
+        "Needs the Waze app on that phone.</p></div></div>";
 
     // A sticker face on the character's colour, with a label card under it.
     // Colours come from characters.css and the face from faces/, both keyed
@@ -317,15 +361,31 @@
     var toggle = node.querySelector(".qr-toggle");
     if (toggle) {
       var shown = false;
-      toggle.addEventListener("click", function () {
-        var panel = node.querySelector(".qr");
-        panel.hidden = !panel.hidden;
-        toggle.setAttribute("aria-expanded", String(!panel.hidden));
-        if (!panel.hidden && !shown) {
+      var wrap = node.querySelector(".qr-wrap");
+      var code = node.querySelector(".qr");
+      var agreeBox = node.querySelector(".qr-agree");
+      // The QR code is the download, so it appears only once the safety
+      // notice is agreed to; after that the notice steps aside.
+      function showCode() {
+        var ok = agreed();
+        wrap.querySelector(".agree").hidden = ok;
+        code.hidden = !ok;
+        if (ok && !wrap.hidden && !shown) {
           shown = true;
           track("install_qr_shown", { character: voice.slug });
           track("download", { character: voice.slug, method: "qr" });
         }
+      }
+      toggle.addEventListener("click", function () {
+        wrap.hidden = !wrap.hidden;
+        toggle.setAttribute("aria-expanded", String(!wrap.hidden));
+        showCode();
+      });
+      agreeBox.addEventListener("change", function () {
+        if (!agreeBox.checked) return;
+        agreed(true);
+        track("terms_agreed", { via: "qr" });
+        showCode();
       });
     }
     return node;
